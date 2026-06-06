@@ -1788,59 +1788,6 @@ AuraTab:AddToggle({
         end
     end
 
-local CameraToggle = PlTab:AddToggle({
-    Name = "3인칭",
-    Default = false,
-    Save = true,
-    Callback = function(Value)
-        _G.CameraLoopID = (_G.CameraLoopID or 0) + 1
-        local currentLoopID = _G.CameraLoopID
-
-        if Value then
-            task.spawn(function()
-                local character = plr.Character or plr.CharacterAdded:Wait()
-                local rootPart = character:WaitForChild("HumanoidRootPart", 5)
-                
-                plr.CameraMode = Enum.CameraMode.Classic
-                task.wait(0.05)
-                
-                local success = false
-                local attempts = 0
-                
-                while _G.CameraLoopID == currentLoopID and not success and attempts < 80 do
-                    plr.CameraMinZoomDistance = 12
-                    plr.CameraMaxZoomDistance = 12
-                    
-                    task.wait(0.05)
-                    attempts = attempts + 1
-                    
-                    if plr:GetAttribute("CameraZoomDistance") == 12 or 
-                       (workspace.CurrentCamera and rootPart and (workspace.CurrentCamera.CoordinateFrame.p - rootPart.Position).Magnitude >= 11.5) then
-                        success = true
-                    end
-                end
-                
-                if _G.CameraLoopID == currentLoopID then
-                    plr.CameraMinZoomDistance = 0.5 
-                    plr.CameraMaxZoomDistance = 100000 
-                end
-            end)
-        else
-            plr.CameraMode = Enum.CameraMode.LockFirstPerson
-            plr.CameraMaxZoomDistance = 0.5
-            plr.CameraMinZoomDistance = 0.5
-        end
-    end
-})
-
-task.spawn(function()
-    if not game:IsLoaded() then game.Loaded:Wait() end
-    task.wait(0.3)
-    
-    if CameraToggle and CameraToggle.Set then
-        CameraToggle:Set(true)
-    end
-end)
 
 local flyingResetConn
 local resetProtectionConn

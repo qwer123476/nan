@@ -46,6 +46,7 @@ button.MouseButton1Click:Connect(function()
 end)
 
 local AntiTab = Window:MakeTab({ Name = "누나 지켜ㅕ", Icon = "rbxassetid://4483345998" })
+local AuraTab = Window:MakeTab({ Name = "아우라", Icon = "rbxassetid://4483345998" })
 
 Players = game:GetService("Players")
 plr = game.Players.LocalPlayer

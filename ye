@@ -806,12 +806,6 @@ local AntiKickF = function()
     end
 end
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Workspace = game:GetService("Workspace")
-local plr = Players.LocalPlayer
-
 function AntiExplosionF()
     if AntiExplosionC then
         AntiExplosionC:Disconnect()
@@ -1050,7 +1044,7 @@ function AntiBoxF()
                 if folder:IsA("Folder") and folder.Name:match("SpawnedInToys$") then
                     if folder.Name ~= (plr.Name .. "SpawnedInToys") then
                         for _, item in ipairs(folder:GetChildren()) do
-                            if table.find(targetNames, item.Name) and item:FindFirstChild("SoundPart") then
+                            if table.find(targetNames, item.Name) and item:FindFirstChild("Soun dPart") then
                                 local Spart = item.Button
 
                                 local basePart = item.PrimaryPart or Spart
@@ -1110,7 +1104,6 @@ AntiTab:AddToggle({
     Name = "안티 페인트",
     Default = false,
     Save = true,
-    Flag = "AntiPaint_SaveKey",
     Callback = function(Value)
         AntiPaintT = Value
         antiPaintF(Value)
@@ -1121,7 +1114,6 @@ AntiTab:AddToggle({
     Name = "안티킥V1",
     Default = false,
     Save = true,
-    Flag = "AntiKickV1_SaveKey",
     Callback = function(Value)
         AntiKickT = Value
         if Value then task.spawn(AntiKickF) end
@@ -1132,7 +1124,6 @@ AntiTab:AddToggle({
     Name = "안티킥V2",
     Default = false,
     Save = true,
-    Flag = "AntiKickV2_SaveKey",
     Callback = function(Value)
         AntiGrabStickyT = Value
         if Value then task.spawn(AntiGrabStickyF) end
@@ -1143,7 +1134,6 @@ AntiTab:AddToggle({
     Name = "안티그랩(안잡힘)",
     Default = false,
     Save = true,
-    Flag = "AntiGrab_SaveKey",
     Callback = function(Value)
         AntiGrabF(Value)
     end
@@ -1153,7 +1143,6 @@ AntiTab:AddToggle({
     Name = "안티 폭탄",
     Default = false,
     Save = true,
-    Flag = "AntiExplosion_SaveKey",
     Callback = function(Value)
         AntiExplosionT = Value
         if Value then task.spawn(AntiExplosionF) end
@@ -1164,7 +1153,6 @@ AntiTab:AddToggle({
     Name = "오토 어택(잡은사람 사망하게)",
     Default = false,
     Save = true,
-    Flag = "AutoAttack_SaveKey",
     Callback = function(Value)
         AutoAttackT = Value
         if Value then task.spawn(AutoAttackF) end
@@ -1175,7 +1163,6 @@ AntiTab:AddToggle({
     Name = "안티 인풋(루프킬을 막습니다)",
     Default = false,
     Save = true,
-    Flag = "AntiDeath_SaveKey",
     Callback = function(Value)
         AntiDeathT = Value
         if Value then task.spawn(AntiDeathF) end
@@ -1186,20 +1173,18 @@ AuraTab:AddToggle({
     Name = "안티 붐박스 아우라(근처 붐박스를 삭제 시킵니다)",
     Default = false,
     Save = true,
-    Flag = "AntiBox",
     Callback = function(Value)
         AntiBoxT = Value
         if Value then task.spawn(AntiBoxF) end
     end
 })
 
-ListTab:CreateSection("염탐 조지기")
+ListTab:AddSection("염탐 조지기")
 
-ListTab:AddToggle({
+local SpectateToggle = ListTab:AddToggle({
     Name = "관전 기능 활성화",
     Default = false,
     Save = true,
-    Flag = "Spectate_SaveKey",
     Callback = function(Value)
         if Value then
             if teleportGui then teleportGui:Destroy() end

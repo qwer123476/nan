@@ -1179,9 +1179,10 @@ AuraTab:AddToggle({
     end
 })
 
-ListTab:AddSection("염탐 조지기")
 
-local SpectateToggle = ListTab:AddToggle({
+ListTab:AddSection({ Name = "염탐 조지기" })
+
+ListTab:AddToggle({
     Name = "관전 기능 활성화",
     Default = false,
     Save = true,

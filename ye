@@ -15,7 +15,6 @@ local Window = OrionLib:MakeWindow({
     IntroEnabled = false
 })
 
-
 local CoreGui = game:GetService("CoreGui")
 
 pcall(function()
@@ -812,6 +811,7 @@ local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 local plr = Players.LocalPlayer
+
 function AntiExplosionF()
     if AntiExplosionC then
         AntiExplosionC:Disconnect()
@@ -847,16 +847,16 @@ function AntiExplosionF()
                 hrp.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
                 hrp.Anchored = false
             else
-            if model:IsA("BasePart") and (model.Position - hrp.Position).Magnitude <= 20 then
-                hrp.Anchored = true
-                task.wait()
-                hum:ChangeState(Enum.HumanoidStateType.Running)
-                hrp.Anchored = false
-                hum.AutoRotate = true
+                if model:IsA("BasePart") and (model.Position - hrp.Position).Magnitude <= 20 then
+                    hrp.Anchored = true
+                    task.wait()
+                    hum:ChangeState(Enum.HumanoidStateType.Running)
+                    hrp.Anchored = false
+                    hum.AutoRotate = true
 
-                for _, limb in ipairs(char:GetDescendants()) do
-                    if limb:IsA("BasePart") and limb.Name == "RagdollLimbPart" then
-                        limb.CanCollide = false
+                    for _, limb in ipairs(char:GetDescendants()) do
+                        if limb:IsA("BasePart") and limb.Name == "RagdollLimbPart" then
+                            limb.CanCollide = false
                         end
                     end
                 end
@@ -1034,6 +1034,7 @@ plr.CharacterAdded:Connect(function(char)
         AutoAttackF()
     end
 end)
+
 function AntiBoxF()
     local targetNames = {"Boombox"}
 
@@ -1108,7 +1109,8 @@ Camera = workspace.CurrentCamera
 AntiTab:AddToggle({
     Name = "안티 페인트",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AntiPaint_SaveKey",
     Callback = function(Value)
         AntiPaintT = Value
         antiPaintF(Value)
@@ -1117,8 +1119,9 @@ AntiTab:AddToggle({
 
 AntiTab:AddToggle({
     Name = "안티킥V1",
-    save = true,
     Default = false,
+    Save = true,
+    Flag = "AntiKickV1_SaveKey",
     Callback = function(Value)
         AntiKickT = Value
         if Value then task.spawn(AntiKickF) end
@@ -1128,7 +1131,8 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "안티킥V2",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AntiKickV2_SaveKey",
     Callback = function(Value)
         AntiGrabStickyT = Value
         if Value then task.spawn(AntiGrabStickyF) end
@@ -1137,16 +1141,19 @@ AntiTab:AddToggle({
 
 AntiTab:AddToggle({
     Name = "안티그랩(안잡힘)",
-    Default = flase,
-    save = true,
+    Default = false,
+    Save = true,
+    Flag = "AntiGrab_SaveKey",
     Callback = function(Value)
         AntiGrabF(Value)
     end
 })
+
 AntiTab:AddToggle({
     Name = "안티 폭탄",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AntiExplosion_SaveKey",
     Callback = function(Value)
         AntiExplosionT = Value
         if Value then task.spawn(AntiExplosionF) end
@@ -1156,37 +1163,43 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "오토 어택(잡은사람 사망하게)",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AutoAttack_SaveKey",
     Callback = function(Value)
         AutoAttackT = Value
         if Value then task.spawn(AutoAttackF) end
     end
 })
+
 AntiTab:AddToggle({
     Name = "안티 인풋(루프킬을 막습니다)",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AntiDeath_SaveKey",
     Callback = function(Value)
         AntiDeathT = Value
         if Value then task.spawn(AntiDeathF) end
     end
 })
 
-
 AuraTab:AddToggle({
     Name = "안티 붐박스 아우라(근처 붐박스를 삭제 시킵니다)",
     Default = false,
-    save = true,
+    Save = true,
+    Flag = "AntiBox_SaveKey",
     Callback = function(Value)
         AntiBoxT = Value
         if Value then task.spawn(AntiBoxF) end
     end
 })
+
 ListTab:CreateSection("염탐 조지기")
-local SpectateToggle = ListTab:addToggle({
+
+ListTab:AddToggle({
     Name = "관전 기능 활성화",
-    Default = false
-    save = true,
+    Default = false,
+    Save = true,
+    Flag = "Spectate_SaveKey",
     Callback = function(Value)
         if Value then
             if teleportGui then teleportGui:Destroy() end
@@ -1465,5 +1478,5 @@ local SpectateToggle = ListTab:addToggle({
                 teleportGui = nil
             end
         end
-    end,
+    end
 })

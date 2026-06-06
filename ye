@@ -808,6 +808,228 @@ local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 local plr = Players.LocalPlayer
+function AntiExplosionF()
+    if AntiExplosionC then
+        AntiExplosionC:Disconnect()
+        AntiExplosionC = nil
+    end
+    if AntiExplosionH then
+        AntiExplosionH:Disconnect()
+        AntiExplosionH = nil
+    end
+
+    if not AntiExplosionT then 
+        return 
+    end
+
+    local char = plr.Character
+    if not char then 
+        return 
+    end
+
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    local hum = char:WaitForChild("Humanoid")
+
+    AntiExplosionC = workspace.ChildAdded:Connect(function(model)
+        if not char or not hrp or not hum then
+            return
+        end
+        
+        if model:IsA("BasePart") and (model.Position - hrp.Position).Magnitude <= 20 then
+            if hum.SeatPart ~= nil then
+                hrp.Anchored = true
+                task.wait(0.03)
+                hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                hrp.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                hrp.Anchored = false
+            else
+            if model:IsA("BasePart") and (model.Position - hrp.Position).Magnitude <= 20 then
+                hrp.Anchored = true
+                task.wait()
+                hum:ChangeState(Enum.HumanoidStateType.Running)
+                hrp.Anchored = false
+                hum.AutoRotate = true
+
+                for _, limb in ipairs(char:GetDescendants()) do
+                    if limb:IsA("BasePart") and limb.Name == "RagdollLimbPart" then
+                        limb.CanCollide = false
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+plr.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+    char:WaitForChild("HumanoidRootPart")
+    task.wait(0.2)
+    if AntiExplosionT then
+        AntiExplosionF()
+    end
+end)
+
+function AutoAttackF()
+    task.spawn(function()
+        local RunService = game:GetService("RunService")
+        local savedTargets = {}
+        local invName = plr.Name.."SpawnedInToys"
+        
+        while AutoAttackT do
+            RunService.Heartbeat:Wait()
+
+            for i = #savedTargets, 1, -1 do
+                local t = savedTargets[i]
+                local char = t and t.Character
+                local hum = char and char:FindFirstChildOfClass("Humanoid")
+                if not (t and char and hum and hum.Health > 0) or t == plr then
+                    table.remove(savedTargets, i)
+                end
+            end
+
+            local myChar = plr.Character
+            local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+            local myAttach = myHRP and myHRP:FindFirstChild("RootAttachment")
+
+            if not (myChar and myHRP and myAttach) then
+                continue
+            end
+
+            local function tryAddTarget(player)
+                if player and player ~= plr and player.Character then
+                    local exists = false
+                    for _, v in ipairs(savedTargets) do
+                        if v == player then exists = true; break end
+                    end
+                    if not exists then
+                        table.insert(savedTargets, player)
+                    end
+                end
+            end
+
+            local head = myChar:FindFirstChild("Head")
+            if head then
+                local ownerVal = head:FindFirstChild("PartOwner")
+                if ownerVal and ownerVal:IsA("StringValue") and ownerVal.Value ~= "" then
+                    local foundPlayer = game.Players:FindFirstChild(ownerVal.Value)
+                    tryAddTarget(foundPlayer)
+                end
+            end
+
+            local inv = workspace:FindFirstChild(invName)
+            if inv then
+                for _, blob in ipairs(inv:GetChildren()) do
+                    if blob.Name == "CreatureBlobman" and blob:FindFirstChild("BlobmanSeatAndOwnerScript") then
+                        for _, side in ipairs({"Left", "Right"}) do
+                            local detector = blob:FindFirstChild(side.."Detector")
+                            local weld = detector and detector:FindFirstChild(side.."Weld")
+                            if weld and weld:IsA("AlignPosition") and weld.Attachment0 == myAttach then
+                                local foundPlayer = game.Players:FindFirstChild(plr.Name) 
+                                tryAddTarget(foundPlayer)
+                            end
+                        end
+                    end
+                end
+            end
+
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= plr then
+                    local invs = workspace:FindFirstChild(player.Name.."SpawnedInToys")
+                    if invs then
+                        for _, blob in ipairs(invs:GetChildren()) do
+                            if blob.Name == "CreatureBlobman" and blob:FindFirstChild("BlobmanSeatAndOwnerScript") then
+                                for _, side in ipairs({"Left", "Right"}) do
+                                    local detector = blob:FindFirstChild(side.."Detector")
+                                    local weld = detector and detector:FindFirstChild(side.."Weld")
+                                    if weld and weld:IsA("AlignPosition") and weld.Attachment0 == myAttach then
+                                        tryAddTarget(player)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+            local plots = workspace:FindFirstChild("PlotItems")
+            if plots then
+                for i = 1, 5 do
+                    local plot = plots:FindFirstChild("Plot"..i)
+                    if plot then
+                        for _, blob in ipairs(plot:GetChildren()) do
+                            if blob.Name == "CreatureBlobman" and blob:FindFirstChild("BlobmanSeatAndOwnerScript") then
+                                for _, side in ipairs({"Left", "Right"}) do
+                                    local detector = blob:FindFirstChild(side.."Detector")
+                                    local weld = detector and detector:FindFirstChild(side.."Weld")
+                                    if weld and weld:IsA("AlignPosition") and weld.Attachment0 == myAttach then
+                                        local foundPlayer = game.Players:FindFirstChild("Plot "..i)
+                                        tryAddTarget(foundPlayer)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+            for i = #savedTargets, 1, -1 do
+                local target = savedTargets[i]
+
+                if target == plr then 
+                    table.remove(savedTargets, i)
+                    continue 
+                end
+
+                local tChar = target.Character
+                local hum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                local torso = tChar and tChar:FindFirstChild("Torso")
+                local head = tChar and tChar:FindFirstChild("Head")
+
+                if not (hum and torso and head and hum.Health > 0) then
+                    table.remove(savedTargets, i)
+                    continue
+                end
+
+                local isWhitelisted = false
+                if WhiteListMode and Whitelist and typeof(Whitelist) == "table" then
+                    for _, allowed in ipairs(Whitelist) do
+                        if allowed == target.Name then isWhitelisted = true; break end
+                    end
+                end
+                if isWhitelisted then continue end
+
+                local myTorso = myChar:FindFirstChild("Torso")
+                if not myTorso then continue end
+
+                local distance = (torso.Position - myTorso.Position).Magnitude
+                if distance <= 30 then
+                    rs.GrabEvents.SetNetworkOwner:FireServer(torso, CFrame.lookAt(myTorso.Position, torso.Position))
+
+                    if head then
+                        local partOwner = head:FindFirstChild("PartOwner")
+                        if partOwner and partOwner:IsA("StringValue") and partOwner.Value == plr.Name then
+                            if hum.Health ~= 0 then
+                                local FallenY = workspace.FallenPartsDestroyHeight
+                                local targetY = (FallenY <= -50000 and -49999) or (FallenY <= -100 and -99) or -100
+                                torso.CFrame = CFrame.new(99999, targetY, 99999)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+plr.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+    char:WaitForChild("HumanoidRootPart")
+    task.wait(0.2)
+    if AutoAttackT then
+        AutoAttackF()
+    end
+end)
 
 AntiTab:AddToggle({
     Name = "안티 페인트",
@@ -841,5 +1063,22 @@ AntiTab:AddToggle({
     Default = false,
     Callback = function(Value)
         AntiGrabF(Value)
+    end
+})
+AntiTab:AddToggle({
+    Name = "안티 폭탄",
+    Default = false,
+    Callback = function(Value)
+        AntiExplosionT = Value
+        if Value then task.spawn(AntiExplosionF) end
+    end
+})
+
+AntiTab:AddToggle({
+    Name = "오토 어택(잡은사람 사망하게)",
+    Default = false,
+    Callback = function(Value)
+        AutoAttackT = Value
+        if Value then task.spawn(AutoAttackF) end
     end
 })

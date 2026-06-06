@@ -1596,7 +1596,7 @@ PlTab:AddToggle({
     end
 })
 
-antiTab:AddToggle({
+AntiTab:AddToggle({
     Name = "안티 PCLD",
     Default = false,
     Save = true,
@@ -1609,3 +1609,240 @@ antiTab:AddToggle({
         end
     end
 })
+AuraTab:AddToggle({
+    Name = "킬아우라(오너쉽)",
+    Default = false,
+    Save = false,
+    Flag = "FtapKillAura",
+    Callback = function(enabled)
+        runningFtapKillAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = game.Players.LocalPlayer
+                local rs = game:GetService("ReplicatedStorage")
+                
+               
+                local GrabEvents = rs:FindFirstChild("GrabEvents")
+                local SetNetworkOwner = GrabEvents and GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                
+                local DamageEvent = rs:FindFirstChild("DamageEvent") or (GrabEvents and GrabEvents:FindFirstChild("Struggle"))
+
+                while runningFtapKillAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        local humanoid = targetChar:FindFirstChildOfClass("Humanoid")
+                                        
+                                        if torso and targetRoot and humanoid then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                
+                                                
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                
+                                                if DamageEvent and DamageEvent.FireServer then
+                                                    
+                                                    DamageEvent:FireServer(humanoid, 0)
+                                                else
+                                                    
+                                                    humanoid.Health = 0
+                                                end
+                                                
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait() 
+                end
+            end)
+        end
+    end
+})
+local runningCombinedAura = false
+AuraTab:AddToggle({
+    Name = "필링 아우라",
+    Default = false,
+    Save = false,
+    Flag = "CombinedFlingAura",
+    Callback = function(enabled)
+        runningCombinedAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = game.Players.LocalPlayer
+                local Debris = game:GetService("Debris")
+                local rs = game:GetService("ReplicatedStorage")
+                local SetNetworkOwner = rs:FindFirstChild("GrabEvents") and rs.GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                while runningCombinedAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                local velocity = torso:FindFirstChild("l")
+                                                if not velocity then
+                                                    velocity = Instance.new("BodyVelocity")
+                                                    velocity.Name = "l"
+                                                    velocity.Parent = torso
+                                                end
+                                                velocity.Velocity = Vector3.new(5e10, 5e15, 5e10)
+                                                velocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                                                Debris:AddItem(velocity, 0.05) 
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
+local runningFtapVoidKill = false
+
+AuraTab:AddToggle({
+    Name = "낙사 아우라",
+    Default = false,
+    Save = false,
+    Flag = "FtapVoidKill",
+    Callback = function(enabled)
+        runningFtapVoidKill = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = game.Players.LocalPlayer
+                local rs = game:GetService("ReplicatedStorage")
+                
+                local GrabEvents = rs:FindFirstChild("GrabEvents")
+                local SetNetworkOwner = GrabEvents and GrabEvents:FindFirstChild("SetNetworkOwner")
+
+                while runningFtapVoidKill do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                
+                                                -- 1단계: 물리 오너십 박탈
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                -- 2단계: 딜레이 없이 Y축 -10000 낭떠러지로 강제 사출 (시스템 즉사 유도)
+                                                targetRoot.CFrame = CFrame.new(targetRoot.Position.X, -10000, targetRoot.Position.Z)
+                                                
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
+local Tper = plTab:AddToggle({
+    Name = "3인칭",
+    CurrentValue = false,
+    Flag = "AutoSitBlobman",
+    Callback = function(Value)
+        _G.CameraLoopID = (_G.CameraLoopID or 0) + 1
+        local currentLoopID = _G.CameraLoopID
+
+        if Value then
+            task.spawn(function()
+                local character = plr.Character or plr.CharacterAdded:Wait()
+                local rootPart = character:WaitForChild("HumanoidRootPart", 5)
+                
+                plr.CameraMode = Enum.CameraMode.Classic
+                task.wait(0.05)
+                
+                local success = false
+                local attempts = 0
+                
+                while _G.CameraLoopID == currentLoopID and not success and attempts < 80 do
+                    plr.CameraMinZoomDistance = 12
+                    plr.CameraMaxZoomDistance = 12
+                    
+                    task.wait(0.05)
+                    attempts = attempts + 1
+                    
+                    if plr:GetAttribute("CameraZoomDistance") == 12 or 
+                       (workspace.CurrentCamera and rootPart and (workspace.CurrentCamera.CoordinateFrame.p - rootPart.Position).Magnitude >= 11.5) then
+                        success = true
+                    end
+                end
+                
+                if _G.CameraLoopID == currentLoopID then
+                    plr.CameraMinZoomDistance = 0.5 
+                    plr.CameraMaxZoomDistance = 100000 
+                end
+            end)
+        else
+            plr.CameraMode = Enum.CameraMode.LockFirstPerson
+            plr.CameraMaxZoomDistance = 0.5
+            plr.CameraMinZoomDistance = 0.5
+        end
+    end
+})
+
+task.spawn(function()
+    if not game:IsLoaded() then game.Loaded:Wait() end
+    task.wait(0.3)
+    Tper:Set(true)
+end)

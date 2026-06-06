@@ -12,7 +12,9 @@ local Window = OrionLib:MakeWindow({
     HidePremium = true,
     SaveConfig = false,
     IntroEnabled = false
-})local CoreGui = game:GetService("CoreGui")
+})
+
+local CoreGui = game:GetService("CoreGui")
 
 pcall(function()
     CoreGui.OrionReOpen:Destroy()
@@ -43,7 +45,7 @@ button.MouseButton1Click:Connect(function()
     end
 end)
 
-local AntiTab = Window:AddTab({ Title = "누나 지켜ㅕ", Icon = "shield" })
+local AntiTab = Window:MakeTab({ Name = "누나 지켜ㅕ", Icon = "rbxassetid://4483345998" })
 
 Players = game:GetService("Players")
 plr = game.Players.LocalPlayer
@@ -62,12 +64,11 @@ DestroyGrabLine = rs.GrabEvents.DestroyGrabLine
 Auto = syn and syn.queue_on_teleport or fluxus and fluxus.queue_on_teleport or queue_on_teleport
 
 Whitelist = {}
-playersInLoop1V = {} -- List
-playersInLoop2V = {} -- Loop
+playersInLoop1V = {}
+playersInLoop2V = {}
 
 PPs = workspace:WaitForChild("PlotItems"):WaitForChild("PlayersInPlots")
 
------------------------------------------------------------------------------------------ [ 기본 설정 ]
 function PcldOwner()
     task.spawn(function()
         while task.wait(0.1) do
@@ -141,7 +142,7 @@ function PcldOwner()
                             closestPlayer.DisplayName,
                             closestPlayer.Name)
 
-                         boolValue = nil
+                        boolValue = nil
                         for _, child in pairs(pcld:GetChildren()) do
                             if child:IsA("BoolValue") then
                                 boolValue = child
@@ -159,7 +160,7 @@ function PcldOwner()
                         task.spawn(function(player, value)
                             while value.Parent do
                                 if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                                     hrp = player.Character.HumanoidRootPart
+                                    hrp = player.Character.HumanoidRootPart
                                     
                                     if hrp.Massless == true then
                                         if not value.Value then
@@ -193,7 +194,6 @@ function PcldOwner()
     end)
 end
 
-
 function SpawnCFrame()
     local camPart
     myDisplayName = plr.DisplayName
@@ -214,7 +214,7 @@ function SpawnCFrame()
     end
 
     if not workspace:FindFirstChild("CamPart") or workspace:FindFirstChild("CamPart"):FindFirstChild("CamPart") then
-         char = plr.Character or plr.CharacterAdded:Wait()
+        char = plr.Character or plr.CharacterAdded:Wait()
         camPart = char:FindFirstChild("CamPart"):Clone()
         camPart.Name = "CamPart"
         camPart.Parent = workspace
@@ -223,17 +223,17 @@ function SpawnCFrame()
         camPart = workspace.CamPart
     end
 
-     lastHRPVelocity = Vector3.new(0, 0, 0)
+    lastHRPVelocity = Vector3.new(0, 0, 0)
 
     task.spawn(function()
-         rayParams = RaycastParams.new()
+        rayParams = RaycastParams.new()
         rayParams.FilterType = Enum.RaycastFilterType.Exclude
 
         while true do
-             ping = plr:GetNetworkPing()
-             myPO = findMyPO()
-             char = plr.Character
-             hrp = char and char:FindFirstChild("HumanoidRootPart")
+            ping = plr:GetNetworkPing()
+            myPO = findMyPO()
+            char = plr.Character
+            hrp = char and char:FindFirstChild("HumanoidRootPart")
 
             if hrp then
                 lastHRPVelocity = hrp.Velocity
@@ -242,11 +242,11 @@ function SpawnCFrame()
             if myPO and hrp then
                 rayParams.FilterDescendantsInstances = {char, camPart, myPO}
 
-                 offset = myPO.Position + (lastHRPVelocity * (ping + 0.15))
+                offset = myPO.Position + (lastHRPVelocity * (ping + 0.15))
 
-                 rayOrigin = offset
-                 rayDirection = Vector3.new(0, 23, 0)
-                 rayResult = workspace:Raycast(rayOrigin, rayDirection, rayParams)
+                rayOrigin = offset
+                rayDirection = Vector3.new(0, 23, 0)
+                rayResult = workspace:Raycast(rayOrigin, rayDirection, rayParams)
 
                 local targetPosition
 
@@ -256,16 +256,16 @@ function SpawnCFrame()
                     targetPosition = offset + rayDirection
                 end
 
-                 originalRotation = myPO.CFrame.Rotation * CFrame.Angles(math.rad(-90), 0, 0)
+                originalRotation = myPO.CFrame.Rotation * CFrame.Angles(math.rad(-90), 0, 0)
                 camPart.CFrame = CFrame.new(targetPosition) * originalRotation
 
                 rayParams.FilterDescendantsInstances = {char, camPart}
 
-                 offset = hrp.Position + (lastHRPVelocity * (ping + 0.15))
+                offset = hrp.Position + (lastHRPVelocity * (ping + 0.15))
                 
-                 rayOrigin = offset
-                 rayDirection = Vector3.new(0, 20, 0)
-                 rayResult = workspace:Raycast(rayOrigin, rayDirection, rayParams)
+                rayOrigin = offset
+                rayDirection = Vector3.new(0, 20, 0)
+                rayResult = workspace:Raycast(rayOrigin, rayDirection, rayParams)
 
                 local targetPosition
 
@@ -275,7 +275,7 @@ function SpawnCFrame()
                     targetPosition = offset + rayDirection
                 end
 
-                 originalRotation = (hrp.CFrame * CFrame.Angles(math.rad(-90), 0, 0)).Rotation
+                originalRotation = (hrp.CFrame * CFrame.Angles(math.rad(-90), 0, 0)).Rotation
                 camPart.CFrame = CFrame.new(targetPosition) * originalRotation
                 camPart.Name = "SpawnCF"
             end
@@ -290,7 +290,7 @@ G = rs.GrabEvents
 G:WaitForChild("EndGrabEarly"):Destroy()
 Instance.new("RemoteEvent", G).Name = "EndGrabEarly"
 
- function AntiGrabStickyF()
+function AntiGrabStickyF()
     local plr = game.Players.LocalPlayer
     
     while AntiGrabStickyT and plr do
@@ -464,7 +464,7 @@ function AntiGrabF(enable)
         end
 
         if isvs and POR then
-        task.wait(0.0003)
+            task.wait(0.0003)
         end
 
         if POR and POR.Value then
@@ -511,8 +511,6 @@ function AntiGrabF(enable)
         if not hrp or hum.Health <= 0 then
             hum:ChangeState(Enum.HumanoidStateType.Dead)
             char:BreakJoints()
-            --rs.CharacterEvents.Struggle:FireServer()
-            --if hrp2 then hrp2.CFrame = CFrame.new(9999, DY, 9999) end
         end
 
         if isHeld.Value == true then
@@ -627,6 +625,7 @@ function AntiGrabF(enable)
         end
     end)
 end
+
 function antiPaintF(state)
     local function setParts(canTouch)
         local char = plr.Character
@@ -702,7 +701,6 @@ local AntiKickF = function()
         if not hrp or not torso then continue end
 
         local myPO = findMyPO()
-        --local referencePosition = hrp.Position
         if myPO then referencePosition = myPO.Position end
 
         local ragdollHitbox = hrp:FindFirstChild("RagdollTouchedHitbox")
@@ -717,9 +715,9 @@ local AntiKickF = function()
 
         if not stickyPart then
             local success = pcall(function()
-            task.spawn(function()
-                SpawnToyRemoteFunction:InvokeServer(stickyPartName, SCF.CFrame, Vector3.new(0, 0, 0))
-            end)
+                task.spawn(function()
+                    SpawnToyRemoteFunction:InvokeServer(stickyPartName, SCF.CFrame, Vector3.new(0, 0, 0))
+                end)
             end)
 
             if not success then continue end
@@ -803,15 +801,16 @@ local AntiKickF = function()
             break
         end
     end
+end
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
-
 local plr = Players.LocalPlayer
 
-AntiTab:AddToggle("AntiPaintToggle", {
-    Title = "안티 페인트",
+AntiTab:AddToggle({
+    Name = "안티 페인트",
     Default = false,
     Callback = function(Value)
         AntiPaintT = Value
@@ -819,9 +818,8 @@ AntiTab:AddToggle("AntiPaintToggle", {
     end
 })
 
-
-AntiTab:AddToggle("AntiKickToggle", {
-    Title = "안티킥V1",
+AntiTab:AddToggle({
+    Name = "안티킥V1",
     Default = false,
     Callback = function(Value)
         AntiKickT = Value
@@ -829,8 +827,8 @@ AntiTab:AddToggle("AntiKickToggle", {
     end
 })
 
-AntiTab:AddToggle("AntiGrabStickyToggle", {
-    Title = "안티킥V2",
+AntiTab:AddToggle({
+    Name = "안티킥V2",
     Default = false,
     Callback = function(Value)
         AntiGrabStickyT = Value
@@ -838,17 +836,10 @@ AntiTab:AddToggle("AntiGrabStickyToggle", {
     end
 })
 
-
-AntiTab:AddToggle("AntiGrabToggle", {
-    Title = "안티그랩(안잡힘)",
+AntiTab:AddToggle({
+    Name = "안티그랩(안잡힘)",
     Default = false,
     Callback = function(Value)
         AntiGrabF(Value)
     end
 })
-
-
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-SaveManager:SetFolder("AIPA_FTAP_Settings")
-SaveManager:BuildConfigSection(AntiTab)
-SaveManager:LoadAutoloadConfig()

@@ -1186,7 +1186,7 @@ AuraTab:AddToggle({
     Name = "안티 붐박스 아우라(근처 붐박스를 삭제 시킵니다)",
     Default = false,
     Save = true,
-    Flag = "AntiBox_SaveKey",
+    Flag = "AntiBox",
     Callback = function(Value)
         AntiBoxT = Value
         if Value then task.spawn(AntiBoxF) end

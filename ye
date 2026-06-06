@@ -1099,6 +1099,107 @@ end
 
 RunService = game:GetService("RunService")
 Camera = workspace.CurrentCamera
+function MaxCameraF(enable)
+    if enable then
+        plr.CameraMaxZoomDistance = 999999
+        plr.CameraMinZoomDistance = 0.5
+    else
+        plr.CameraMaxZoomDistance = 400
+        plr.CameraMinZoomDistance = 0.5
+    end
+end
+
+local NoclipConnection
+function NoclipF(enable)
+    if NoclipConnection then 
+        NoclipConnection:Disconnect() 
+        NoclipConnection = nil 
+    end
+    
+    if enable then
+        NoclipConnection = game:GetService("RunService").Stepped:Connect(function()
+            if plr.Character then
+                for _, part in pairs(plr.Character:GetDescendants()) do
+                    if part:IsA("BasePart") and part.CanCollide then
+                        part.CanCollide = false
+                    end
+                end
+            end
+        end)
+    else
+        if NoclipConnection then
+            NoclipConnection:Disconnect()
+            NoclipConnection = nil
+        end
+    end
+end
+
+local InfiniteJumpConnection
+function InfiniteJumpF(enable)
+    if InfiniteJumpConnection then 
+        InfiniteJumpConnection:Disconnect() 
+        InfiniteJumpConnection = nil 
+    end
+    
+    if enable then
+        InfiniteJumpConnection = game:GetService("UserInputService").JumpRequest:Connect(function()
+            if plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") then
+                plr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end)
+    end
+end
+
+hasDetectedFirstTime = false
+function AntiPCLDF()
+    local targetValueName = "[ " .. plr.DisplayName .. " ] ( @" .. plr.Name .. " )"
+    
+    task.spawn(function()
+        while AntiPCLDT do
+            task.wait()
+            if not AntiPCLDT then break end
+            
+            if not hasDetectedFirstTime then
+                for _, item in ipairs(workspace:GetChildren()) do
+                    if item.Name == "PlayerCharacterLocationDetector" then
+                        for _, child in ipairs(item:GetChildren()) do
+                            if child:IsA("BoolValue") and child.Name == targetValueName then
+                                if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and plr.Character:FindFirstChildOfClass("Humanoid") then
+                                    plr.Character.HumanoidRootPart.CFrame = CFrame.new(0, 999999, 0)
+                                    task.wait(0.1)
+                                    plr.Character:FindFirstChildOfClass("Humanoid").Health = 0
+                                    hasDetectedFirstTime = true
+                                end
+                            end
+                        end
+                    end
+                end
+            else
+                local character = plr.Character or plr.CharacterAdded:Wait()
+                local humanoid = character:WaitForChild("Humanoid")
+                
+                local diedConn
+                diedConn = humanoid.Died:Connect(function()
+                    if AntiPCLDT and hasDetectedFirstTime then
+                        local torso = character:FindFirstChild("Torso")
+                        local CF = torso and torso.CFrame or CFrame.new(0,0,0)
+                        
+                        local nextChar = plr.CharacterAdded:Wait()
+                        local nextHum = nextChar:WaitForChild("Humanoid")
+                        nextHum:ChangeState(Enum.HumanoidStateType.Dead)
+                        
+                        local nextTorso = nextChar:WaitForChild("Torso")
+                        if nextTorso then nextTorso.CFrame = CF end
+                        task.wait(5)
+                    end
+                end)
+                
+                plr.CharacterAdded:Wait()
+                if diedConn then diedConn:Disconnect() end
+            end
+        end
+    end)
+end
 
 AntiTab:AddToggle({
     Name = "안티 페인트",
@@ -1463,6 +1564,48 @@ ListTab:AddToggle({
                 teleportGui:Destroy()
                 teleportGui = nil
             end
+        end
+    end
+})
+local PlTab = Window:MakeTab({ Name = "pl", Icon = "rbxassetid://4483345998" })
+
+PlTab:AddToggle({
+    Name = "무제한 3인칭 시점",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        MaxCameraF(Value)
+    end
+})
+
+PlTab:AddToggle({
+    Name = "노클립 (벽 통과)",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        NoclipF(Value)
+    end
+})
+
+PlTab:AddToggle({
+    Name = "무한 점프",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        InfiniteJumpF(Value)
+    end
+})
+
+antiTab:AddToggle({
+    Name = "안티 PCLD",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        AntiPCLDT = Value
+        if Value then
+            AntiPCLDF()
+        else
+            hasDetectedFirstTime = false
         end
     end
 })

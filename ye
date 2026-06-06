@@ -1180,7 +1180,7 @@ AuraTab:AddToggle({
 })
 
 
-ListTab:AddSection({ Name = "염탐 조지기" })
+
 
 ListTab:AddToggle({
     Name = "관전 기능 활성화",

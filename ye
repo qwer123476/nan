@@ -1796,7 +1796,7 @@ AuraTab:AddToggle({
         end
     end
 })
-local Tper = plTab:AddToggle({
+plTab:AddToggle({
     Name = "3인칭",
     CurrentValue = false,
     Flag = "AutoSitBlobman",

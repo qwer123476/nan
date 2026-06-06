@@ -1569,14 +1569,6 @@ ListTab:AddToggle({
 })
 local PlTab = Window:MakeTab({ Name = "pl", Icon = "rbxassetid://4483345998" })
 
-PlTab:AddToggle({
-    Name = "무제한 3인칭 시점",
-    Default = false,
-    Save = true,
-    Callback = function(Value)
-        MaxCameraF(Value)
-    end
-})
 
 PlTab:AddToggle({
     Name = "노클립 (벽 통과)",
@@ -1795,11 +1787,11 @@ AuraTab:AddToggle({
             end)
         end
     end
-})
-plTab:AddToggle({
+
+local CameraToggle = PlTab:AddToggle({
     Name = "3인칭",
-    CurrentValue = false,
-    Flag = "AutoSitBlobman",
+    Default = false,
+    Save = true,
     Callback = function(Value)
         _G.CameraLoopID = (_G.CameraLoopID or 0) + 1
         local currentLoopID = _G.CameraLoopID
@@ -1844,8 +1836,12 @@ plTab:AddToggle({
 task.spawn(function()
     if not game:IsLoaded() then game.Loaded:Wait() end
     task.wait(0.3)
-    Tper:Set(true)
+    
+    if CameraToggle and CameraToggle.Set then
+        CameraToggle:Set(true)
+    end
 end)
+
 local flyingResetConn
 local resetProtectionConn
 

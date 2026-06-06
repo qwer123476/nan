@@ -8,11 +8,13 @@ OrionLib:MakeNotification({
 })
 
 local Window = OrionLib:MakeWindow({
-    Name = "누나 전용 방어탭",
+    Name = "누나 전용 방어 툴",
     HidePremium = true,
-    SaveConfig = false,
+    SaveConfig = true,
+    ConfigFolder = "FTAP_Settings",
     IntroEnabled = false
 })
+
 
 local CoreGui = game:GetService("CoreGui")
 
@@ -1105,6 +1107,7 @@ Camera = workspace.CurrentCamera
 AntiTab:AddToggle({
     Name = "안티 페인트",
     Default = false,
+    save = true,
     Callback = function(Value)
         AntiPaintT = Value
         antiPaintF(Value)
@@ -1113,6 +1116,7 @@ AntiTab:AddToggle({
 
 AntiTab:AddToggle({
     Name = "안티킥V1",
+    save = true,
     Default = false,
     Callback = function(Value)
         AntiKickT = Value
@@ -1123,6 +1127,7 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "안티킥V2",
     Default = false,
+    save = true,
     Callback = function(Value)
         AntiGrabStickyT = Value
         if Value then task.spawn(AntiGrabStickyF) end
@@ -1131,7 +1136,8 @@ AntiTab:AddToggle({
 
 AntiTab:AddToggle({
     Name = "안티그랩(안잡힘)",
-    Default = false,
+    Default = flase,
+    save = true,
     Callback = function(Value)
         AntiGrabF(Value)
     end
@@ -1139,6 +1145,7 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "안티 폭탄",
     Default = false,
+    save = true,
     Callback = function(Value)
         AntiExplosionT = Value
         if Value then task.spawn(AntiExplosionF) end
@@ -1148,6 +1155,7 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "오토 어택(잡은사람 사망하게)",
     Default = false,
+    save = true,
     Callback = function(Value)
         AutoAttackT = Value
         if Value then task.spawn(AutoAttackF) end
@@ -1156,6 +1164,7 @@ AntiTab:AddToggle({
 AntiTab:AddToggle({
     Name = "안티 인풋(루프킬을 막습니다)",
     Default = false,
+    save = true,
     Callback = function(Value)
         AntiDeathT = Value
         if Value then task.spawn(AntiDeathF) end
@@ -1166,6 +1175,7 @@ AntiTab:AddToggle({
 AuraTab:AddToggle({
     Name = "안티 붐박스 아우라(근처 붐박스를 삭제 시킵니다)",
     Default = false,
+    save = true,
     Callback = function(Value)
         AntiBoxT = Value
         if Value then task.spawn(AntiBoxF) end

@@ -1963,3 +1963,457 @@ AntiTab:AddButton({
         end
     end
 })
+local TargetTab = Window:MakeTab({ Name = "유저 선택", Icon = "rbxassetid://4483345998" })
+
+local Owner = {}
+local GF = {}
+local Overseer = {}
+local CoOwner = {}
+local HeadAdmin = {}
+local Admin = {}
+local Mod = {}
+
+local Ranks = {
+    Owner = 8, GF = 7, Overseer = 6, CoOwner = 5,
+    HeadAdmin = 4, Admin = 3, Mod = 2, User = 1
+}
+
+local function Notify(type, playerName)
+    playerName = playerName or ""
+    local title, content = "", ""
+    if type == "Added" then title = "[☑️ ]"; content = playerName.." - 추가"
+    elseif type == "Removed" then title = "[ ☑️ ]"; content = playerName.." - 제거"
+    elseif type == "Self" then title = "[ 🤔 ]"; content = "자신은 추가될 수 없어요!"
+    elseif type == "Already" then title = "[ 😅 ]"; content = playerName.." - 이미 추가됐어요"
+    elseif type == "NotFound" then title = "[ ❌ ]"; content = "찾을 수 없는 플레이어 에요")
+        if typeof(GfLogger) == "function" then pcall(GfLogger) end
+    end
+    if OrionLib then
+        OrionLib:MakeNotification({ Name = title, Content = content, Time = 2 })
+    end
+end
+
+local function GetPlayerRank(playerName)
+    if table.find(Owner, playerName) then return Ranks.Owner end
+    if table.find(GF, playerName) then return Ranks.GF end
+    if table.find(Overseer, playerName) then return Ranks.Overseer end
+    if table.find(CoOwner, playerName) then return Ranks.CoOwner end
+    if table.find(HeadAdmin, playerName) then return Ranks.HeadAdmin end
+    if table.find(Admin, playerName) then return Ranks.Admin end
+    if table.find(Mod, playerName) then return Ranks.Mod end
+    return Ranks.User
+end
+
+local function checkPermissions(targetPlayer)
+    local localPlayer = game.Players.LocalPlayer
+    local myRank = GetPlayerRank(localPlayer.Name)
+    local targetRank = GetPlayerRank(targetPlayer.Name)
+    if targetPlayer == localPlayer then return false, "Self" end
+    if myRank == Ranks.Owner then return true end
+    if myRank == Ranks.Overseer and targetRank == Ranks.Owner then return true end
+    if myRank == Ranks.CoOwner and targetRank == Ranks.Owner then return true end
+    if targetRank == Ranks.User then return true end
+    if targetRank == Ranks.GF then return false, "GFE" end
+    if myRank > targetRank then return true else return false, "HigherRank" end
+end
+
+local activeButtons = {}
+
+local function RefreshPlayerList()
+    for _, btn in pairs(activeButtons) do
+        pcall(function() btn:Destroy() end)
+    end
+    table.clear(activeButtons)
+
+    for _, p in ipairs(game.Players:GetPlayers()) do
+        if p == game.Players.LocalPlayer then continue end
+
+        local userId = p.UserId
+        local thumbType = Enum.ThumbnailType.HeadShot
+        local thumbSize = Enum.ThumbnailSize.Size100x100
+        local avatarImg = "rbxassetid://0"
+        
+        pcall(function()
+            avatarImg = game.Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+        end)
+
+        local displayName = p.DisplayName or p.Name
+        local userName = p.Name
+        local btnText = string.format("[%s] (%s)", displayName, userName)
+
+        local pBtn
+        pBtn = TargetTab:AddButton({
+            Name = btnText,
+            Callback = function()
+                if table.find(playersInLoop1V, userName) then
+                    local targetRank = GetPlayerRank(userName)
+                    local myRank = GetPlayerRank(game.Players.LocalPlayer.Name)
+                    if myRank ~= Ranks.Owner and targetRank ~= Ranks.User and myRank <= targetRank then
+                        Notify("HigherRank", userName)
+                        return
+                    end
+                    local idx = table.find(playersInLoop1V, userName)
+                    if idx then table.remove(playersInLoop1V, idx) end
+                    if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
+                    Notify("Removed", userName)
+                else
+                    local allowed, errorType = checkPermissions(p)
+                    if not allowed then Notify(errorType, userName); return end
+                    
+                    table.insert(playersInLoop1V, userName)
+                    if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
+                    Notify("Added", userName)
+                end
+            end
+        })
+
+        pcall(function()
+            if pBtn and pBtn.Instance then
+                local icon = pBtn.Instance:FindFirstChildOfClass("ImageLabel")
+                if icon then
+                    icon.Image = avatarImg
+                    icon.ImageRound = true 
+                end
+            end
+        end)
+
+        table.insert(activeButtons, pBtn)
+    end
+end
+
+game.Players.PlayerAdded:Connect(function()
+    task.wait(0.5)
+    RefreshPlayerList()
+end)
+
+game.Players.PlayerRemoving:Connect(function(p)
+    local idx = table.find(playersInLoop1V, p.Name)
+    if idx then 
+        table.remove(playersInLoop1V, idx)
+        if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
+    end
+    RefreshPlayerList()
+end)
+
+TargetTab:AddButton({
+    Name = "명단 새로고침",
+    Callback = function()
+        RefreshPlayerList()
+    end
+})
+
+RefreshPlayerList()
+local LoopTab = Window:MakeTab({ Name = "Loop", Icon = "rbxassetid://4483345998" })
+
+blobLoopT = false
+blobLoopT3 = false
+playersInLoop1V = playersInLoop1V or {}
+playersInLoop2V = playersInLoop2V or {}
+
+local function safeGetCharacterParts(player)
+    if not player then return nil, nil, nil end
+    local char = player.Character
+    if not char then return nil, nil, nil end
+    return char, char:FindFirstChild("HumanoidRootPart"), char:FindFirstChild("Head")
+end
+
+LoopTab:AddToggle({
+    Name = "루프킥 [ Blobman (오토) ]",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        blobLoopT = Value
+        if blobLoopT then
+            table.clear(playersInLoop2V)
+            for _, e in ipairs(playersInLoop1V) do
+                local nameOnly = e:match("^(.-) %(") or e
+                table.insert(playersInLoop2V, nameOnly)
+            end
+            task.spawn(loopPlayerBlobF)
+        else
+            table.clear(playersInLoop2V)
+            pcall(function()
+                for _, player in ipairs(game.Players:GetPlayers()) do
+                    if player.Character then
+                        local head = player.Character:FindFirstChild("Head")
+                        if head then
+                            local kick = head:FindFirstChild("Kick")
+                            if kick and kick:IsA("BodyPosition") then
+                                kick:Destroy()
+                            end
+                        end
+                    end
+                end
+            end)
+        end
+    end
+})
+
+LoopTab:AddToggle({
+    Name = "루프킬 [ Blobman ]",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        blobLoopT3 = Value
+        if blobLoopT3 then
+            table.clear(playersInLoop2V)
+            for _, e in ipairs(playersInLoop1V) do
+                local nameOnly = e:match("^(.-) %(") or e
+                table.insert(playersInLoop2V, nameOnly)
+            end
+            task.spawn(loopPlayerBlobF3)
+        else
+            table.clear(playersInLoop2V)
+        end
+    end
+})
+
+function loopPlayerBlobF()
+    if typeof(UpdateCurrentBlobman) == "function" then pcall(UpdateCurrentBlobman) end
+    
+    local myHum = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
+    local seat = myHum and myHum.SeatPart
+    if not (seat and seat.Parent and seat.Parent.Name == "CreatureBlobman") then return end
+    
+    local isRiding = true
+    local processedHumanoids = {}
+
+    local function processPlayer(player)
+        if not player then return false end
+        local character, hrp, head = safeGetCharacterParts(player)
+        if not character or not hrp or not head then return false end
+        if hrp.Massless == true and not isRiding then return false end
+        
+        local myChar = plr.Character
+        local myHrp = myChar and myChar:FindFirstChild("HumanoidRootPart")
+        if not myHrp then return false end
+        
+        local originCF = myHrp.CFrame
+        local tpRunning = true
+        local CF = originCF
+
+        task.spawn(function()
+            while tpRunning and blobLoopT do
+                if typeof(TP) == "function" then
+                    local ok, cf = pcall(TP, player)
+                    if ok and cf then CF = cf end
+                end
+                task.wait()
+            end
+        end)
+
+        while blobLoopT and player.Parent and character.Parent do
+            if head and head.Parent then
+                pcall(function()
+                    rs.GrabEvents.SetNetworkOwner:FireServer(head, head.CFrame)
+                end)
+                local ownerTag = head:FindFirstChild("PartOwner")
+                if ownerTag and ownerTag:IsA("StringValue") and ownerTag.Value == plr.Name then break end
+            else
+                break
+            end
+            task.wait()
+        end
+        
+        tpRunning = false
+
+        pcall(function()
+            local targetNames = { "NinjaKunai", "NinjaShuriken", "NinjaKatana", "ToolCleaver", "ToolDiggingForkRusty", "ToolPencil", "ToolPickaxe" }
+            for _, child in ipairs(workspace:GetChildren()) do
+                if child:IsA("Folder") and child.Name:match("SpawnedInToys$") and child.Name ~= (plr.Name .. "SpawnedInToys") then
+                    for _, item in ipairs(child:GetChildren()) do
+                        if table.find(targetNames, item.Name) and item:FindFirstChild("StickyPart") then
+                            local sticky = item.StickyPart
+                            local weld = sticky:FindFirstChild("StickyWeld")
+                            if weld and weld:IsA("WeldConstraint") and weld.Part1 then
+                                local targetParts = {
+                                    character:FindFirstChild("Head"),
+                                    character:FindFirstChild("Torso"),
+                                    character:FindFirstChild("Left Arm"),
+                                    character:FindFirstChild("Left Leg"),
+                                    character:FindFirstChild("Right Arm"),
+                                    character:FindFirstChild("Right Leg"),
+                                    hrp:FindFirstChild("RagdollTouchedHitbox"),
+                                    hrp:FindFirstChild("FirePlayerPart"),
+                                }
+                                if table.find(targetParts, weld.Part1) then
+                                    local basePart = item.PrimaryPart or sticky
+                                    if basePart and hrp and hrp.Parent and (basePart.Position - hrp.Position).Magnitude <= 10 then
+                                        rs.GrabEvents.SetNetworkOwner:FireServer(sticky, sticky.CFrame)
+                                        sticky.CFrame = CFrame.new(0, 9999, 0)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end)
+
+        pcall(function()
+            if head and head.Parent then
+                rs.GrabEvents.DestroyGrabLine:FireServer(head, head.CFrame)
+            end
+            if hrp and hrp.Parent and myHrp and myHrp.Parent then
+                hrp.CFrame = CFrame.new(myHrp.CFrame.X, myHrp.CFrame.Y + 50, myHrp.CFrame.Z)
+                myHrp.CFrame = hrp.CFrame
+            end
+            if typeof(BlobMassless) == "function" and hrp and hrp.Parent then
+                BlobMassless(currentBlobS, hrp, "Right")
+            end
+            if originCF and typeof(BACK) == "function" then 
+                BACK(originCF) 
+            end
+        end)
+        return true
+    end
+
+    task.spawn(function()
+        while blobLoopT do
+            for _, name in ipairs(playersInLoop2V) do
+                if not blobLoopT then break end
+                local player = game.Players:FindFirstChild(name)
+                if not player then continue end
+                if (PPs and PPs:FindFirstChild(name)) or (inv and inv:FindFirstChild(name)) then continue end
+                
+                local character = player.Character
+                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+                
+                if hrp and hrp:IsA("BasePart") and hrp.Massless and not isRiding then continue end
+                if humanoid and humanoid.Health > 0 then
+                    if processedHumanoids[player] ~= humanoid then
+                        local success = processPlayer(player)
+                        if success then processedHumanoids[player] = humanoid end
+                    end
+                else
+                    processedHumanoids[player] = nil
+                end
+                task.wait(0.05)
+            end
+            task.wait(0.3)
+        end
+    end)
+end
+
+function loopPlayerBlobF3()
+    if typeof(UpdateCurrentBlobman) == "function" then pcall(UpdateCurrentBlobman) end
+
+    local myHum = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
+    local seat = myHum and myHum.SeatPart
+
+    if not (seat and seat.Parent and seat.Parent.Name == "CreatureBlobman") then
+        return
+    end
+
+    local runningTasks = {}
+
+    local function waitForRespawn(player)
+        while blobLoopT3 and player.Parent do
+            local char = player.Character
+            local hum = char and char:FindFirstChildOfClass("Humanoid")
+            if hum and hum.Health > 0 then
+                return char
+            end
+            task.wait(0.01)
+        end
+    end
+
+    task.spawn(function()
+        while blobLoopT3 do
+            for _, name in ipairs(playersInLoop2V) do
+                if not blobLoopT3 then break end
+
+                local player = game.Players:FindFirstChild(name)
+                if not player then continue end
+                if PPs and PPs:FindFirstChild(name) then continue end
+                if runningTasks[player] then continue end
+
+                runningTasks[player] = task.spawn(function()
+                    local beforeTP
+
+                    while blobLoopT3 and player.Parent do
+                        local myChar = plr.Character
+                        local myHrp = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                        if not myHrp then task.wait(0.1) continue end
+
+                        if not beforeTP then
+                            beforeTP = myHrp.CFrame
+                        end
+
+                        local char = player.Character
+                        local hum = char and char:FindFirstChildOfClass("Humanoid")
+
+                        if hum and hum.Health <= 0 then
+                            if beforeTP and typeof(BACK) == "function" then
+                                pcall(BACK, beforeTP)
+                            end
+
+                            waitForRespawn(player)
+
+                            local myChar2 = plr.Character
+                            local myHrp2 = myChar2 and myChar2:FindFirstChild("HumanoidRootPart")
+                            if myHrp2 then
+                                beforeTP = myHrp2.CFrame
+                            end
+                            continue
+                        end
+
+                        if not hum then
+                            task.wait(0.01)
+                            continue
+                        end
+
+                        local hrp = char:FindFirstChild("HumanoidRootPart")
+                        if not hrp then task.wait(0.01) continue end
+
+                        local distance = (myHrp.Position - hrp.Position).Magnitude
+                        if distance > 30 then
+                            if typeof(TP) == "function" then
+                                pcall(TP, player)
+                            end
+                            task.wait(0.01)
+                            continue
+                        end
+
+                        pcall(function()
+                            hum.BreakJointsOnDeath = false
+                            hum.WalkSpeed = 0
+                            hum.JumpPower = 0
+
+                            if hum.SeatPart == nil then
+                                hum.RigType = Enum.HumanoidRigType.R15
+                                hum.RigType = Enum.HumanoidRigType.R6
+                                hum.RigType = Enum.HumanoidRigType.R15
+                            end
+                        end)
+
+                        for i = 1, 3 do
+                            if not blobLoopT3 or not hrp.Parent then break end
+                            if typeof(BlobGrab) == "function" and typeof(BlobRelease) == "function" then
+                                pcall(BlobGrab, currentBlobS, hrp, "Right")
+                                pcall(BlobRelease, currentBlobS, hrp, "Right")
+                            end
+                            task.wait()
+                        end
+                        task.wait()
+                    end
+
+                    if beforeTP and typeof(BACK) == "function" then
+                        pcall(BACK, beforeTP)
+                    end
+                    runningTasks[player] = nil
+                end)
+                task.wait()
+            end
+            task.wait()
+        end
+
+        for _, t in pairs(runningTasks) do
+            if typeof(t) == "thread" then
+                task.cancel(t)
+            end
+        end
+        runningTasks = {}
+    end)
+end

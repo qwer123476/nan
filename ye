@@ -2021,28 +2021,22 @@ local activeButtons = {}
 
 local function RefreshPlayerList()
     for _, btn in pairs(activeButtons) do
-        pcall(function() btn:Destroy() end)
+        pcall(function() 
+            if btn and type(btn) == "table" and btn.Destroy then
+                btn:Destroy() 
+            end
+        end)
     end
     table.clear(activeButtons)
 
     for _, p in ipairs(game.Players:GetPlayers()) do
         if p == game.Players.LocalPlayer then continue end
 
-        local userId = p.UserId
-        local thumbType = Enum.ThumbnailType.HeadShot
-        local thumbSize = Enum.ThumbnailSize.Size100x100
-        local avatarImg = "rbxassetid://0"
-        
-        pcall(function()
-            avatarImg = game.Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
-        end)
-
-        local displayName = p.DisplayName or p.Name
         local userName = p.Name
-        local btnText = string.format("[%s] (%s)", displayName, userName)
+        local displayName = p.DisplayName or userName
+        local btnText = string.format("👤 %s (@%s)", displayName, userName)
 
-        local pBtn
-        pBtn = TargetTab:AddButton({
+        local pBtn = TargetTab:AddButton({
             Name = btnText,
             Callback = function()
                 if table.find(playersInLoop1V, userName) then
@@ -2067,6 +2061,11 @@ local function RefreshPlayerList()
             end
         })
 
+        table.insert(activeButtons, pBtn)
+    end
+end
+
+    
         pcall(function()
             if pBtn and pBtn.Instance then
                 local icon = pBtn.Instance:FindFirstChildOfClass("ImageLabel")

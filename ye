@@ -1787,7 +1787,7 @@ AuraTab:AddToggle({
             end)
         end
     end
-
+})
 
 
 

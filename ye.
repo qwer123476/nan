@@ -1963,7 +1963,16 @@ AntiTab:AddButton({
         end
     end
 })
-local TargetTab = Window:MakeTab({ Name = "유저 선택", Icon = "rbxassetid://4483345998" })
+local plr = game.Players.LocalPlayer
+local rs = game:GetService("ReplicatedStorage")
+
+_G.playersInLoop1V = _G.playersInLoop1V or {}
+_G.playersInLoop2V = _G.playersInLoop2V or {}
+local playersInLoop1V = _G.playersInLoop1V
+local playersInLoop2V = _G.playersInLoop2V
+
+blobLoopT = false
+blobLoopT3 = false
 
 local Owner = {}
 local GF = {}
@@ -1985,7 +1994,9 @@ local function Notify(type, playerName)
     elseif type == "Removed" then title = "[ ☑️ ]"; content = playerName.." - 제거"
     elseif type == "Self" then title = "[ 🤔 ]"; content = "자신은 추가될 수 없어요!"
     elseif type == "Already" then title = "[ 😅 ]"; content = playerName.." - 이미 추가됐어요"
-    elseif type == "NotFound" then title = "[ ❌ ]"; content = "찾을 수 없는 플레이어 에요")
+    elseif type == "NotFound" then title = "[ ❌ ]"; content = "찾을 수 없는 플레이어 에요"
+    elseif type == "HigherRank" then title = "[ ⛔ ]"; content = "권한이 부족해요!"
+    elseif type == "GFE" then title = "[ ⛔ ]"; content = "작동 불가 대상입니다."
         if typeof(GfLogger) == "function" then pcall(GfLogger) end
     end
     if OrionLib then
@@ -2005,7 +2016,7 @@ local function GetPlayerRank(playerName)
 end
 
 local function checkPermissions(targetPlayer)
-    local localPlayer = game.Players.LocalPlayer
+    local localPlayer = plr
     local myRank = GetPlayerRank(localPlayer.Name)
     local targetRank = GetPlayerRank(targetPlayer.Name)
     if targetPlayer == localPlayer then return false, "Self" end
@@ -2017,97 +2028,110 @@ local function checkPermissions(targetPlayer)
     if myRank > targetRank then return true else return false, "HigherRank" end
 end
 
-local activeButtons = {}
+local TargetTab = Window:MakeTab({ Name = "유저 선택", Icon = "rbxassetid://4483345998" })
 
-local function RefreshPlayerList()
-    for _, btn in pairs(activeButtons) do
-        pcall(function() 
-            if btn and type(btn) == "table" and btn.Destroy then
-                btn:Destroy() 
-            end
-        end)
+local PlayerDropdown = nil
+local ListDropdown = nil
+local currentServerPlayers = {}
+
+local function SyncLoopTables()
+    table.clear(playersInLoop2V)
+    for _, e in ipairs(playersInLoop1V) do
+        local nameOnly = e:match("%((.-)%)") or e
+        table.insert(playersInLoop2V, nameOnly)
     end
-    table.clear(activeButtons)
+end
 
+local function GetCurrentPlayers()
+    local tbl = {}
     for _, p in ipairs(game.Players:GetPlayers()) do
-        if p == game.Players.LocalPlayer then continue end
+        if p ~= plr then
+            table.insert(tbl, string.format("%s (%s)", p.DisplayName, p.Name))
+        end
+    end
+    return tbl
+end
 
-        local userName = p.Name
-        local displayName = p.DisplayName or userName
-        local btnText = string.format("👤 %s (@%s)", displayName, userName)
+currentServerPlayers = GetCurrentPlayers()
 
-        local pBtn = TargetTab:AddButton({
-            Name = btnText,
-            Callback = function()
-                if table.find(playersInLoop1V, userName) then
-                    local targetRank = GetPlayerRank(userName)
-                    local myRank = GetPlayerRank(game.Players.LocalPlayer.Name)
-                    if myRank ~= Ranks.Owner and targetRank ~= Ranks.User and myRank <= targetRank then
-                        Notify("HigherRank", userName)
-                        return
-                    end
-                    local idx = table.find(playersInLoop1V, userName)
-                    if idx then table.remove(playersInLoop1V, idx) end
-                    if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
-                    Notify("Removed", userName)
-                else
-                    local allowed, errorType = checkPermissions(p)
-                    if not allowed then Notify(errorType, userName); return end
-                    
-                    table.insert(playersInLoop1V, userName)
-                    if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
-                    Notify("Added", userName)
-                end
+PlayerDropdown = TargetTab:AddDropdown({
+    Name = "공격 대상 선택 (서버 유저 목록)",
+    Default = "",
+    Options = currentServerPlayers,
+    Callback = function(Value)
+        if not Value or Value == "" then return end
+        
+        local targetName = Value:match("%((.-)%)") or Value
+        local targetPlayer = game.Players:FindFirstChild(targetName)
+        
+        if not targetPlayer then 
+            Notify("NotFound", targetName)
+            return 
+        end
+        
+        if table.find(playersInLoop1V, Value) then
+            local targetRank = GetPlayerRank(targetName)
+            local myRank = GetPlayerRank(plr.Name)
+            if myRank ~= Ranks.Owner and targetRank ~= Ranks.User and myRank <= targetRank then
+                Notify("HigherRank", targetName)
+                return
             end
-        })
+            
+            local idx = table.find(playersInLoop1V, Value)
+            if idx then table.remove(playersInLoop1V, idx) end
+            Notify("Removed", targetName)
+        else
+            local allowed, errorType = checkPermissions(targetPlayer)
+            if not allowed then Notify(errorType, targetName); return end
+            
+            table.insert(playersInLoop1V, Value)
+            Notify("Added", targetName)
+        end
+        
+        SyncLoopTables()
+        if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
+    end
+})
 
-        table.insert(activeButtons, pBtn)
+ListDropdown = TargetTab:AddDropdown({
+    Name = "현재 공격 명단 리스트 (고른 유저들)",
+    Default = "",
+    Options = playersInLoop1V,
+    Callback = function(Value)
+    end
+})
+
+local function UpdateDropdownOptions()
+    currentServerPlayers = GetCurrentPlayers()
+    if PlayerDropdown then
+        PlayerDropdown:Refresh(currentServerPlayers, true)
     end
 end
 
-    
-        pcall(function()
-            if pBtn and pBtn.Instance then
-                local icon = pBtn.Instance:FindFirstChildOfClass("ImageLabel")
-                if icon then
-                    icon.Image = avatarImg
-                    icon.ImageRound = true 
-                end
-            end
-        end)
-
-        table.insert(activeButtons, pBtn)
+TargetTab:AddButton({
+    Name = "🔄 명단 실시간 새로고침",
+    Callback = function()
+        UpdateDropdownOptions()
     end
-end
+})
 
 game.Players.PlayerAdded:Connect(function()
     task.wait(0.5)
-    RefreshPlayerList()
+    UpdateDropdownOptions()
 end)
 
 game.Players.PlayerRemoving:Connect(function(p)
-    local idx = table.find(playersInLoop1V, p.Name)
+    local textFormat = string.format("%s (%s)", p.DisplayName, p.Name)
+    local idx = table.find(playersInLoop1V, textFormat)
     if idx then 
         table.remove(playersInLoop1V, idx)
         if ListDropdown then ListDropdown:Refresh(playersInLoop1V, true) end
     end
-    RefreshPlayerList()
+    SyncLoopTables()
+    UpdateDropdownOptions()
 end)
 
-TargetTab:AddButton({
-    Name = "명단 새로고침",
-    Callback = function()
-        RefreshPlayerList()
-    end
-})
-
-RefreshPlayerList()
 local LoopTab = Window:MakeTab({ Name = "Loop", Icon = "rbxassetid://4483345998" })
-
-blobLoopT = false
-blobLoopT3 = false
-playersInLoop1V = playersInLoop1V or {}
-playersInLoop2V = playersInLoop2V or {}
 
 local function safeGetCharacterParts(player)
     if not player then return nil, nil, nil end
@@ -2123,11 +2147,7 @@ LoopTab:AddToggle({
     Callback = function(Value)
         blobLoopT = Value
         if blobLoopT then
-            table.clear(playersInLoop2V)
-            for _, e in ipairs(playersInLoop1V) do
-                local nameOnly = e:match("^(.-) %(") or e
-                table.insert(playersInLoop2V, nameOnly)
-            end
+            SyncLoopTables()
             task.spawn(loopPlayerBlobF)
         else
             table.clear(playersInLoop2V)
@@ -2155,11 +2175,7 @@ LoopTab:AddToggle({
     Callback = function(Value)
         blobLoopT3 = Value
         if blobLoopT3 then
-            table.clear(playersInLoop2V)
-            for _, e in ipairs(playersInLoop1V) do
-                local nameOnly = e:match("^(.-) %(") or e
-                table.insert(playersInLoop2V, nameOnly)
-            end
+            SyncLoopTables()
             task.spawn(loopPlayerBlobF3)
         else
             table.clear(playersInLoop2V)

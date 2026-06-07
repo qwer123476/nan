@@ -739,6 +739,10 @@ function antiPaintF(state)
         setParts(true)
     end
 end
+
+local plr = game:GetService("Players").LocalPlayer
+local rs = game:GetService("RunService") 
+
 function AntiGrabF(enable)
     if antiGrabConn then
         antiGrabConn:Disconnect()

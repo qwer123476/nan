@@ -740,8 +740,8 @@ function antiPaintF(state)
     end
 end
 
-local plr = game:GetService("Players").LocalPlayer
-local rs = game:GetService("RunService") 
+RunService = game:GetService("RunService")
+isvs = false
 
 function AntiGrabF(enable)
     if antiGrabConn then

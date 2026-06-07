@@ -2887,7 +2887,7 @@ AntiTab:AddToggle({
     end    
 })
 
-plTab:AddSlider({
+PlTab:AddSlider({
     Name = "속도",
     Min = 16,
     Max = 150,
@@ -2903,7 +2903,7 @@ plTab:AddSlider({
     end
 })
 
-plTab:AddSlider({
+PlTab:AddSlider({
     Name = "점프파워",
     Min = 16,
     Max = 3000,

@@ -2529,6 +2529,7 @@ function loopPlayerBlobF3()
 end
 RunService = game:GetService("RunService")
 isvs = false
+local plr = game.Players.LocalPlayer
 
 function AntiGrabF(enable)
     if antiGrabConn then
@@ -2538,6 +2539,7 @@ function AntiGrabF(enable)
 
     if not enable then 
         local char = plr.Character
+        if not char then return end
         local hrp = char:FindFirstChild("HumanoidRootPart")
         local hum = char:FindFirstChild("Humanoid")
 
@@ -2583,7 +2585,7 @@ function AntiGrabF(enable)
         end
 
         if isvs and POR then
-        task.wait(0.0003)
+            task.wait(0.0003)
         end
 
         if POR and POR.Value then
@@ -2630,8 +2632,6 @@ function AntiGrabF(enable)
         if not hrp or hum.Health <= 0 then
             hum:ChangeState(Enum.HumanoidStateType.Dead)
             char:BreakJoints()
-            --rs.CharacterEvents.Struggle:FireServer()
-            --if hrp2 then hrp2.CFrame = CFrame.new(9999, DY, 9999) end
         end
 
         if isHeld.Value == true then
@@ -2746,11 +2746,14 @@ function AntiGrabF(enable)
         end
     end)
 end
+
 function AntiBurn()
     task.spawn(function()
         local EP = workspace:WaitForChild("Map"):WaitForChild("Hole"):WaitForChild("PoisonSmallHole"):WaitForChild("ExtinguishPart")
         while AntiBurnV do
-            local hrp = plr.Character:WaitForChild("Head") -- HumanoidRootPart
+            local char = plr.Character
+            if not char then task.wait() continue end
+            local hrp = char:FindFirstChild("Head")
             if hrp then
                 EP.Transparency = 1
                 EP.CastShadow = false
@@ -2774,51 +2777,9 @@ function AntiBurn()
     end)
 end
 
-local function teleportParts(player, partName)
-    local character = player.Character
-    if not character then return end
-    
-    local targetParts = {}
-
-    if partName == "Arm/Leg" then
-        table.insert(targetParts, character:FindFirstChild("Left Leg"))
-        table.insert(targetParts, character:FindFirstChild("Right Leg"))
-        table.insert(targetParts, character:FindFirstChild("Left Arm"))
-        table.insert(targetParts, character:FindFirstChild("Right Arm"))
-
-    elseif partName == "All/Leg" then
-        table.insert(targetParts, character:FindFirstChild("Left Leg"))
-        table.insert(targetParts, character:FindFirstChild("Right Leg"))
-
-    elseif partName == "All/Arm" then
-        table.insert(targetParts, character:FindFirstChild("Left Arm"))
-        table.insert(targetParts, character:FindFirstChild("Right Arm"))
-
-    elseif partName == "Leg/왼쪽" then
-        table.insert(targetParts, character:FindFirstChild("Left Leg"))
-
-    elseif partName == "Leg/오른쪽" then
-        table.insert(targetParts, character:FindFirstChild("Right Leg"))
-
-    elseif partName == "Arm/왼쪽" then
-        table.insert(targetParts, character:FindFirstChild("Left Arm"))
-
-    elseif partName == "Arm/오른쪽" then
-        table.insert(targetParts, character:FindFirstChild("Right Arm"))
-    end
-
-    for _, part in ipairs(targetParts) do
-        if part then part.CFrame = CFrame.new(0, -99999, 0) end
-    end
-
-    task.wait(0.03)
-    local torso = character:FindFirstChild("Torso")
-    if torso then torso.CFrame = CFrame.new(0, -99999, 0) end
-end
 function updateWalkSpeedF()
      function apply(char)
-         hum = char:WaitForChild("Humanoid")
-
+         local hum = char:WaitForChild("Humanoid")
         if walkSpeedT then
             hum.WalkSpeed = walkSpeedV
             hum:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
@@ -2830,18 +2791,15 @@ function updateWalkSpeedF()
             hum.WalkSpeed = 16
         end
     end
-
     if plr.Character then
         apply(plr.Character)
     end
-
     plr.CharacterAdded:Connect(apply)
 end
 
 function updateJumpPowerF()
      function apply(char)
-         hum = char:WaitForChild("Humanoid")
-
+         local hum = char:WaitForChild("Humanoid")
         if jumpPowerT then
             hum.JumpPower = jumpPowerV
             hum:GetPropertyChangedSignal("JumpPower"):Connect(function()
@@ -2853,37 +2811,23 @@ function updateJumpPowerF()
             hum.JumpPower = 60
         end
     end
-
     if plr.Character then
         apply(plr.Character)
     end
-
     plr.CharacterAdded:Connect(apply)
 end
-
- RunService = game:GetService("RunService")
-
- NO_CLIP_PARTS = {
-    "Head",
-    "Torso",
-    "Left Arm", 
-    "Left Leg",
-    "Right Arm",
-    "Right Leg"
-}
 
 AntiTab:AddToggle({
     Name = "안티그랩",
     Default = false,
     save = true,
     Callback = function(Value)
-        AntiGrabF(Value) 
+        AntiGrabF(Value)
     end    
 })
 
-
 AntiTab:AddToggle({
-    Name = "불  무적",
+    Name = "불 무적",
     Default = false,
     save = true,
     Callback = function(Value)

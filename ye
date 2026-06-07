@@ -1843,3 +1843,123 @@ AntiTab:AddToggle({
         end
     end
 })
+AntiTab:AddButton({
+    Name = "안티킥 [ 집안 표창 소환 ]",
+    Callback = function()
+        if typeof(House) == "function" then
+            House()
+        end
+
+        if not Plot then return end
+
+        local plotItemsFolder = workspace.PlotItems:FindFirstChild("Plot"..Plot)
+        local plotAreaFolder = workspace.Plots:FindFirstChild("Plot"..Plot)
+        local TP = plotAreaFolder and plotAreaFolder:FindFirstChild("PlotArea")
+        
+        if not TP then return end
+        local targetCFrame = CFrame.new(TP.Position)
+
+        local char = plr.Character
+        if not char then return end
+
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        if not hrp then return end
+
+        local ragdollHitbox = hrp:FindFirstChild("RagdollTouchedHitbox")
+        if ragdollHitbox then
+            hrp = ragdollHitbox
+        end
+
+        local originalPosition = hrp.CFrame
+        local targetValue = CFrame.new(0.05, -0.3, 0.3) * CFrame.Angles(math.rad(190), 0, 0)
+        local stickyPartName = "NinjaShuriken"
+
+        if plotItemsFolder then
+            local closestShuriken = nil
+            local closestDistance = math.huge
+
+            for _, item in pairs(plotItemsFolder:GetChildren()) do
+                if item.Name == "NinjaShuriken" then
+                    local stickyPart = item:FindFirstChild("StickyPart")
+                    if stickyPart then
+                        local distance = (hrp.Position - stickyPart.Position).Magnitude
+                        if distance < closestDistance then
+                            closestDistance = distance
+                            closestShuriken = item
+                        end
+                    end
+                end
+            end
+
+            local inPlotVal = plr:FindFirstChild("InPlot")
+            local isInPlot = inPlotVal and inPlotVal.Value
+
+            if closestShuriken and closestDistance <= 30 then
+                local stickyPart = closestShuriken:FindFirstChild("StickyPart")
+                if stickyPart then
+                    local FIND2 = stickyPart:FindFirstChild("StickyWeld")
+
+                    if not FIND2 or (FIND2 and FIND2.Part1 ~= hrp) then
+                        if not isInPlot then
+                            hrp.CFrame = targetCFrame
+                            task.wait(0.5)
+                        end
+
+                        pcall(function()
+                            if SetNetworkOwner then
+                                SetNetworkOwner:FireServer(stickyPart, stickyPart.CFrame)
+                            end
+                        end)
+
+                        pcall(function()
+                            if rs and rs:FindFirstChild("PlayerEvents") and rs.PlayerEvents:FindFirstChild("StickyPartEvent") then
+                                rs.PlayerEvents.StickyPartEvent:FireServer(stickyPart, hrp, targetValue)
+                            end
+                        end)
+
+                        if char and char:FindFirstChild("HumanoidRootPart") then
+                            char.HumanoidRootPart.CFrame = originalPosition
+                        end
+                    end
+                end
+            else
+                if not isInPlot then
+                    hrp.CFrame = targetCFrame
+                    task.wait(0.5)
+                end
+
+                task.spawn(function()
+                    pcall(function()
+                        if rs and rs:FindFirstChild("MenuToys") and rs.MenuToys:FindFirstChild("SpawnToyRemoteFunction") then
+                            rs.MenuToys.SpawnToyRemoteFunction:InvokeServer(stickyPartName, hrp.CFrame * CFrame.new(0,20,15), Vector3.new(0,0,0))
+                        end
+                    end)
+                end)
+
+                task.wait(0.15)
+
+                local newFind = plotItemsFolder:FindFirstChild("NinjaShuriken")
+                if newFind then
+                    local stickyPart = newFind:FindFirstChild("StickyPart")
+                    if stickyPart then
+                        pcall(function()
+                            if SetNetworkOwner then
+                                SetNetworkOwner:FireServer(stickyPart, stickyPart.CFrame)
+                            end
+                        end)
+
+                        pcall(function()
+                            if rs and rs:FindFirstChild("PlayerEvents") and rs.PlayerEvents:FindFirstChild("StickyPartEvent") then
+                                rs.PlayerEvents.StickyPartEvent:FireServer(stickyPart, hrp, targetValue)
+                            end
+                        end)
+                    end
+                end
+
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    char.HumanoidRootPart.CFrame = originalPosition
+                end
+            end
+        end
+    end
+})

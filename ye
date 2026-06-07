@@ -1796,7 +1796,36 @@ AntiTab:AddToggle({
     Default = false,
     Save = true,
     Callback = function(Value)
-        SetAntiBlobman(Value)
+        _G.AntiBlobmanT = Value
+        if Value then
+            task.spawn(function()
+                while _G.AntiBlobmanT do
+                    pcall(function()
+                        local myInv = workspace:FindFirstChild(game.Players.LocalPlayer.Name .. "SpawnedInToys")
+                        if myInv then
+                            for _, v in ipairs(myInv:GetChildren()) do
+                                if v.Name == "CreatureBlobman" then
+                                    game:GetService("ReplicatedStorage").MenuToys.DestroyToy:FireServer(v)
+                                end
+                            end
+                        end
+                        for _, p in ipairs(game.Players:GetPlayers()) do
+                            if p ~= game.Players.LocalPlayer then
+                                local pInv = workspace:FindFirstChild(p.Name .. "SpawnedInToys")
+                                if pInv then
+                                    for _, v in ipairs(pInv:GetChildren()) do
+                                        if v.Name == "CreatureBlobman" and v:FindFirstChild("Button") then
+                                            game:GetService("ReplicatedStorage").GrabEvents.SetNetworkOwner:FireServer(v.Button, CFrame.new(0, -999, 0))
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait(0.1)
+                end
+            end)
+        end
     end
 })
 
@@ -1805,25 +1834,12 @@ AntiTab:AddToggle({
     Default = false,
     Save = true,
     Callback = function(enabled)
-        if not localPlayer then return end
-
+        AntiExplosionT = enabled
         if enabled then
-            if localPlayer.Character then
-                setupAntiExplosion(localPlayer.Character)
-            end
-            if characterAddedConn then characterAddedConn:Disconnect() end
-            characterAddedConn = localPlayer.CharacterAdded:Connect(function(character)
-                setupAntiExplosion(character)
-            end)
+            AntiExplosionF()
         else
-            if antiExplosionConnection then
-                antiExplosionConnection:Disconnect()
-                antiExplosionConnection = nil
-            end
-            if characterAddedConn then
-                characterAddedConn:Disconnect()
-                characterAddedConn = nil
-            end
+            if AntiExplosionC then AntiExplosionC:Disconnect() AntiExplosionC = nil end
+            if AntiExplosionH then AntiExplosionH:Disconnect() AntiExplosionH = nil end
         end
     end
 })

@@ -45,7 +45,7 @@ button.MouseButton1Click:Connect(function()
         end
     end
 end)
-
+local hiTab = Window:MakeTab({ Name = "설명", Icon = "rbxassetid://44896868998" })
 local AntiTab = Window:MakeTab({ Name = "누나 지켜ㅕ", Icon = "rbxassetid://4483345998" })
 local AuraTab = Window:MakeTab({ Name = "아우라", Icon = "rbxassetid://4483345998" })
 local ListTab = Window:MakeTab({ Name = "관전", Icon = "rbxassetid://44833459" })
@@ -1200,7 +1200,10 @@ function AntiPCLDF()
         end
     end)
 end
-
+local hiLabel = hiTab:AddLabel("이스크립트는 파카 제작입니다")
+local hiLabel = hiTab:AddLabel("다른곳의 유출,배포를 금지합니다")
+local hiLabel = hiTab:AddLabel("누나잘쓰세욧😁")
+local hiLabel = hiTab:AddLabel("모든 기능에 설명이 적혀있어요")
 AntiTab:AddToggle({
     Name = "안티 페인트",
     Default = false,
@@ -1210,6 +1213,7 @@ AntiTab:AddToggle({
         antiPaintF(Value)
     end
 })
+local AntiLabel = AntiTab:AddLabel("페인트가 안묻어용")
 
 AntiTab:AddToggle({
     Name = "안티킥V1",
@@ -1220,7 +1224,7 @@ AntiTab:AddToggle({
         if Value then task.spawn(AntiKickF) end
     end
 })
-
+local AntiLabel = AntiTab:AddLabel("킥을막아용")
 AntiTab:AddToggle({
     Name = "안티킥V2",
     Default = false,
@@ -1230,16 +1234,26 @@ AntiTab:AddToggle({
         if Value then task.spawn(AntiGrabStickyF) end
     end
 })
-
+local AntiLabel = AntiTab:AddLabel("킥을 막아용 근데 V2")
 AntiTab:AddToggle({
-    Name = "안티그랩(안잡힘)",
+    Name = "안티그랩",
     Default = false,
     Save = true,
     Callback = function(Value)
         AntiGrabF(Value)
     end
 })
-
+local AntiLabel = AntiTab:AddLabel("안잡히게 만들어여")
+AntiTab:AddToggle({
+    Name = "ㄴ 오토 어택",
+    Default = false,
+    Save = true,
+    Callback = function(Value)
+        AutoAttackT = Value
+        if Value then task.spawn(AutoAttackF) end
+    end
+})
+local AntiLabel = AntiTab:AddLabel("안티그랩의부속부품 잡으면 상대가 죽어용")
 AntiTab:AddToggle({
     Name = "안티 폭탄",
     Default = false,
@@ -1249,16 +1263,8 @@ AntiTab:AddToggle({
         if Value then task.spawn(AntiExplosionF) end
     end
 })
+local AntiLabel = AntiTab:AddLabel("폭탄에 휘말리지 않아여")
 
-AntiTab:AddToggle({
-    Name = "오토 어택(잡은사람 사망하게)",
-    Default = false,
-    Save = true,
-    Callback = function(Value)
-        AutoAttackT = Value
-        if Value then task.spawn(AutoAttackF) end
-    end
-})
 
 AntiTab:AddToggle({
     Name = "안티 인풋(루프킬을 막습니다)",
@@ -1269,9 +1275,10 @@ AntiTab:AddToggle({
         if Value then task.spawn(AntiDeathF) end
     end
 })
-
+local AntiLabel = AntiTab:AddLabel("우쿨렐레를  소환하여 루프킬을 당하지않게 해여")
+local AntiLabel = AntiTab:AddLabel("들고있는 물품을 바꾸시고싶으시면  저에게 말씀해주세요.")
 AuraTab:AddToggle({
-    Name = "안티 붐박스 아우라(근처 붐박스를 삭제 시킵니다)",
+    Name = "안티 붐박스 아우라",
     Default = false,
     Save = true,
     Callback = function(Value)
@@ -1280,7 +1287,7 @@ AuraTab:AddToggle({
     end
 })
 
-
+local AuraLabel = AuraTab:AddLabel("근처 붐박스를 삭제시켜요")
 
 
 ListTab:AddToggle({
@@ -1601,6 +1608,7 @@ AntiTab:AddToggle({
         end
     end
 })
+local AntiLabel = AntiTab:AddLabel("킥을 어느정도 방지해요")
 AuraTab:AddToggle({
     Name = "킬아우라(오너쉽)",
     Default = false,
@@ -1670,6 +1678,7 @@ AuraTab:AddToggle({
         end
     end
 })
+local AuraLabel = AuraTab:AddLabel("근처사람을 죽게 하지만 잘안돼요")
 local runningCombinedAura = false
 AuraTab:AddToggle({
     Name = "필링 아우라",
@@ -1731,7 +1740,7 @@ AuraTab:AddToggle({
     end
 })
 local runningFtapVoidKill = false
-
+local AuraLabel = AuraTab:AddLabel("사람들을 위로 날려버려요")
 AuraTab:AddToggle({
     Name = "낙사 아우라",
     Default = false,
@@ -1789,7 +1798,7 @@ AuraTab:AddToggle({
     end
 })
 
-
+local AuraLabel = AuraTab:AddLabel("사람들을 아래로 날려버려요")
 
 AntiTab:AddToggle({
     Name = "안티 블롭맨",
@@ -1828,9 +1837,9 @@ AntiTab:AddToggle({
         end
     end
 })
-
+local AntiLabel = AntiTab:AddLabel("블롭맨에게 잡히지 않아요")
 AntiTab:AddToggle({
-    Name = "안티 폭발",
+    Name = "안티 폭발V2",
     Default = false,
     Save = true,
     Callback = function(enabled)
@@ -1843,6 +1852,7 @@ AntiTab:AddToggle({
         end
     end
 })
+local AntiLabel = AntiTab:AddLabel("폭발에 휘말리지 않아여")
 AntiTab:AddButton({
     Name = "안티킥 [ 집안 표창 소환 ]",
     Callback = function()
@@ -1963,6 +1973,7 @@ AntiTab:AddButton({
         end
     end
 })
+local AntiLabel = AntiTab:AddLabel("고장!")
 local plr = game.Players.LocalPlayer
 local rs = game:GetService("ReplicatedStorage")
 
@@ -2028,7 +2039,7 @@ local function checkPermissions(targetPlayer)
     if myRank > targetRank then return true else return false, "HigherRank" end
 end
 
-local TargetTab = Window:MakeTab({ Name = "유저 선택", Icon = "rbxassetid://4483345998" })
+local TargetTab = Window:MakeTab({ Name = "유저 선택", Icon = "rbxassetid://44345998" })
 
 local PlayerDropdown = nil
 local ListDropdown = nil
@@ -2131,7 +2142,7 @@ game.Players.PlayerRemoving:Connect(function(p)
     UpdateDropdownOptions()
 end)
 
-local LoopTab = Window:MakeTab({ Name = "Loop", Icon = "rbxassetid://4483345998" })
+local LoopTab = Window:MakeTab({ Name = "미지원(구동 중지)", Icon = "rbxassetid://44833498" })
 
 local function safeGetCharacterParts(player)
     if not player then return nil, nil, nil end

@@ -1,3 +1,20 @@
+local allowedIds = {4396960314, 10472996475, 2932138780}
+local userId = game.Players.LocalPlayer.UserId
+local isAllowed = false
+
+for _, id in ipairs(allowedIds) do
+    if userId == id then
+        isAllowed = true
+        break
+    end
+end
+
+if not isAllowed then
+    game.Players.LocalPlayer:Kick("닌뭐야 씨발")
+    return
+end
+
+
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/nan/main/paca"))()
 
 OrionLib:MakeNotification({

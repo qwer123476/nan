@@ -2661,7 +2661,7 @@ AntiTab:AddToggle({
 PlTab:AddSlider({
     Name = "속도",
     Min = 16,
-    Max = 150,
+    Max = 3000,
     Default = 16,
     save = true,
     Increment = 1,

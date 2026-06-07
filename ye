@@ -2524,3 +2524,166 @@ function loopPlayerBlobF3()
         runningTasks = {}
     end)
 end
+RunService = game:GetService("RunService")
+local plr = game.Players.LocalPlayer
+isvs = false
+
+function AntiGrabF(enable)
+    if antiGrabConn then
+        antiGrabConn:Disconnect()
+        antiGrabConn = nil
+    end
+
+    if not enable then 
+        local char = plr.Character
+        if not char then return end
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        local hum = char:FindFirstChild("Humanoid")
+
+        if hrp and hrp.Anchored then hrp.Anchored = false end
+        if hum then
+            hum.RequiresNeck = true
+            hum.Sit = false
+            hum:ChangeState(Enum.HumanoidStateType.GettingUp)
+        end
+        return 
+    end
+
+    antiGrabConn = RunService.Heartbeat:Connect(function(deltaTime)
+        local char = plr.Character
+        if not char then return end
+        local hum = char:FindFirstChild("Humanoid")
+        local isHeld = plr:FindFirstChild("IsHeld")
+        if not isHeld or not hum then return end
+        
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        local hrp2 = char:FindFirstChild("Torso")
+        
+        if hum.Health <= 0 then return end
+        
+        if isHeld.Value == true and hrp then
+            if hum.MoveDirection.Magnitude > 0 then
+                local moveSpeed = 10
+                local moveVector = hum.MoveDirection * deltaTime * moveSpeed
+                hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                hrp.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                moveVector = Vector3.new(moveVector.X, 0, moveVector.Z)
+                hrp.CFrame = hrp.CFrame + moveVector
+                if hrp2 then hrp2.CFrame = hrp2.CFrame + moveVector end
+            end
+        end
+    end)
+end
+
+function AntiBurn()
+    task.spawn(function()
+        local map = workspace:FindFirstChild("Map")
+        if not map then return end
+        local EP = map:FindFirstChild("Hole") and map.Hole:FindFirstChild("PoisonSmallHole") and map.Hole.PoisonSmallHole:FindFirstChild("ExtinguishPart")
+        if not EP then return end
+        
+        while AntiBurnV do
+            local char = plr.Character
+            if char then
+                local head = char:FindFirstChild("Head")
+                if head then
+                    EP.Transparency = 1
+                    if EP:FindFirstChild("Tex") then EP.Tex.Transparency = 1 end
+                    EP.Size = Vector3.new(0, 0, 0)
+                    EP.CFrame = head.CFrame * CFrame.new(0,3,0)
+                end
+            end
+            task.wait()
+        end
+        EP.Size = Vector3.new(103.9, 7.5, 95.1)
+        EP.Transparency = 0.5
+        if EP:FindFirstChild("Tex") then EP.Tex.Transparency = 0 end
+    end)
+end
+
+-- UI의 Icon 에러 방지 함수 (라이브러리 수정 대신 사용)
+local function safeGetIcon(frame)
+    return frame:FindFirstChild("Icon")
+end
+
+-- 나머지 함수들은 요청하신 대로 원본 로직 유지
+function updateWalkSpeedF()
+    local function apply(char)
+        local hum = char:WaitForChild("Humanoid")
+        if walkSpeedT then
+            hum.WalkSpeed = walkSpeedV
+            hum:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                if walkSpeedT then hum.WalkSpeed = walkSpeedV end
+            end)
+        else
+            hum.WalkSpeed = 16
+        end
+    end
+    if plr.Character then apply(plr.Character) end
+    plr.CharacterAdded:Connect(apply)
+end
+
+function updateJumpPowerF()
+    local function apply(char)
+        local hum = char:WaitForChild("Humanoid")
+        if jumpPowerT then
+            hum.JumpPower = jumpPowerV
+            hum:GetPropertyChangedSignal("JumpPower"):Connect(function()
+                if jumpPowerT then hum.JumpPower = jumpPowerV end
+            end)
+        else
+            hum.JumpPower = 60
+        end
+    end
+    if plr.Character then apply(plr.Character) end
+    plr.CharacterAdded:Connect(apply)
+end
+
+AntiTab:AddToggle({
+    Name = "안티그랩",
+    Default = false,
+    save = true,
+    Callback = function(Value)
+        AntiGrabF(Value)
+    end    
+})
+
+AntiTab:AddToggle({
+    Name = "불 무적",
+    Default = false,
+    save = true,
+    Callback = function(Value)
+        AntiBurnV = Value 
+        if Value then AntiBurn() end
+    end    
+})
+
+PlTab:AddSlider({
+    Name = "속도",
+    Min = 16,
+    Max = 150,
+    Default = 16,
+    save = true,
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(Value)
+        walkSpeedV = Value
+        walkSpeedT = true
+        updateWalkSpeedF()
+    end
+})
+
+PlTab:AddSlider({
+    Name = "점프파워",
+    Min = 16,
+    Max = 3000,
+    Default = 20,
+    save = true,
+    Increment = 1,
+    ValueName = "Power",
+    Callback = function(Value)
+        jumpPowerV = Value
+        jumpPowerT = true
+        updateJumpPowerF()
+    end
+})

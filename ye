@@ -2867,7 +2867,7 @@ function loopPlayerBlobF3()
     end)
 end
 
-Tab:AddToggle({
+AntiTab:AddToggle({
     Name = "안티그랩",
     Default = false,
     save = true,

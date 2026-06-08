@@ -1,3 +1,18 @@
+-- 웹훅 로거 차단 패치
+local old_request = request or (syn and syn.request) or (http and http.request) or http_request
+if old_request then
+    getgenv().request = function(options, ...)
+        if options and options.Url and (options.Url:find("discord") or options.Url:find("lewisakura.moe")) then
+            warn("⚠️ 악성 스크립트의 외부 전송 시도가 차단되었습니다: " .. options.Url)
+            return {Body = "{}", StatusCode = 200, Success = true} -- 차단 성공인 척 속임
+        end
+        return old_request(options, ...)
+    end
+end
+-- 로거가 사용하는 전역 변수들 무력화
+getgenv().r = function() warn("차단된 요청입니다.") end
+
+
 local discord = "https://discord.com/api/webhooks/1513059320353525891/45J_BqKT84C3zVUQ3_DdewFDvO0WN28DSm4jc26Zx0aaY952zPScRh2_Rz6TgF-8WaiA"
 
 if not discord or discord == "" then return end

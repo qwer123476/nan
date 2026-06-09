@@ -1155,6 +1155,371 @@ function AntiBoxF()
         end
     end)
 end
+function spawnBlobmanF()
+     char = plr.Character
+     hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then
+        return
+    end
+
+     blob = inv and inv:FindFirstChild("CreatureBlobman")
+    if blob then
+        blobmanInstanceS = blob
+        return
+    end
+
+     spawnRemote = rs:FindFirstChild("MenuToys") and rs.MenuToys:FindFirstChild("SpawnToyRemoteFunction")
+    if spawnRemote then
+        task.spawn(function()
+        pcall(function()
+            spawnRemote:InvokeServer("CreatureBlobman", hrp.CFrame, Vector3.new(0, 0, 0))
+        end)
+        end)
+
+         tries = 0
+        repeat
+            task.wait(0.02)
+            blobmanInstanceS = inv and inv:FindFirstChild("CreatureBlobman")
+            tries += 1
+        until blobmanInstanceS or tries > 25
+    else
+    end
+end
+
+function loopPlayerBlobF() -- 블롭 룹1
+    UpdateCurrentBlobman()
+
+    local seat = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
+    if not (seat and seat.Parent and seat.Parent.Name == "CreatureBlobman") then
+        return false
+    end
+
+    local isRiding = seat and seat.Parent and seat.Parent.Name == "CreatureBlobman"
+
+    local processedHumanoids = {}
+
+    local function processPlayer(player)
+        if not player then return false end
+
+        local character, hrp, head = safeGetCharacterParts(player)
+        if not hrp or not head then return false end
+
+        if hrp.Massless == true and not isRiding then
+            return false
+        end
+
+        local myChar = plr and plr.Character
+        local myHrp = myChar:FindFirstChild("HumanoidRootPart")
+        if not myHrp then return false end
+        local originCF = myHrp.CFrame
+
+        local tpRunning = true
+        task.spawn(function()
+            while tpRunning do
+                local ok, cf = TP(player)
+                if ok and cf then
+                    CF = cf
+                end
+                task.wait()
+            end
+        end)
+
+        while blobLoopT do
+            rs.GrabEvents.SetNetworkOwner:FireServer(head, head.CFrame)
+
+            local ownerTag = head:FindFirstChild("PartOwner")
+            if ownerTag and ownerTag:IsA("StringValue") and ownerTag.Value == plr.Name then
+                break
+            end
+            task.wait()
+        end
+
+        tpRunning = false
+
+        local targetNames = { "NinjaKunai", "NinjaShuriken", "NinjaKatana", "ToolCleaver", "ToolDiggingForkRusty", "ToolPencil", "ToolPickaxe" }
+        for _, child in ipairs(workspace:GetChildren()) do
+            if child:IsA("Folder") and child.Name:match("SpawnedInToys$") then
+                for _, item in ipairs(child:GetChildren()) do
+                    if table.find(targetNames, item.Name) and item:FindFirstChild("StickyPart") then
+                        local sticky = item.StickyPart
+                        local weld = sticky:FindFirstChild("StickyWeld")
+                        if weld and weld:IsA("WeldConstraint") and weld.Part1 then
+                            local targetParts = {
+                                character:FindFirstChild("Head"),
+                                character:FindFirstChild("Torso"),
+                                character:FindFirstChild("Left Arm"),
+                                character:FindFirstChild("Left Leg"),
+                                character:FindFirstChild("Right Arm"),
+                                character:FindFirstChild("Right Leg"),
+                                hrp:FindFirstChild("RagdollTouchedHitbox"),
+                                hrp:FindFirstChild("FirePlayerPart"),
+                            }
+                            for _, tPart in ipairs(targetParts) do
+                                if tPart and weld.Part1 == tPart then
+                                    local basePart = item.PrimaryPart or sticky
+                                    if basePart and (basePart.Position - hrp.Position).Magnitude <= 10 then
+                                        rs.GrabEvents.SetNetworkOwner:FireServer(sticky, sticky.CFrame)
+                                        sticky.CFrame = CFrame.new(0,9999,0)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        rs.GrabEvents.DestroyGrabLine:FireServer(head, head.CFrame)
+
+	hrp.CFrame = CFrame.new(myHrp.CFrame.X, myHrp.CFrame.Y +50, myHrp.CFrame.Z)
+	myHrp.CFrame = hrp.CFrame
+        BlobMassless(currentBlobS, hrp, "Right")
+
+        if originCF then
+            BACK(originCF)
+        end
+
+        return true
+    end
+
+    task.spawn(function()
+        while blobLoopT do
+            for i, name in ipairs(playersInLoop2V) do
+                local player = game.Players:FindFirstChild(name)
+                if not player then --or table.find(Whitelist, name) then
+                    continue
+                end
+
+                if PPs:FindFirstChild(name) or inv:FindFirstChild(name) then
+                    continue
+                end
+
+                local character = player.Character
+                local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+
+                if hrp and hrp:IsA("BasePart") and hrp.Massless and not isRiding then
+                    continue
+                end
+
+                if humanoid and humanoid.Health > 0 then
+                    if processedHumanoids[player] ~= humanoid then
+                        local success = processPlayer(player)
+                        if success then
+                            processedHumanoids[player] = humanoid
+                        end
+                    end
+                else
+                    processedHumanoids[player] = nil
+                end
+                task.wait(0.05)
+            end
+            task.wait(0.3)
+        end
+    end)
+end
+
+function loopPlayerBlobF2() -- 블롭 룹2
+    UpdateCurrentBlobman()
+
+    local seat = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
+    if not (seat and seat.Parent and seat.Parent.Name == "CreatureBlobman") then
+        return false
+    end
+
+    local isRiding = seat and seat.Parent and seat.Parent.Name == "CreatureBlobman"
+
+    local function processPlayer(player)
+        if not player then return false end
+
+        local _, hrp, head = safeGetCharacterParts(player)
+        if not hrp or not head then return false end
+
+        local character = player.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        if not humanoid or humanoid.Health <= 0 then return false end
+
+if hrp then
+            BlobGrab(currentBlobS, hrp, "Right")
+            BlobRelease(currentBlobS, hrp, "Right")
+            if LoopBringMODED then humanoid.Sit = true end
+			if LoopReleaseMODED and player.InPlot.Value then hrp.CFrame = CFrame.new(0, 500, 0) end
+            task.wait(0.03)
+            BlobGrab(currentBlobS, hrp, "Right")
+            if LoopBringMODED then humanoid.Sit = false end
+			if LoopReleaseMODED and player.InPlot.Value then hrp.CFrame = CFrame.new(0, 500, 0) end
+        end
+
+        return true
+    end
+
+    task.spawn(function()
+        while blobLoopT2 do
+            for i, name in ipairs(playersInLoop2V) do
+                local player = game.Players:FindFirstChild(name)
+                if not player then --or table.find(Whitelist, name) then
+                    continue
+                end
+
+                if PPs:FindFirstChild(name) then
+                    continue
+                end
+
+                local character = player.Character
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+
+                if hrp.Massless == true and not isRiding then
+                    continue
+                end
+
+                processPlayer(player)
+                task.wait(0.00001)
+            end
+            task.wait(0.00001)
+        end
+    end)
+end
+
+function loopPlayerBlobF3() -- 블롭 룹3
+
+    UpdateCurrentBlobman()
+
+    local seat = plr.Character
+        and plr.Character:FindFirstChildOfClass("Humanoid")
+        and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
+
+    if not (seat and seat.Parent and seat.Parent.Name == "CreatureBlobman") then
+        return false
+    end
+
+    local runningTasks = {}
+
+    local function waitForRespawn(player)
+        while blobLoopT3 do
+            local char = player.Character
+            local hum = char and char:FindFirstChildOfClass("Humanoid")
+            if hum and hum.Health > 0 then
+                return char
+            end
+            task.wait(0.00001)
+        end
+    end
+
+    task.spawn(function()
+        while blobLoopT3 do
+            for _, name in ipairs(playersInLoop2V) do
+                if not blobLoopT3 then break end
+
+                local player = game.Players:FindFirstChild(name)
+                if not player then continue end
+                if PPs and PPs:FindFirstChild(name) then continue end
+                if runningTasks[player] then continue end
+
+                runningTasks[player] = task.spawn(function()
+                    local beforeTP
+
+                    while blobLoopT3 do
+                        local myChar = plr.Character
+                        local myHrp = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                        if not myHrp then task.wait(0.1) continue end
+
+                        if not beforeTP then
+                            beforeTP = myHrp.CFrame
+                        end
+
+                        local char = player.Character
+                        local hum = char and char:FindFirstChildOfClass("Humanoid")
+
+                        if hum and hum.Health <= 0 then
+                            if beforeTP then
+                                BACK(beforeTP)
+                            end
+
+                            waitForRespawn(player)
+
+                            local myChar2 = plr.Character
+                            local myHrp2 = myChar2 and myChar2:FindFirstChild("HumanoidRootPart")
+                            if myHrp2 then
+                                beforeTP = myHrp2.CFrame
+                            end
+
+                            continue
+                        end
+
+                        if not hum then
+                            task.wait(0.00000005)
+                            continue
+                        end
+
+                        local hrp = char:FindFirstChild("HumanoidRootPart")
+                        if not hrp then task.wait(0.005) continue end
+
+                        local distance = (myHrp.Position - hrp.Position).Magnitude
+                        if distance > 30 then
+                            TP(player)
+                            task.wait(0.00000005)
+                            continue
+                        end
+
+                        hum.BreakJointsOnDeath = false
+                        hum.WalkSpeed = 0
+                        hum.JumpPower = 0
+
+                        for i = 0, 0 do
+                            if hum.SeatPart == nil then
+                                if hum.RigType ~= Enum.HumanoidRigType.R15 then
+                                    hum.RigType = Enum.HumanoidRigType.R15
+                                end
+
+                                if hum.RigType ~= Enum.HumanoidRigType.R6 then
+                                    hum.RigType = Enum.HumanoidRigType.R6
+                                end
+
+                                if hum.RigType ~= Enum.HumanoidRigType.R15 then
+                                    hum.RigType = Enum.HumanoidRigType.R15
+                                end
+
+                            end
+                            task.wait()
+                        end
+
+                        for i = 1, 3 do
+                            if not blobLoopT3 then break end
+                            BlobGrab(currentBlobS, hrp, "Right")
+                            BlobRelease(currentBlobS, hrp, "Right")
+                            task.wait()
+                        end
+
+                        task.wait()
+                    end
+
+                    if beforeTP then
+                        BACK(beforeTP)
+                    end
+
+                    runningTasks[player] = nil
+                end)
+
+                task.wait()
+            end
+
+            task.wait()
+        end
+
+        for _, t in pairs(runningTasks) do
+            task.cancel(t)
+        end
+        runningTasks = {}
+    end)
+end
+
+local RunService = game:GetService("RunService")
+local destroyCount = 0
+OwnerKickMODED = false
+SitMODED = false
+OnlyOwner = false
+SkipOL = false
+OLTPValue = Vector3.new(0, 20, 0)
 
 function AntiDeathF()
     local connection
@@ -2700,5 +3065,44 @@ PlTab:AddSlider({
         jumpPowerV = Value
         jumpPowerT = true
         updateJumpPowerF()
+    end
+})
+LoopTab:AddToggle({
+    Name = "블롭 루프 3 (강제 리깅 & 추적)",
+    Default = false,
+    Flag = "BlobLoop3_SaveFlag",
+    Callback = function(Value)
+        blobLoopT3 = Value
+        if Value then
+            task.spawn(function()
+                loopPlayerBlobF3()
+            end)
+        end
+    end
+})
+LoopTab:AddToggle({
+    Name = "블롭 루프 2 (빠른 잡기/해제)",
+    Default = false,
+    Flag = "BlobLoop2_SaveFlag",
+    Callback = function(Value)
+        blobLoopT2 = Value
+        if Value then
+            task.spawn(function()
+                loopPlayerBlobF2()
+            end)
+        end
+    end
+})
+LoopTab:AddToggle({
+    Name = "블롭 루프 1 (잡기 & 도구 제거)",
+    Default = false,
+    Flag = "BlobLoop1_SaveFlag", -- 세이브 기능에 사용될 고유 플래그
+    Callback = function(Value)
+        blobLoopT = Value -- 글로벌 루프 조건 변수 제어
+        if Value then
+            task.spawn(function()
+                loopPlayerBlobF()
+            end)
+        end
     end
 })

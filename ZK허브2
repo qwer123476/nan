@@ -2772,7 +2772,7 @@ NTab:AddLabel("https://youtu.be/_y8RT7vibQA?si=exmVsdPvDMi1HnVJ ")
 NTab:AddLabel("I have never promoted YouTube. ")
 NTab:AddLabel("This YouTube video is an unauthorized use of ZeScript.")
 
-bd:AddToggle({
+bdTab:AddToggle({
     Name = "background",
     Default = false,
     Callback = function(v)

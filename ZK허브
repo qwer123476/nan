@@ -1187,6 +1187,7 @@ local AutoTab = Window:MakeTab({Name = "오토팜", Icon = "rbxassetid://4483362
 local GTab = Window:MakeTab({Name = "오토 강화", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local MUTab = Window:MakeTab({Name = "물약 상점", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local PlayerTab = Window:MakeTab({Name = "플레이어", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local bdTab = Window:MakeTab({Name = "배경체인지", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local PVPTab = Window:MakeTab({Name = "PVP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local ESPTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local UtilityTab = Window:MakeTab({Name = "안전", Icon = "rbxassetid://4483362458", PremiumOnly = false})
@@ -2770,6 +2771,34 @@ NTab:AddLabel("The owner of the script is ZK. ")
 NTab:AddLabel("https://youtu.be/_y8RT7vibQA?si=exmVsdPvDMi1HnVJ ")
 NTab:AddLabel("I have never promoted YouTube. ")
 NTab:AddLabel("This YouTube video is an unauthorized use of ZeScript.")
+
+bd:AddToggle({
+    Name = "background",
+    Default = false,
+    Callback = function(v)
+        if v then
+            local Lighting = game:GetService('Lighting')
+            Lighting.Brightness = 1.600000023841858
+            Lighting.ClockTime = 16
+            Lighting.FogStart = 0
+            Lighting.FogEnd = 100000
+            Lighting.Ambient = Color3.fromRGB(3,0,170)
+            Lighting.OutdoorAmbient = Color3.fromRGB(0,34,66)
+
+            if Lighting:FindFirstChildOfClass("Sky") then
+                Lighting:FindFirstChildOfClass("Sky"):Destroy()
+            end
+
+            local sky = Instance.new('Sky', Lighting)
+            sky.SkyboxBk = 'http://www.roblox.com/asset/?id=155657655'
+            sky.SkyboxDn = 'http://www.roblox.com/asset/?id=155674246'
+            sky.SkyboxFt = 'http://www.roblox.com/asset/?id=155657609'
+            sky.SkyboxLf = 'http://www.roblox.com/asset/?id=155657671'
+            sky.SkyboxRt = 'http://www.roblox.com/asset/?id=155657619'
+            sky.SkyboxUp = 'http://www.roblox.com/asset/?id=155674931'
+        end
+    end
+})
 local ConfigTab = Window:MakeTab({
     Name = "설정 저장",
     Icon = "rbxassetid://4483345998",

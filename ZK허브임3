@@ -2652,11 +2652,11 @@ local musicList = {
 	["Low Cortisol"] = 110919391228823,
 	["Happy-Go-Lively"] = 1842414898,
 	["Sugar Stutters (a)"] = 1838080629,
-    	["The Loneliest Hour"] = 114213622974713
+    ["The Loneliest Hour"] = 114213622974713
 
 }
 
---local selectedMusic = "Crab Lava"
+local selectedMusic = "Crab Lava"
 
 
 MusicTab:AddDropdown({

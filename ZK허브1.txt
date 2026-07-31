@@ -1,0 +1,2807 @@
+
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
+
+local Options = Library.Options
+local Toggles = Library.Toggles
+
+Library.ForceCheckbox = false
+
+
+local OrionLib = {
+	Themes = {},
+	Flags = {},
+	ThemeObjects = {},
+}
+
+do
+	setmetatable(OrionLib.Flags, {
+		__index = function(t, k)
+			local flag = {
+				Set = function() end,
+				SetValue = function() end,
+				Get = function() return nil end,
+			}
+			rawset(t, k, flag)
+			return flag
+		end,
+	})
+
+	local function PlaySound(id)
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxassetid://" .. id
+	sound.Volume = 2
+	sound.Parent = game:GetService("SoundService")
+	sound:Play()
+
+	game:GetService("Debris"):AddItem(sound, 3)
+end
+
+local function safeNotify(title, content, time)
+	pcall(function()
+		Library:Notify({
+			Title = tostring(title or "Notification"),
+			Description = tostring(content or ""),
+			Time = tonumber(time) or 5,
+		})
+
+		
+		PlaySound(6026984224)
+	end)
+end
+
+function OrionLib:MakeNotification(info)
+	safeNotify(
+		info and (info.Name or info.Title),
+		info and (info.Content or info.Description),
+		info and info.Time
+	)
+end
+	local function getGroup(tabProxy)
+		if tabProxy._currentGroup then
+			return tabProxy._currentGroup
+		end
+		-- alternate sides to mimic left/right distribution
+		local side = tabProxy._side or 1
+		local groupName = (tabProxy._name or "Tab") .. " Main"
+		local grp = (side == 1) and tabProxy._tab:AddLeftGroupbox(groupName) or tabProxy._tab:AddRightGroupbox(groupName)
+		tabProxy._side = (side == 1) and 2 or 1
+		tabProxy._currentGroup = grp
+		return grp
+	end
+
+	local function makeLabelProxy(lbl)
+		return {
+			Set = function(_, v)
+				pcall(function() lbl:SetText(tostring(v)) end)
+			end,
+			SetText = function(_, v)
+				pcall(function() lbl:SetText(tostring(v)) end)
+			end,
+		}
+	end
+
+	local function makeToggleProxy(t)
+		local proxy = {
+			_obj = t,
+			Set = function(_, v) pcall(function() t:SetValue(v) end) end,
+			SetValue = function(_, v) pcall(function() t:SetValue(v) end) end,
+			Get = function() return t.Value end,
+		}
+		setmetatable(proxy, {
+			__index = function(_, k)
+				return t[k]
+			end,
+			__newindex = function(_, k, v)
+				t[k] = v
+			end,
+		})
+		return proxy
+	end
+
+	local function makeDropdownProxy(d)
+		if type(d) ~= "table" then
+			return d
+		end
+		d.Set = function(_, v)
+			pcall(function() d:SetValue(v) end)
+		end
+		d.SetValue = function(_, v)
+			pcall(function() d:SetValue(v) end)
+		end
+		d.Get = function()
+			return d.Value
+		end
+		d.Refresh = function(_, values, keep)
+			pcall(function() d:SetValues(values or {}) end)
+			if not keep then
+				pcall(function() d:SetValue(nil) end)
+			end
+		end
+		return d
+	end
+
+	local function ensureFlagObject(flagName, obj)
+		if type(flagName) == "string" and flagName ~= "" and obj ~= nil then
+			OrionLib.Flags[flagName] = obj
+		end
+	end
+
+	local function makeNoopSectionProxy()
+		local noop = {}
+		setmetatable(noop, {
+			__index = function(_, k)
+				if type(k) == "string" and k:sub(1, 3) == "Add" then
+					return function() return noop end
+				end
+				return nil
+			end,
+		})
+		return noop
+	end
+
+	local function makeSectionProxy(tabProxy, grp)
+		local section = {}
+
+		function section:AddToggle(ti)
+			local t = grp:AddToggle(ti.Name or "Toggle", {
+				Text = ti.Name or "Toggle",
+				Default = ti.Default == true,
+				Callback = ti.Callback,
+			})
+			local proxy = makeToggleProxy(t)
+			ensureFlagObject(ti and ti.Flag, proxy)
+			return proxy
+		end
+
+		function section:AddButton(ti)
+			grp:AddButton(ti.Name or "Button", {
+				Text = ti.Name or "Button",
+				Func = ti.Callback or ti.Func,
+			})
+		end
+
+		function section:AddDropdown(ti)
+			local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+			local d = grp:AddDropdown(ti.Name or "Dropdown", {
+				Text = ti.Name or "Dropdown",
+				Values = ti.Options or {},
+				Default = ti.Default,
+				Multi = multi,
+				Callback = ti.Callback,
+			})
+			d = makeDropdownProxy(d)
+			ensureFlagObject(ti and ti.Flag, d)
+			return d
+		end
+
+		function section:AddTeamsDropdown(ti)
+			local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+			local d = grp:AddDropdown(ti.Name or "Teams", {
+				Text = ti.Name or "Teams",
+				SpecialType = "Team",
+				Multi = multi,
+				Default = ti and ti.Default or nil,
+				Callback = function(val)
+					if not ti or not ti.Callback then return end
+					if multi and type(val) == "table" then
+						local out = {}
+						for name, enabled in pairs(val) do
+							if enabled then
+								table.insert(out, name)
+							end
+						end
+						ti.Callback(out)
+					else
+						ti.Callback(val)
+					end
+				end,
+			})
+			d = makeDropdownProxy(d)
+			ensureFlagObject(ti and ti.Flag, d)
+			return d
+		end
+
+		function section:AddColorpicker(ti)
+			local name = (ti and ti.Name) or "Color"
+			local flag = ti and ti.Flag
+			local default = (ti and ti.Default) or Color3.new(1, 1, 1)
+
+			-- Obsidian exposes ColorPicker as an addon (BaseAddons) attached to a toggle.
+			-- We create an inert toggle to host the color picker so sigma code remains compatible.
+			local host = grp:AddToggle("__cp_" .. tostring(name), {
+				Text = tostring(name),
+				Default = false,
+				Callback = function() end,
+			})
+			local cp = host:AddColorPicker("__cp_val_" .. tostring(flag or name), {
+				Title = tostring(name),
+				Default = default,
+				Callback = function(c)
+					if ti and ti.Callback then
+						ti.Callback(c)
+					end
+				end,
+			})
+			ensureFlagObject(flag, cp)
+			return cp
+		end
+		section.AddColorPicker = section.AddColorpicker
+
+		function section:AddSubSection(ti)
+			return tabProxy:AddSection(ti)
+		end
+
+		function section:AddPlayersDropdown(ti)
+			local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+			local d = grp:AddDropdown(ti.Name or "Players", {
+				Text = ti.Name or "Players",
+				SpecialType = "Player",
+				ExcludeLocalPlayer = ti and (ti.ExcludeLocalPlayer == true or ti.RemoveDP == true),
+				Multi = multi,
+				Default = ti and ti.Default or nil,
+				Callback = function(val)
+					if not ti or not ti.Callback then return end
+					if multi and type(val) == "table" then
+						local out = {}
+						for name, enabled in pairs(val) do
+							if enabled then
+								table.insert(out, name)
+							end
+						end
+						ti.Callback(out)
+					else
+						ti.Callback(val)
+					end
+				end,
+			})
+			d = makeDropdownProxy(d)
+			ensureFlagObject(ti and ti.Flag, d)
+			return d
+		end
+
+		function section:AddSlider(ti)
+			local s = grp:AddSlider(ti.Name or "Slider", {
+				Text = ti.Name or "Slider",
+				Min = tonumber(ti.Min) or 0,
+				Max = tonumber(ti.Max) or 100,
+				Default = tonumber(ti.Default) or tonumber(ti.Min) or 0,
+				Rounding = 0,
+				Callback = ti.Callback,
+			})
+			pcall(function()
+				if type(s) == "table" and s.Set == nil and s.SetValue ~= nil then
+					s.Set = function(_, v) s:SetValue(v) end
+				end
+			end)
+			ensureFlagObject(ti and ti.Flag, s)
+			return s
+		end
+
+		function section:AddTextbox(ti)
+			local i = grp:AddInput(ti.Name or "Textbox", {
+				Text = ti.Name or "Textbox",
+				Default = tostring(ti.Default or ""),
+				Numeric = false,
+				Finished = true,
+				Callback = ti.Callback,
+			})
+			pcall(function()
+				if type(i) == "table" and i.Set == nil and i.SetValue ~= nil then
+					i.Set = function(_, v) i:SetValue(v) end
+				end
+			end)
+			ensureFlagObject(ti and ti.Flag, i)
+			return i
+		end
+
+		function section:AddLabel(text)
+			local lbl = grp:AddLabel(tostring(text or ""))
+			return makeLabelProxy(lbl)
+		end
+
+		function section:AddBind(ti)
+			local kp = grp:AddKeyPicker(ti.Name or "Bind", {
+				Text = ti.Name or "Bind",
+				Default = ti.Default,
+				Mode = ti.Hold and "Hold" or "Toggle",
+				Callback = ti.Callback,
+			})
+			pcall(function()
+				if type(kp) == "table" and kp.Set == nil and kp.SetValue ~= nil then
+					kp.Set = function(_, v) kp:SetValue(v) end
+				end
+			end)
+			ensureFlagObject(ti and ti.Flag, kp)
+			return kp
+		end
+
+		function section:AddSection(ti)
+			return tabProxy:AddSection(ti)
+		end
+
+		function section:AddParagraph(ti)
+			local title = (ti and ti.Name) or (ti and ti.Title) or ""
+			local content = (ti and ti.Content) or (ti and ti.Description) or ""
+			if title ~= "" then
+				grp:AddLabel(tostring(title))
+			end
+			if content ~= "" then
+				grp:AddLabel(tostring(content))
+			end
+			return {}
+		end
+
+		return section
+	end
+
+	function OrionLib:MakeWindow(info)
+		local obsidianWindow = Library:CreateWindow({
+			Title = tostring(info and info.Name or "Window"),
+			Footer = tostring(info and info.IntroText or ""),
+			NotifySide = "Right",
+			ShowCustomCursor = true,
+		})
+
+		local windowProxy = {}
+		function windowProxy:MakeTab(tabInfo)
+			local tabName = tostring(tabInfo and tabInfo.Name or "Tab")
+			local obsidianTab = obsidianWindow:AddTab(tabName, "box")
+			local tabProxy = {
+				_tab = obsidianTab,
+				_name = tabName,
+				_side = 1,
+				_currentGroup = nil,
+			}
+			setmetatable(tabProxy, {
+				__index = function(t, k)
+					if type(k) == "string" and k:sub(1, 3) == "Add" then
+						return function() return makeNoopSectionProxy() end
+					end
+					return rawget(t, k)
+				end,
+			})
+
+			function tabProxy:AddToggle(ti)
+				local grp = getGroup(tabProxy)
+				local t = grp:AddToggle(ti.Name or "Toggle", {
+					Text = ti.Name or "Toggle",
+					Default = ti.Default == true,
+					Callback = ti.Callback,
+				})
+				local proxy = makeToggleProxy(t)
+				ensureFlagObject(ti and ti.Flag, proxy)
+				return proxy
+			end
+
+			function tabProxy:AddButton(ti)
+				local grp = getGroup(tabProxy)
+				grp:AddButton(ti.Name or "Button", {
+					Text = ti.Name or "Button",
+					Func = ti.Callback or ti.Func,
+				})
+			end
+
+			function tabProxy:AddDropdown(ti)
+				local grp = getGroup(tabProxy)
+				local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+				local d = grp:AddDropdown(ti.Name or "Dropdown", {
+					Text = ti.Name or "Dropdown",
+					Values = ti.Options or {},
+					Default = ti.Default,
+					Multi = multi,
+					Callback = ti.Callback,
+				})
+				d = makeDropdownProxy(d)
+				ensureFlagObject(ti and ti.Flag, d)
+				return d
+			end
+
+			function tabProxy:AddTeamsDropdown(ti)
+				local grp = getGroup(tabProxy)
+				local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+				local d = grp:AddDropdown(ti.Name or "Teams", {
+					Text = ti.Name or "Teams",
+					SpecialType = "Team",
+					Multi = multi,
+					Default = ti and ti.Default or nil,
+					Callback = function(val)
+						if not ti or not ti.Callback then return end
+						if multi and type(val) == "table" then
+							local out = {}
+							for name, enabled in pairs(val) do
+								if enabled then
+									table.insert(out, name)
+								end
+							end
+							ti.Callback(out)
+						else
+							ti.Callback(val)
+						end
+					end,
+				})
+				d = makeDropdownProxy(d)
+				ensureFlagObject(ti and ti.Flag, d)
+				return d
+			end
+
+			function tabProxy:AddColorpicker(ti)
+				local grp = getGroup(tabProxy)
+				return makeSectionProxy(tabProxy, grp):AddColorpicker(ti)
+			end
+			tabProxy.AddColorPicker = tabProxy.AddColorpicker
+
+			function tabProxy:AddSubSection(ti)
+				return tabProxy:AddSection(ti)
+			end
+
+			function tabProxy:AddPlayersDropdown(ti)
+				local grp = getGroup(tabProxy)
+				local multi = (ti and ((ti.MultipleSelection == true) or (ti.Multi == true)))
+				local d = grp:AddDropdown(ti.Name or "Players", {
+					Text = ti.Name or "Players",
+					SpecialType = "Player",
+					ExcludeLocalPlayer = ti and (ti.ExcludeLocalPlayer == true or ti.RemoveDP == true),
+					Multi = multi,
+					Default = ti and ti.Default or nil,
+					Callback = function(val)
+						if not ti or not ti.Callback then return end
+						if multi and type(val) == "table" then
+							local out = {}
+							for name, enabled in pairs(val) do
+								if enabled then
+									table.insert(out, name)
+								end
+							end
+							ti.Callback(out)
+						else
+							ti.Callback(val)
+						end
+					end,
+				})
+				d = makeDropdownProxy(d)
+				ensureFlagObject(ti and ti.Flag, d)
+				return d
+			end
+
+			function tabProxy:AddSlider(ti)
+				local grp = getGroup(tabProxy)
+				local s = grp:AddSlider(ti.Name or "Slider", {
+					Text = ti.Name or "Slider",
+					Min = tonumber(ti.Min) or 0,
+					Max = tonumber(ti.Max) or 100,
+					Default = tonumber(ti.Default) or tonumber(ti.Min) or 0,
+					Rounding = 0,
+					Callback = ti.Callback,
+				})
+				pcall(function()
+					if type(s) == "table" and s.Set == nil and s.SetValue ~= nil then
+						s.Set = function(_, v) s:SetValue(v) end
+					end
+				end)
+				ensureFlagObject(ti and ti.Flag, s)
+				return s
+			end
+
+			function tabProxy:AddTextbox(ti)
+				local grp = getGroup(tabProxy)
+				local i = grp:AddInput(ti.Name or "Textbox", {
+					Text = ti.Name or "Textbox",
+					Default = tostring(ti.Default or ""),
+					Numeric = false,
+					Finished = true,
+					Callback = ti.Callback,
+				})
+				pcall(function()
+					if type(i) == "table" and i.Set == nil and i.SetValue ~= nil then
+						i.Set = function(_, v) i:SetValue(v) end
+					end
+				end)
+				ensureFlagObject(ti and ti.Flag, i)
+				return i
+			end
+
+			function tabProxy:AddLabel(text)
+				local grp = getGroup(tabProxy)
+				local lbl = grp:AddLabel(tostring(text or ""))
+				return makeLabelProxy(lbl)
+			end
+
+			
+			function tabProxy:AddSection(ti)
+				local side = tabProxy._side or 1
+				local name = (typeof(ti) == "table" and ti.Name) or tostring(ti or "")
+				if not name or name == "" then
+					name = (tabProxy._name or "Tab") .. " Section"
+				end
+				local grp = (side == 1) and tabProxy._tab:AddLeftGroupbox(name) or tabProxy._tab:AddRightGroupbox(name)
+				tabProxy._side = (side == 1) and 2 or 1
+				tabProxy._currentGroup = grp
+				return makeSectionProxy(tabProxy, grp)
+			end
+
+			function tabProxy:AddParagraph(ti)
+				local grp = getGroup(tabProxy)
+				local title = (ti and ti.Name) or (ti and ti.Title) or ""
+				local content = (ti and ti.Content) or (ti and ti.Description) or ""
+				if title ~= "" then
+					grp:AddLabel(tostring(title))
+				end
+				if content ~= "" then
+					grp:AddLabel(tostring(content))
+				end
+				return {}
+			end
+
+			return tabProxy
+		end
+
+		return windowProxy
+	end
+end
+
+OrionLib.Themes.RedDevil = {
+    Main = Color3.fromRGB(10, 0, 0),
+    Second = Color3.fromRGB(20, 0, 0),
+    Stroke = Color3.fromRGB(100, 0, 0),
+    Divider = Color3.fromRGB(100, 0, 0),
+    Text = Color3.fromRGB(255, 30, 30),
+    TextDark = Color3.fromRGB(130, 20, 20)
+}
+
+OrionLib.Themes.BloodMoon = {
+    Main = Color3.fromRGB(15, 0, 5),
+    Second = Color3.fromRGB(25, 0, 10),
+    Stroke = Color3.fromRGB(120, 0, 30),
+    Divider = Color3.fromRGB(120, 0, 30),
+    Text = Color3.fromRGB(255, 50, 70),
+    TextDark = Color3.fromRGB(160, 25, 45)
+}
+
+OrionLib.Themes.Inferno = {
+    Main = Color3.fromRGB(20, 5, 0),
+    Second = Color3.fromRGB(35, 10, 0),
+    Stroke = Color3.fromRGB(180, 40, 0),
+    Divider = Color3.fromRGB(180, 40, 0),
+    Text = Color3.fromRGB(255, 90, 50),
+    TextDark = Color3.fromRGB(200, 60, 25)
+}
+
+OrionLib.Themes.Demon = {
+    Main = Color3.fromRGB(12, 0, 8),
+    Second = Color3.fromRGB(22, 0, 15),
+    Stroke = Color3.fromRGB(110, 0, 70),
+    Divider = Color3.fromRGB(110, 0, 70),
+    Text = Color3.fromRGB(255, 60, 200),
+    TextDark = Color3.fromRGB(170, 30, 120)
+}
+
+OrionLib.Themes.Hell = {
+    Main = Color3.fromRGB(18, 0, 3),
+    Second = Color3.fromRGB(28, 0, 8),
+    Stroke = Color3.fromRGB(140, 0, 40),
+    Divider = Color3.fromRGB(140, 0, 40),
+    Text = Color3.fromRGB(255, 70, 90),
+    TextDark = Color3.fromRGB(180, 35, 55)
+}
+
+OrionLib.Themes.Satan = {
+    Main = Color3.fromRGB(8, 0, 12),
+    Second = Color3.fromRGB(18, 0, 22),
+    Stroke = Color3.fromRGB(90, 0, 130),
+    Divider = Color3.fromRGB(90, 0, 130),
+    Text = Color3.fromRGB(200, 60, 255),
+    TextDark = Color3.fromRGB(130, 30, 170)
+}
+
+OrionLib.Themes.DarkNeon = {
+    Main = Color3.fromRGB(10, 10, 15),
+    Second = Color3.fromRGB(15, 15, 25),
+    Stroke = Color3.fromRGB(0, 255, 150),
+    Divider = Color3.fromRGB(0, 200, 120),
+    Text = Color3.fromRGB(0, 255, 150),
+    TextDark = Color3.fromRGB(0, 120, 80)
+}
+
+OrionLib.Themes.IceBlue = {
+    Main = Color3.fromRGB(0, 25, 40),
+    Second = Color3.fromRGB(0, 40, 60),
+    Stroke = Color3.fromRGB(0, 140, 255),
+    Divider = Color3.fromRGB(0, 100, 180),
+    Text = Color3.fromRGB(150, 200, 255),
+    TextDark = Color3.fromRGB(80, 120, 200)
+}
+
+OrionLib.Themes.FireHell = {
+    Main = Color3.fromRGB(20, 0, 0),
+    Second = Color3.fromRGB(40, 5, 5),
+    Stroke = Color3.fromRGB(255, 60, 0),
+    Divider = Color3.fromRGB(200, 40, 0),
+    Text = Color3.fromRGB(255, 130, 60),
+    TextDark = Color3.fromRGB(150, 60, 40)
+}
+
+OrionLib.Themes.MidnightPurple = {
+    Main = Color3.fromRGB(15, 0, 30),
+    Second = Color3.fromRGB(25, 0, 45),
+    Stroke = Color3.fromRGB(150, 0, 255),
+    Divider = Color3.fromRGB(110, 0, 200),
+    Text = Color3.fromRGB(200, 150, 255),
+    TextDark = Color3.fromRGB(120, 80, 170)
+}
+
+OrionLib.Themes.PastelDream = {
+    Main = Color3.fromRGB(240, 220, 255),
+    Second = Color3.fromRGB(230, 200, 255),
+    Stroke = Color3.fromRGB(200, 150, 255),
+    Divider = Color3.fromRGB(180, 120, 230),
+    Text = Color3.fromRGB(90, 40, 140),
+    TextDark = Color3.fromRGB(120, 90, 150)
+}
+
+OrionLib.Themes.ToxicGreen = {
+    Main = Color3.fromRGB(5, 15, 5),
+    Second = Color3.fromRGB(10, 25, 10),
+    Stroke = Color3.fromRGB(0, 255, 0),
+    Divider = Color3.fromRGB(0, 200, 0),
+    Text = Color3.fromRGB(120, 255, 120),
+    TextDark = Color3.fromRGB(60, 160, 60)
+}
+
+OrionLib.Themes.CyberRed = {
+    Main = Color3.fromRGB(15, 0, 0),
+    Second = Color3.fromRGB(25, 0, 0),
+    Stroke = Color3.fromRGB(255, 0, 60),
+    Divider = Color3.fromRGB(200, 0, 40),
+    Text = Color3.fromRGB(255, 130, 150),
+    TextDark = Color3.fromRGB(150, 70, 90)
+}
+
+OrionLib.Themes.VaporWave = {
+    Main = Color3.fromRGB(30, 0, 50),
+    Second = Color3.fromRGB(40, 0, 70),
+    Stroke = Color3.fromRGB(255, 0, 200),
+    Divider = Color3.fromRGB(100, 200, 255),
+    Text = Color3.fromRGB(255, 180, 230),
+    TextDark = Color3.fromRGB(150, 100, 180)
+}
+
+OrionLib.Themes.SteelGray = {
+    Main = Color3.fromRGB(25, 25, 25),
+    Second = Color3.fromRGB(40, 40, 40),
+    Stroke = Color3.fromRGB(160, 160, 160),
+    Divider = Color3.fromRGB(120, 120, 120),
+    Text = Color3.fromRGB(220, 220, 220),
+    TextDark = Color3.fromRGB(150, 150, 150)
+}
+
+OrionLib.Themes.GoldElite = {
+    Main = Color3.fromRGB(20, 15, 0),
+    Second = Color3.fromRGB(35, 25, 0),
+    Stroke = Color3.fromRGB(255, 200, 0),
+    Divider = Color3.fromRGB(200, 150, 0),
+    Text = Color3.fromRGB(255, 220, 100),
+    TextDark = Color3.fromRGB(180, 140, 60)
+}
+
+OrionLib.Themes.OceanDeep = {
+    Main = Color3.fromRGB(0, 5, 20),
+    Second = Color3.fromRGB(0, 10, 40),
+    Stroke = Color3.fromRGB(0, 90, 180),
+    Divider = Color3.fromRGB(0, 70, 130),
+    Text = Color3.fromRGB(120, 180, 255),
+    TextDark = Color3.fromRGB(60, 120, 180)
+}
+
+OrionLib.Themes.Matrix = {
+    Main = Color3.fromRGB(0, 0, 0),
+    Second = Color3.fromRGB(10, 10, 10),
+    Stroke = Color3.fromRGB(0, 255, 0),
+    Divider = Color3.fromRGB(0, 180, 0),
+    Text = Color3.fromRGB(0, 255, 0),
+    TextDark = Color3.fromRGB(0, 160, 0)
+}
+
+OrionLib.Themes.Sunset = {
+    Main = Color3.fromRGB(40, 0, 10),
+    Second = Color3.fromRGB(70, 20, 20),
+    Stroke = Color3.fromRGB(255, 80, 0),
+    Divider = Color3.fromRGB(200, 50, 0),
+    Text = Color3.fromRGB(255, 140, 80),
+    TextDark = Color3.fromRGB(180, 90, 60)
+}
+
+OrionLib.Themes.ArcticWhite = {
+    Main = Color3.fromRGB(230, 230, 230),
+    Second = Color3.fromRGB(255, 255, 255),
+    Stroke = Color3.fromRGB(180, 180, 180),
+    Divider = Color3.fromRGB(150, 150, 150),
+    Text = Color3.fromRGB(40, 40, 40),
+    TextDark = Color3.fromRGB(100, 100, 100)
+}
+
+OrionLib.Themes.RoyalBlue = {
+    Main = Color3.fromRGB(0, 10, 50),
+    Second = Color3.fromRGB(0, 20, 80),
+    Stroke = Color3.fromRGB(0, 70, 255),
+    Divider = Color3.fromRGB(0, 50, 180),
+    Text = Color3.fromRGB(100, 160, 255),
+    TextDark = Color3.fromRGB(70, 110, 180)
+}
+
+OrionLib.Themes.InfernoRed = {
+    Main = Color3.fromRGB(25, 0, 0),
+    Second = Color3.fromRGB(40, 0, 0),
+    Stroke = Color3.fromRGB(255, 20, 20),
+    Divider = Color3.fromRGB(200, 0, 0),
+    Text = Color3.fromRGB(255, 120, 120),
+    TextDark = Color3.fromRGB(150, 60, 60)
+}
+
+OrionLib.Themes.PinkGalaxy = {
+    Main = Color3.fromRGB(40, 0, 40),
+    Second = Color3.fromRGB(55, 0, 55),
+    Stroke = Color3.fromRGB(255, 0, 255),
+    Divider = Color3.fromRGB(200, 0, 200),
+    Text = Color3.fromRGB(255, 170, 255),
+    TextDark = Color3.fromRGB(180, 100, 180)
+}
+
+OrionLib.Themes.SteelBlueDark = {
+    Main = Color3.fromRGB(10, 20, 30),
+    Second = Color3.fromRGB(20, 30, 50),
+    Stroke = Color3.fromRGB(60, 120, 180),
+    Divider = Color3.fromRGB(40, 90, 140),
+    Text = Color3.fromRGB(150, 200, 255),
+    TextDark = Color3.fromRGB(90, 130, 180)
+}
+
+OrionLib.Themes.CoffeeBrown = {
+    Main = Color3.fromRGB(30, 15, 5),
+    Second = Color3.fromRGB(45, 25, 15),
+    Stroke = Color3.fromRGB(150, 90, 40),
+    Divider = Color3.fromRGB(120, 70, 30),
+    Text = Color3.fromRGB(220, 180, 130),
+    TextDark = Color3.fromRGB(150, 120, 90)
+}
+
+OrionLib.Themes.GhostWhite = {
+    Main = Color3.fromRGB(245, 245, 255),
+    Second = Color3.fromRGB(230, 230, 250),
+    Stroke = Color3.fromRGB(200, 200, 220),
+    Divider = Color3.fromRGB(170, 170, 190),
+    Text = Color3.fromRGB(40, 40, 60),
+    TextDark = Color3.fromRGB(90, 90, 120)
+}
+
+OrionLib.Themes.PatoSigma = {
+        Main = Color3.fromRGB(0, 0, 0),
+        Second = Color3.fromRGB(10, 10, 10),
+        Stroke = Color3.fromRGB(255, 0, 0),
+        Divider = Color3.fromRGB(40, 40, 40),
+        Text = Color3.fromRGB(255, 255, 255),
+        TextDark = Color3.fromRGB(150, 150, 150)
+}
+OrionLib.SelectedTheme = "PatoSigma"
+
+    local Window = OrionLib:MakeWindow({
+        Name = "알수없는 시뮬레이터",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "알없시",
+        IntroEnabled = true,
+        KeyToOpenWindow = "T",
+        FreeMouse = true,
+        IntroText = "반갑습니다♡알없시 스크입니다!",
+        IntroIcon = "rbxassetid://61989137999",
+        SearchBar = {Default = "알없시"}
+    })
+
+--[[
+local services = {
+    UserInputService = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+    ReplicatedStorage = game:GetService("ReplicatedStorage"),
+    Players = game:GetService("Players"),
+    Workspace = game:GetService("Workspace"),
+    TweenService = game:GetService("TweenService"),
+    TextChatService = game:GetService("TextChatService"),
+    ContextActionService = game:GetService("ContextActionService"),
+    Camera = workspace.CurrentCamera
+}
+
+-- sigma.lua uses these as globals in a few places
+Players = services.Players
+LocalPlayer = services.Players.LocalPlayer
+
+ linguage = "pt-br"
+ function logMessage(_msg)
+
+end
+
+            local function isFriend(username)
+                local player = Players:FindFirstChild(username)
+                if player then
+                    local success, isFriendResult = pcall(function()
+                        return LocalPlayer:IsFriendsWith(player.UserId)
+                    end)
+                    return success and isFriendResult
+                end
+                return false
+            end
+
+localPlayer = services.Players.LocalPlayer
+localPlayerName = localPlayer.Name
+w = services.Workspace
+RunService = services.RunService
+
+
+ function IsNetworkOwner(part)
+    if not part or not part:IsA("BasePart") then return false end
+    local ok, owner = pcall(function()
+        return part:GetNetworkOwner()
+    end)
+    if not ok or owner == nil then return false end
+    return owner == localPlayer
+end
+
+local services2 = {
+	targetPlayer = services.Players,
+	rs = services.ReplicatedStorage,
+	lu = services.UserInputService,
+	plr = localPlayer,
+	CreateLine = services.ReplicatedStorage.GrabEvents and services.ReplicatedStorage.GrabEvents.CreateGrabLine,
+	DestroyLine = services.ReplicatedStorage.GrabEvents and services.ReplicatedStorage.GrabEvents.DestroyGrabLine,
+}
+
+
+local RE = {
+    SetNetworkOwner = services.ReplicatedStorage.GrabEvents and services.ReplicatedStorage.GrabEvents.SetNetworkOwner,
+    DestroyLine = services.ReplicatedStorage.GrabEvents and services.ReplicatedStorage.GrabEvents.DestroyGrabLine,
+}
+
+local localplayer = {
+    hentaipolice = 400,
+    hrp = nil,
+    Antigrab = false,
+    antifire = false,
+    antiexplode = false,
+    character = services.Players.LocalPlayer.Character,
+    IsHeld = services.Players.LocalPlayer.IsHeld,
+    humanoid = nil,
+    ExtinguishPart = (services.Workspace:FindFirstChild("Map")
+        and services.Workspace.Map:FindFirstChild("Hole", true)
+        and services.Workspace.Map.Hole:FindFirstChild("PoisonBigHole", true)
+        and services.Workspace.Map.Hole.PoisonBigHole:FindFirstChild("ExtinguishPart", true)) or nil,
+    UFO = nil,
+    isActive = false
+}
+
+pcall(function()
+	services.Players.LocalPlayer.CharacterAdded:Connect(function(c)
+		localplayer.character = c
+	end)
+end)
+
+_G.LoopKillBlobmanSelected = _G.LoopKillBlobmanSelected or {
+    enabled = false,
+    heartbeatConnection = nil,
+    currentTargetIndex = 1,
+    savedCFrame = nil,
+    cameraFixedCFrame = nil,
+    blobman = nil,
+    grab = nil,
+    release = nil,
+    rightDetector = nil,
+    weld = nil
+}
+
+     vu1 = game:GetService("Players")
+     vu14 = vu1.LocalPlayer
+     vu8 = game:GetService("ReplicatedStorage")
+     vu4 = workspace
+     vu7 = game:GetService("UserInputService")
+     local _grabEvents = vu8:FindFirstChild("GrabEvents") or vu8:WaitForChild("GrabEvents", 5)
+     vu25 = _grabEvents and (_grabEvents:FindFirstChild("CreateGrabLine") or _grabEvents:WaitForChild("CreateGrabLine", 5)) or nil
+     vu26 = _grabEvents and (_grabEvents:FindFirstChild("DestroyGrabLine") or _grabEvents:WaitForChild("DestroyGrabLine", 5)) or nil
+     vu27 = _grabEvents and (_grabEvents:FindFirstChild("SetNetworkOwner") or _grabEvents:WaitForChild("SetNetworkOwner", 5)) or nil
+     vu28 = _grabEvents and (_grabEvents:FindFirstChild("ExtendGrabLine") or _grabEvents:WaitForChild("ExtendGrabLine", 5)) or nil
+     v33 = vu14:FindFirstChild("PlayerScripts") or vu14:WaitForChild("PlayerScripts", 5)
+     local _menuToys = vu8:FindFirstChild("MenuToys") or vu8:WaitForChild("MenuToys", 5)
+     BuyToy = _menuToys and (_menuToys:FindFirstChild("BuyToyRemoteFunction") or _menuToys:WaitForChild("BuyToyRemoteFunction", 5)) or nil
+    DeleteToyRE = game.ReplicatedStorage.MenuToys:FindFirstChild("DestroyToy")
+    workspaceService = workspace
+    U = services.UserInputService
+]]
+Players = game:GetService("Players")
+LocalPlayer = Players.LocalPlayer
+RunService = game:GetService("RunService")
+
+local ResetManager = {
+    _connections = {},
+    _tasks = {},
+    _toggles = {},
+    _characterCallbacks = {},
+    Character = nil,
+    Humanoid = nil,
+    HRP = nil
+}
+
+function ResetManager:SafeConnect(key, conn)
+    if not key or key == "" or conn == nil then return end
+    if self._connections[key] then
+        pcall(function() self._connections[key]:Disconnect() end)
+        self._connections[key] = nil
+    end
+    self._connections[key] = conn
+    return conn
+end
+
+function ResetManager:Disconnect(key)
+    if self._connections[key] then
+        pcall(function() self._connections[key]:Disconnect() end)
+        self._connections[key] = nil
+    end
+end
+
+function ResetManager:ClearAllConnections()
+    for k, c in pairs(self._connections) do
+        pcall(function() c:Disconnect() end)
+        self._connections[k] = nil
+    end
+end
+
+function ResetManager:StartTask(key, fn)
+    if self._tasks[key] and type(self._tasks[key]) == "function" then
+        pcall(self._tasks[key])
+        self._tasks[key] = nil
+    end
+    local cancelled = false
+     function cancel() cancelled = true end
+    self._tasks[key] = cancel
+    task.spawn(function()
+        fn(function() return cancelled end)
+        if self._tasks[key] == cancel then
+            self._tasks[key] = nil
+        end
+    end)
+end
+
+function ResetManager:CancelTask(key)
+    if self._tasks[key] and type(self._tasks[key]) == "function" then
+        pcall(self._tasks[key])
+        self._tasks[key] = nil
+    end
+end
+
+function ResetManager:RegisterToggle(name, state, restoreFunc)
+    self._toggles[name] = { state = not not state, restore = restoreFunc }
+end
+
+function ResetManager:SetToggleState(name, state)
+    if not self._toggles[name] then return end
+    self._toggles[name].state = not not state
+end
+
+function ResetManager:RestoreToggles()
+    for name, data in pairs(self._toggles) do
+        if data.restore and data.state then
+            task.spawn(function()
+                pcall(data.restore, true)
+            end)
+        end
+    end
+end
+
+function ResetManager:RegisterCharacterCallback(callback)
+    table.insert(self._characterCallbacks, callback)
+end
+
+function ResetManager:ExecuteCharacterCallbacks()
+    for _, callback in ipairs(self._characterCallbacks) do
+        task.spawn(function()
+            pcall(callback)
+        end)
+    end
+end
+
+ResetManager.Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+ResetManager.Humanoid = ResetManager.Character:FindFirstChildOfClass("Humanoid")
+ResetManager.HRP = ResetManager.Character:FindFirstChild("HumanoidRootPart")
+
+function ResetManager:UpdateCharacterRefs()
+    self.Character = game.Players.LocalPlayer.Character
+    if self.Character then
+        self.Humanoid = self.Character:FindFirstChildOfClass("Humanoid")
+        self.HRP = self.Character:FindFirstChild("HumanoidRootPart")
+    else
+        self.Humanoid = nil
+        self.HRP = nil
+    end
+end
+
+ function onCharacterAdded(char)
+    task.wait(0.15)
+    ResetManager:UpdateCharacterRefs()
+    ResetManager:RestoreToggles()
+    ResetManager:ExecuteCharacterCallbacks()
+end
+
+ function onCharacterRemoving(char)
+    ResetManager:ClearAllConnections()
+    for k, _ in pairs(ResetManager._tasks) do
+        ResetManager:CancelTask(k)
+    end
+end
+
+function ResetManager:Start()
+    local plr = game.Players.LocalPlayer
+    plr.CharacterAdded:Connect(onCharacterAdded)
+    plr.CharacterRemoving:Connect(onCharacterRemoving)
+    if plr.Character then
+        onCharacterAdded(plr.Character)
+    end
+end
+
+function ResetManager:BindHeartbeat(key, fn)
+    self:SafeConnect("heartbeat_"..key, game:GetService("RunService").Heartbeat:Connect(fn))
+end
+
+function ResetManager:BindStepped(key, fn)
+    self:SafeConnect("stepped_"..key, game:GetService("RunService").Stepped:Connect(fn))
+end
+
+_G.ResetManager = ResetManager
+ResetManager:Start()
+
+--local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+--local Window = OrionLib:MakeWindow({Name = "알수없는 시뮬레이터", HidePremium = false, SaveConfig = false, IntroText = "알수없는 시뮬레이터"})
+
+local LocalPlayer = game.Players.LocalPlayer
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+local UserInputService = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+local CentralEvent = game:GetService("ReplicatedStorage"):WaitForChild("CentralEvent")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local CentralEvent = ReplicatedStorage:WaitForChild("CentralEvent", 10)
+
+local function TeleportTo(coordinate)
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(coordinate)
+    end
+end
+
+local function IsPvpActive(targetPlayer)
+   if not targetPlayer or targetPlayer == LocalPlayer then return false end
+   local char = targetPlayer.Character
+   if not char or not char:FindFirstChild("Humanoid") or char.Humanoid.Health <= 0 then return false end
+   if not char:FindFirstChild("HumanoidRootPart") then return false end
+
+   local pvpState = targetPlayer:GetAttribute("PVP") or targetPlayer:GetAttribute("PvpState") or targetPlayer:GetAttribute("PVPState")
+   if pvpState ~= nil then return pvpState == true end
+   
+   if char:GetAttribute("PVP") ~= nil or char:GetAttribute("PvpState") ~= nil then
+      return (char:GetAttribute("PVP") == true) or (char:GetAttribute("PvpState") == true)
+   end
+
+   local folderPath = workspace:FindFirstChild("Players") or workspace:FindFirstChild("Characters")
+   if folderPath then
+      local targetFolder = folderPath:FindFirstChild(targetPlayer.Name)
+      if targetFolder and (targetFolder:GetAttribute("PVP") == true or targetFolder:GetAttribute("PvpState") == true) then
+         return true
+      end
+   end
+   return false
+end
+local HttpService = game:GetService("HttpService")
+
+local ConfigName = "config"
+
+local function SaveAll()
+    local fileName = ConfigName .. ".txt"
+    local saveTable = {}
+
+    for flag, obj in pairs(OrionLib.Flags or {}) do
+        if obj and obj.Value ~= nil then
+            saveTable[flag] = obj.Value
+        end
+    end
+
+    local success, err = pcall(function()
+        writefile(fileName, HttpService:JSONEncode(saveTable))
+    end)
+
+    if success then
+        OrionLib:MakeNotification({
+            Name = "저장 성공",
+            Content = "저장완료!",
+            Time = 3
+        })
+    else
+        OrionLib:MakeNotification({
+            Name = "저장 실패",
+            Content = "저장 실패: " .. tostring(err),
+            Time = 3
+        })
+    end
+end
+
+local function LoadAll(silent)
+    local fileName = ConfigName .. ".txt"
+
+    if not isfile(fileName) then
+        if not silent then
+            OrionLib:MakeNotification({
+                Name = "로드 실패",
+                Content = "설정 파일을 찾을 수 없습니다.",
+                Time = 3
+            })
+        end
+        return
+    end
+
+    local success, data = pcall(function()
+        return HttpService:JSONDecode(readfile(fileName))
+    end)
+
+    if success and type(data) == "table" then
+        for flag, value in pairs(data) do
+            if OrionLib.Flags and OrionLib.Flags[flag] then
+                pcall(function()
+                    OrionLib.Flags[flag]:Set(value)
+                end)
+            end
+        end
+        OrionLib:MakeNotification({
+            Name = "로드 성공",
+            Content = "로드완료 !",
+            Time = 3
+        })
+    else
+        if not silent then
+            OrionLib:MakeNotification({
+                Name = "로드 실패",
+                Content = "파일을 불러오는 중 오류가 발생했습니다.",
+                Time = 3
+            })
+        end
+    end
+end
+
+local NTab = Window:MakeTab({Name = "ONWER", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local TeleportTab = Window:MakeTab({Name = "TP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local AutoTab = Window:MakeTab({Name = "오토팜", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local GTab = Window:MakeTab({Name = "오토 강화", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local MUTab = Window:MakeTab({Name = "물약 상점", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local PlayerTab = Window:MakeTab({Name = "플레이어", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local PVPTab = Window:MakeTab({Name = "PVP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local ESPTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local UtilityTab = Window:MakeTab({Name = "안전", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local MusicTab = Window:MakeTab({
+	Name = "배경음악",
+	Icon = "rbxassetid://4103737298",
+	PremiumOnly = false
+})
+
+TeleportTab:AddLabel("이스크립트는 혼자 개발한 스크입니다 ")
+TeleportTab:AddLabel("함부러판매 하지마세용")
+TeleportTab:AddSection({ Name = "텔포1" })
+TeleportTab:AddButton({ Name = "스폰", Callback = function() TeleportTo(Vector3.new(-34.18, 10.44, -8.99)) end })
+TeleportTab:AddButton({ Name = "뽑기", Callback = function() TeleportTo(Vector3.new(-17.21, 10.44, -30.85)) end })
+TeleportTab:AddButton({ Name = "황금 뽑기", Callback = function() TeleportTo(Vector3.new(239.81, -373.26, 151.77)) end })
+TeleportTab:AddButton({ Name = "강화", Callback = function() TeleportTo(Vector3.new(-51.30, 10.44, -33.66)) end })
+TeleportTab:AddButton({ Name = "인챈트", Callback = function() TeleportTo(Vector3.new(249.72, -373.26, 12.85)) end })
+TeleportTab:AddButton({ Name = "인챈트북", Callback = function() TeleportTo(Vector3.new(10.90, 70.61, -109.39)) end })
+TeleportTab:AddButton({ Name = "물약", Callback = function() TeleportTo(Vector3.new(465.21, -393.05, 7.59)) end })
+TeleportTab:AddSection({ Name = "텔포2" })
+TeleportTab:AddButton({ Name = "물건조합소", Callback = function() TeleportTo(Vector3.new(227.33, -373.26, 291.81)) end })
+TeleportTab:AddButton({ Name = "암시장", Callback = function() TeleportTo(Vector3.new(295.27, -387.37, -503.78)) end })
+TeleportTab:AddButton({ Name = "하수구", Callback = function() TeleportTo(Vector3.new(346.27, -375.08, -289.98)) end })
+TeleportTab:AddButton({ Name = "병원 지하", Callback = function() TeleportTo(Vector3.new(214.79, -375.10, 935.49)) end })
+--TeleportTab:AddButton({ Name = "블릿조직", Callback = function() TeleportTo(Vector3.new(-325.00, -379.23, 383.85)) end })
+TeleportTab:AddButton({ Name = "컷씬 1", Callback = function() TeleportTo(Vector3.new(613.54, -304.45, 136.87)) end })
+TeleportTab:AddButton({ Name = "컷씬 2", Callback = function() TeleportTo(Vector3.new(60.89, -249.88, -118.98)) end })
+
+AutoTab:AddSection({ Name = "무기 설정" })
+local SelectedWeapon = ""
+local AttackDelay = 0.1
+local AutoAttackEnabled = false
+local AutoWeaponSelectEnabled = false
+local AutoWeaponConnection = nil
+
+
+local function updateSelectedWeapon(toolName)
+SelectedWeapon = toolName
+OrionLib:MakeNotification({ Name = "완료", Content = "무기: " .. SelectedWeapon, Image = "rbxassetid://4483362458", Time = 2.5 })
+end
+
+
+local function trackCharacterTools(character)
+if AutoWeaponConnection then
+AutoWeaponConnection:Disconnect()
+AutoWeaponConnection = nil
+end
+if not character then return end
+
+
+local currentTool = character:FindFirstChildOfClass("Tool")
+if currentTool and AutoWeaponSelectEnabled then
+updateSelectedWeapon(currentTool.Name)
+end
+
+
+AutoWeaponConnection = character.ChildAdded:Connect(function(child)
+if AutoWeaponSelectEnabled and child:IsA("Tool") then
+updateSelectedWeapon(child.Name)
+end
+end)
+end
+
+
+if LocalPlayer.Character then
+trackCharacterTools(LocalPlayer.Character)
+end
+LocalPlayer.CharacterAdded:Connect(function(char)
+trackCharacterTools(char)
+end)
+
+
+AutoTab:AddToggle({
+Name = "자동 무기 등록",
+Default = false,
+Flag = "1",
+Callback = function(Value)
+AutoWeaponSelectEnabled = Value
+if AutoWeaponSelectEnabled and LocalPlayer.Character then
+local tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+if tool then
+updateSelectedWeapon(tool.Name)
+end
+end
+end,
+})
+
+
+AutoTab:AddButton({
+Name = "수동 무기 등록",
+Callback = function()
+local character = LocalPlayer.Character
+if character then
+local tool = character:FindFirstChildOfClass("Tool")
+if tool then
+updateSelectedWeapon(tool.Name)
+else
+OrionLib:MakeNotification({ Name = "실패", Content = "무기를 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
+end
+end
+end,
+})
+
+
+AutoTab:AddTextbox({
+Name = "오토팜 딜레이",
+Default = "0.1",
+Flag = "2",
+TextDisappear = false,
+Callback = function(Text)
+local num = tonumber(Text)
+if num and num >= 0 then AttackDelay = num else AttackDelay = 0.1 end
+end,
+})
+
+
+AutoTab:AddToggle({
+Name = "오토팜",
+Default = false,
+Flag = "3",
+Callback = function(Value)
+AutoAttackEnabled = Value
+if AutoAttackEnabled then
+task.spawn(function()
+while AutoAttackEnabled do
+if SelectedWeapon ~= "" then
+CentralEvent:FireServer("ToolClick", SelectedWeapon, 1, workspace:GetServerTimeNow())
+end
+if AttackDelay > 0 then task.wait(AttackDelay) else RunService.RenderStepped:Wait() end
+end
+end)
+end
+end,
+})
+
+
+
+
+AutoTab:AddSection({ Name = "일반 뽑기 설정" })
+AutoTab:AddLabel("모든 뽑기는 딜레이가 제거되어있으니 주의하세요!")
+local SelectedGachaCount = 1
+local GachaDelay = 0.1
+local AutoGachaEnabled = false
+local LockPositionGacha = Vector3.new(-13.59, 10.44, -34.07)
+local LockConnectionGacha = nil
+
+local function SetGachaCount(count)
+   SelectedGachaCount = count
+   OrionLib:MakeNotification({ Name = "알림", Content = "일반 뽑기 횟수: " .. count .. "회 설정됨", Image = "rbxassetid://4483362458", Time = 2 })
+end
+
+AutoTab:AddButton({ Name = "1회", Callback = function() SetGachaCount(1) end })
+AutoTab:AddButton({ Name = "10회", Callback = function() SetGachaCount(10) end })
+AutoTab:AddButton({ Name = "100회", Callback = function() SetGachaCount(100) end })
+AutoTab:AddButton({ Name = "250회", Callback = function() SetGachaCount(250) end })
+AutoTab:AddButton({ Name = "500회", Callback = function() SetGachaCount(500) end })
+
+AutoTab:AddTextbox({
+   Name = "일반 뽑기 속도 (딜레이)",
+   Default = "0.1",
+   Flag = "4",
+   TextDisappear = false,
+   Callback = function(Text)
+      local num = tonumber(Text)
+      if num and num >= 0 then GachaDelay = num else GachaDelay = 0.1 end
+   end,
+})
+
+AutoTab:AddToggle({
+   Name = "오토 일반 뽑기",
+   Default = false,
+   Flag = "5",
+   Callback = function(Value)
+      AutoGachaEnabled = Value
+      if AutoGachaEnabled then
+         LockConnectionGacha = RunService.RenderStepped:Connect(function()
+            local character = LocalPlayer.Character
+            if character and character:FindFirstChild("HumanoidRootPart") then
+               local hrp = character.HumanoidRootPart
+               hrp.CFrame = CFrame.new(LockPositionGacha)
+               hrp.AssemblyLinearVelocity = Vector3.zero
+               hrp.AssemblyAngularVelocity = Vector3.zero
+            end
+         end)
+         task.spawn(function()
+            while AutoGachaEnabled do
+               CentralEvent:FireServer("GachaRequest", "\236\178\152\236\157\140\235\189\145\234\184\176", SelectedGachaCount)
+               if GachaDelay > 0 then task.wait(GachaDelay) else RunService.RenderStepped:Wait() end
+            end
+         end)
+      else
+         if LockConnectionGacha then LockConnectionGacha:Disconnect(); LockConnectionGacha = nil end
+      end
+   end,
+})
+
+AutoTab:AddSection({ Name = "골든 뽑기 설정" })
+local SelectedGoldenGachaCount = 1
+local GoldenGachaDelay = 0.1
+local AutoGoldenGachaEnabled = false
+local LockPositionGoldenGacha = Vector3.new(252.78, -375.19, 154.25)
+local LockConnectionGoldenGacha = nil
+
+local function SetGoldenGachaCount(count)
+   SelectedGoldenGachaCount = count
+   OrionLib:MakeNotification({ Name = "알림", Content = "골든 뽑기 횟수: " .. count .. "회 설정됨", Image = "rbxassetid://4483362458", Time = 2 })
+end
+
+AutoTab:AddButton({ Name = "골든 1회", Callback = function() SetGoldenGachaCount(1) end })
+AutoTab:AddButton({ Name = "골든 10회", Callback = function() SetGoldenGachaCount(10) end })
+AutoTab:AddButton({ Name = "골든 100회", Callback = function() SetGoldenGachaCount(100) end })
+AutoTab:AddButton({ Name = "골든 250회", Callback = function() SetGoldenGachaCount(250) end })
+AutoTab:AddButton({ Name = "골든 500회", Callback = function() SetGoldenGachaCount(500) end })
+
+AutoTab:AddTextbox({
+   Name = "골든 뽑기 속도 (딜레이)",
+   Default = "0.1",
+   Flag = "6",
+   TextDisappear = false,
+   Callback = function(Text)
+      local num = tonumber(Text)
+      if num and num >= 0 then GoldenGachaDelay = num else GoldenGachaDelay = 0.1 end
+   end,
+})
+
+AutoTab:AddToggle({
+   Name = "오토 골든 뽑기",
+   Default = false,
+   Flag = "7",
+   Callback = function(Value)
+      AutoGoldenGachaEnabled = Value
+      if AutoGoldenGachaEnabled then
+         LockConnectionGoldenGacha = RunService.RenderStepped:Connect(function()
+            local character = LocalPlayer.Character
+            if character and character:FindFirstChild("HumanoidRootPart") then
+               local hrp = character.HumanoidRootPart
+               hrp.CFrame = CFrame.new(LockPositionGoldenGacha)
+               hrp.AssemblyLinearVelocity = Vector3.zero
+               hrp.AssemblyAngularVelocity = Vector3.zero
+            end
+         end)
+         task.spawn(function()
+            while AutoGoldenGachaEnabled do
+               CentralEvent:FireServer("GachaRequest", "\234\179\168\235\147\160\235\189\145\234\184\176", SelectedGoldenGachaCount)
+               if GoldenGachaDelay > 0 then task.wait(GoldenGachaDelay) else RunService.RenderStepped:Wait() end
+            end
+         end)
+      else
+         if LockConnectionGoldenGacha then LockConnectionGoldenGacha:Disconnect(); LockConnectionGoldenGacha = nil end
+      end
+   end,
+})
+
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+
+local LocalPlayer = Players.LocalPlayer
+local CentralEvent = ReplicatedStorage:WaitForChild("CentralEvent", 10)
+
+local State = {
+	AutoEnchant = false,
+	--TargetEnchant = "Speed V",
+	AutoPickupBooks = false,
+	AutoUpgrade = false,
+	ProtectTicket = true,
+	AutoPVP = false,
+	AutoKillAura = false
+}
+
+local AllEnchants = {
+	"Speed I", "Speed II", "Speed III", "Speed IV", "Speed V", "Speed VI",
+	"Luck I", "Luck II", "Luck III", "Luck IV", "Luck V", "Luck VI",
+	"Coin I", "Coin II", "Coin III", "Coin IV", "Coin V", "Coin VI",
+	"깨달음"
+}
+
+local function getHRP()
+	local char = LocalPlayer.Character
+	return char and char:FindFirstChild("HumanoidRootPart")
+end
+
+local function getEquippedToolName()
+	local char = LocalPlayer.Character
+	if char then
+		local tool = char:FindFirstChildOfClass("Tool")
+		if tool then return tool.Name end
+	end
+	local attr = LocalPlayer:GetAttribute("EquippedTool")
+	if type(attr) == "string" and attr ~= "" then return attr end
+	return nil
+end
+
+local function getCurrentEnchantName()
+	local toolName = getEquippedToolName()
+	if not toolName then return nil end
+	
+	local enchantBag = LocalPlayer:FindFirstChild("EnchantBag")
+	if enchantBag then
+		local item = enchantBag:FindFirstChild(toolName)
+		if item and item:FindFirstChild("CurrentEnchant") then
+			return item.CurrentEnchant.Value
+		end
+	end
+	
+	local attr = LocalPlayer:GetAttribute("CurrentEnchant_" .. toolName)
+	if attr then return tostring(attr) end
+	return nil
+end
+
+local function matchTargetEnchant(current, target)
+	if not current or not target then return false end
+	current = tostring(current):lower():gsub("%s+", "")
+	target = tostring(target):lower():gsub("%s+", "")
+	return current:find(target, 1, true) ~= nil
+end
+
+local function notify(title, msg)
+	if OrionLib then
+		OrionLib:MakeNotification({
+			Name = title,
+			Content = msg,
+			Image = "rbxassetid://4483345998",
+			Time = 3
+		})
+	end
+end
+
+AutoTab:AddSection({ Name = "자동 인챈트 설정" })
+
+AutoTab:AddDropdown({
+	Name = "원하는 인챈트",
+	Default = "Speed V",
+    Flag = "525",
+	Options = AllEnchants,
+	Callback = function(Value)
+		State.TargetEnchant = Value
+	end    
+})
+
+AutoTab:AddToggle({
+	Name = "인챈트 오토팜",
+	Default = false,
+    Flag = "hdhe",
+	Callback = function(Value)
+		State.AutoEnchant = Value
+	end    
+})
+AutoTab:AddSection({ Name = "NEW 인챈트" })
+local ToggleActive = false
+local InteractDelay = 0.4
+local Player = game:GetService("Players").LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CentralEvent = ReplicatedStorage:WaitForChild("CentralEvent")
+
+AutoTab:AddTextbox({
+	Name = "인챈트 속도",
+	Default = "0.4",
+	TextDisappear = false,
+	Callback = function(Value)
+		local num = tonumber(Value)
+		if num then
+			InteractDelay = num
+		end
+	end	  
+})
+
+AutoTab:AddToggle({
+	Name = "오토인챈트 V2",
+	Default = false,
+	Callback = function(Value)
+		ToggleActive = Value
+		local Character = Player.Character
+		if not Character then return end
+		local HRP = Character:FindFirstChild("HumanoidRootPart")
+		if not HRP then return end
+
+		if ToggleActive then
+			HRP.CFrame = CFrame.new(257.026794, -373.259155, 12.853211)
+			
+			for _, part in ipairs(Character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.Anchored = true
+				end
+			end
+
+			task.spawn(function()
+				while ToggleActive do
+					for _, v in ipairs(workspace:GetDescendants()) do
+						if v:IsA("ProximityPrompt") then
+							local parentPart = v.Parent
+							if parentPart and parentPart:IsA("BasePart") then
+								if (HRP.Position - parentPart.Position).Magnitude <= 10 then
+									fireproximityprompt(v)
+								end
+							end
+						elseif v:IsA("ClickDetector") then
+							local parentPart = v.Parent
+							if parentPart and parentPart:IsA("BasePart") then
+								if (HRP.Position - parentPart.Position).Magnitude <= 10 then
+									fireclickdetector(v)
+								end
+							end
+						end
+					end
+					task.wait(InteractDelay)
+				end
+			end)
+
+			task.spawn(function()
+				local args = {
+					"NPCDialogue_Choose",
+					{
+						choiceIndex = 1
+					}
+				}
+				while ToggleActive do
+					CentralEvent:FireServer(unpack(args))
+					task.wait()
+				end
+			end)
+
+		else
+			for _, part in ipairs(Character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.Anchored = false
+				end
+			end
+		end
+	end
+})
+GTab:AddSection({ Name = "플레이어 상태" })
+
+
+GTab:AddToggle({
+	Name = "자동 강화(강방권 기본적용)",
+	Default = false,
+	Callback = function(Value)
+		State.AutoUpgrade = Value
+	end    
+})
+PVPTab:AddSection({ Name = "V2 PVP" })
+PVPTab:AddToggle({
+	Name = "오토 PVP V2",
+	Default = false,
+    Flag = "16ysy",
+	Callback = function(Value)
+		State.AutoPVP = Value
+	end    
+})
+
+PVPTab:AddToggle({
+	Name = "PVP 오토팜 V2",
+	Default = false,
+    Flag = "s82uhf",
+	Callback = function(Value)
+		State.AutoKillAura = Value
+	end    
+})
+
+task.spawn(function()
+	while true do
+		task.wait(0.01)
+		if State.AutoEnchant then
+			local current = getCurrentEnchantName()
+			if current and matchTargetEnchant(current, State.TargetEnchant) then
+				State.AutoEnchant = false
+				OrionLib:MakeNotification({
+					Name = "인챈 성공",
+					Content = "목표 [" .. tostring(State.TargetEnchant) .. "] 뽑음",
+					Image = "rbxassetid://4483345998",
+					Time = 3
+				})
+			else
+				if CentralEvent then
+					CentralEvent:FireServer("EnchantBag_Apply", { Slot = 1 })
+				end
+			end
+		end
+	end
+end)
+
+
+
+
+task.spawn(function()
+	while true do
+		task.wait(0.003)
+		if State.AutoUpgrade then
+			local toolName = getEquippedToolName()
+			if toolName and CentralEvent then
+				CentralEvent:FireServer("SetUpgradeProtectState", State.ProtectTicket)
+				CentralEvent:FireServer("UpgradeTool", toolName)
+			end
+		end
+	end
+end)
+
+local pvpSeq = 0
+task.spawn(function()
+	while true do
+		task.wait()
+		if State.AutoPVP then
+			LocalPlayer:SetAttribute("PVPEnabled", true)
+			pvpSeq = (pvpSeq % 1000000) + 1
+			if CentralEvent then
+				CentralEvent:FireServer("PunchRequest", pvpSeq)
+			end
+			
+			if State.AutoKillAura then
+				local hrp = getHRP()
+				if hrp then
+					for _, enemy in ipairs(Players:GetPlayers()) do
+						if enemy ~= LocalPlayer and enemy.Character and enemy.Character:FindFirstChild("HumanoidRootPart") then
+							local enemyHrp = enemy.Character.HumanoidRootPart
+							local dist = (enemyHrp.Position - hrp.Position).Magnitude
+							if dist < 60 then
+								hrp.CFrame = enemyHrp.CFrame * CFrame.new(0, 0, 3)
+								break
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+
+PlayerTab:AddSection({ Name = "플레이어 상태" })
+local WalkSpeedEnabled = false
+local WalkSpeedValue = 16
+local DefaultWalkSpeed = 16
+local JumpPowerEnabled = false
+local JumpPowerValue = 50
+local DefaultJumpPower = 50
+
+local function setupHumanoid(char)
+   local hum = char:WaitForChild("Humanoid", 5)
+   if hum then
+      DefaultWalkSpeed = hum.WalkSpeed
+      DefaultJumpPower = hum.JumpPower
+      hum.UseJumpPower = true
+   end
+end
+
+if LocalPlayer.Character then setupHumanoid(LocalPlayer.Character) end
+LocalPlayer.CharacterAdded:Connect(setupHumanoid)
+
+PlayerTab:AddToggle({
+   Name = "속도 조절",
+   Default = false,
+   Flag = "8",
+   Callback = function(Value)
+      WalkSpeedEnabled = Value
+      local character = LocalPlayer.Character
+      if character and character:FindFirstChildOfClass("Humanoid") then
+         local hum = character:FindFirstChildOfClass("Humanoid")
+         if not WalkSpeedEnabled then
+            hum.WalkSpeed = DefaultWalkSpeed
+            if character:FindFirstChild("HumanoidRootPart") then
+               character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, character.HumanoidRootPart.AssemblyLinearVelocity.Y, 0)
+            end
+         end
+      end
+   end,
+})
+
+PlayerTab:AddSlider({
+   Name = "이동 속도",
+   Min = 16,
+   Max = 200,
+   Default = 16,
+   Flag = "9",
+   Color = Color3.fromRGB(255,255,255),
+   Increment = 1,
+   ValueName = "",
+   Callback = function(Value) WalkSpeedValue = Value end,
+})
+
+PlayerTab:AddToggle({
+   Name = "점프 조절",
+   Default = false,
+   Flag = "10",
+   Callback = function(Value)
+      JumpPowerEnabled = Value
+      local character = LocalPlayer.Character
+      if character and character:FindFirstChildOfClass("Humanoid") then
+         local hum = character:FindFirstChildOfClass("Humanoid")
+         hum.UseJumpPower = true
+         if not JumpPowerEnabled then hum.JumpPower = DefaultJumpPower else hum.JumpPower = JumpPowerValue end
+      end
+   end,
+})
+
+PlayerTab:AddSlider({
+   Name = "점프력",
+   Min = 50,
+   Max = 300,
+   Default = 50,
+   Flag = "11",
+   Color = Color3.fromRGB(255,255,255),
+   Increment = 1,
+   ValueName = "",
+   Callback = function(Value)
+      JumpPowerValue = Value
+      if JumpPowerEnabled then
+         local character = LocalPlayer.Character
+         if character and character:FindFirstChildOfClass("Humanoid") then
+            character:FindFirstChildOfClass("Humanoid").JumpPower = JumpPowerValue
+         end
+      end
+   end,
+})
+
+RunService.PreRender:Connect(function()
+   local character = LocalPlayer.Character
+   if character and character:FindFirstChildOfClass("Humanoid") and character:FindFirstChild("HumanoidRootPart") then
+      local hum = character:FindFirstChildOfClass("Humanoid")
+      local hrp = character.HumanoidRootPart
+      hum.UseJumpPower = true
+      if WalkSpeedEnabled then
+         if hum.MoveDirection.Magnitude > 0 then
+            local moveVel = hum.MoveDirection * WalkSpeedValue
+            hrp.AssemblyLinearVelocity = Vector3.new(moveVel.X, hrp.AssemblyLinearVelocity.Y, moveVel.Z)
+         else
+            hrp.AssemblyLinearVelocity = Vector3.new(0, hrp.AssemblyLinearVelocity.Y, 0)
+         end
+      end
+      if JumpPowerEnabled then hum.JumpPower = JumpPowerValue end
+      if hum.MoveDirection.Magnitude == 0 and hum:GetState() ~= Enum.HumanoidStateType.Freefall then
+         hrp.AssemblyLinearVelocity = Vector3.new(0, hrp.AssemblyLinearVelocity.Y, 0)
+      end
+   end
+end)
+
+PlayerTab:AddSection({ Name = "기타 기능" })
+local InfiniteJumpEnabled = false
+PlayerTab:AddToggle({
+   Name = "무한 점프",
+   Default = false,
+   Flag = "12",
+   Callback = function(Value) InfiniteJumpEnabled = Value end,
+})
+
+UserInputService.JumpRequest:Connect(function()
+   if InfiniteJumpEnabled then
+      local character = LocalPlayer.Character
+      if character and character:FindFirstChildOfClass("Humanoid") then
+         character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+      end
+   end
+end)
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local plr = Players.LocalPlayer
+
+local mflyT = false
+local flyT = false
+local mflyV = 100
+local flyV = 100
+
+local mflyConnection
+local flyConnection
+local flyKeyDown
+local flyKeyUp
+
+local function mflyF()
+    if not mflyT then return end
+    
+    local char = plr.Character or plr.CharacterAdded:Wait()
+    local humanoid = char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid")
+    local hrp = char:FindFirstChild("HumanoidRootPart") or char:WaitForChild("HumanoidRootPart")
+
+    local BV = Instance.new("BodyVelocity")
+    local BG = Instance.new("BodyGyro")
+
+    BG.P = 9e4
+    BG.Parent = hrp
+    BV.Parent = hrp
+    BG.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+    BG.CFrame = hrp.CFrame
+    BV.Velocity = Vector3.new(0,0,0)
+    BV.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+
+    if mflyConnection then mflyConnection:Disconnect() end
+
+    mflyConnection = RunService.Heartbeat:Connect(function()
+        if not mflyT then
+            mflyConnection:Disconnect()
+            BV:Destroy()
+            BG:Destroy()
+            return
+        end
+        
+        local camera = workspace.CurrentCamera
+        local SPEED = tonumber(mflyV) or 100
+        
+        if humanoid.MoveDirection.Magnitude > 0 then
+            local localMove = camera.CFrame:VectorToObjectSpace(humanoid.MoveDirection)
+            
+            local forwardVelocity = camera.CFrame.LookVector * -localMove.Z
+            local sideVelocity = camera.CFrame.RightVector * localMove.X
+            
+            BV.Velocity = (forwardVelocity + sideVelocity).Unit * SPEED
+        else
+            BV.Velocity = Vector3.new(0, 0, 0)
+        end
+        
+        BG.CFrame = camera.CFrame
+    end)
+end
+
+function flyF()
+    if not flyT then return end
+    
+    local char = plr.Character or plr.CharacterAdded:Wait()
+    local humanoid = char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid")
+    local hrp = char:FindFirstChild("HumanoidRootPart") or char:WaitForChild("HumanoidRootPart")
+
+    local BV = Instance.new("BodyVelocity")
+    local BG = Instance.new("BodyGyro")
+
+    BG.P = 9e4
+    BG.Parent = hrp
+    BV.Parent = hrp
+    BG.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+    BG.CFrame = hrp.CFrame
+    BV.Velocity = Vector3.new(0,0,0)
+    BV.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+
+    local CONTROL = {F=0,B=0,L=0,R=0}
+    local SPEED = tonumber(flyV) or 100
+
+    if flyKeyDown then flyKeyDown:Disconnect() end
+    if flyKeyUp then flyKeyUp:Disconnect() end
+    if flyConnection then flyConnection:Disconnect() end
+
+    flyKeyDown = UserInputService.InputBegan:Connect(function(input, processed)
+        if processed then return end
+        if input.KeyCode == Enum.KeyCode.W then
+            CONTROL.F = 1
+        elseif input.KeyCode == Enum.KeyCode.S then
+            CONTROL.B = -1
+        elseif input.KeyCode == Enum.KeyCode.A then
+            CONTROL.L = -1
+        elseif input.KeyCode == Enum.KeyCode.D then
+            CONTROL.R = 1
+        end
+    end)
+
+    flyKeyUp = UserInputService.InputEnded:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.W then
+            CONTROL.F = 0
+        elseif input.KeyCode == Enum.KeyCode.S then
+            CONTROL.B = 0
+        elseif input.KeyCode == Enum.KeyCode.A then
+            CONTROL.L = 0
+        elseif input.KeyCode == Enum.KeyCode.D then
+            CONTROL.R = 0
+        end
+    end)
+
+    flyConnection = RunService.Heartbeat:Connect(function()
+        if not flyT then
+            flyConnection:Disconnect()
+            if flyKeyDown then flyKeyDown:Disconnect() end
+            if flyKeyUp then flyKeyUp:Disconnect() end
+            BV:Destroy()
+            BG:Destroy()
+            humanoid.PlatformStand = false
+            return
+        end
+        
+        local camera = workspace.CurrentCamera
+        SPEED = tonumber(flyV) or 100
+        
+        if CONTROL.F + CONTROL.B ~= 0 or CONTROL.L + CONTROL.R ~= 0 then
+            BV.Velocity = ((camera.CFrame.LookVector * (CONTROL.F + CONTROL.B)) + 
+                ((camera.CFrame * CFrame.new(CONTROL.L + CONTROL.R, 0, 0).p) - camera.CFrame.p)) * SPEED
+        else
+            BV.Velocity = Vector3.new(0,0,0)
+        end
+        BG.CFrame = camera.CFrame
+    end)
+end
+
+plr.CharacterAdded:Connect(function()
+    task.wait(0.2)
+    if flyT then flyF() end
+    if mflyT then mflyF() end
+end)
+
+PlayerTab:AddToggle({ 
+    Name = "플라이   <font color='rgb(0,255,0)'>[모바일]</font>", 
+    Default = false,
+    save = true,
+    Flag = "jdjdididie5",
+    Callback = function(Value)
+        mflyT = Value
+        mflyF()
+    end
+})
+
+PlayerTab:AddToggle({ 
+    Name = "플라이   <font color='rgb(255,0,0)'>[데스크톱]</font>", 
+    Default = false,
+    save = true,
+    Flag = "5jeis",
+    Callback = function(Value)
+        flyT = Value
+        flyF()
+    end
+})
+
+PlayerTab:AddTextbox({
+    Name = "속도",
+    Default = "",
+    save = true,
+    Placeholder = "Value",
+    RemoveTextAfterFocusLost = false,
+    Flag = "38887",
+    Callback = function(Value)
+        flyV = tonumber(Value) or 100
+        mflyV = tonumber(Value) or 100
+    end
+})
+PlayerTab:AddSection({
+    Name = "서버이동&FPS"
+})
+
+PlayerTab:AddButton({
+    Name = "서버 훅",
+    Callback = function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, plr)
+    end
+})
+
+
+PlayerTab:AddButton({
+    Name = "제접",
+    Callback = function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)
+    end
+})
+
+
+PlayerTab:AddButton({
+    Name = "FPS 최대치",
+    Callback = function()
+        setfpscap(9999)
+    end
+})
+PVPTab:AddSection({ Name = "PVP 기능" })
+local PvpAuraEnabled = false
+local KillAutoBangEnabled = false
+
+local function GetPvpTarget()
+   for _, plr in ipairs(Players:GetPlayers()) do
+      if IsPvpActive(plr) then return plr end
+   end
+   return nil
+end
+
+PVPTab:AddToggle({
+   Name = "펀치 아우라 (잘되는지 모름)",
+   Default = false,
+   Flag = "13",
+   Callback = function(Value)
+      PvpAuraEnabled = Value
+      if PvpAuraEnabled then
+         CentralEvent:FireServer("SetPVPState", true)
+         task.spawn(function()
+            while PvpAuraEnabled do
+               CentralEvent:FireServer("PunchRequest", 22)
+               task.wait()
+            end
+         end)
+      end
+   end,
+})
+
+PVPTab:AddToggle({
+   Name = "PVP 오토팜(잘되는지 모름)",
+   Default = false,
+   Flag = "14",
+   Callback = function(Value)
+      KillAutoBangEnabled = Value
+      if KillAutoBangEnabled then
+         CentralEvent:FireServer("SetPVPState", true)
+         task.spawn(function()
+            local notifiedNoTarget = false
+            while KillAutoBangEnabled do
+               local target = GetPvpTarget()
+               if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+                  notifiedNoTarget = false
+                  local targetHRP = target.Character.HumanoidRootPart
+                  local myChar = LocalPlayer.Character
+                  if myChar and myChar:FindFirstChild("HumanoidRootPart") then
+                     local myHRP = myChar.HumanoidRootPart
+                     myHRP.CFrame = targetHRP.CFrame * CFrame.new(0, 0, 5)
+                     myHRP.AssemblyLinearVelocity = Vector3.zero
+                     CentralEvent:FireServer("PunchRequest", 22)
+                  end
+               else
+                  if not notifiedNoTarget then
+                     OrionLib:MakeNotification({Name = "알림", Content = "대상 플레이어가 없습니다.", Time = 3})
+                     notifiedNoTarget = true
+                  end
+               end
+               RunService.RenderStepped:Wait()
+            end
+         end)
+      end
+   end,
+})
+
+ESPTab:AddSection({ Name = "플레이어 ESP 설정" })
+
+local ESPConfig = {
+    General = false,
+    Name = false,
+    Box = false,
+    PvP = false,
+    Weapon = false,
+    Money = false,
+    Color = Color3.fromRGB(255, 50, 50)
+}
+
+ESPTab:AddColorpicker({
+    Name = "플레이어 ESP 색상",
+    Default = ESPConfig.Color,
+    Flag = "15",
+    Callback = function(Value)
+        ESPConfig.Color = Value
+    end
+})
+
+ESPTab:AddToggle({ Name = "일반 ESP", Default = false, Flag = "16",  Callback = function(Value) ESPConfig.General = Value end })
+ESPTab:AddToggle({ Name = "이름 ESP", Default = false, Flag = "17", Callback = function(Value) ESPConfig.Name = Value end })
+ESPTab:AddToggle({ Name = "박스 ESP", Default = false, Flag = "18", Callback = function(Value) ESPConfig.Box = Value end })
+ESPTab:AddToggle({ Name = "PvP 상태 표시", Default = false, Flag = "19", Callback = function(Value) ESPConfig.PvP = Value end })
+ESPTab:AddToggle({ Name = "장착중인 무기 표시", Default = false, Flag = "20", Callback = function(Value) ESPConfig.Weapon = Value end })
+ESPTab:AddToggle({ Name = "현재있는 돈표시", Default = false, Flag = "21", Callback = function(Value) ESPConfig.Money = Value end })
+
+local ESPObjects = {}
+
+local function CreateESP(player)
+    if ESPObjects[player] then return end
+    
+    local box = Drawing.new("Square")
+    box.Visible = false
+    box.Color = ESPConfig.Color
+    box.Thickness = 1.5
+    box.Filled = false
+
+    local text = Drawing.new("Text")
+    text.Visible = false
+    text.Center = true
+    text.Outline = true
+    text.Color = ESPConfig.Color
+    text.Size = 15
+
+    local highlight = Instance.new("Highlight")
+    highlight.FillTransparency = 0.6
+    highlight.OutlineTransparency = 0
+    highlight.FillColor = ESPConfig.Color
+    highlight.OutlineColor = ESPConfig.Color
+
+    ESPObjects[player] = { Box = box, Text = text, Highlight = highlight }
+end
+
+local function RemoveESP(player)
+    if ESPObjects[player] then
+        ESPObjects[player].Box:Remove()
+        ESPObjects[player].Text:Remove()
+        if ESPObjects[player].Highlight.Parent then
+            ESPObjects[player].Highlight:Destroy()
+        end
+        ESPObjects[player] = nil
+    end
+end
+
+for _, v in pairs(Players:GetPlayers()) do
+    if v ~= LocalPlayer then CreateESP(v) end
+end
+Players.PlayerAdded:Connect(function(v)
+    if v ~= LocalPlayer then CreateESP(v) end
+end)
+Players.PlayerRemoving:Connect(function(v)
+    RemoveESP(v)
+end)
+
+RunService.RenderStepped:Connect(function()
+    local Camera = workspace.CurrentCamera
+    for player, esp in pairs(ESPObjects) do
+        esp.Box.Color = ESPConfig.Color
+        esp.Text.Color = ESPConfig.Color
+        esp.Highlight.FillColor = ESPConfig.Color
+        esp.Highlight.OutlineColor = ESPConfig.Color
+
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChild("Humanoid") and char.Humanoid.Health > 0 then
+            local hrp = char.HumanoidRootPart
+            local pos, onScreen = Camera:WorldToViewportPoint(hrp.Position)
+            
+            if onScreen then
+                local depth = pos.Z
+                local size = Vector2.new(3000 / depth, 4500 / depth)
+                local boxPos = Vector2.new(pos.X - size.X / 2, pos.Y - size.Y / 2)
+                
+                esp.Box.Size = size
+                esp.Box.Position = boxPos
+                esp.Box.Visible = ESPConfig.Box
+
+                local info = {}
+                if ESPConfig.Name then table.insert(info, player.Name) end
+                
+                if ESPConfig.PvP then
+                    if IsPvpActive(player) then table.insert(info, "[PvP: ON]") else table.insert(info, "[PvP: OFF]") end
+                end
+                
+                if ESPConfig.Weapon then
+                    local tool = char:FindFirstChildOfClass("Tool")
+                    if tool then table.insert(info, "[무기: " .. tool.Name .. "]") else table.insert(info, "[무기: 없음]") end
+                end
+                
+                if ESPConfig.Money then
+                    local moneyStr = "0"
+                    if player:FindFirstChild("leaderstats") then
+                        for _, stat in ipairs(player.leaderstats:GetChildren()) do
+                            if stat:IsA("IntValue") or stat:IsA("NumberValue") then
+                                moneyStr = tostring(stat.Value)
+                                break
+                            end
+                        end
+                    end
+                    table.insert(info, "[돈: " .. moneyStr .. "]")
+                end
+
+                if #info > 0 then
+                    esp.Text.Text = table.concat(info, "\n")
+                    esp.Text.Position = Vector2.new(pos.X, boxPos.Y - (#info * 16) - 5)
+                    esp.Text.Visible = true
+                else
+                    esp.Text.Visible = false
+                end
+
+                if ESPConfig.General then
+                    if esp.Highlight.Parent ~= char then esp.Highlight.Parent = char end
+                    esp.Highlight.Enabled = true
+                else
+                    esp.Highlight.Enabled = false
+                end
+            else
+                esp.Box.Visible = false
+                esp.Text.Visible = false
+                esp.Highlight.Enabled = false
+            end
+        else
+            esp.Box.Visible = false
+            esp.Text.Visible = false
+            esp.Highlight.Enabled = false
+        end
+    end
+end)
+
+ESPTab:AddSection({ Name = "NPC ESP 설정" })
+
+local NpcESPConfig = {
+    General = false,
+    Name = false,
+    Box = false,
+    Color = Color3.fromRGB(50, 255, 50)
+}
+
+ESPTab:AddColorpicker({
+    Name = "NPC ESP 색상",
+    Default = NpcESPConfig.Color,
+    Flag = "22",
+    Callback = function(Value)
+        NpcESPConfig.Color = Value
+    end
+})
+
+ESPTab:AddToggle({ Name = "NPC 일반 ESP (하이라이트)", Default = false, Flag = "22", Callback = function(Value) NpcESPConfig.General = Value end })
+ESPTab:AddToggle({ Name = "NPC 네임 ESP", Default = false, Flag = "23", Callback = function(Value) NpcESPConfig.Name = Value end })
+ESPTab:AddToggle({ Name = "NPC 박스 ESP", Default = false, Flag = "24", Callback = function(Value) NpcESPConfig.Box = Value end })
+
+local TargetNpcNames = {
+    "하사", "레조", "큐턴", "지피", "킨치", "고상", "비투", "지피2", 
+    "엑스트라", "스타토처형식 모델", "Rig", "helper", "대장장이", 
+    "연구자", "인형 저스틴스틴", "기본뽑기 상인", "이도", "저스틴틴", 
+    "골든뽑기 상인", "LMGRig", "SlayerRIG", "소트2", "R6", "닥터", 
+    "하삐", "비거", "소트", "블마상인", "루카", "나"
+}
+
+local NpcESPObjects = {}
+
+local function CreateNpcESP(model)
+    if NpcESPObjects[model] then return end
+    
+    local box = Drawing.new("Square")
+    box.Visible = false
+    box.Thickness = 1.5
+    box.Filled = false
+
+    local text = Drawing.new("Text")
+    text.Visible = false
+    text.Center = true
+    text.Outline = true
+    text.Size = 15
+
+    local highlight = Instance.new("Highlight")
+    highlight.FillTransparency = 0.6
+    highlight.OutlineTransparency = 0
+
+    NpcESPObjects[model] = { Box = box, Text = text, Highlight = highlight }
+end
+
+local function RemoveNpcESP(model)
+    if NpcESPObjects[model] then
+        NpcESPObjects[model].Box:Remove()
+        NpcESPObjects[model].Text:Remove()
+        if NpcESPObjects[model].Highlight.Parent then
+            NpcESPObjects[model].Highlight:Destroy()
+        end
+        NpcESPObjects[model] = nil
+    end
+end
+
+task.spawn(function()
+    while task.wait(2) do
+        local currentNpcs = {}
+        for _, obj in ipairs(workspace:GetDescendants()) do
+            if obj:IsA("Model") and table.find(TargetNpcNames, obj.Name) and obj:FindFirstChild("HumanoidRootPart") then
+                currentNpcs[obj] = true
+                CreateNpcESP(obj)
+            end
+        end
+        for model, _ in pairs(NpcESPObjects) do
+            if not currentNpcs[model] or not model.Parent then
+                RemoveNpcESP(model)
+            end
+        end
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    local Camera = workspace.CurrentCamera
+    for model, esp in pairs(NpcESPObjects) do
+        esp.Box.Color = NpcESPConfig.Color
+        esp.Text.Color = NpcESPConfig.Color
+        esp.Highlight.FillColor = NpcESPConfig.Color
+        esp.Highlight.OutlineColor = NpcESPConfig.Color
+
+        if model:FindFirstChild("HumanoidRootPart") then
+            local hrp = model.HumanoidRootPart
+            local pos, onScreen = Camera:WorldToViewportPoint(hrp.Position)
+            
+            if onScreen then
+                local depth = pos.Z
+                local size = Vector2.new(3000 / depth, 4500 / depth)
+                local boxPos = Vector2.new(pos.X - size.X / 2, pos.Y - size.Y / 2)
+                
+                esp.Box.Size = size
+                esp.Box.Position = boxPos
+                esp.Box.Visible = NpcESPConfig.Box
+
+                esp.Text.Text = model.Name
+                esp.Text.Position = Vector2.new(pos.X, boxPos.Y - 20)
+                esp.Text.Visible = NpcESPConfig.Name
+
+                if NpcESPConfig.General then
+                    if esp.Highlight.Parent ~= model then esp.Highlight.Parent = model end
+                    esp.Highlight.Enabled = true
+                else
+                    esp.Highlight.Enabled = false
+                end
+            else
+                esp.Box.Visible = false
+                esp.Text.Visible = false
+                esp.Highlight.Enabled = false
+            end
+        else
+            esp.Box.Visible = false
+            esp.Text.Visible = false
+            esp.Highlight.Enabled = false
+        end
+    end
+end)
+
+UtilityTab:AddSection({ Name = "안티" })
+
+local antiLagEnabled = false
+local savedStates = {}
+
+UtilityTab:AddToggle({
+    Name = "안티렉",
+    CurrentValue = false,
+    Flag = "25",
+    Callback = function(Value)
+        antiLagEnabled = Value
+        if antiLagEnabled then
+            savedStates = {}
+            for _, obj in pairs(game:GetDescendants()) do
+                if obj:IsA("ParticleEmitter") or obj:IsA("Smoke") or obj:IsA("Fire") or obj:IsA("Sparkles") or obj:IsA("Trail") or obj:IsA("Beam") then
+                    savedStates[obj] = obj.Enabled
+                    obj.Enabled = false
+                elseif obj:IsA("BasePart") then
+                    savedStates[obj] = {Material = obj.Material, Reflectance = obj.Reflectance}
+                    obj.Material = Enum.Material.SmoothPlastic
+                    obj.Reflectance = 0
+                end
+            end
+        else
+            for obj, state in pairs(savedStates) do
+                if obj and obj.Parent then
+                    if typeof(state) == "boolean" then
+                        obj.Enabled = state
+                    elseif typeof(state) == "table" then
+                        obj.Material = state.Material
+                        obj.Reflectance = state.Reflectance
+                    end
+                end
+            end
+            savedStates = {}
+        end
+    end,
+})
+
+local fullbrightEnabled = false
+local origLightingProps = {}
+local fbConn = nil
+
+UtilityTab:AddToggle({
+    Name = "안티 어둠",
+    CurrentValue = false,
+    Flag = "26",
+    Callback = function(Value)
+        fullbrightEnabled = Value
+        if fullbrightEnabled then
+            origLightingProps = {
+                Brightness = Lighting.Brightness,
+                ClockTime = Lighting.ClockTime,
+                GlobalShadows = Lighting.GlobalShadows,
+                OutdoorAmbient = Lighting.OutdoorAmbient
+            }
+            fbConn = RunService.RenderStepped:Connect(function()
+                if fullbrightEnabled then
+                    Lighting.Brightness = 2
+                    Lighting.ClockTime = 14
+                    Lighting.GlobalShadows = false
+                    Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+                end
+            end)
+        else
+            if fbConn then
+                fbConn:Disconnect()
+                fbConn = nil
+            end
+            if origLightingProps.Brightness ~= nil then
+                Lighting.Brightness = origLightingProps.Brightness
+                Lighting.ClockTime = origLightingProps.ClockTime
+                Lighting.GlobalShadows = origLightingProps.GlobalShadows
+                Lighting.OutdoorAmbient = origLightingProps.OutdoorAmbient
+            end
+        end
+    end,
+})
+
+local origFogEnd = Lighting.FogEnd
+local origFogStart = Lighting.FogStart
+local origAtmospheres = {}
+
+UtilityTab:AddToggle({
+    Name = "안티 안개",
+    CurrentValue = false,
+    Flag = "27",
+    Callback = function(Value)
+        if Value then
+            origFogEnd = Lighting.FogEnd
+            origFogStart = Lighting.FogStart
+            Lighting.FogStart = 0
+            Lighting.FogEnd = 1e9
+            origAtmospheres = {}
+            for _, v in pairs(Lighting:GetChildren()) do
+                if v:IsA("Atmosphere") then
+                    origAtmospheres[v] = v.Density
+                    v.Density = 0
+                end
+            end
+        else
+            Lighting.FogStart = origFogStart
+            Lighting.FogEnd = origFogEnd
+            for atmosphere, density in pairs(origAtmospheres) do
+                if atmosphere and atmosphere.Parent then
+                    atmosphere.Density = density
+                end
+            end
+            origAtmospheres = {}
+        end
+    end,
+})
+local AntiAfkEnabled = false
+local AfkConnection = nil
+
+UtilityTab:AddToggle({
+   Name = "안티 AFK",
+   Default = false,
+   Flag = "28",
+   Callback = function(Value)
+      AntiAfkEnabled = Value
+      if AntiAfkEnabled then
+         AfkConnection = LocalPlayer.Idled:Connect(function()
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton2(Vector2.new(0,0))
+         end)
+         
+         task.spawn(function()
+            while AntiAfkEnabled do
+               local character = LocalPlayer.Character
+               if character and character:FindFirstChildOfClass("Humanoid") then
+                  character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+               end
+               task.wait(300)
+            end
+         end)
+      else
+         if AfkConnection then AfkConnection:Disconnect(); AfkConnection = nil end
+      end
+   end,
+})
+
+local AntiKickEnabled = false
+
+UtilityTab:AddToggle({
+   Name = "안티 킥(로컬)",
+   Default = false,
+   Flag = "29",
+   Callback = function(Value)
+      AntiKickEnabled = Value
+      if AntiKickEnabled then
+         local mt = getrawmetatable(game)
+         setreadonly(mt, false)
+         local old = mt.__namecall
+         mt.__namecall = newcclosure(function(self, ...)
+            local method = getnamecallmethod()
+            if AntiKickEnabled and method == "Kick" and self == LocalPlayer then
+               return
+            end
+            return old(self, ...)
+         end)
+         setreadonly(mt, true)
+      end
+   end,
+})
+
+local antiFlingEnabled = false
+local antiFlingConn = nil
+local savedCanCollide = {}
+
+UtilityTab:AddToggle({
+    Name = "안티플링",
+    CurrentValue = false,
+    Flag = "30",
+    Callback = function(Value)
+        antiFlingEnabled = Value
+        if antiFlingEnabled then
+            savedCanCollide = {}
+            antiFlingConn = RunService.Stepped:Connect(function()
+                if not antiFlingEnabled then return end
+                for _, player in pairs(Players:GetPlayers()) do
+                    if player ~= LocalPlayer and player.Character then
+                        for _, part in pairs(player.Character:GetDescendants()) do
+                            if part:IsA("BasePart") then
+                                if savedCanCollide[part] == nil then
+                                    savedCanCollide[part] = part.CanCollide
+                                end
+                                part.CanCollide = false
+                            end
+                        end
+                    end
+                end
+            end)
+        else
+            if antiFlingConn then
+                antiFlingConn:Disconnect()
+                antiFlingConn = nil
+            end
+            for part, collide in pairs(savedCanCollide) do
+                if part and part.Parent then
+                    part.CanCollide = collide
+                end
+            end
+            savedCanCollide = {}
+        end
+    end,
+})
+local defaultHipHeight = 2
+task.spawn(function()
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local hum = char:WaitForChild("Humanoid", 5)
+    if hum then
+        defaultHipHeight = hum.HipHeight
+    end
+end)
+UtilityTab:AddSection({ Name = "이외" })
+UtilityTab:AddSlider({
+    Name = "힙 하이스트",
+    Range = {0, 100},
+    Increment = 1,
+    Suffix = "",
+    CurrentValue = 2,
+    Flag = "31",
+    Callback = function(Value)
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+            LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = Value
+        end
+    end,
+})
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CentralEvent = ReplicatedStorage:WaitForChild("CentralEvent")
+
+local currentSound = nil
+
+local function setBackgroundMusic(state)
+	CentralEvent:FireServer("UpdateSetting", "MusicOn", state, 1)
+end
+
+local function stopMusic()
+	if currentSound then
+		currentSound:Stop()
+		currentSound:Destroy()
+		currentSound = nil
+	end
+	setBackgroundMusic(true)
+end
+
+local function playMusic(soundId)
+	setBackgroundMusic(false)
+	if currentSound then
+		currentSound:Stop()
+		currentSound:Destroy()
+		currentSound = nil
+	end
+	currentSound = Instance.new("Sound")
+	currentSound.SoundId = "rbxassetid://" .. tostring(soundId)
+	currentSound.Volume = 1
+	currentSound.Looped = true
+	currentSound.Parent = game:GetService("SoundService")
+	currentSound:Play()
+end
+
+local musicList = {
+	["Crab Lava"] = 5410086218,
+	["Time Attack"] = 88657328640254,
+	["Low Cortisol"] = 110919391228823,
+	["Happy-Go-Lively"] = 1842414898,
+	["Sugar Stutters (a)"] = 1838080629
+}
+
+local selectedMusic = "Crab Lava"
+
+
+MusicTab:AddDropdown({
+	Name = "노래를 골라주세요.",
+	Default = "Crab Lava",
+    Flag = "32",
+	Options = {"Crab Lava", "Time Attack", "Low Cortisol", "Happy-Go-Lively", "Sugar Stutters (a)"},
+	Callback = function(Value)
+		selectedMusic = Value
+	end    
+})
+
+MusicTab:AddToggle({
+	Name = "음악 켜기",
+	Default = false,
+    Flag = "33",
+	Callback = function(Value)
+		if Value then
+			playMusic(musicList[selectedMusic])
+		else
+			stopMusic()
+		end
+	end    
+})
+
+local PotionList = {
+	["문헌의 물약"] = "\235\172\184\237\151\140\236\157\152 \235\172\188\236\149\189",
+	["사도의 물약"] = "\236\130\172\235\143\132\236\157\152 \235\172\188\236\149\189",
+	["속도의 물약"] = "\236\134\141\235\143\132 \235\172\188\236\149\189",
+	["코인 물약"] = "\236\189\148\236\157\184 \235\172\188\236\149\189",
+	["행운 물약"] = "\237\150\137\236\154\180 \235\172\188\236\149\189"
+}
+
+
+local Recipes = {
+	["문헌의 물약"] = {{"고대의책", 50}, {"사도의 물약", 20}, {"인챈트북", 1000}, {"책", 2000}, {"텍스트박스", 1000}},
+	["사도의 물약"] = {{"사도의 낫", 4}},
+	["속도의 물약"] = {{"인챈트북", 1}},
+	["코인 물약"] = {{"인챈트북", 1}},
+	["행운 물약"] = {{"인챈트북", 1}}
+}
+
+local SelectedPotion = "문헌의 물약"
+local PotionAmount = 1
+local CostLabel 
+
+
+local function UpdateCostLabel()
+	if not CostLabel then return end
+	if PotionAmount <= 0 then
+		CostLabel:Set("가격: 1개 이상 입력해주세요.")
+		return
+	end
+	
+	local recipe = Recipes[SelectedPotion]
+	local text = "가격: "
+	
+	for i, item in ipairs(recipe) do
+		local itemName = item[1]
+		local totalCost = item[2] * PotionAmount
+		
+		text = text .. itemName .. " " .. tostring(totalCost) .. "개"
+		if i < #recipe then
+			text = text .. ", "
+		end
+	end
+	
+	CostLabel:Set(text)
+end
+
+
+MUTab:AddDropdown({
+	Name = "물약 선택",
+	Default = "문헌의 물약",
+	Options = {"문헌의 물약", "사도의 물약", "속도의 물약", "코인 물약", "행운 물약"},
+	Callback = function(Value)
+		SelectedPotion = Value
+		UpdateCostLabel() 
+	end    
+})
+
+MUTab:AddTextbox({
+	Name = "물약 제작 개수",
+	Default = "1",
+	TextDisappear = false,
+	Callback = function(Value)
+		local num = tonumber(Value)
+		if num and num > 0 then
+			PotionAmount = math.floor(num) 
+		else
+			PotionAmount = 0
+		end
+		UpdateCostLabel() 
+	end	  
+})
+
+CostLabel = MUTab:AddLabel("가격: 고대의책 50개, 사도의 물약 20개, 인챈트북 1000개, 책 2000개, 텍스트박스 1000개")
+
+MUTab:AddButton({
+	Name = "선택한 물약 제작하기",
+	Callback = function()
+		if PotionList[SelectedPotion] and PotionAmount > 0 then
+			local args = {
+				"CraftPotion",
+				PotionList[SelectedPotion],
+				PotionAmount
+			}
+			game:GetService("ReplicatedStorage"):WaitForChild("CentralEvent"):FireServer(unpack(args))
+		end
+	end    
+})
+NTab:AddLabel("The owner of the script is ZK. ")
+
+NTab:AddLabel("https://youtu.be/_y8RT7vibQA?si=exmVsdPvDMi1HnVJ ")
+NTab:AddLabel("I have never promoted YouTube. ")
+NTab:AddLabel("This YouTube video is an unauthorized use of ZeScript.")
+local ConfigTab = Window:MakeTab({
+    Name = "설정 저장",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+ConfigTab:AddTextbox({
+    Name = "설정 파일 이름",
+    Default = "config",
+    TextDisappear = false,
+    Callback = function(Value)
+        if Value and Value ~= "" then
+            ConfigName = Value
+        end
+    end
+})
+
+ConfigTab:AddButton({
+    Name = "설정 저장하기",
+    Callback = function()
+        SaveAll()
+    end
+})
+
+ConfigTab:AddButton({
+    Name = "설정 불러오기",
+    Callback = function()
+        LoadAll(false)
+    end
+})
+
+
+task.defer(function()
+    LoadAll(true)
+end)

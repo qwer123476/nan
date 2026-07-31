@@ -2971,6 +2971,30 @@ bdTab:AddButton({
         sunrays.Spread = 0.167
     end
 })
+bdTab:AddButton({
+    Name = "제없알 소스 배경",
+    Callback = function()
+        local Lighting = game:GetService('Lighting')
+        Lighting.Brightness = 3
+        Lighting.ClockTime = 14
+        Lighting.FogStart = 0
+        Lighting.FogEnd = 100000
+        Lighting.Ambient = Color3.fromRGB(70,70,70)
+        Lighting.OutdoorAmbient = Color3.fromRGB(90,85,67)
+
+        if Lighting:FindFirstChildOfClass("Sky") then
+            Lighting:FindFirstChildOfClass("Sky"):Destroy()
+        end
+
+        local sky = Instance.new('Sky', Lighting)
+        sky.SkyboxBk = 'rbxassetid://18351376859'
+        sky.SkyboxDn = 'rbxassetid://18351374919'
+        sky.SkyboxFt = 'rbxassetid://18351376800'
+        sky.SkyboxLf = 'rbxassetid://18351376469'
+        sky.SkyboxRt = 'rbxassetid://18351376457'
+        sky.SkyboxUp = 'rbxassetid://18351377189'
+    end
+})
 local ConfigTab = Window:MakeTab({
     Name = "설정 저장",
     Icon = "rbxassetid://4483345998",

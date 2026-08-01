@@ -1219,8 +1219,7 @@ TeleportTab:AddButton({ Name = "컷씬 2", Callback = function() TeleportTo(Vect
 AutoTab:AddSection({ Name = "무기 설정" })
 
 local WeaponStats = {
-
-    ["\235\170\168\235\158\152\236\130\189"] = { -- (모래삽)
+    ["\235\170\168\235\158\152\236\130\189"] = {
         Coins = 5000,
         Cooldown = 0.01,
         IdleAnimationId = "rbxassetid://116217053775814",
@@ -1228,38 +1227,74 @@ local WeaponStats = {
         Exclusive = true,
         AnimationIds = { "rbxassetid://135019277864288", "rbxassetid://85357163303726", "rbxassetid://82584953316919" }
     },
-    -- 필요한 경우
-    -- ["다른무기이름"] = { Cooldown = 0.1, ... }
+    ["모래삽"] = {
+        Coins = 5000,
+        Cooldown = 0.01,
+        IdleAnimationId = "rbxassetid://116217053775814",
+        WalkAnimationId = "rbxassetid://117060717530044",
+        Exclusive = true,
+        AnimationIds = { "rbxassetid://135019277864288", "rbxassetid://85357163303726", "rbxassetid://82584953316919" }
+    }
 }
 
 local AutoWeaponSelectEnabled = false
 local AutoAttackEnabled = false
 local AttackDelay = 0.1
-local SelectedWeapon = ""
+local SelectedWeaponName = ""
+local CurrentWeaponData = nil
 local AutoWeaponConnection = nil
-local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
 
-local function updateSelectedWeapon(weaponName)
-    SelectedWeapon = weaponName
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function playAttackAnimation(character)
+    if not CurrentWeaponData or not CurrentWeaponData.AnimationIds then return end
+    if #CurrentWeaponData.AnimationIds == 0 then return end
     
-        local stats = WeaponStats[weaponName]
-    if stats and stats.Cooldown then
-        AttackDelay = stats.Cooldown 
-        OrionLib:MakeNotification({ 
-            Name = "무기 감지", 
-            Content = weaponName .. " 장착됨!\n쿨타임 " .. tostring(AttackDelay) .. "초 적용", 
-            Image = "rbxassetid://4483362458", 
-            Time = 3 
-        })
-    else
-                OrionLib:MakeNotification({ 
-            Name = "무기 자동 감지", 
-            Content = weaponName .. " 장착됨!\n", 
-            Image = "rbxassetid://4483362458", 
-            Time = 3 
-        })
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+    
+    local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid
+    local randomAnimId = CurrentWeaponData.AnimationIds[math.random(1, #CurrentWeaponData.AnimationIds)]
+    
+    local anim = Instance.new("Animation")
+    anim.AnimationId = randomAnimId
+    
+    local track = animator:LoadAnimation(anim)
+    track:Play()
+end
+
+local function updateSelectedWeapon(tool)
+    if not tool then return end
+    
+    SelectedWeaponName = tool.Name
+    local stats = WeaponStats[tool.Name]
+    
+    if not stats then
+        local cdValue = tool:GetAttribute("Cooldown")
+        if not cdValue then
+            local cdNode = tool:FindFirstChild("Cooldown")
+            if cdNode and cdNode:IsA("NumberValue") then
+                cdValue = cdNode.Value
+            end
+        end
+        
+        stats = {
+            Cooldown = tonumber(cdValue) or 0.1,
+            AnimationIds = {}
+        }
     end
+    
+    CurrentWeaponData = stats
+    AttackDelay = stats.Cooldown or 0.1
+
+    OrionLib:MakeNotification({ 
+        Name = "무기 자동 시스템", 
+        Content = SelectedWeaponName .. " 장착됨\n적용 쿨타임: " .. tostring(AttackDelay) .. "초", 
+        Image = "rbxassetid://4483362458", 
+        Time = 3 
+    })
 end
 
 local function trackCharacterTools(character)
@@ -1269,16 +1304,14 @@ local function trackCharacterTools(character)
     end
     if not character then return end
 
-    
     local currentTool = character:FindFirstChildOfClass("Tool")
     if currentTool and AutoWeaponSelectEnabled then
-        updateSelectedWeapon(currentTool.Name)
+        updateSelectedWeapon(currentTool)
     end
 
-    
     AutoWeaponConnection = character.ChildAdded:Connect(function(child)
         if AutoWeaponSelectEnabled and child:IsA("Tool") then
-            updateSelectedWeapon(child.Name)
+            updateSelectedWeapon(child)
         end
     end)
 end
@@ -1290,8 +1323,6 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     trackCharacterTools(char)
 end)
 
-
-
 AutoTab:AddToggle({
     Name = "자동 무기 등록",
     Default = false,
@@ -1301,7 +1332,7 @@ AutoTab:AddToggle({
         if AutoWeaponSelectEnabled and LocalPlayer.Character then
             local tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
             if tool then
-                updateSelectedWeapon(tool.Name)
+                updateSelectedWeapon(tool)
             end
         end
     end,
@@ -1314,16 +1345,16 @@ AutoTab:AddButton({
         if character then
             local tool = character:FindFirstChildOfClass("Tool")
             if tool then
-                updateSelectedWeapon(tool.Name)
+                updateSelectedWeapon(tool)
             else
-                OrionLib:MakeNotification({ Name = "실패", Content = "무기를 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
+                OrionLib:MakeNotification({ Name = "오류", Content = "무기를 먼저 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
             end
         end
     end,
 })
 
 AutoTab:AddTextbox({
-    Name = "오토팜 딜레이 (수동 조정 가능)",
+    Name = "강제 딜레이 설정 (선택)",
     Default = "0.1",
     Flag = "2",
     TextDisappear = false,
@@ -1346,10 +1377,11 @@ AutoTab:AddToggle({
         if AutoAttackEnabled then
             task.spawn(function()
                 while AutoAttackEnabled do
-                    if SelectedWeapon ~= "" then
-                        CentralEvent:FireServer("ToolClick", SelectedWeapon, 1, workspace:GetServerTimeNow())
+                    if SelectedWeaponName ~= "" and LocalPlayer.Character then
+                        CentralEvent:FireServer("ToolClick", SelectedWeaponName, 1, workspace:GetServerTimeNow())
+                        playAttackAnimation(LocalPlayer.Character)
                     end
-                                        if AttackDelay > 0 then 
+                    if AttackDelay > 0 then 
                         task.wait(AttackDelay) 
                     else 
                         RunService.RenderStepped:Wait() 
@@ -1359,6 +1391,7 @@ AutoTab:AddToggle({
         end
     end,
 })
+
 
 
 

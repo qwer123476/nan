@@ -1217,112 +1217,148 @@ TeleportTab:AddButton({ Name = "컷씬 1", Callback = function() TeleportTo(Vect
 TeleportTab:AddButton({ Name = "컷씬 2", Callback = function() TeleportTo(Vector3.new(60.89, -249.88, -118.98)) end })
 
 AutoTab:AddSection({ Name = "무기 설정" })
-local SelectedWeapon = ""
-local AttackDelay = 0.1
-local AutoAttackEnabled = false
+
+local WeaponStats = {
+
+    ["\235\170\168\235\158\152\236\130\189"] = { -- (모래삽)
+        Coins = 5000,
+        Cooldown = 0.01,
+        IdleAnimationId = "rbxassetid://116217053775814",
+        WalkAnimationId = "rbxassetid://117060717530044",
+        Exclusive = true,
+        AnimationIds = { "rbxassetid://135019277864288", "rbxassetid://85357163303726", "rbxassetid://82584953316919" }
+    },
+    -- 필요한 경우
+    -- ["다른무기이름"] = { Cooldown = 0.1, ... }
+}
+
 local AutoWeaponSelectEnabled = false
+local AutoAttackEnabled = false
+local AttackDelay = 0.1
+local SelectedWeapon = ""
 local AutoWeaponConnection = nil
+local RunService = game:GetService("RunService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
 
-
-local function updateSelectedWeapon(toolName)
-SelectedWeapon = toolName
-OrionLib:MakeNotification({ Name = "완료", Content = "무기: " .. SelectedWeapon, Image = "rbxassetid://4483362458", Time = 2.5 })
+local function updateSelectedWeapon(weaponName)
+    SelectedWeapon = weaponName
+    
+        local stats = WeaponStats[weaponName]
+    if stats and stats.Cooldown then
+        AttackDelay = stats.Cooldown 
+        OrionLib:MakeNotification({ 
+            Name = "무기 감지", 
+            Content = weaponName .. " 장착됨!\n쿨타임 " .. tostring(AttackDelay) .. "초 적용", 
+            Image = "rbxassetid://4483362458", 
+            Time = 3 
+        })
+    else
+                OrionLib:MakeNotification({ 
+            Name = "무기 자동 감지", 
+            Content = weaponName .. " 장착됨!\n", 
+            Image = "rbxassetid://4483362458", 
+            Time = 3 
+        })
+    end
 end
-
 
 local function trackCharacterTools(character)
-if AutoWeaponConnection then
-AutoWeaponConnection:Disconnect()
-AutoWeaponConnection = nil
+    if AutoWeaponConnection then
+        AutoWeaponConnection:Disconnect()
+        AutoWeaponConnection = nil
+    end
+    if not character then return end
+
+    
+    local currentTool = character:FindFirstChildOfClass("Tool")
+    if currentTool and AutoWeaponSelectEnabled then
+        updateSelectedWeapon(currentTool.Name)
+    end
+
+    
+    AutoWeaponConnection = character.ChildAdded:Connect(function(child)
+        if AutoWeaponSelectEnabled and child:IsA("Tool") then
+            updateSelectedWeapon(child.Name)
+        end
+    end)
 end
-if not character then return end
-
-
-local currentTool = character:FindFirstChildOfClass("Tool")
-if currentTool and AutoWeaponSelectEnabled then
-updateSelectedWeapon(currentTool.Name)
-end
-
-
-AutoWeaponConnection = character.ChildAdded:Connect(function(child)
-if AutoWeaponSelectEnabled and child:IsA("Tool") then
-updateSelectedWeapon(child.Name)
-end
-end)
-end
-
 
 if LocalPlayer.Character then
-trackCharacterTools(LocalPlayer.Character)
+    trackCharacterTools(LocalPlayer.Character)
 end
 LocalPlayer.CharacterAdded:Connect(function(char)
-trackCharacterTools(char)
+    trackCharacterTools(char)
 end)
 
 
-AutoTab:AddToggle({
-Name = "자동 무기 등록",
-Default = false,
-Flag = "1",
-Callback = function(Value)
-AutoWeaponSelectEnabled = Value
-if AutoWeaponSelectEnabled and LocalPlayer.Character then
-local tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
-if tool then
-updateSelectedWeapon(tool.Name)
-end
-end
-end,
-})
 
+AutoTab:AddToggle({
+    Name = "자동 무기 등록",
+    Default = false,
+    Flag = "1",
+    Callback = function(Value)
+        AutoWeaponSelectEnabled = Value
+        if AutoWeaponSelectEnabled and LocalPlayer.Character then
+            local tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            if tool then
+                updateSelectedWeapon(tool.Name)
+            end
+        end
+    end,
+})
 
 AutoTab:AddButton({
-Name = "수동 무기 등록",
-Callback = function()
-local character = LocalPlayer.Character
-if character then
-local tool = character:FindFirstChildOfClass("Tool")
-if tool then
-updateSelectedWeapon(tool.Name)
-else
-OrionLib:MakeNotification({ Name = "실패", Content = "무기를 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
-end
-end
-end,
+    Name = "수동 무기 등록",
+    Callback = function()
+        local character = LocalPlayer.Character
+        if character then
+            local tool = character:FindFirstChildOfClass("Tool")
+            if tool then
+                updateSelectedWeapon(tool.Name)
+            else
+                OrionLib:MakeNotification({ Name = "실패", Content = "무기를 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
+            end
+        end
+    end,
 })
-
 
 AutoTab:AddTextbox({
-Name = "오토팜 딜레이",
-Default = "0.1",
-Flag = "2",
-TextDisappear = false,
-Callback = function(Text)
-local num = tonumber(Text)
-if num and num >= 0 then AttackDelay = num else AttackDelay = 0.1 end
-end,
+    Name = "오토팜 딜레이 (수동 조정 가능)",
+    Default = "0.1",
+    Flag = "2",
+    TextDisappear = false,
+    Callback = function(Text)
+        local num = tonumber(Text)
+        if num and num >= 0 then 
+            AttackDelay = num 
+        else 
+            AttackDelay = 0.1 
+        end
+    end,
 })
-
 
 AutoTab:AddToggle({
-Name = "오토팜",
-Default = false,
-Flag = "3",
-Callback = function(Value)
-AutoAttackEnabled = Value
-if AutoAttackEnabled then
-task.spawn(function()
-while AutoAttackEnabled do
-if SelectedWeapon ~= "" then
-CentralEvent:FireServer("ToolClick", SelectedWeapon, 1, workspace:GetServerTimeNow())
-end
-if AttackDelay > 0 then task.wait(AttackDelay) else RunService.RenderStepped:Wait() end
-end
-end)
-end
-end,
+    Name = "오토팜",
+    Default = false,
+    Flag = "3",
+    Callback = function(Value)
+        AutoAttackEnabled = Value
+        if AutoAttackEnabled then
+            task.spawn(function()
+                while AutoAttackEnabled do
+                    if SelectedWeapon ~= "" then
+                        CentralEvent:FireServer("ToolClick", SelectedWeapon, 1, workspace:GetServerTimeNow())
+                    end
+                                        if AttackDelay > 0 then 
+                        task.wait(AttackDelay) 
+                    else 
+                        RunService.RenderStepped:Wait() 
+                    end
+                end
+            end)
+        end
+    end,
 })
-
 
 
 

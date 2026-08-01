@@ -1243,6 +1243,7 @@ local AttackDelay = 0.1
 local SelectedWeaponName = ""
 local CurrentWeaponData = nil
 local AutoWeaponConnection = nil
+local LoadedAnimations = {}
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -1258,11 +1259,13 @@ local function playAttackAnimation(character)
     local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid
     local randomAnimId = CurrentWeaponData.AnimationIds[math.random(1, #CurrentWeaponData.AnimationIds)]
     
-    local anim = Instance.new("Animation")
-    anim.AnimationId = randomAnimId
+    if not LoadedAnimations[randomAnimId] then
+        local anim = Instance.new("Animation")
+        anim.AnimationId = randomAnimId
+        LoadedAnimations[randomAnimId] = animator:LoadAnimation(anim)
+    end
     
-    local track = animator:LoadAnimation(anim)
-    track:Play()
+    LoadedAnimations[randomAnimId]:Play()
 end
 
 local function updateSelectedWeapon(tool)
@@ -1288,12 +1291,13 @@ local function updateSelectedWeapon(tool)
     
     CurrentWeaponData = stats
     AttackDelay = stats.Cooldown or 0.1
+    LoadedAnimations = {} 
 
     OrionLib:MakeNotification({ 
-        Name = "무기 자동 시스템", 
-        Content = SelectedWeaponName .. " 장착됨\n적용 쿨타임: " .. tostring(AttackDelay) .. "초", 
+        Name = "무기 세팅 완료", 
+        Content = SelectedWeaponName .. " 인식 성공\n오토팜 딜레이: " .. tostring(AttackDelay) .. "초", 
         Image = "rbxassetid://4483362458", 
-        Time = 3 
+        Time = 2.5 
     })
 end
 
@@ -1347,14 +1351,14 @@ AutoTab:AddButton({
             if tool then
                 updateSelectedWeapon(tool)
             else
-                OrionLib:MakeNotification({ Name = "오류", Content = "무기를 먼저 장착해주세요.", Image = "rbxassetid://4483362458", Time = 2.5 })
+                OrionLib:MakeNotification({ Name = "경고", Content = "손에 무기를 들어주세요.", Image = "rbxassetid://4483362458", Time = 2 })
             end
         end
     end,
 })
 
 AutoTab:AddTextbox({
-    Name = "강제 딜레이 설정 (선택)",
+    Name = "딜레이 조절",
     Default = "0.1",
     Flag = "2",
     TextDisappear = false,
@@ -1377,10 +1381,19 @@ AutoTab:AddToggle({
         if AutoAttackEnabled then
             task.spawn(function()
                 while AutoAttackEnabled do
-                    if SelectedWeaponName ~= "" and LocalPlayer.Character then
-                        CentralEvent:FireServer("ToolClick", SelectedWeaponName, 1, workspace:GetServerTimeNow())
-                        playAttackAnimation(LocalPlayer.Character)
+                    local char = LocalPlayer.Character
+                    if char and SelectedWeaponName ~= "" then
+                        local equippedTool = char:FindFirstChild(SelectedWeaponName)
+                        if equippedTool then
+                            if CentralEvent then
+                                pcall(function()
+                                    CentralEvent:FireServer("ToolClick", SelectedWeaponName, 1, workspace:GetServerTimeNow())
+                                end)
+                            end
+                            playAttackAnimation(char)
+                        end
                     end
+                    
                     if AttackDelay > 0 then 
                         task.wait(AttackDelay) 
                     else 

@@ -2567,11 +2567,11 @@ pcall(function()
 end)
 
 local ESPSection = ESPTab:AddSection({
-    Name = "동족표시"
+    Name = "테두리 변형"
 })
 
 ESPSection:AddToggle({
-    Name = "동족 표시",
+    Name = "일반+테두리",
     Default = false,
     Callback = function(Value)
         espEnabled = Value
@@ -4155,7 +4155,7 @@ local LocalPlayer = Players.LocalPlayer
 local TextChatService = game:GetService("TextChatService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local SECRET_SIGNAL = "[ORION_HUB_USER_DETECT_999]"
+--local SECRET_SIGNAL = "[ORION_HUB_USER_DETECT_999]"
 
 local function notifyHackerFound(targetPlayer)
     OrionLib:MakeNotification({

@@ -3862,30 +3862,24 @@ Tab:AddToggle({
                   if uiState.completed or not uiState.inProgress then
                       currentEquippedWeapon = nil
                       
-                      -- 목표 지점으로 TP
                       if (hrp.Position - TARGET_POS).Magnitude > 10 then
                           hrp.CFrame = CFrame.new(TARGET_POS)
                           task.wait(0.5)
                       end
                       
-                      -- 🌟 5초 난사 루프 삭제 및 딱 2번만 상호작용 전송 🌟
-                      for i = 1, 2 do
-                          if not autoFarmActive then break end
-                          
-                          for _, obj in ipairs(Workspace:GetDescendants()) do
-                              if obj:IsA("BasePart") and (obj.Position - hrp.Position).Magnitude <= 15 then
-                                  local prompt = obj:FindFirstChildOfClass("ProximityPrompt")
-                                  if prompt then fireproximityprompt(prompt) end
-                                  local detector = obj:FindFirstChildOfClass("ClickDetector")
-                                  if detector then fireclickdetector(detector) end
-                              end
+                      -- NPC 상호작용
+                      for _, obj in ipairs(Workspace:GetDescendants()) do
+                          if obj:IsA("BasePart") and (obj.Position - hrp.Position).Magnitude <= 15 then
+                              local prompt = obj:FindFirstChildOfClass("ProximityPrompt")
+                              if prompt then fireproximityprompt(prompt) end
+                              local detector = obj:FindFirstChildOfClass("ClickDetector")
+                              if detector then fireclickdetector(detector) end
                           end
-                          centralEvent:FireServer("NPCDialogue_Choose", { choiceIndex = 1 })
-                          task.wait(0.5) -- 2번 보내는 사이의 안정화 대기시간
                       end
+                      centralEvent:FireServer("NPCDialogue_Choose", { choiceIndex = 1 })
                       
-                      -- 딱 2번 보낸 후 미션이 제대로 받아질 때까지 대기 (최대 5초)
-                      local timeout = tick() + 5
+                      -- 미션 수락 대기
+                      local timeout = tick() + 3
                       while autoFarmActive and tick() < timeout do
                           local checkState = getUIState()
                           if checkState.inProgress and not checkState.completed then
@@ -3893,19 +3887,21 @@ Tab:AddToggle({
                           end
                           task.wait(0.1)
                       end
-                      
                   elseif uiState.inProgress then
                       local targetWep = uiState.weapon
                       
                       if targetWep then
-                          -- 무기가 바뀌었을 때만 장착 리모트 딱 1번 전송
+                          -- 🌟 툴 토글(ToggleTool) 요청을 정확히 딱 2번만 전송 🌟
                           if currentEquippedWeapon ~= targetWep then
-                              centralEvent:FireServer("ToggleTool", targetWep)
+                              for i = 1, 2 do
+                                  if not autoFarmActive then break end
+                                  centralEvent:FireServer("ToggleTool", targetWep)
+                                  task.wait(0.2)
+                              end
                               currentEquippedWeapon = targetWep
-                              task.wait(0.5)
                           end
                           
-                          -- 클릭은 미션 완료될 때까지 계속 전송
+                          -- 파밍 클릭 전송
                           centralEvent:FireServer("ToolClick", targetWep, 3, false, tick())
                       end
                   end

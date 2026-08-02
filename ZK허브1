@@ -916,6 +916,7 @@ _G.LoopKillBlobmanSelected = _G.LoopKillBlobmanSelected or {
     workspaceService = workspace
     U = services.UserInputService
 ]]
+--[[
 Players = game:GetService("Players")
 LocalPlayer = Players.LocalPlayer
 RunService = game:GetService("RunService")
@@ -1056,7 +1057,7 @@ end
 
 _G.ResetManager = ResetManager
 ResetManager:Start()
-
+]]
 --local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 --local Window = OrionLib:MakeWindow({Name = "알수없는 시뮬레이터", HidePremium = false, SaveConfig = false, IntroText = "알수없는 시뮬레이터"})
@@ -3761,6 +3762,7 @@ bdTab:AddButton({
         cc.TintColor = Color3.fromRGB(250, 240, 255)
     end
 })
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -3823,7 +3825,7 @@ local function getUIState()
             if text and text ~= "" then
                 local noSpaceText = text:gsub("<[^>]+>", ""):gsub("%s+", "")
                 
-                if noSpaceText:find("어둠의거래를완료하여") and noSpaceText:find("암시장코인을했습니다") then
+                if noSpaceText:find("어둠의거래를완료하여") and noSpaceText:find("암시장") then
                     state.completed = true
                 end
                 if noSpaceText:find("코인벌기") then
@@ -3845,7 +3847,7 @@ local function getUIState()
 end
 
 Tab:AddToggle({
-   Name = "암시장 코인 오토팜",
+   Name = "자동 퀘스트 & 파밍",
    CurrentValue = false,
    Flag = "AutoFarmToggle",
    Callback = function(Value)
@@ -3903,6 +3905,7 @@ Tab:AddToggle({
       end
    end,
 })
+                  
 
 local ConfigTab = Window:MakeTab({
     Name = "설정 저장",

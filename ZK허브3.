@@ -3846,7 +3846,7 @@ local function getUIState()
     return state
 end
 
-Tab:CreateToggle({
+Tab:AddToggle({
    Name = "자동 퀘스트 & 파밍",
    CurrentValue = false,
    Flag = "AutoFarmToggle",

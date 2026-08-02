@@ -10718,7 +10718,7 @@ end
 ]]
 
 antiTab:AddToggle({
-    Name = "Anti Gucci Train",
+    Name = "기차 구찌",
     Default = false,
     Flag = "AntiGucciTrain",
     Callback = function(v)
@@ -10790,7 +10790,12 @@ antiTab:AddToggle({
                 lastRagdollFire = now
                 local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                 if hrp then
-                    ragdollRemoteEvent:FireServer(hrp, 0)
+                    local ragdollRemote = getRagdollRemote()
+                    if ragdollRemote then
+                        pcall(function()
+                            ragdollRemote:FireServer(hrp, 0)
+                        end)
+                    end
                 end
             end)
 
@@ -10855,7 +10860,6 @@ antiTab:AddToggle({
         end
     end
 })
-
 antiTab:AddToggle({
     Name = "Anti Gucci Blobman",
     Default = false,

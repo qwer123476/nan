@@ -3891,15 +3891,15 @@ Tab:AddToggle({
                       local targetWep = uiState.weapon
                       
                       if targetWep then
-                          -- 🌟 툴 토글(ToggleTool) 요청을 정확히 딱 2번만 전송 🌟
-                          if currentEquippedWeapon ~= targetWep then
-                              for i = 1, 2 do
-                                  if not autoFarmActive then break end
-                                  centralEvent:FireServer("ToggleTool", targetWep)
-                                  task.wait(0.2)
-                              end
-                              currentEquippedWeapon = targetWep
-                          end
+                          -- 🌟 툴 토글(ToggleTool) 요청을 정확히 딱 1번만 전송 🌟
+if currentEquippedWeapon ~= targetWep then
+    if autoFarmActive then
+        centralEvent:FireServer("ToggleTool", targetWep)
+        task.wait(0.2)
+    end
+    currentEquippedWeapon = targetWep
+end
+
                           
                           -- 파밍 클릭 전송
                           centralEvent:FireServer("ToolClick", targetWep, 3, false, tick())

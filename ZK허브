@@ -2466,6 +2466,154 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local TextChatService = game:GetService("TextChatService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local SECRET_PREFIX = "[ORION_SECRET_MSG]:"
+local espEnabled = false
+
+local function createESP(player)
+    if player == LocalPlayer or not player.Character then return end
+    if player.Character:FindFirstChild("PlayerESP") then return end
+    
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "PlayerESP"
+    highlight.FillColor = Color3.fromRGB(255, 50, 50)
+    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    highlight.FillTransparency = 0.5
+    highlight.OutlineTransparency = 0
+    highlight.Adornee = player.Character
+    highlight.Parent = player.Character
+end
+
+local function removeESP(player)
+    if player.Character and player.Character:FindFirstChild("PlayerESP") then
+        player.Character.PlayerESP:Destroy()
+    end
+end
+
+local function updateAllESP()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            if espEnabled then
+                createESP(player)
+            else
+                removeESP(player)
+            end
+        end
+    end
+end
+
+local function sendMessage(text)
+    pcall(function()
+        if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+            local generalChannel = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+            if generalChannel then
+                generalChannel:SendAsync(text)
+            end
+        else
+            local sayRemote = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") 
+                and ReplicatedStorage.DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest")
+            if sayRemote then
+                sayRemote:FireServer(text, "All")
+            end
+        end
+    end)
+end
+
+local function handleIncomingMessage(sender, message)
+    if sender == LocalPlayer then return end
+    
+    if string.find(message, SECRET_PREFIX, 1, true) then
+        local secretMsg = string.gsub(message, SECRET_PREFIX, "")
+        OrionLib:MakeNotification({
+            Name = "[비밀 메시지] " .. sender.DisplayName,
+            Content = secretMsg,
+            Image = "rbxassetid://4483345998",
+            Time = 8
+        })
+    end
+end
+
+local function listenPlayer(player)
+    if player == LocalPlayer then return end
+    player.Chatted:Connect(function(msg)
+        handleIncomingMessage(player, msg)
+    end)
+    player.CharacterAdded:Connect(function()
+        task.wait(1)
+        if espEnabled then
+            createESP(player)
+        end
+    end)
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    listenPlayer(player)
+end
+Players.PlayerAdded:Connect(listenPlayer)
+
+pcall(function()
+    TextChatService.OnIncomingMessage = function(messageObj)
+        if messageObj.TextSource then
+            local sender = Players:GetPlayerByUserId(messageObj.TextSource.UserId)
+            if sender then
+                handleIncomingMessage(sender, messageObj.Text)
+            end
+        end
+    end
+end)
+
+local ESPSection = ESPTab:AddSection({
+    Name = "동족표시"
+})
+
+ESPSection:AddToggle({
+    Name = "동족 표시",
+    Default = false,
+    Callback = function(Value)
+        espEnabled = Value
+        updateAllESP()
+    end    
+})
+
+local ChatTab = Window:MakeTab({
+    Name = "비밀 챗(베타)",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local ChatSection = ChatTab:AddSection({
+    Name = "전용 메시지"
+})
+
+local inputMessage = ""
+
+ChatSection:AddTextbox({
+    Name = "보낼 메시지 입력",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        inputMessage = Value
+    end	
+})
+
+ChatSection:AddButton({
+    Name = "메시지 전송",
+    Callback = function()
+        if inputMessage ~= "" then
+            sendMessage(SECRET_PREFIX .. inputMessage)
+            OrionLib:MakeNotification({
+                Name = "전송 완료",
+                Content = "비밀 메시지를 전송했습니다.",
+                Image = "rbxassetid://4483345998",
+                Time = 3
+            })
+        end
+    end
+})
 
 UtilityTab:AddSection({ Name = "안티" })
 

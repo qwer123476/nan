@@ -9786,6 +9786,67 @@ local function monitorCharacter(character)
 end
 
 LocalPlayer.CharacterAdded:Connect(monitorCharacter)
+antiTab:AddToggle({
+    Name = "House TP Anti Grab",
+    Default = false,
+    Flag = "HouseTpAntiGrab",
+    Callback = function(v)
+        Settings.Anti.HouseTpAntiGrab = v
+        if v then
+            if State.houseTpConn then return end
+            local housePositions = {
+                Vector3.new(295.6128234863281, -7.405966758728027, 486.5804138183594),
+                Vector3.new(-575.0462036132812, -9.292041778564453, 87.85179901123047),
+                Vector3.new(-526.5169677734375, -9.296868324279785, -165.31671142578125),
+                Vector3.new(524.0487670898438, 80.51884460449219, -366.8386535644531),
+                Vector3.new(577.5789184570312, 121.39737701416016, -93.60242462158203),
+            }
+
+            local function doHouseTp()
+                if not Settings.Anti.HouseTpAntiGrab then return end
+                local char = LocalPlayer.Character
+                local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                local hum = char and char:FindFirstChildOfClass("Humanoid")
+                if not hrp or not hum or hum.Health <= 0 then return end
+                local pos = housePositions[math.random(1, #housePositions)]
+                hrp.CFrame = CFrame.new(pos)
+                hrp.AssemblyLinearVelocity = Vector3.zero
+                hrp.AssemblyAngularVelocity = Vector3.zero
+            end
+
+            State.houseTpConn = {}
+            local lastHouseTp = 0
+            State.houseTpConn.heartbeat = RunService.Heartbeat:Connect(function()
+                if not Settings.Anti.HouseTpAntiGrab then return end
+                local now = tick()
+                if now - lastHouseTp < 0.04 then return end
+                lastHouseTp = now
+                doHouseTp()
+            end)
+            State.houseTpConn.respawn = LocalPlayer.CharacterAdded:Connect(function()
+                if not Settings.Anti.HouseTpAntiGrab then return end
+                local char = LocalPlayer.Character
+                local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                if not hrp then
+                    hrp = char and char:WaitForChild("HumanoidRootPart", 2)
+                end
+                if hrp then
+                    local pos = housePositions[math.random(1, #housePositions)]
+                    hrp.CFrame = CFrame.new(pos)
+                    hrp.AssemblyLinearVelocity = Vector3.zero
+                    hrp.AssemblyAngularVelocity = Vector3.zero
+                end
+            end)
+        else
+            if State.houseTpConn then
+                if State.houseTpConn.heartbeat then State.houseTpConn.heartbeat:Disconnect() end
+                if State.houseTpConn.respawn then State.houseTpConn.respawn:Disconnect() end
+                State.houseTpConn = nil
+            end
+        end
+    end
+})
+
 antiTab:AddSection({
     Name = "킬"
 })
@@ -10589,6 +10650,7 @@ antiTab:AddToggle({
 antiTab:AddSection({
     Name = "GUCCI"
 })
+--[[
 antiTab:AddToggle({
     Name = "오토구찌(킥위험 약간 있음!)  <font color='rgb(255,146,123)'>[블롭맨]</font>     <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
@@ -10639,6 +10701,279 @@ antiTab:AddToggle({
 end
 })
 
+]]
+
+antiTab:AddToggle({
+    Name = "Anti Gucci Train",
+    Default = false,
+    Flag = "AntiGucciTrain",
+    Callback = function(v)
+        Settings.Anti.AntiGucciTrain = v
+        if v then
+            local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            local humanoid = character:WaitForChild("Humanoid")
+            local rootPart = character:WaitForChild("HumanoidRootPart")
+            State.antiGucci.safePositionTrain = rootPart.CFrame
+            State.antiGucci.hasSatThisLife = false
+            State.antiGucci.sitTimerTrain = nil
+
+            local function returnToOriginal()
+                local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                if hrp and State.antiGucci.safePositionTrain then
+                    if hum then
+                        hum:ChangeState(Enum.HumanoidStateType.Jumping)
+                        hum.Sit = false
+                    end
+                    task.wait(0.05)
+                    hrp.CFrame = State.antiGucci.safePositionTrain
+                end
+            end
+
+            local function onSitSuccess()
+                if State.antiGucci.hasSatThisLife then return end
+                State.antiGucci.hasSatThisLife = true
+                if State.antiGucci.sitTimerTrain then State.antiGucci.sitTimerTrain:Cancel() end
+                State.antiGucci.sitTimerTrain = task.delay(0.1, function()
+                    State.antiGucci.sitTimerTrain = nil
+                end)
+            end
+
+            local function sitAndJumpWarp(seat)
+                local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                if not hrp or not hum or not seat then return end
+
+                State.antiGucci.safePositionTrain = hrp.CFrame
+                hrp.CFrame = seat.CFrame + Vector3.new(0, 0.5, 0)
+
+                local success = pcall(function()
+                    seat:Sit(hum)
+                end)
+
+                if success then
+                    task.wait(0.1)
+                    returnToOriginal()
+                else
+                    returnToOriginal()
+                end
+            end
+
+            local function getTrainSeat()
+                local success, seat = pcall(function()
+                    return Workspace.Map.AlwaysHereTweenedObjects.Train.Object.ObjectModel:FindFirstChildWhichIsA("Seat")
+                end)
+                if success then return seat end
+                return nil
+            end
+
+            if State.antiGucci.connectionTrain then State.antiGucci.connectionTrain:Disconnect() end
+            local lastRagdollFire = 0
+            State.antiGucci.connectionTrain = RunService.Heartbeat:Connect(function()
+                if not Settings.Anti.AntiGucciTrain then return end
+                local now = tick()
+                if now - lastRagdollFire < 0.033 then return end
+                lastRagdollFire = now
+                local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    ragdollRemoteEvent:FireServer(hrp, 0)
+                end
+            end)
+
+            if State.antiGucci.trainCharConn then State.antiGucci.trainCharConn:Disconnect() end
+            State.antiGucci.trainCharConn = LocalPlayer.CharacterAdded:Connect(function()
+                task.wait(0.5)
+                State.antiGucci.hasSatThisLife = false
+                State.antiGucci.sitTimerTrain = nil
+                local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    State.antiGucci.safePositionTrain = hrp.CFrame
+                end
+            end)
+
+            State.antiGucci.trainGucciLoop = true
+            State.antiGucci.trainGucciThread = task.spawn(function()
+                while State.antiGucci.trainGucciLoop do
+                    pcall(function()
+                        if Settings.Anti.AntiGucciTrain then
+                            local shouldTry = (not State.antiGucci.hasSatThisLife or (State.antiGucci.sitTimerTrain and State.antiGucci.hasSatThisLife))
+                            if shouldTry then
+                                local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                                if hum and not hum.Sit then
+                                    if getTrainSeat and sitAndJumpWarp and onSitSuccess then
+                                        local seat = getTrainSeat()
+                                        if seat then
+                                            sitAndJumpWarp(seat)
+                                            onSitSuccess()
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait(0.016)
+                end
+            end)
+        else
+            State.antiGucci.trainGucciLoop = false
+            State.antiGucci.hasSatThisLife = false
+            if State.antiGucci.sitTimerTrain then
+                State.antiGucci.sitTimerTrain:Cancel()
+                State.antiGucci.sitTimerTrain = nil
+            end
+            if State.antiGucci.trainGucciThread then
+                task.cancel(State.antiGucci.trainGucciThread)
+                State.antiGucci.trainGucciThread = nil
+            end
+            if State.antiGucci.connectionTrain then
+                State.antiGucci.connectionTrain:Disconnect()
+                State.antiGucci.connectionTrain = nil
+            end
+            if State.antiGucci.trainCharConn then
+                State.antiGucci.trainCharConn:Disconnect()
+                State.antiGucci.trainCharConn = nil
+            end
+            local character = LocalPlayer.Character
+            if character then
+                local humanoid = character:FindFirstChild("Humanoid")
+                if humanoid then humanoid.Sit = false end
+            end
+        end
+    end
+})
+
+antiTab:AddToggle({
+    Name = "Anti Gucci Blobman",
+    Default = false,
+    Flag = "AntiGucciBlobman",
+    Callback = function(v)
+        Settings.Anti.AntiGucciBlobman = v
+        if v then
+            task.spawn(function()
+                local function spawnBlobmanForGucci()
+                    local char = LocalPlayer.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    local pos = hrp and hrp.CFrame or CFrame.new(0, 50, 0)
+                    pcall(function()
+                        SpawnToyRF:InvokeServer("CreatureBlobman", pos, Vector3.new(0, 0, 0))
+                    end)
+                end
+
+                local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                local humanoid = character:WaitForChild("Humanoid")
+                local rootPart = character:WaitForChild("HumanoidRootPart")
+                State.antiGucci.safePosition = rootPart.CFrame
+
+                local function ensureBlobman()
+                    local inv = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                    local blob = inv and inv:FindFirstChild("CreatureBlobman")
+                    if not blob or not blob.Parent then
+                        spawnBlobmanForGucci()
+                        task.wait(1)
+                        inv = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                        blob = inv and inv:FindFirstChild("CreatureBlobman")
+                    end
+                    return blob
+                end
+
+                local blob = ensureBlobman()
+                if not blob then return end
+
+                local seat = blob:FindFirstChildWhichIsA("VehicleSeat", true)
+                if not seat then return end
+
+                rootPart.CFrame = seat.CFrame + Vector3.new(0, 2, 0)
+                task.wait()
+
+                local GE = ReplicatedStorage:FindFirstChild("GrabEvents")
+                local createGrab = GE and GE:FindFirstChild("CreateGrabLine")
+                local setOwner = GE and GE:FindFirstChild("SetNetworkOwner")
+                local destroyGrab = GE and GE:FindFirstChild("DestroyGrabLine")
+
+                local gucciRunning = true
+
+                seat:Sit(humanoid)
+
+                local grabThread = task.spawn(function()
+                    local gucciFrame = 0
+                    while gucciRunning do
+                        for _, part in ipairs(blob:GetDescendants()) do
+                            if part:IsA("BasePart") then
+                                if gucciFrame % 3 == 0 then
+                                    pcall(function() setOwner:FireServer(part, rootPart.CFrame) end)
+                                elseif gucciFrame % 3 == 1 then
+                                    pcall(function() createGrab:FireServer(part, Vector3.zero, part.Position, false) end)
+                                else
+                                    pcall(function() destroyGrab:FireServer(part) end)
+                                end
+                            end
+                        end
+                        gucciFrame = gucciFrame + 1
+                        task.wait(0.035)
+                    end
+                end)
+
+                local start = tick()
+                while tick() - start < 0.5 and Settings.Anti.AntiGucciBlobman do
+                    pcall(function()
+                        ragdollRemoteEvent:FireServer(rootPart, 0)
+                        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    end)
+                    RunService.Heartbeat:Wait()
+                end
+
+                gucciRunning = false
+
+                local primary = blob.PrimaryPart or blob:FindFirstChildWhichIsA("BasePart", true)
+                if primary then
+                    pcall(function()
+                        setNetworkOwnerEvent:FireServer(primary, rootPart.CFrame)
+                    end)
+                    pcall(function()
+                        sethiddenproperty(primary, "NetworkIsSleeping", false)
+                    end)
+                end
+
+                pcall(function() seat:Destroy() end)
+                task.wait(0.1)
+                if humanoid then
+                    humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    humanoid.Sit = false
+                end
+                task.wait(0.05)
+                rootPart.CFrame = State.antiGucci.safePosition
+
+                pcall(function()
+                    if blob:FindFirstChild("Head") then
+                        blob.Head.CFrame = CFrame.new(0, 50000, 0)
+                        blob.Head.Anchored = true
+                    end
+                end)
+            end)
+        else
+            if State.antiGucci.connection then
+                State.antiGucci.connection:Disconnect()
+                State.antiGucci.connection = nil
+            end
+            local character = LocalPlayer.Character
+            if character then
+                local rootPart = character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if rootPart and State.antiGucci.safePosition then
+                    rootPart.CFrame = State.antiGucci.safePosition
+                end
+                if humanoid then humanoid.Sit = false end
+            end
+            task.wait(0.1)
+            local blobFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+            if blobFolder and blobFolder:FindFirstChild("CreatureBlobman") then
+                pcall(function()
+                    DeleteToyRE:FireServer(blobFolder.CreatureBlobman)
+                end)
+            end
+        end
+    end
+})
 
 do
     local Players = game:GetService("Players")

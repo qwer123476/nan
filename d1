@@ -5,6 +5,7 @@ Junkie.identifier = "1158081"
 Junkie.provider = "Mixed"
 
 local KEY_FILE = "알없시 key" -- 키가 저장될 파일 이름
+local SaveKeyEnabled = true   -- 기본값: 저장 켜짐
 
 -- 저장된 키가 있는지 확인 + 유효한지 검사
 local function checkSavedKey()
@@ -16,7 +17,6 @@ local function checkSavedKey()
                 getgenv().SCRIPT_KEY = savedKey
                 return true
             else
-                -- 키가 만료됐거나 유효하지 않으면 파일 삭제
                 if delfile then
                     delfile(KEY_FILE)
                 end
@@ -34,45 +34,43 @@ end
 
 -- ==================== UI 부분 ====================
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local ApA = {
-    -- 메인 및 외곽선 테두리 (확실한 초록색 적용)
-    Outline = Color3.fromRGB(0, 255, 120),               -- 메인 창 겉테두리 (핵심)
-    Main = Color3.fromRGB(0, 255, 120),                  -- 메인 아웃라인 및 강조 테두리
-    Accent = Color3.fromRGB(0, 255, 120),                -- 포인트 외곽선
 
+local ApA = {
+    Outline = Color3.fromRGB(0, 255, 120),
+    Main = Color3.fromRGB(0, 255, 120),
+    Accent = Color3.fromRGB(0, 255, 120),
     TextColor = Color3.fromRGB(240, 240, 240),
-    Background = Color3.fromRGB(18, 10, 28),             -- 짙은 보라색 (메인 바탕)
-    Topbar = Color3.fromRGB(25, 12, 38),                 -- 짙은 보라색 (상단바)
+    Background = Color3.fromRGB(18, 10, 28),
+    Topbar = Color3.fromRGB(25, 12, 38),
     Shadow = Color3.fromRGB(0, 0, 0),
     NotificationBackground = Color3.fromRGB(22, 12, 34),
     NotificationActionsBackground = Color3.fromRGB(32, 18, 48),
     TabBackground = Color3.fromRGB(25, 14, 38),
-    TabStroke = Color3.fromRGB(0, 255, 120),             -- 초록색 (탭 테두리)
+    TabStroke = Color3.fromRGB(0, 255, 120),
     TabBackgroundSelected = Color3.fromRGB(45, 20, 70),
     TabTextColor = Color3.fromRGB(180, 160, 200),
-    SelectedTabTextColor = Color3.fromRGB(255, 60, 60),  -- 탭 선택 텍스트 (빨강)
-    ElementBackground = Color3.fromRGB(24, 12, 36),       -- 짙은 보라색 (요소 배경)
+    SelectedTabTextColor = Color3.fromRGB(255, 60, 60),
+    ElementBackground = Color3.fromRGB(24, 12, 36),
     ElementBackgroundHover = Color3.fromRGB(38, 18, 58),
     SecondaryElementBackground = Color3.fromRGB(16, 8, 25),
-    ElementStroke = Color3.fromRGB(0, 255, 120),         -- 초록색 (요소 테두리)
-    SecondaryElementStroke = Color3.fromRGB(0, 200, 90),  -- 초록색 (보조 테두리)
+    ElementStroke = Color3.fromRGB(0, 255, 120),
+    SecondaryElementStroke = Color3.fromRGB(0, 200, 90),
     SliderBackground = Color3.fromRGB(30, 15, 45),
-    SliderProgress = Color3.fromRGB(220, 30, 30),         -- 빨강색 (슬라이더)
+    SliderProgress = Color3.fromRGB(220, 30, 30),
     SliderStroke = Color3.fromRGB(255, 60, 60),
     ToggleBackground = Color3.fromRGB(25, 12, 38),
-    ToggleEnabled = Color3.fromRGB(230, 30, 30),          -- 빨강색 (토글 켜짐)
-    ToggleEnabledStroke = Color3.fromRGB(255, 80, 80),   -- 빨강색 (토글 테두리)
+    ToggleEnabled = Color3.fromRGB(230, 30, 30),
+    ToggleEnabledStroke = Color3.fromRGB(255, 80, 80),
     ToggleEnabledOuterStroke = Color3.fromRGB(160, 20, 20),
     ToggleDisabled = Color3.fromRGB(45, 25, 65),
-    ToggleDisabledStroke = Color3.fromRGB(0, 255, 120),   -- 초록색 (토글 꺼짐 테두리)
+    ToggleDisabledStroke = Color3.fromRGB(0, 255, 120),
     ToggleDisabledOuterStroke = Color3.fromRGB(15, 8, 24),
     DropdownSelected = Color3.fromRGB(45, 20, 70),
     DropdownUnselected = Color3.fromRGB(24, 12, 36),
     InputBackground = Color3.fromRGB(20, 10, 30),
-    InputStroke = Color3.fromRGB(0, 255, 120),           -- 초록색 (입력창 테두리)
+    InputStroke = Color3.fromRGB(0, 255, 120),
     PlaceholderColor = Color3.fromRGB(140, 110, 160),
 }
-
 
 local Window = Rayfield:CreateWindow({
    Name = "Xeron | Key System",
@@ -91,7 +89,26 @@ local Window = Rayfield:CreateWindow({
 -- ==================== 1탭 : 한국어 ====================
 local TabKR = Window:CreateTab("한국어", 4483362458)
 
+-- 주의 섹션
+TabKR:CreateSection("☆필독 안내문☆")
+TabKR:CreateParagraph({
+   Title = "☆주의☆",
+   Content = "1. 이 스크립트는 자체제작 스크립트입니다\n2. 절대 허락없이 무단 판매하지 마세요.\n3. 이 스크립트의 제작자는 ZK 입니다.\n4. 이용해 주셔서 감사합니다."
+})
+
+TabKR:CreateSection("인증")
+
 local StatusLabelKR = TabKR:CreateLabel("상태를 확인하세요")
+
+-- 키 저장 토글
+TabKR:CreateToggle({
+   Name = "키 저장하기",
+   CurrentValue = true,
+   Flag = "SaveKeyKR",
+   Callback = function(Value)
+      SaveKeyEnabled = Value
+   end,
+})
 
 TabKR:CreateButton({
    Name = "키 링크 복사",
@@ -141,8 +158,8 @@ TabKR:CreateButton({
       local result = Junkie.check_key(key)
 
       if result and result.valid then
-         -- 키 저장
-         if writefile then
+         -- 토글이 켜져있을 때만 저장
+         if SaveKeyEnabled and writefile then
             writefile(KEY_FILE, key)
          end
 
@@ -150,7 +167,7 @@ TabKR:CreateButton({
          
          Rayfield:Notify({
             Title = "인증 성공",
-            Content = "키가 저장되었습니다. 다음부터는 자동으로 넘어갑니다",
+            Content = SaveKeyEnabled and "키가 저장되었습니다." or "키가 저장되지 않았습니다",
             Duration = 4,
             Image = 4483362458,
          })
@@ -177,13 +194,32 @@ TabKR:CreateButton({
 
 TabKR:CreateParagraph({
    Title = "안내",
-   Content = "1. 키 링크 복사 버튼을 누르세요\n2. 브라우저에서 키를 받으세요\n3. 받은 키를 입력하고 인증하기를 누르세요\n\n한 번 인증하면 키가 만료될 때까지 자동으로 넘어갑니다.\n키 유효기간: 70일"
+   Content = "1. 키 링크 복사 버튼을 누르세요\n2. 브라우저에서 키를 받으세요\n3. 받은 키를 입력하고 인증하기를 누르세요\n\n한 번 인증하면 키가 만료될 때까지 자동으로 넘어갑니다.\n이 시스템의 키는 약 70일 정도이니 믿고 이용해 주세요^^"
 })
 
 -- ==================== 2탭 : English ====================
 local TabEN = Window:CreateTab("English", 4483362458)
 
+-- Notice Section
+TabEN:CreateSection("☆essential reading guide☆")
+TabEN:CreateParagraph({
+   Title = "☆Notice☆",
+   Content = "1. This script is self-made.\n2. Do not sell it without permission.\n3. The creator of this script is ZK.\n4. Thank you for using it."
+})
+
+TabEN:CreateSection("Authentication")
+
 local StatusLabelEN = TabEN:CreateLabel("Check status here")
+
+-- Save Key Toggle
+TabEN:CreateToggle({
+   Name = "Save Key",
+   CurrentValue = true,
+   Flag = "SaveKeyEN",
+   Callback = function(Value)
+      SaveKeyEnabled = Value
+   end,
+})
 
 TabEN:CreateButton({
    Name = "Copy Key Link",
@@ -233,8 +269,7 @@ TabEN:CreateButton({
       local result = Junkie.check_key(key)
 
       if result and result.valid then
-         -- Save key
-         if writefile then
+         if SaveKeyEnabled and writefile then
             writefile(KEY_FILE, key)
          end
 
@@ -242,7 +277,7 @@ TabEN:CreateButton({
          
          Rayfield:Notify({
             Title = "Success",
-            Content = "Key saved. Next time it will auto-skip",
+            Content = SaveKeyEnabled and "Key saved. Next time it will auto-skip" or "Key was not saved",
             Duration = 4,
             Image = 4483362458,
          })
@@ -269,5 +304,5 @@ TabEN:CreateButton({
 
 TabEN:CreateParagraph({
    Title = "Guide",
-   Content = "1. Click 'Copy Key Link'\n2. Get the key from your browser\n3. Paste the key and click Authenticate\n\nOnce authenticated, it will auto-skip until the key expires.\nKey Duration: 70 Days"
+   Content = "1. Click 'Copy Key Link'\n2. Get the key from your browser\n3. Paste the key and click Authenticate\n\nOnce authenticated, it will auto-skip until the key expires.\nThis system's key lasts about 70 days, so feel free to use it with confidence^^"
 })

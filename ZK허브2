@@ -2696,7 +2696,63 @@ UtilityTab:AddSlider({
         end
     end,
 })
+local CoreGui = game:GetService("CoreGui")
+local BlackScreenGui = Instance.new("ScreenGui")
+BlackScreenGui.Name = "AutofarmOptimizationUI"
+BlackScreenGui.ResetOnSpawn = false
+BlackScreenGui.IgnoreGuiInset = true -- 상단 롭스 상단바까지 완전 덮기
 
+-- 실행기별 UI 보호 및 부모 설정
+if gethui then
+    BlackScreenGui.Parent = gethui()
+elseif syn and syn.protect_gui then
+    syn.protect_gui(BlackScreenGui)
+    BlackScreenGui.Parent = CoreGui
+else
+    BlackScreenGui.Parent = CoreGui
+end
+
+-- 검은색 전체 화면 프레임
+local BlackFrame = Instance.new("Frame")
+BlackFrame.Size = UDim2.new(1, 0, 1, 0)
+BlackFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+BlackFrame.BorderSizePixel = 0
+BlackFrame.Visible = false
+BlackFrame.ZIndex = 999999
+BlackFrame.Parent = BlackScreenGui
+
+-- 화면 왼쪽 가장자리의 작은 빨간색 X 버튼
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Size = UDim2.new(0, 24, 0, 24)
+CloseBtn.Position = UDim2.new(0, 6, 0.5, -12) -- 화면 좌측 중앙
+CloseBtn.BackgroundColor3 = Color3.fromRGB(230, 50, 50)
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.Text = "✕"
+CloseBtn.TextSize = 14
+CloseBtn.Font = Enum.Font.SourceSansBold
+CloseBtn.BorderSizePixel = 0
+CloseBtn.ZIndex = 1000000
+CloseBtn.Parent = BlackFrame
+
+-- X 버튼 둥글게 스타일링
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 4)
+UICorner.Parent = CloseBtn
+
+-- X 버튼 클릭 시 검은 화면 해제
+CloseBtn.MouseButton1Click:Connect(function()
+    BlackFrame.Visible = false
+end)
+local OptimizeSection = UtilityTab:AddSection({
+    Name = "오토팜 최적화"
+})
+
+OptimizeSection:AddButton({
+    Name = "최적화",
+    Callback = function()
+        BlackFrame.Visible = true
+    end    
+})
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CentralEvent = ReplicatedStorage:WaitForChild("CentralEvent")
 

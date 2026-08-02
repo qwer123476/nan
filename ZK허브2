@@ -3846,7 +3846,7 @@ local function getUIState()
     return state
 end
 
-Tab:AddToggle({
+Tab:CreateToggle({
    Name = "자동 퀘스트 & 파밍",
    CurrentValue = false,
    Flag = "AutoFarmToggle",
@@ -3867,18 +3867,26 @@ Tab:AddToggle({
                           task.wait(0.5)
                       end
                       
-                      for _, obj in ipairs(Workspace:GetDescendants()) do
-                          if obj:IsA("BasePart") and (obj.Position - hrp.Position).Magnitude <= 15 then
-                              local prompt = obj:FindFirstChildOfClass("ProximityPrompt")
-                              if prompt then fireproximityprompt(prompt) end
-                              local detector = obj:FindFirstChildOfClass("ClickDetector")
-                              if detector then fireclickdetector(detector) end
+                      local startTime = tick()
+                      while autoFarmActive and (tick() - startTime) < 5 do
+                          for _, obj in ipairs(Workspace:GetDescendants()) do
+                              if obj:IsA("BasePart") and (obj.Position - hrp.Position).Magnitude <= 15 then
+                                  local prompt = obj:FindFirstChildOfClass("ProximityPrompt")
+                                  if prompt then fireproximityprompt(prompt) end
+                                  local detector = obj:FindFirstChildOfClass("ClickDetector")
+                                  if detector then fireclickdetector(detector) end
+                              end
                           end
+                          centralEvent:FireServer("NPCDialogue_Choose", { choiceIndex = 1 })
+                          
+                          local checkState = getUIState()
+                          if checkState.inProgress and not checkState.completed then
+                              break
+                          end
+                          task.wait(0.5)
                       end
-                      task.wait(0.3)
-                      centralEvent:FireServer("NPCDialogue_Choose", { choiceIndex = 1 })
                       
-                      local timeout = tick() + 3
+                      local timeout = tick() + 5
                       while autoFarmActive and tick() < timeout do
                           local checkState = getUIState()
                           if checkState.inProgress and not checkState.completed then

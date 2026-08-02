@@ -4002,3 +4002,71 @@ ConfigTab:AddButton({
 task.defer(function()
     LoadAll(true)
 end)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local TextChatService = game:GetService("TextChatService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local SECRET_SIGNAL = "[ORION_HUB_USER_DETECT_999]"
+
+local function notifyHackerFound(targetPlayer)
+    OrionLib:MakeNotification({
+        Name = "동족 감지!",
+        Content = "당신과 같은 핵이 나타났어요! (" .. targetPlayer.DisplayName .. " / @" .. targetPlayer.Name .. ")",
+        Image = "rbxassetid://4483345998",
+        Time = 6
+    })
+end
+
+local function sendMySignal()
+    task.wait(1.5)
+    pcall(function()
+        if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+            local generalChannel = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+            if generalChannel then
+                generalChannel:SendAsync(SECRET_SIGNAL)
+            end
+        else
+            local sayRemote = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") 
+                and ReplicatedStorage.DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest")
+            if sayRemote then
+                sayRemote:FireServer(SECRET_SIGNAL, "All")
+            end
+        end
+    end)
+end
+
+local function checkMessage(senderPlayer, message)
+    if senderPlayer == LocalPlayer then return end
+    if string.find(message, SECRET_SIGNAL, 1, true) then
+        notifyHackerFound(senderPlayer)
+    end
+end
+
+local function listenToPlayer(player)
+    if player == LocalPlayer then return end
+    player.Chatted:Connect(function(msg)
+        checkMessage(player, msg)
+    end)
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    listenToPlayer(player)
+end
+
+Players.PlayerAdded:Connect(listenToPlayer)
+
+pcall(function()
+    TextChatService.OnIncomingMessage = function(messageObj)
+        if messageObj.TextSource then
+            local sender = Players:GetPlayerByUserId(messageObj.TextSource.UserId)
+            if sender and sender ~= LocalPlayer then
+                if string.find(messageObj.Text, SECRET_SIGNAL, 1, true) then
+                    notifyHackerFound(sender)
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(sendMySignal)

@@ -1185,6 +1185,7 @@ local NTab = Window:MakeTab({Name = "ONWER", Icon = "rbxassetid://4483362458", P
 local TeleportTab = Window:MakeTab({Name = "TP", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local AutoTab = Window:MakeTab({Name = "오토팜", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local GTab = Window:MakeTab({Name = "오토 강화", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local Tab = Window:MakeTab({Name = "암시장", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local MUTab = Window:MakeTab({Name = "물약 상점", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local PlayerTab = Window:MakeTab({Name = "플레이어", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 local bdTab = Window:MakeTab({Name = "배경체인지", Icon = "rbxassetid://4483362458", PremiumOnly = false})
@@ -3759,6 +3760,148 @@ bdTab:AddButton({
         cc.Saturation = 0.28
         cc.TintColor = Color3.fromRGB(250, 240, 255)
     end
+})
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local player = Players.LocalPlayer
+local centralEvent = ReplicatedStorage:WaitForChild("CentralEvent")
+local TARGET_POS = Vector3.new(293.408447, -389.525635, -522.827026)
+local autoFarmActive = false
+local currentEquippedWeapon = nil
+
+local function isGuiVisible(gui)
+    local current = gui
+    while current and not current:IsA("ScreenGui") and current.Parent do
+        if current:IsA("GuiObject") and not current.Visible then
+            return false
+        end
+        current = current.Parent
+    end
+    if current and current:IsA("ScreenGui") and not current.Enabled then
+        return false
+    end
+    return true
+end
+
+local function getAvailableWeapons()
+    local weaponsMap = {}
+    local function scanTools(parent)
+        if not parent then return end
+        for _, obj in ipairs(parent:GetDescendants()) do
+            if obj:IsA("Tool") then
+                local strippedName = obj.Name:gsub("%s+", "")
+                weaponsMap[strippedName] = obj.Name
+            end
+        end
+    end
+    
+    scanTools(Workspace)
+    scanTools(ReplicatedStorage)
+    scanTools(player:FindFirstChild("Backpack"))
+    scanTools(player.Character)
+    
+    return weaponsMap
+end
+
+local function getUIState()
+    local state = { completed = false, inProgress = false, weapon = nil }
+    local playerGui = player:FindFirstChild("PlayerGui")
+    if not playerGui then return state end
+    
+    local weaponsMap = getAvailableWeapons()
+    local strippedNames = {}
+    
+    for strippedName in pairs(weaponsMap) do
+        table.insert(strippedNames, strippedName)
+    end
+    table.sort(strippedNames, function(a, b) return string.len(a) > string.len(b) end)
+    
+    for _, ui in ipairs(playerGui:GetDescendants()) do
+        if (ui:IsA("TextLabel") or ui:IsA("TextButton")) and isGuiVisible(ui) then
+            local text = ui.Text
+            if text and text ~= "" then
+                local noSpaceText = text:gsub("<[^>]+>", ""):gsub("%s+", "")
+                
+                if noSpaceText:find("어둠의거래를완료하여") and noSpaceText:find("암시장코인을했습니다") then
+                    state.completed = true
+                end
+                if noSpaceText:find("코인벌기") then
+                    state.inProgress = true
+                end
+                
+                if not state.weapon then
+                    for _, strippedName in ipairs(strippedNames) do
+                        if noSpaceText:find(strippedName) then
+                            state.weapon = weaponsMap[strippedName]
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return state
+end
+
+Tab:AddToggle({
+   Name = "암시장 코인 오토팜",
+   CurrentValue = false,
+   Flag = "AutoFarmToggle",
+   Callback = function(Value)
+      autoFarmActive = Value
+      if autoFarmActive then
+          task.spawn(function()
+              while autoFarmActive do
+                  local char = player.Character or player.CharacterAdded:Wait()
+                  local hrp = char:WaitForChild("HumanoidRootPart")
+                  local uiState = getUIState()
+                  
+                  if uiState.completed or not uiState.inProgress then
+                      currentEquippedWeapon = nil
+                      
+                      if (hrp.Position - TARGET_POS).Magnitude > 10 then
+                          hrp.CFrame = CFrame.new(TARGET_POS)
+                          task.wait(0.5)
+                      end
+                      
+                      for _, obj in ipairs(Workspace:GetDescendants()) do
+                          if obj:IsA("BasePart") and (obj.Position - hrp.Position).Magnitude <= 15 then
+                              local prompt = obj:FindFirstChildOfClass("ProximityPrompt")
+                              if prompt then fireproximityprompt(prompt) end
+                              local detector = obj:FindFirstChildOfClass("ClickDetector")
+                              if detector then fireclickdetector(detector) end
+                          end
+                      end
+                      task.wait(0.3)
+                      centralEvent:FireServer("NPCDialogue_Choose", { choiceIndex = 1 })
+                      
+                      local timeout = tick() + 3
+                      while autoFarmActive and tick() < timeout do
+                          local checkState = getUIState()
+                          if checkState.inProgress and not checkState.completed then
+                              break
+                          end
+                          task.wait(0.1)
+                      end
+                  elseif uiState.inProgress then
+                      local targetWep = uiState.weapon
+                      
+                      if targetWep then
+                          if currentEquippedWeapon ~= targetWep then
+                              centralEvent:FireServer("ToggleTool", targetWep)
+                              currentEquippedWeapon = targetWep
+                              task.wait(0.5)
+                          end
+                          
+                          centralEvent:FireServer("ToolClick", targetWep, 3, false, tick())
+                      end
+                  end
+                  task.wait(0.1)
+              end
+          end)
+      end
+   end,
 })
 
 local ConfigTab = Window:MakeTab({

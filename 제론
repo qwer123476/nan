@@ -1319,6 +1319,42 @@ end
 G = rs.GrabEvents
 G:WaitForChild("EndGrabEarly"):Destroy()
 Instance.new("RemoteEvent", G).Name = "EndGrabEarly"
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+local Debris = game:GetService("Debris")
+local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Camera = Workspace.CurrentCamera
+local characterEventsFolder = ReplicatedStorage:WaitForChild("CharacterEvents")
+local ragdollRemoteEvent = characterEventsFolder:WaitForChild("RagdollRemote")
+local struggleEvent = characterEventsFolder:WaitForChild("Struggle")
+local grabEventsFolder = ReplicatedStorage:WaitForChild("GrabEvents")
+local setNetworkOwnerEvent = grabEventsFolder:WaitForChild("SetNetworkOwner")
+local destroyGrabLineEvent = grabEventsFolder:WaitForChild("DestroyGrabLine")
+local menuToysFolder = ReplicatedStorage:WaitForChild("MenuToys")
+local SpawnToyRF = menuToysFolder:WaitForChild("SpawnToyRemoteFunction")
+local DeleteToyRE = menuToysFolder:WaitForChild("DestroyToy")
+local playerEventsFolder = ReplicatedStorage:WaitForChild("PlayerEvents")
+local StickyPartEvent = playerEventsFolder:WaitForChild("StickyPartEvent")
+local isHeldValue = LocalPlayer:WaitForChild("IsHeld")
+local playerScriptsFolder = LocalPlayer:WaitForChild("PlayerScripts")
+local anticreatelinelocalscript = playerScriptsFolder:WaitForChild("CharacterAndBeamMove", 5)
+local spawnedInToysFolder = Workspace:WaitForChild(LocalPlayer.Name .. "SpawnedInToys", 5)
+
+local apagarfogo = nil
+pcall(function()
+    apagarfogo = Workspace.Map.Hole.PoisonBigHole:WaitForChild("ExtinguishPart", 3)
+    if apagarfogo then
+        apagarfogo.Size = Vector3.new(0.5, 0.5, 0.5)
+        apagarfogo.Transparency = 1
+        if apagarfogo:FindFirstChild("Tex") then apagarfogo.Tex.Transparency = 1 end
+    end
+end)
 
 --local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/12345/main/Orion"))()
 

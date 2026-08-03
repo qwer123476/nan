@@ -1,4 +1,4 @@
-do
+
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
@@ -1056,7 +1056,7 @@ end
 
 _G.ResetManager = ResetManager
 ResetManager:Start()
-
+do
 do
 print("Xeron V4 ⚡️💎⚡️")
 getgenv().Settings = getgenv().Settings or {}

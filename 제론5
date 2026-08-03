@@ -11115,7 +11115,7 @@ do
         end
     })
 end
-end
+
 playerTab:AddSection({
     Name = "플레이어"
 })

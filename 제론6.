@@ -7620,8 +7620,8 @@ local function getPlayerNames()
     return names
 end
 
-local Dropdown = Tab:AddDropdown({
-    Name = "Select Player",
+ListTab:AddDropdown({
+    Name = "플레이어 고르기",
     Default = "",
     Options = getPlayerNames(),
     Callback = function(selected)

@@ -1923,7 +1923,7 @@ function spawnBlobmanF()
 
          tries = 0
         repeat
-            task.wait(0.02)
+            task.wait(0.2)
             blobmanInstanceS = inv and inv:FindFirstChild("CreatureBlobman")
             tries += 1
         until blobmanInstanceS or tries > 25
@@ -1951,164 +1951,157 @@ function ragdollLoopF()
 	ragdollLoopD = false
 end
 
-local Players = game:GetService("Players")
-local d = Players.LocalPlayer or Players.PlayerAdded:Wait()
-
-local function getCharacter()
-    local char = d.Character
-    if not char or not char.Parent then
-        char = d.CharacterAdded:Wait()
-    end
-    return char
-end
-
 function sitJumpF()
-    local char = getCharacter()
-    local hum = char:FindFirstChild("Humanoid")
-    if not hum then return end
-
-    local seat = blobmanInstanceS and blobmanInstanceS:FindFirstChildWhichIsA("VehicleSeat")
+    char = plr.Character
+    hum = char and char:FindFirstChild("Humanoid")
+    if not char or not hum then return end
+    seat = blobmanInstanceS and blobmanInstanceS:FindFirstChildWhichIsA("VehicleSeat")
     if seat and seat.Occupant ~= hum then
-        seat:Sit(hum)
-        autoGucciT = false
-        sitJumpT = false
-    end
+    seat:Sit(hum)
+    autoGucciT = false
+    sitJumpT = false
+end
 end
 
 function AutoGucciF()
     while AutoGucciT do
-        pcall(function()
+        local success = pcall(function()
             spawnBlobmanF()
-
-            local p = getCharacter()
-            local q = p:FindFirstChild("HumanoidRootPart")
-            local r = p:FindFirstChild("Humanoid")
-
-            if not q or not r or r.Health <= 0 then
-                task.wait()
-                return
-            end
-
-            local s = r:FindFirstChild("Ragdolled")
-            local t = d:FindFirstChild("IsHeld")
-            if not s or not t then return end
-
-            if not sitJumpT then
-                task.spawn(sitJumpF)
-                sitJumpT = true
-            end
-
-            task.spawn(ragdollLoopF)
-
-            local v = RepStorage.CharacterEvents.RagdollRemote
-            local w = RepStorage.MenuToys.DestroyToy
-
-            task.wait(0.3)
-            v:FireServer(q, 0.001)
-
-            successCheck = true
-            sitJumpT = false
-
-            while successCheck and AutoGucciT do
-                if r.Health <= 0 or (s and s.Value == true) or (t and t.Value == true) then
-                    if blobmanInstanceS and blobmanInstanceS.Parent then
-                        w:FireServer(blobmanInstanceS)
-                    end
-                    blobmanInstanceS = nil
-                    successCheck = false
-                    break
-                end
-
-                local A = blobmanInstanceS and blobmanInstanceS:FindFirstChildWhichIsA("VehicleSeat")
-                if A and A.Occupant ~= nil then
-                    if blobmanInstanceS and blobmanInstanceS.Parent then
-                        w:FireServer(blobmanInstanceS)
-                    end
-                    blobmanInstanceS = nil
-                    successCheck = false
-                    break
-                end
-
-                local B = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
-                local C = blobmanInstanceS and blobmanInstanceS:FindFirstChild("Head")
-
-                if B and B.Parent then
-                    local D = workspace.FallenPartsDestroyHeight
-                    local E =
-                        (D <= -5e4 and -49996) or
-                        (D <= -100 and -96) or
-                        -77777
-
-                    g.GrabEvents.SetNetworkOwner:FireServer(
-                        B,
-                        CFrame.lookAt(q.Position, B.Position)
-                    )
-
-                    local F = C:FindFirstChild("PartOwner") or C:WaitForChild("PartOwner", 0.5)
-
-                    if F then
-                        B.CFrame = CFrame.new(0, E, 9999) * CFrame.Angles(0, 0, 3.1)
-                        task.wait(0.2)
-                        B.Anchored = true
-                    end
-                end
-
-                task.wait(0.016)
-            end
-
-            if not successCheck then
-                if r then
-                    g.CharacterEvents.Struggle:FireServer(d)
-
-                    r.Sit = true
-                    task.wait(0.1)
-                    r.Sit = false
-
-                    if blobmanInstanceS and blobmanInstanceS.Parent then
-                        w:FireServer(blobmanInstanceS)
-                        blobmanInstanceS = nil
-                    end
-                end
-
-                task.wait(0.5)
-            end
         end)
 
-        task.wait()
+        char = plr.Character
+        if not char then
+            task.wait(0.1)
+            return 
+        end
+
+        hrp = char:WaitForChild("HumanoidRootPart")
+        hum = char:WaitForChild("Humanoid")
+        rag = hum:WaitForChild("Ragdolled")
+        held = plr:WaitForChild("IsHeld")
+
+        SpawnToyRemoteFunction = RepStorage.MenuToys.SpawnToyRemoteFunction 
+        RagdollRemote = RepStorage.CharacterEvents.RagdollRemote
+        DestroyToy = RepStorage.MenuToys.DestroyToy
+        seat = blobmanInstanceS:WaitForChild("VehicleSeat"):WaitForChild("ProximityPrompt")
+
+        if not hrp then return end
+        OCF = hrp.CFrame
+
+        if not sitJumpT then
+            task.spawn(sitJumpF)
+            sitJumpT = true
+        end
+
+        task.spawn(ragdollLoopF)
+        task.wait(0.3)
+        
+        --fireproximityprompt(seat)
+        --task.wait(0.1)
+        --hrp.Massless = false
+        --task.wait(0.1)
+        
+        hrp.CFrame = OCF
+
+        successCheck = true
+        sitJumpT = false
+        RagdollRemote:FireServer(hrp, 0.001)
+
+        while successCheck and AutoGucciT do
+            if hum.Health <= 0 then
+                if blobmanInstanceS then
+                    DestroyToy:FireServer(blobmanInstanceS)
+                end
+                successCheck = false
+                break
+            end
+
+            seat = blobmanInstanceS and blobmanInstanceS:FindFirstChildWhichIsA("VehicleSeat")
+            if seat and seat.Occupant ~= nil then
+                DestroyToy:FireServer(blobmanInstanceS)
+                successCheck = false
+                break
+            end
+
+            if rag.Value == true or held.Value == true then
+                while (rag.Value == true or held.Value == true) and AutoGucciT do
+                    rs.CharacterEvents.Struggle:FireServer()
+                    task.wait()
+                end
+                successCheck = false
+                break
+            end
+
+            blobHRP = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
+            if blobHRP then
+                SetNetworkOwner = rs:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+                pcall(function()
+                    SetNetworkOwner:FireServer(blobHRP, hrp)
+                end)
+                blobHRP.CFrame = CFrame.new(0, 99999, 0)
+            end
+
+            task.wait()
+        end
+
+        if not successCheck then
+            blobHRP = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
+            
+            OrionLib:MakeNotification({
+                Name = "[ 🔓 ]",
+                Content = "Gucci | Wait",
+                Time = 1
+            })
+
+            if hum then
+                rs.CharacterEvents.Struggle:FireServer(plr)
+                hum.Sit = true
+                task.wait(0.1)
+                hum.Sit = false
+                if blobHRP and blobHRP.Position.Y > 9000 then 
+                    DestroyToy:FireServer(blobmanInstanceS) 
+                end
+            end
+
+            sitJumpT = false
+            task.wait(1)
+        end
     end
 end
 
 function sitJumpFV2()
-    local char = getCharacter()
-    local hum = char:FindFirstChild("Humanoid")
-    if not hum then return end
+     char = plr.Character
+     hum = char and char:FindFirstChild("Humanoid")
+    if not char or not hum then return end
 
-    local seat = workspace.Map.AlwaysHereTweenedObjects.Train.Object.ObjectModel.Seat
+     seat = workspace.Map.AlwaysHereTweenedObjects.Train.Object.ObjectModel.Seat
     if seat and seat.Occupant ~= hum then
-        seat:Sit(hum)
-        AutoGucciTV2 = false
-        sitJumpT = false
-    end
+    seat:Sit(hum)
+    AutoGucciTV2 = false
+    sitJumpT = false
+end
 end
 
 function AutoGucciFV2()
-    local char = getCharacter()
-    local hrp = char:WaitForChild("HumanoidRootPart")
-    local hum = char:WaitForChild("Humanoid")
-    if not hrp then return end
+     char = plr.Character
+    if not char then
+        task.wait(1)
+        return 
+    end
 
-    local OCF = hrp.CFrame
+     hrp = char:WaitForChild("HumanoidRootPart")
+     hum = char:WaitForChild("Humanoid")
+
+    if not hrp then return end
+     OCF = hrp.CFrame
 
     if not sitJumpT then
         task.spawn(sitJumpFV2)
         sitJumpT = true
     end
-
     task.spawn(ragdollLoopF)
-
     task.wait(0.3)
     hrp.CFrame = OCF
-
     sitJumpT = false
 end
 
@@ -6224,7 +6217,7 @@ end
 end
 end
 end
-end
+
 ----------------------------------------------------------------------------------------- [ 시작 설정 ]
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -10700,9 +10693,9 @@ antiTab:AddToggle({
 antiTab:AddSection({
     Name = "GUCCI"
 })
---[[
+
 antiTab:AddToggle({
-    Name = "오토구찌(킥위험 약간 있음!)  <font color='rgb(255,146,123)'>[블롭맨]</font>     <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "오토구찌 <font color='rgb(255,146,123)'>[블롭맨]</font>     <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
     Flag = "autoGucciToggleFlag",
@@ -10751,7 +10744,7 @@ antiTab:AddToggle({
 end
 })
 
-]]
+
 
 antiTab:AddToggle({
     Name = "기차 구찌",
@@ -10896,6 +10889,7 @@ antiTab:AddToggle({
         end
     end
 })
+--[[
 antiTab:AddToggle({
     Name = "Anti Gucci Blobman",
     Default = false,
@@ -11028,7 +11022,7 @@ antiTab:AddToggle({
         end
     end
 })
-
+]]
 do
     local Players = game:GetService("Players")
     local RunService = game:GetService("RunService")
@@ -11101,6 +11095,7 @@ do
             end
         end
     })
+end
 end
 playerTab:AddSection({
     Name = "플레이어"

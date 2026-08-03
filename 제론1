@@ -1,4 +1,4 @@
-
+do
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
@@ -1355,7 +1355,7 @@ pcall(function()
         if apagarfogo:FindFirstChild("Tex") then apagarfogo.Tex.Transparency = 1 end
     end
 end)
-
+end
 --local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/12345/main/Orion"))()
 
 local HttpService = game:GetService("HttpService")

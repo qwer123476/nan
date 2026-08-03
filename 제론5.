@@ -2130,7 +2130,7 @@ function ragdollLoopF2()
 end
 
 function HasNoLegs(p)
-    return not (p:FindFirstChild("Left Leg") and p:FindFirstChild("Right Leg"))
+    --return not (p:FindFirstChild("Left Leg") and p:FindFirstChild("Right Leg"))
 end
 
 function StartMonitoring()

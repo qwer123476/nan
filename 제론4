@@ -2190,7 +2190,7 @@ end
             StartMonitoring()
         end
     end
-end)
+
 
 plotItemsFolder = workspace:WaitForChild("PlotItems")
 playersInPlotsFolder = plotItemsFolder:WaitForChild("PlayersInPlots")

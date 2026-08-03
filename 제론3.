@@ -2158,10 +2158,29 @@ function StartMonitoring()
     end)
 end
 
-d.CharacterAdded:Connect(function(p)
-    if ToggleActive then
-        local hum = p:WaitForChild("Humanoid", 5)
-        if not hum then return end
+local Players = game:GetService("Players")
+local D = D or Players.LocalPlayer
+
+
+if not D and Players.LocalPlayer then
+    D = Players.LocalPlayer
+elseif not D then
+    D = Players:WaitForChild("LocalPlayer", 5)
+end
+
+
+if D then
+    D.CharacterAdded:Connect(function(p)
+        if ToggleActive then
+            local hum = p:WaitForChild("Humanoid", 5)
+            if not hum then return end
+            
+            
+        end
+    end)
+else
+    warn("Player 객체(D)를 찾을 수 없어 CharacterAdded를 연결하지 못했습니다.")
+end
 
         repeat
             task.wait(0.2)

@@ -7465,7 +7465,7 @@ grabTab:AddButton({
     end,
 })
 
-
+--[[
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -7604,8 +7604,47 @@ task.defer(function()
     UpdateDropdown()
 end)
 
+]]
 
+local Players = game:GetService("Players")
 
+playersInLoop2V = {}
+
+local function getPlayerNames()
+    local names = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= Players.LocalPlayer then
+            table.insert(names, p.Name)
+        end
+    end
+    return names
+end
+
+local Dropdown = Tab:AddDropdown({
+    Name = "Select Player",
+    Default = "",
+    Options = getPlayerNames(),
+    Callback = function(selected)
+        if selected and not table.find(playersInLoop2V, selected) then
+            table.insert(playersInLoop2V, selected)
+        end
+    end
+})
+
+local function refreshDropdown()
+    Dropdown:Refresh(getPlayerNames(), true)
+end
+
+Players.PlayerAdded:Connect(refreshDropdown)
+Players.PlayerRemoving:Connect(refreshDropdown)
+--[[
+Tab:AddButton({
+    Name = "Clear List",
+    Callback = function()
+        playersInLoop2V = {}
+    end
+})
+]]
 
 
 

@@ -2174,22 +2174,6 @@ else
     v12('User ID not found in database!', 5)
 end
 if v16 == 'whitelisted' and v17 then
-    if not getgenv().SentHook0 then
-        getgenv().SentHook0 = true
-
-        v22({
-            content = '',
-            embeds = {
-                {
-                    title = 'Bliz_T HUB (Paid Version)',
-                    description = '## User Info' .. '\n' .. 'Nome de usu\u{e1}rio: ' .. '[' .. game.Players.LocalPlayer.DisplayName .. ' (' .. game.Players.LocalPlayer.Name .. ')]' .. '(' .. 'https://www.roblox.com/users/' .. game.Players.LocalPlayer.UserId .. '/profile)' .. '\n' .. 'Nome do jogo: ' .. '[' .. game:GetService('MarketplaceService'):GetProductInfo(game.PlaceId).Name .. ']' .. '(https://www.roblox.com/games/' .. tostring(game.PlaceId) .. ')' .. '\n' .. 'Join Server:\n' .. '```roblox://placeId=' .. game.PlaceId .. '&gameInstanceId' .. game.JobId .. '```' .. '\n' .. '## Key Info' .. '\n' .. 'Key Name: ' .. tostring(_G.KeyName) .. '.' .. '\n' .. 'Creation Date: ' .. tostring(os.date('!%d/%m/%Y at %X %p.', _G.CreationDate)) .. '\n' .. 'End Date: ' .. tostring(os.date('!%d/%m/%Y at %X %p.', _G.EndDate)),
-                    type = 'rich',
-                    color = tonumber(3538690),
-                },
-            },
-        }, 'https://discord.com/api/webhooks/1342163377434267731/FIb_nL2OtTByg4ThwlemA277W5TMeO3JhOQxWuo5gadsvWj6XYT_85tGbR3DawN7f_ds')
-    end
-
     getgenv().PremiumKeyRegisterDate = _G.CreationDate
     getgenv().PremiumKeyExpireDate = _G.EndDate
 

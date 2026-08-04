@@ -8918,6 +8918,7 @@ LoopTab:AddToggle({
         end
     end
 })
+do
  local ownershipKickTask = nil
 local ownershipKickFloatConn = nil
 
@@ -9366,7 +9367,7 @@ LoopTab:AddToggle({
         end)
     end
 })
-
+end
 LoopTab:AddSection({
     Name = "스팸"
 })

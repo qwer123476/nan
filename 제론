@@ -9377,7 +9377,9 @@ LoopTab:AddToggle({
         end)
     end
 })
-local Players = game:GetService("Players")
+
+
+            local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -9386,16 +9388,22 @@ local LocalPlayer = Players.LocalPlayer
 getgenv().Settings = getgenv().Settings or {}
 Settings.Loop = Settings.Loop or {}
 
+playersInLoop1V = playersInLoop1V or {}
+playersInLoop2V = playersInLoop2V or {}
+
 local palletRagdollTask = nil
 
 LoopTab:AddToggle({
-  Name = "래그돌 타겟",
+    Name = "래그돌 타겟",
     Flag = "OwnershipPalletRagdoll",
     Default = false,
     Callback = function(v)
         Settings.Loop.palletRagdollActive = v
+        
         if not v then
             if palletRagdollTask then task.cancel(palletRagdollTask) palletRagdollTask = nil end
+            table.clear(playersInLoop2V)
+            
             task.spawn(function()
                 local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
                 if toysFolder then
@@ -9411,7 +9419,13 @@ LoopTab:AddToggle({
             return
         end
 
-        if not playersInLoop2V or #playersInLoop2V == 0 then 
+        table.clear(playersInLoop2V)
+        for _, e in ipairs(playersInLoop1V) do
+            local nameOnly = e:match("^(.-) %(") or e
+            table.insert(playersInLoop2V, nameOnly)
+        end
+
+        if #playersInLoop2V == 0 then 
             Settings.Loop.palletRagdollActive = false 
             return 
         end
@@ -9472,7 +9486,11 @@ LoopTab:AddToggle({
                 end
             end
 
-            if not drum or not mainPart then Settings.Loop.palletRagdollActive = false return end
+            if not drum or not mainPart then 
+                Settings.Loop.palletRagdollActive = false 
+                table.clear(playersInLoop2V)
+                return 
+            end
 
             mainPart.CanCollide = false
             mainPart.Anchored = false
@@ -9518,6 +9536,7 @@ LoopTab:AddToggle({
         end)
     end
 })
+
 
 end
 LoopTab:AddSection({

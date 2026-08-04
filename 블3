@@ -2173,10 +2173,18 @@ if v17 then
 else
     v12('User ID not found in database!', 5)
 end
-if v16 == 'whitelisted' and v17 then
-    getgenv().PremiumKeyRegisterDate = _G.CreationDate
-    getgenv().PremiumKeyExpireDate = _G.EndDate
 
-    v18()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/BlizTBr/scripts/main/FTAP.lua'))()
-end
+
+getgenv().PremiumKeyRegisterDate = os.time()
+getgenv().PremiumKeyExpireDate = os.time() + 999999999
+
+v16 = 'whitelisted'
+v17 = true
+
+pcall(function()
+    if v18 then
+        v18()
+    end
+end)
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/BlizTBr/scripts/main/FTAP.lua'))()

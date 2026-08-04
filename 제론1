@@ -8307,6 +8307,206 @@ do
             end
         end
     })
+Settings.BlobmanBeta.loopKillActive = false
+
+local function blobKickAction(blob, hrp, rl, v)
+    local detec = blob:FindFirstChild(rl .. "Detector")
+    local script = blob:FindFirstChild("BlobmanSeatAndOwnerScript")
+    if not (detec and script) then return end
+    local weld = detec:FindFirstChild(rl .. "Weld")
+    if v == "Default" then script.CreatureGrab:FireServer(detec, hrp, weld)
+    elseif v == "DDrop" then script.CreatureDrop:FireServer(weld)
+    elseif v == "Release" then script.CreatureRelease:FireServer(weld, hrp) end
+end
+
+local function cleanupBlobmanLocks()
+    local myChar = LocalPlayer.Character
+    if not myChar then return end
+    local myHum = myChar:FindFirstChildOfClass("Humanoid")
+    local myRoot = myChar:FindFirstChild("HumanoidRootPart")
+    if myHum then
+        myHum.PlatformStand = false
+        myHum.Sit = false
+        pcall(function() myHum.Jump = true end)
+    end
+
+    local tName = Settings.BlobmanBeta.selectedTarget
+    if tName then
+        local tPlayer = Players:FindFirstChild(tName)
+        local tChar = tPlayer and tPlayer.Character
+        local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+        local tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+        if tHum then
+            tHum.PlatformStand = false
+            tHum.Sit = false
+        end
+        if tChar then
+            for _, part in ipairs(tChar:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    for _, p in ipairs(part:GetChildren()) do
+                        if p:IsA("BodyPosition") or p:IsA("BodyGyro") or p:IsA("BodyVelocity") or p:IsA("BodyForce") then
+                            pcall(function() p:Destroy() end)
+                        end
+                    end
+                end
+            end
+        end
+        if tRoot then
+            pcall(function() destroyGrabLineEvent:FireServer(tRoot) end)
+        end
+    end
+
+    local blob = BlobmanBetaFeature.getBlobman()
+    if blob then
+        local scr = blob:FindFirstChild("BlobmanSeatAndOwnerScript", true)
+        if scr then
+            local CD = scr:FindFirstChild("CreatureDrop")
+            local R_Det = blob:FindFirstChild("RightDetector")
+            if CD and R_Det then
+                local weld = R_Det:FindFirstChild("RightWeld") or R_Det:FindFirstChildWhichIsA("Weld")
+                if weld then pcall(function() CD:FireServer(weld) end) end
+            end
+            local L_Det = blob:FindFirstChild("LeftDetector")
+            if L_Det then
+                local lw = L_Det:FindFirstChild("LeftWeld")
+                if lw and CD then pcall(function() CD:FireServer(lw) end) end
+            end
+        end
+        for _, part in ipairs(blob:GetDescendants()) do
+            if part:IsA("BasePart") then
+                pcall(function()
+                    part.CanCollide = true
+                    part.Anchored = false
+                end)
+            end
+        end
+        local detL = blob:FindFirstChild("LeftDetector")
+        local detR = blob:FindFirstChild("RightDetector")
+        if detL then
+            for _, w in ipairs(detL:GetChildren()) do
+                if w:IsA("Weld") or w:IsA("WeldConstraint") then pcall(function() w:Destroy() end) end
+            end
+        end
+        if detR then
+            for _, w in ipairs(detR:GetChildren()) do
+                if w:IsA("Weld") or w:IsA("WeldConstraint") then pcall(function() w:Destroy() end) end
+            end
+        end
+    end
+    if myRoot then
+        local GE = ReplicatedStorage:FindFirstChild("GrabEvents")
+        if GE and GE:FindFirstChild("DestroyGrabLine") then
+            pcall(function() GE.DestroyGrabLine:FireServer(myRoot) end)
+            for _, part in ipairs(myChar:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    pcall(function() GE.DestroyGrabLine:FireServer(part) end)
+                end
+            end
+        end
+    end
+end
+
+local function runBlobmanLoopLogic()
+    local target = BlobmanBetaFeature.checkTarget()
+    if not target then warn("Select target") Settings.BlobmanBeta.loopKillActive = false return end
+
+    while Settings.BlobmanBeta.loopKillActive do
+        local mychar = LocalPlayer.Character
+        local myhum = mychar and mychar:FindFirstChildOfClass("Humanoid")
+        if not myhum then task.wait(0.1) continue end
+        if myhum.SeatPart and myhum.SeatPart.Parent and myhum.SeatPart.Parent.Name == "CreatureBlobman" then
+            break
+        end
+        BlobmanBetaFeature.forceSitBlobman()
+        task.wait()
+    end
+
+    if not Settings.BlobmanBeta.loopKillActive then return end
+
+    local MyBlob = BlobmanBetaFeature.getBlobman()
+    if not MyBlob then task.wait(0.5) MyBlob = BlobmanBetaFeature.getBlobman() end
+    if not MyBlob then return end
+
+    while Settings.BlobmanBeta.loopKillActive and task.wait() do
+        local mychar = LocalPlayer.Character
+        local myHRP = mychar and mychar:FindFirstChild("HumanoidRootPart")
+        local myhum = mychar and mychar:FindFirstChildOfClass("Humanoid")
+        if not (myhum and myhum.SeatPart and myhum.SeatPart.Parent and myhum.SeatPart.Parent.Name == "CreatureBlobman") then
+            BlobmanBetaFeature.forceSitBlobman()
+            MyBlob = BlobmanBetaFeature.getBlobman()
+            continue
+        end
+        MyBlob = myhum.SeatPart.Parent
+
+        local ct = Players:FindFirstChild(target.Name)
+        if not (ct and ct.Character) then continue end
+        local hum = ct.Character:FindFirstChildOfClass("Humanoid")
+        local HRP = ct.Character:FindFirstChild("HumanoidRootPart")
+        if not (hum and HRP and hum.Health > 0) then continue end
+
+        if hum.Health == 0 then
+            ct.Character = ct.CharacterAdded:Wait()
+            hum = ct.Character:FindFirstChildOfClass("Humanoid")
+            HRP = ct.Character:FindFirstChild("HumanoidRootPart")
+            task.wait(0.15)
+            if not (hum and HRP) then continue end
+        end
+
+        local LD = MyBlob:FindFirstChild("LeftDetector")
+        local LW = LD and LD:FindFirstChild("LeftWeld")
+        if not (LD and LW) then continue end
+
+        while LW.Attachment0 ~= HRP.RootAttachment and Settings.BlobmanBeta.loopKillActive do
+            local savedPos = myHRP.CFrame
+
+            while hum.SeatPart do
+                task.spawn(function() BlobmanBetaFeature.SetNetworkOwner(HRP) end)
+                task.wait()
+            end
+
+            for i = 1, 4 do
+                if not myhum.SeatPart then break end
+                myHRP.CFrame = HRP.CFrame - Vector3.new(0, 10, 0)
+                blobKickAction(MyBlob, HRP, "Left", "Default")
+                task.wait(0.05)
+                blobKickAction(MyBlob, HRP, "Left", "Release")
+                hum.Health = 0
+                task.wait()
+            end
+
+            myHRP.CFrame = savedPos
+        end
+    end
+end
+
+LoopTab:AddToggle({
+    Name = "루프킬(베타) <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Default = false,
+    Flag = "21",
+    Callback = function(Value)
+        blobLoopT2 = Value
+        Settings.BlobmanBeta.loopKillActive = Value
+        
+        if Value then
+            table.clear(playersInLoop2V)
+            for i, e in ipairs(playersInLoop1V) do
+                local nameOnly = e:match("^(.-) %(") or e
+                table.insert(playersInLoop2V, nameOnly)
+            end
+            
+            if typeof(loopPlayerBlobF2) == "function" then
+                loopPlayerBlobF2()
+            end
+            
+            task.spawn(runBlobmanLoopLogic)
+        else
+            blobLoopT2 = false
+            table.clear(playersInLoop2V)
+            cleanupBlobmanLocks()
+        end
+    end
+})
+
 end
 
 
@@ -10508,7 +10708,7 @@ end
 
 LocalPlayer.CharacterAdded:Connect(monitorCharacter)
 antiTab:AddToggle({
-    Name = "House TP Anti Grab",
+    Name = "집 안티그랩",
     Default = false,
     Flag = "HouseTpAntiGrab",
     Callback = function(v)

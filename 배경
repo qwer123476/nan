@@ -45,6 +45,7 @@ local Window = Rayfield:CreateWindow({
         FileName = "Config"
     }
 })
+local bdTab = Window:MakeTab({Name = "배경체인저", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 
 bdTab:AddButton({
     Name = "기본값",

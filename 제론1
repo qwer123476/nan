@@ -12129,6 +12129,166 @@ funTab:AddButton({
 		end
 	end
 })
+local UserInputService = game:GetService("UserInputService")
+local coreGui = game:GetService("CoreGui")
+
+local KeyConnection = nil
+
+local function RemoveGui()
+    if coreGui:FindFirstChild("NoClipGui") then
+        coreGui.NoClipGui:Destroy()
+    end
+end
+
+local function DisconnectKey()
+    if KeyConnection then
+        KeyConnection:Disconnect()
+        KeyConnection = nil
+    end
+end
+
+local function NoClipPart()
+    if Processing then return end
+    Processing = true
+
+    local char = plr.Character
+    if not char then
+        Processing = false
+        return
+    end
+
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    local torso = char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
+    if not hrp or not torso then
+        Processing = false
+        return
+    end
+
+    local tt = mouse.Target
+    if not tt or not tt:IsA("BasePart") then 
+        Processing = false
+        return
+    end
+
+    if tt.Name == "PlotBarrier" then 
+        local success, check = pcall(function()
+            return tt.Parent and tt.Parent.Parent and tt.Parent.Parent:FindFirstChild("PlotArea")
+        end)
+        if success and check and check:IsA("BasePart") then
+            tt = check
+        else
+            Processing = false
+            return
+        end
+    end
+
+    if tt.Name == "HumanoidRootPart" then 
+        local success, check = pcall(function()
+            return tt.Parent and tt.Parent:FindFirstChild("Torso")
+        end)
+        if success and check and check:IsA("BasePart") then
+            tt = check
+        else
+            Processing = false
+            return
+        end
+    end
+
+    local inv = workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
+    if not inv then
+        Processing = false
+        return
+    end
+
+    task.spawn(function()
+        pcall(function()
+            rs.MenuToys.SpawnToyRemoteFunction:InvokeServer("NinjaShuriken", hrp.CFrame * CFrame.new(0, 5, 20), Vector3.zero)
+        end)
+    end)
+
+    local kunai = nil
+    for i = 1, 30 do
+        task.wait(0.1)
+        kunai = inv:FindFirstChild("NinjaShuriken")
+        if kunai then break end
+    end
+
+    if not kunai then 
+        Processing = false
+        return 
+    end
+
+    local stickyPart = kunai:FindFirstChild("StickyPart")
+    local soundPart = kunai:FindFirstChild("SoundPart")
+
+    if stickyPart and soundPart then
+        pcall(function()
+            rs.GrabEvents.SetNetworkOwner:FireServer(soundPart, CFrame.lookAt(torso.Position, soundPart.Position))
+            task.wait(0.1)
+            rs.PlayerEvents.StickyPartEvent:FireServer(stickyPart, tt, CFrame.new(107.5, 9.00000049e+33, -3.86856262e+25, 1, 0, 0, 0, 0.0662516952, -0.997802973, 0, 0.997802973, 0.0662516952))
+        end)
+    end
+
+    kunai.Name = ""
+    Processing = false
+end
+
+
+funTab:AddToggle({
+    Name = "노클립 타겟(Q)",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            RemoveGui()
+            DisconnectKey()
+
+            KeyConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                if gameProcessed then return end
+                if input.KeyCode == Enum.KeyCode.Q then
+                    NoClipPart()
+                end
+            end)
+
+            if UserInputService.TouchEnabled then
+                local ScreenGui = Instance.new("ScreenGui")
+                ScreenGui.Name = "NoClipGui"
+                ScreenGui.ResetOnSpawn = false
+                ScreenGui.Parent = coreGui
+
+                local ActionButton = Instance.new("TextButton")
+                ActionButton.Name = "ActionButton"
+                ActionButton.Parent = ScreenGui
+                ActionButton.Size = UDim2.new(0, 100, 0, 35)
+                ActionButton.Position = UDim2.new(0, 20, 0.5, -17)
+                ActionButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+                ActionButton.BorderSizePixel = 0
+                ActionButton.Text = "NoClip"
+                ActionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                ActionButton.TextSize = 14
+                ActionButton.Font = Enum.Font.SourceSansBold
+                ActionButton.Active = true
+                ActionButton.Draggable = true
+
+                local UICorner = Instance.new("UICorner")
+                UICorner.CornerRadius = UDim.new(0, 6)
+                UICorner.Parent = ActionButton
+
+                local UIStroke = Instance.new("UIStroke")
+                UIStroke.Thickness = 1.5
+                UIStroke.Color = Color3.fromRGB(80, 80, 80)
+                UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                UIStroke.Parent = ActionButton
+
+                ActionButton.MouseButton1Click:Connect(function()
+                    NoClipPart()
+                end)
+            end
+        else
+            RemoveGui()
+            DisconnectKey()
+        end
+    end
+})
 
 do
 	local TweenService = game:GetService("TweenService")

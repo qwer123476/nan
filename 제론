@@ -16003,7 +16003,7 @@ firework_section:AddDropdown({
 })
 
 firework_section:AddDropdown({
-    Name = "뒤진이후 프로토콜",
+    Name = "토클끈후 물건상태",
     Default = "파괴",
     Options = {
         "파괴",

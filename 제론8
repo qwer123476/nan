@@ -8921,11 +8921,25 @@ LoopTab:AddToggle({
     end
 })
 do
- local ownershipKickTask = nil
+ 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
+
+
+local grabEventsFolder = grabEventsFolder or ReplicatedStorage:WaitForChild("GrabEvents", 5)
+
+-- Settings 변수 안전 처리
+getgenv().Settings = getgenv().Settings or {}
+Settings.Loop = Settings.Loop or {}
+
+local ownershipKickTask = nil
 local ownershipKickFloatConn = nil
 
 LoopTab:AddToggle({
-    Name = "루프 킥 V1   <font color='rgb(255,0,0)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "루프 킥 V1   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
     Flag = "OwnershipKickLoopV1",
     Callback = function(Value)
@@ -8933,20 +8947,22 @@ LoopTab:AddToggle({
         if not Value then
             if ownershipKickTask then task.cancel(ownershipKickTask) ownershipKickTask = nil end
             if ownershipKickFloatConn then ownershipKickFloatConn:Disconnect() ownershipKickFloatConn = nil end
-            table.clear(playersInLoop2V)
+            if playersInLoop2V then table.clear(playersInLoop2V) end
             return
         end
 
-        table.clear(playersInLoop2V)
-        for _, e in ipairs(playersInLoop1V) do
-            local nameOnly = e:match("^(.-) %(") or e
-            table.insert(playersInLoop2V, nameOnly)
+        if playersInLoop2V and playersInLoop1V then
+            table.clear(playersInLoop2V)
+            for _, e in ipairs(playersInLoop1V) do
+                local nameOnly = e:match("^(.-) %(") or e
+                table.insert(playersInLoop2V, nameOnly)
+            end
         end
 
         ownershipKickTask = task.spawn(function()
-            local destroyGrabLineEvent = grabEventsFolder:WaitForChild("DestroyGrabLine")
-            local createGrabLineEvent = grabEventsFolder:WaitForChild("CreateGrabLine")
-            local setNetworkOwnerEvent = grabEventsFolder:WaitForChild("SetNetworkOwner")
+            local destroyGrabLineEvent = grabEventsFolder and grabEventsFolder:WaitForChild("DestroyGrabLine", 5)
+            local createGrabLineEvent = grabEventsFolder and grabEventsFolder:WaitForChild("CreateGrabLine", 5)
+            local setNetworkOwnerEvent = grabEventsFolder and grabEventsFolder:WaitForChild("SetNetworkOwner", 5)
 
             local function startFloating()
                 if ownershipKickFloatConn then return end
@@ -8965,8 +8981,8 @@ LoopTab:AddToggle({
             end
 
             local function SNOWship(targetHRP)
-                if not targetHRP then return end
-                local root = Utility.GetPlayerRootPart()
+                if not targetHRP or not setNetworkOwnerEvent then return end
+                local root = (Utility and Utility.GetPlayerRootPart and Utility.GetPlayerRootPart()) or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
                 if not root then return end
                 local dist = LocalPlayer:DistanceFromCharacter(targetHRP.Position)
                 if dist <= 30 then
@@ -8976,7 +8992,7 @@ LoopTab:AddToggle({
 
             local function checkAlive(target)
                 if not target or target == LocalPlayer then return false end
-                if isProtectedPlayer(target.Name) then return false end
+                if typeof(isProtectedPlayer) == "function" and isProtectedPlayer(target.Name) then return false end
                 if not target.Character then return false end
                 local hrp = target.Character:FindFirstChild("HumanoidRootPart")
                 local hum = target.Character:FindFirstChildOfClass("Humanoid")
@@ -8990,69 +9006,71 @@ LoopTab:AddToggle({
             end
 
             while Settings.Loop.ownershipKickActive do
-                local playerCFrame = Utility.GetPlayerCFrame()
+                local playerCFrame = Utility and Utility.GetPlayerCFrame and Utility.GetPlayerCFrame()
 
-                for _, targetName in ipairs(playersInLoop2V) do
-                    if not Settings.Loop.ownershipKickActive then break end
+                if playersInLoop2V then
+                    for _, targetName in ipairs(playersInLoop2V) do
+                        if not Settings.Loop.ownershipKickActive then break end
 
-                    local target = Players:FindFirstChild(targetName)
-                    if not target or not checkAlive(target) then continue end
+                        local target = Players:FindFirstChild(targetName)
+                        if not target or not checkAlive(target) then continue end
 
-                    local pips = Workspace:FindFirstChild("PlotItems") and Workspace.PlotItems:FindFirstChild("PlayersInPlots")
-                    if pips then
-                        local inSafe = false
-                        for _, child in pairs(pips:GetChildren()) do
-                            if child.Name == targetName or (child:IsA("ObjectValue") and child.Value and child.Value.Name == targetName) or (child:IsA("StringValue") and child.Value == targetName) then
-                                inSafe = true
-                                break
+                        local pips = Workspace:FindFirstChild("PlotItems") and Workspace.PlotItems:FindFirstChild("PlayersInPlots")
+                        if pips then
+                            local inSafe = false
+                            for _, child in pairs(pips:GetChildren()) do
+                                if child.Name == targetName or (child:IsA("ObjectValue") and child.Value and child.Value.Name == targetName) or (child:IsA("StringValue") and child.Value == targetName) then
+                                    inSafe = true
+                                    break
+                                end
                             end
+                            if inSafe then continue end
                         end
-                        if inSafe then continue end
-                    end
 
-                    local targetHRP = target.Character:FindFirstChild("HumanoidRootPart")
-                    if targetHRP then
-                        for _ = 0, 50 do
-                            startFloating()
-                            SNOWship(targetHRP)
+                        local targetHRP = target.Character:FindFirstChild("HumanoidRootPart")
+                        if targetHRP then
+                            for _ = 0, 50 do
+                                startFloating()
+                                SNOWship(targetHRP)
 
-                            if not checkAlive(target) or not Settings.Loop.ownershipKickActive or hasOwnership(target) or targetHRP.AssemblyLinearVelocity.Magnitude > 500 then
-                                pcall(function() destroyGrabLineEvent:FireServer(targetHRP) end)
+                                if not checkAlive(target) or not Settings.Loop.ownershipKickActive or hasOwnership(target) or targetHRP.AssemblyLinearVelocity.Magnitude > 500 then
+                                    if destroyGrabLineEvent then pcall(function() destroyGrabLineEvent:FireServer(targetHRP) end) end
+                                    task.wait()
+                                    local bv = targetHRP:FindFirstChild("SkyVelocity")
+                                    if not bv then
+                                        bv = Instance.new("BodyVelocity")
+                                        bv.Name = "SkyVelocity"
+                                        bv.Velocity = Vector3.new(0, 100000000000000, 0)
+                                        bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                                        bv.Parent = targetHRP
+                                    end
+                                    break
+                                end
+
                                 task.wait()
-                                local bv = targetHRP:FindFirstChild("SkyVelocity")
-                                if not bv then
-                                    bv = Instance.new("BodyVelocity")
-                                    bv.Name = "SkyVelocity"
-                                    bv.Velocity = Vector3.new(0, 100000000000000, 0)
-                                    bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-                                    bv.Parent = targetHRP
+                                local myRoot = (Utility and Utility.GetPlayerRootPart and Utility.GetPlayerRootPart()) or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+                                if myRoot and targetHRP and targetHRP.Parent then
+                                    if targetHRP.Position.Y <= -12 then
+                                        myRoot.CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, 5, -15))
+                                    else
+                                        myRoot.CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, -10, -10))
+                                    end
+                                    local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                                    if hum and hum.SeatPart == nil then hum.Sit = false end
                                 end
-                                break
-                            end
-
-                            task.wait()
-                            local myRoot = Utility.GetPlayerRootPart()
-                            if myRoot and targetHRP and targetHRP.Parent then
-                                if targetHRP.Position.Y <= -12 then
-                                    myRoot.CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, 5, -15))
-                                else
-                                    myRoot.CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, -10, -10))
-                                end
-                                local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-                                if hum and hum.SeatPart == nil then hum.Sit = false end
                             end
                         end
                     end
                 end
 
-                local myRoot2 = Utility.GetPlayerRootPart()
+                local myRoot2 = (Utility and Utility.GetPlayerRootPart and Utility.GetPlayerRootPart()) or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
                 if myRoot2 and playerCFrame then myRoot2.CFrame = playerCFrame end
                 task.wait(0.1)
             end
 
             stopFloating()
-            local myRoot3 = Utility.GetPlayerRootPart()
-            if myRoot3 then
+            local myRoot3 = (Utility and Utility.GetPlayerRootPart and Utility.GetPlayerRootPart()) or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+            if myRoot3 and Utility and Utility.GetPlayerCFrame then
                 local pc = Utility.GetPlayerCFrame()
                 if pc then myRoot3.CFrame = pc end
             end
@@ -9064,7 +9082,7 @@ local ownershipKickV2Task = nil
 local ownershipKickV2FloatConn = nil
 
 LoopTab:AddToggle({
-    Name = "루프 킥 V2   <font color='rgb(0,0,255)'>[오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "루프 킥 V2   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
     Flag = "OwnershipKickLoopV2",
     Callback = function(Value)
@@ -9074,46 +9092,50 @@ LoopTab:AddToggle({
             if ownershipKickV2FloatConn then ownershipKickV2FloatConn:Disconnect() ownershipKickV2FloatConn = nil end
             
             task.spawn(function()
-                for _, targetName in ipairs(playersInLoop2V) do
-                    local target = Players:FindFirstChild(targetName)
-                    if target and target.Character then
-                        local tRoot = target.Character:FindFirstChild("HumanoidRootPart")
-                        local tHum = target.Character:FindFirstChildOfClass("Humanoid")
-                        if tRoot then
-                            for _, v in pairs(tRoot:GetChildren()) do
-                                if v:IsA("BodyPosition") or v:IsA("BodyGyro") then
-                                    pcall(function() v:Destroy() end)
+                if playersInLoop2V then
+                    for _, targetName in ipairs(playersInLoop2V) do
+                        local target = Players:FindFirstChild(targetName)
+                        if target and target.Character then
+                            local tRoot = target.Character:FindFirstChild("HumanoidRootPart")
+                            local tHum = target.Character:FindFirstChildOfClass("Humanoid")
+                            if tRoot then
+                                for _, v in pairs(tRoot:GetChildren()) do
+                                    if v:IsA("BodyPosition") or v:IsA("BodyGyro") then
+                                        pcall(function() v:Destroy() end)
+                                    end
                                 end
+                                pcall(function()
+                                    tRoot.AssemblyLinearVelocity = Vector3.zero
+                                    tRoot.AssemblyAngularVelocity = Vector3.zero
+                                end)
                             end
-                            pcall(function()
-                                tRoot.AssemblyLinearVelocity = Vector3.zero
-                                tRoot.AssemblyAngularVelocity = Vector3.zero
-                            end)
-                        end
-                        if tHum then
-                            pcall(function()
-                                tHum.PlatformStand = false
-                                tHum.Sit = false
-                            end)
+                            if tHum then
+                                pcall(function()
+                                    tHum.PlatformStand = false
+                                    tHum.Sit = false
+                                end)
+                            end
                         end
                     end
+                    table.clear(playersInLoop2V)
                 end
-                table.clear(playersInLoop2V)
             end)
             return
         end
 
-        table.clear(playersInLoop2V)
-        for _, e in ipairs(playersInLoop1V) do
-            local nameOnly = e:match("^(.-) %(") or e
-            table.insert(playersInLoop2V, nameOnly)
+        if playersInLoop2V and playersInLoop1V then
+            table.clear(playersInLoop2V)
+            for _, e in ipairs(playersInLoop1V) do
+                local nameOnly = e:match("^(.-) %(") or e
+                table.insert(playersInLoop2V, nameOnly)
+            end
         end
 
         ownershipKickV2Task = task.spawn(function()
-            local GE = ReplicatedStorage:WaitForChild("GrabEvents")
-            local setNE = GE:WaitForChild("SetNetworkOwner")
-            local destroyGL = GE:WaitForChild("DestroyGrabLine")
-            local createGL = GE:WaitForChild("CreateGrabLine")
+            local GE = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+            local setNE = GE and GE:WaitForChild("SetNetworkOwner", 5)
+            local destroyGL = GE and GE:WaitForChild("DestroyGrabLine", 5)
+            local createGL = GE and GE:WaitForChild("CreateGrabLine", 5)
 
             local bodyPos = nil
             local bodyGyro = nil
@@ -9141,7 +9163,7 @@ LoopTab:AddToggle({
 
             local function checkAlive(t)
                 if not t or t == LocalPlayer then return false end
-                if isProtectedPlayer(t.Name) then return false end
+                if typeof(isProtectedPlayer) == "function" and isProtectedPlayer(t.Name) then return false end
                 if not t.Character then return false end
                 local hrp = t.Character:FindFirstChild("HumanoidRootPart")
                 local hum = t.Character:FindFirstChildOfClass("Humanoid")
@@ -9155,206 +9177,208 @@ LoopTab:AddToggle({
             end
 
             while Settings.Loop.ownershipKickV2Active do
-                for _, targetName in ipairs(playersInLoop2V) do
-                    if not Settings.Loop.ownershipKickV2Active then break end
+                if playersInLoop2V then
+                    for _, targetName in ipairs(playersInLoop2V) do
+                        if not Settings.Loop.ownershipKickV2Active then break end
 
-                    local target = Players:FindFirstChild(targetName)
-                    if not target or not target.Character then continue end
+                        local target = Players:FindFirstChild(targetName)
+                        if not target or not target.Character then continue end
 
-                    local myChar = LocalPlayer.Character
-                    local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                    if not myRoot then continue end
+                        local myChar = LocalPlayer.Character
+                        local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                        if not myRoot then continue end
 
-                    local tChar = target.Character
-                    local tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
-                    local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                    if not tRoot or not tHum or tHum.Health <= 0 then continue end
+                        local tChar = target.Character
+                        local tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+                        local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                        if not tRoot or not tHum or tHum.Health <= 0 then continue end
 
-                    local pips = Workspace:FindFirstChild("PlotItems") and Workspace.PlotItems:FindFirstChild("PlayersInPlots")
-                    if pips then
-                        local inSafe = false
-                        for _, child in pairs(pips:GetChildren()) do
-                            if child.Name == targetName or (child:IsA("ObjectValue") and child.Value and child.Value.Name == targetName) or (child:IsA("StringValue") and child.Value == targetName) then
-                                inSafe = true
+                        local pips = Workspace:FindFirstChild("PlotItems") and Workspace.PlotItems:FindFirstChild("PlayersInPlots")
+                        if pips then
+                            local inSafe = false
+                            for _, child in pairs(pips:GetChildren()) do
+                                if child.Name == targetName or (child:IsA("ObjectValue") and child.Value and child.Value.Name == targetName) or (child:IsA("StringValue") and child.Value == targetName) then
+                                    inSafe = true
+                                    break
+                                end
+                            end
+                            if inSafe then continue end
+                        end
+
+                        local savedCFrame = myRoot.CFrame
+                        local gotOwnership = false
+
+                        for i = 1, 200 do
+                            if not Settings.Loop.ownershipKickV2Active then break end
+                            target = Players:FindFirstChild(targetName)
+                            if not target or not target.Character then break end
+                            myChar = LocalPlayer.Character
+                            myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                            if not myRoot then break end
+                            tChar = target.Character
+                            tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+                            tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                            if not tRoot or not tHum or tHum.Health <= 0 then break end
+
+                            local head = tChar:FindFirstChild("Head")
+                            if not head then break end
+
+                            local partOwner = head:FindFirstChild("PartOwner")
+                            if partOwner and partOwner.Value == LocalPlayer.Name then
+                                gotOwnership = true
                                 break
                             end
+
+                            myRoot.CFrame = tRoot.CFrame
+                            if setNE then pcall(function() setNE:FireServer(tRoot, tRoot.CFrame) end) end
+
+                            RunService.Heartbeat:Wait()
                         end
-                        if inSafe then continue end
-                    end
 
-                    local savedCFrame = myRoot.CFrame
-                    local gotOwnership = false
+                        if not gotOwnership or not Settings.Loop.ownershipKickV2Active then continue end
 
-                    for i = 1, 200 do
-                        if not Settings.Loop.ownershipKickV2Active then break end
                         target = Players:FindFirstChild(targetName)
-                        if not target or not target.Character then break end
+                        if not target or not target.Character then continue end
                         myChar = LocalPlayer.Character
                         myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                        if not myRoot then break end
+                        if not myRoot then continue end
                         tChar = target.Character
                         tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
                         tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                        if not tRoot or not tHum or tHum.Health <= 0 then break end
+                        if not tRoot or not tHum or tHum.Health <= 0 then continue end
 
-                        local head = tChar:FindFirstChild("Head")
-                        if not head then break end
-
-                        local partOwner = head:FindFirstChild("PartOwner")
-                        if partOwner and partOwner.Value == LocalPlayer.Name then
-                            gotOwnership = true
-                            break
+                        for _, v in pairs(tRoot:GetChildren()) do
+                            if v:IsA("BodyPosition") or v:IsA("BodyGyro") then
+                                pcall(function() v:Destroy() end)
+                            end
                         end
 
-                        myRoot.CFrame = tRoot.CFrame
-                        pcall(function() setNE:FireServer(tRoot, tRoot.CFrame) end)
+                        startFloating()
 
-                        RunService.Heartbeat:Wait()
-                    end
+                        for _ = 0, 50 do
+                            if not Settings.Loop.ownershipKickV2Active then break end
+                            target = Players:FindFirstChild(targetName)
+                            if not target or not target.Character then break end
+                            myChar = LocalPlayer.Character
+                            myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                            if not myRoot then break end
+                            tChar = target.Character
+                            tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+                            tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                            if not tRoot or not tHum or tHum.Health <= 0 then break end
 
-                    if not gotOwnership or not Settings.Loop.ownershipKickV2Active then continue end
+                            if setNE then pcall(function() setNE:FireServer(tRoot, CFrame.lookAt(myRoot.Position, tRoot.Position)) end) end
 
-                    target = Players:FindFirstChild(targetName)
-                    if not target or not target.Character then continue end
-                    myChar = LocalPlayer.Character
-                    myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                    if not myRoot then continue end
-                    tChar = target.Character
-                    tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
-                    tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                    if not tRoot or not tHum or tHum.Health <= 0 then continue end
+                            if not checkAlive(target) or not Settings.Loop.ownershipKickV2Active or hasOwnership(target) or tRoot.AssemblyLinearVelocity.Magnitude > 500 then
+                                if destroyGL then pcall(function() destroyGL:FireServer(tRoot) end) end
+                                task.wait()
+                                local bv = tRoot:FindFirstChild("SkyVelocity")
+                                if not bv then
+                                    bv = Instance.new("BodyVelocity")
+                                    bv.Name = "SkyVelocity"
+                                    bv.Velocity = Vector3.new(0, 100000000000000, 0)
+                                    bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                                    bv.Parent = tRoot
+                                end
+                                break
+                            end
 
-                    for _, v in pairs(tRoot:GetChildren()) do
-                        if v:IsA("BodyPosition") or v:IsA("BodyGyro") then
-                            pcall(function() v:Destroy() end)
-                        end
-                    end
-
-                    startFloating()
-
-                    for _ = 0, 50 do
-                        if not Settings.Loop.ownershipKickV2Active then break end
-                        target = Players:FindFirstChild(targetName)
-                        if not target or not target.Character then break end
-                        myChar = LocalPlayer.Character
-                        myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                        if not myRoot then break end
-                        tChar = target.Character
-                        tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
-                        tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                        if not tRoot or not tHum or tHum.Health <= 0 then break end
-
-                        pcall(function() setNE:FireServer(tRoot, CFrame.lookAt(myRoot.Position, tRoot.Position)) end)
-
-                        if not checkAlive(target) or not Settings.Loop.ownershipKickV2Active or hasOwnership(target) or tRoot.AssemblyLinearVelocity.Magnitude > 500 then
-                            pcall(function() destroyGL:FireServer(tRoot) end)
                             task.wait()
-                            local bv = tRoot:FindFirstChild("SkyVelocity")
-                            if not bv then
-                                bv = Instance.new("BodyVelocity")
-                                bv.Name = "SkyVelocity"
-                                bv.Velocity = Vector3.new(0, 100000000000000, 0)
-                                bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-                                bv.Parent = tRoot
+                            myRoot = (Utility and Utility.GetPlayerRootPart and Utility.GetPlayerRootPart()) or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+                            if myRoot and tRoot and tRoot.Parent then
+                                if tRoot.Position.Y <= -12 then
+                                    myRoot.CFrame = CFrame.new(tRoot.Position + Vector3.new(0, 5, -15))
+                                else
+                                    myRoot.CFrame = CFrame.new(tRoot.Position + Vector3.new(0, -10, -10))
+                                end
+                                local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                                if hum and hum.SeatPart == nil then hum.Sit = false end
                             end
-                            break
                         end
 
-                        task.wait()
-                        myRoot = Utility.GetPlayerRootPart()
-                        if myRoot and tRoot and tRoot.Parent then
-                            if tRoot.Position.Y <= -12 then
-                                myRoot.CFrame = CFrame.new(tRoot.Position + Vector3.new(0, 5, -15))
-                            else
-                                myRoot.CFrame = CFrame.new(tRoot.Position + Vector3.new(0, -10, -10))
-                            end
-                            local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-                            if hum and hum.SeatPart == nil then hum.Sit = false end
-                        end
-                    end
+                        stopFloating()
 
-                    stopFloating()
+                        if not Settings.Loop.ownershipKickV2Active then cleanupBodies() continue end
 
-                    if not Settings.Loop.ownershipKickV2Active then cleanupBodies() continue end
-
-                    target = Players:FindFirstChild(targetName)
-                    if not target or not target.Character then cleanupBodies() continue end
-                    myChar = LocalPlayer.Character
-                    myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                    if not myRoot then cleanupBodies() continue end
-                    tChar = target.Character
-                    tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
-                    tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                    if not tRoot or not tHum or tHum.Health <= 0 then cleanupBodies() continue end
-
-                    myRoot.CFrame = savedCFrame + Vector3.new(0, 3, 0)
-
-                    for _, v in pairs(tRoot:GetChildren()) do
-                        if v:IsA("BodyPosition") or v:IsA("BodyGyro") or v:IsA("BodyVelocity") then
-                            pcall(function() v:Destroy() end)
-                        end
-                    end
-
-                    local lockPos = myRoot.CFrame * CFrame.new(0, 12, 0)
-                    bodyPos = Instance.new("BodyPosition")
-                    bodyPos.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-                    bodyPos.D = 500
-                    bodyPos.P = 1e7
-                    bodyPos.Position = lockPos.Position
-                    bodyPos.Parent = tRoot
-                    bodyGyro = Instance.new("BodyGyro")
-                    bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
-                    bodyGyro.D = 200
-                    bodyGyro.P = 1e6
-                    bodyGyro.CFrame = tRoot.CFrame
-                    bodyGyro.Parent = tRoot
-
-                    tRoot.AssemblyLinearVelocity = Vector3.zero
-                    tRoot.AssemblyAngularVelocity = Vector3.zero
-
-                    local spinAngle = 0
-                    local lastRemote = 0
-                    local REMOTE_DELAY = 0.3
-                    local spinFrame = 0
-
-                    while Settings.Loop.ownershipKickV2Active do
                         target = Players:FindFirstChild(targetName)
-                        if not target or not target.Character then break end
+                        if not target or not target.Character then cleanupBodies() continue end
                         myChar = LocalPlayer.Character
                         myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                        if not myRoot then break end
+                        if not myRoot then cleanupBodies() continue end
                         tChar = target.Character
                         tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
                         tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
-                        if not tRoot or not tHum or tHum.Health <= 0 then break end
+                        if not tRoot or not tHum or tHum.Health <= 0 then cleanupBodies() continue end
 
-                        lockPos = myRoot.CFrame * CFrame.new(0, 12, 0)
+                        myRoot.CFrame = savedCFrame + Vector3.new(0, 3, 0)
+
+                        for _, v in pairs(tRoot:GetChildren()) do
+                            if v:IsA("BodyPosition") or v:IsA("BodyGyro") or v:IsA("BodyVelocity") then
+                                pcall(function() v:Destroy() end)
+                            end
+                        end
+
+                        local lockPos = myRoot.CFrame * CFrame.new(0, 12, 0)
+                        bodyPos = Instance.new("BodyPosition")
+                        bodyPos.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+                        bodyPos.D = 500
+                        bodyPos.P = 1e7
+                        bodyPos.Position = lockPos.Position
+                        bodyPos.Parent = tRoot
+                        bodyGyro = Instance.new("BodyGyro")
+                        bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+                        bodyGyro.D = 200
+                        bodyGyro.P = 1e6
+                        bodyGyro.CFrame = tRoot.CFrame
+                        bodyGyro.Parent = tRoot
 
                         tRoot.AssemblyLinearVelocity = Vector3.zero
                         tRoot.AssemblyAngularVelocity = Vector3.zero
-                        tHum.PlatformStand = true
-                        tHum.Sit = true
 
-                        spinAngle = spinAngle + 3 * 0.016
+                        local spinAngle = 0
+                        local lastRemote = 0
+                        local REMOTE_DELAY = 0.3
+                        local spinFrame = 0
 
-                        bodyPos.Position = lockPos.Position
-                        bodyGyro.CFrame = CFrame.new(tRoot.Position) * CFrame.Angles(math.pi, spinAngle, 0)
+                        while Settings.Loop.ownershipKickV2Active do
+                            target = Players:FindFirstChild(targetName)
+                            if not target or not target.Character then break end
+                            myChar = LocalPlayer.Character
+                            myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                            if not myRoot then break end
+                            tChar = target.Character
+                            tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+                            tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                            if not tRoot or not tHum or tHum.Health <= 0 then break end
 
-                        if tick() - lastRemote >= REMOTE_DELAY then
-                            lastRemote = tick()
-                            if spinFrame % 2 == 0 then
-                                pcall(function() setNE:FireServer(tRoot, tRoot.CFrame) end)
-                            else
-                                pcall(function() destroyGL:FireServer(tRoot) end)
+                            lockPos = myRoot.CFrame * CFrame.new(0, 12, 0)
+
+                            tRoot.AssemblyLinearVelocity = Vector3.zero
+                            tRoot.AssemblyAngularVelocity = Vector3.zero
+                            tHum.PlatformStand = true
+                            tHum.Sit = true
+
+                            spinAngle = spinAngle + 3 * 0.016
+
+                            bodyPos.Position = lockPos.Position
+                            bodyGyro.CFrame = CFrame.new(tRoot.Position) * CFrame.Angles(math.pi, spinAngle, 0)
+
+                            if tick() - lastRemote >= REMOTE_DELAY then
+                                lastRemote = tick()
+                                if spinFrame % 2 == 0 then
+                                    if setNE then pcall(function() setNE:FireServer(tRoot, tRoot.CFrame) end) end
+                                else
+                                    if destroyGL then pcall(function() destroyGL:FireServer(tRoot) end) end
+                                end
+                                spinFrame = spinFrame + 1
                             end
-                            spinFrame = spinFrame + 1
+
+                            RunService.Heartbeat:Wait()
                         end
 
-                        RunService.Heartbeat:Wait()
+                        stopFloating()
+                        cleanupBodies()
                     end
-
-                    stopFloating()
-                    cleanupBodies()
                 end
                 task.wait(0.1)
             end
@@ -9369,6 +9393,7 @@ LoopTab:AddToggle({
         end)
     end
 })
+
 end
 LoopTab:AddSection({
     Name = "스팸"

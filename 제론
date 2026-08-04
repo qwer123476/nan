@@ -16954,34 +16954,18 @@ function OrionLib:Destroy()
 end
 
 
-local ImageSection = MyTab:AddSection({
-    Name = "디스코드"
-})
-
-ImageSection:AddLabel("디스코드")
-ImageSection:AddButton({
-    Name = "디스코드 링크 복사",
-    Callback = function()
-        setclipboard("https://discord.gg/hANZr3WGm")
-        OrionLib:MakeNotification({
-            Name = "Xeron",
-            Content = "디스코드 링크가 클립보드에 복사되었습니다.",
-            Image = "rbxassetid://77989137998499",
-            Time = 3
-        })
-    end
-})
-
+--[[
 ImageSection:AddLabel("안녕하세요 반가워요^^ ")
 ImageSection:AddLabel("새로운 스크립트 Xeron(제론) 이라고 합니다.")
 ImageSection:AddLabel("더 많은 기능을 가진 V2모델입니닷")
 ImageSection:AddLabel("이스크립트는 지정된 사람만 쓸수있으며")
 ImageSection:AddLabel("이외의 사람은 이스크를  쓰면안되며 유포도 절대금지입니다")
 ImageSection:AddLabel("그럼재미 있게 즐겨주세요!")
+]]
 --OrionLib:Init()
 
 
-local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/웹"))
+--local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/웹"))
 
 if loader then
     pcall(loader)
@@ -16989,6 +16973,234 @@ if loader then
 else
     warn("[Loader] 스크립트 주소가 잘못되었거나 불러오지 못했습니다.")
 end
+end
+do
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+local RunService = game:GetService("RunService")
+
+local plr = Players.LocalPlayer
+
+local GrabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+if not GrabEvents then
+    warn("GrabEvents를 찾을 수 없습니다. 해당 게임이 아닐 수 있습니다.")
+    return
+end
+
+local CreateGrabLine = GrabEvents:WaitForChild("CreateGrabLine", 5)
+if not CreateGrabLine then
+    warn("CreateGrabLine 이벤트를 찾을 수 없습니다.")
+    return
+end
+
+local Pline = CreateGrabLine.OnClientEvent
+
+if not getgenv()._AntiLagScript then
+    getgenv()._AntiLagScript = {
+        antiLagEnabled = true,
+        antiLagMode = true,
+        AntiLagV = 20,
+        MinFPS = 60,
+        FrameBurstLimit = 3,
+        RapidWindow = 0.2,
+        RapidLimit = 10,
+        fireCount = {},
+        isLagging = false,
+        isFpsLow = false,
+        suspectPlayer = nil,
+        connection = nil,
+        globalFrame = 0,
+        pendingResetFrame = {},
+        charBeamMove = nil,
+        renderConnection = nil,
+        loopConnection = nil
+    }
+end
+
+local AL = getgenv()._AntiLagScript
+AL.charBeamMove = plr:WaitForChild("PlayerScripts"):WaitForChild("CharacterAndBeamMove", 5)
+
+local function UpdateCharBeamState()
+    if not AL.charBeamMove then return end
+
+    if not AL.antiLagEnabled then
+        AL.charBeamMove.Enabled = true
+        return
+    end
+
+    if not AL.antiLagMode then
+        AL.charBeamMove.Enabled = false
+        return
+    end
+
+    if AL.isLagging or AL.isFpsLow then
+        AL.charBeamMove.Enabled = false
+    else
+        AL.charBeamMove.Enabled = true
+    end
+end
+
+local function FlagPlayer(fromPlr)
+    local data = AL.fireCount[fromPlr]
+    if not data then return end
+    if data.isFlagged then return end
+
+    data.isFlagged = true
+
+    if not AL.isLagging then
+        AL.isLagging = true
+        AL.suspectPlayer = fromPlr
+
+        UpdateCharBeamState()
+
+        pcall(function()
+            StarterGui:SetCore("SendNotification", {
+                Title = "[ 렉 감지됨 ]",
+                Text = fromPlr.Name .. " [ " .. fromPlr.DisplayName .. " ]",
+                Duration = 5
+            })
+        end)
+    else
+        pcall(function()
+            StarterGui:SetCore("SendNotification", {
+                Title = "[ 렉 감지됨 ]",
+                Text = fromPlr.Name .. " [ " .. fromPlr.DisplayName .. " ]",
+                Duration = 3
+            })
+        end)
+    end
+end
+
+AL.renderConnection = RunService.RenderStepped:Connect(function()
+    AL.globalFrame += 1
+
+    for plrRef, resetFrame in pairs(AL.pendingResetFrame) do
+        if resetFrame < AL.globalFrame then
+            local data = AL.fireCount[plrRef]
+            if data then
+                data.frameBurst = 0
+            end
+            AL.pendingResetFrame[plrRef] = nil
+        end
+    end
+end)
+
+AL.loopConnection = task.spawn(function()
+    local frames = 0
+    local frameCounter = RunService.RenderStepped:Connect(function()
+        if AL.antiLagEnabled then
+            frames += 1
+        end
+    end)
+
+    while AL.antiLagEnabled do
+        task.wait(1)
+        local currentFPS = frames
+        frames = 0
+        
+        local anyLagging = false
+
+        for fromPlr, data in pairs(AL.fireCount) do
+            data.cps = data.count
+            data.count = 0
+            
+            if data.isFlagged then
+                if data.cps <= 10 then
+                    data.isFlagged = false
+                else
+                    anyLagging = true
+                    AL.suspectPlayer = fromPlr
+                end
+            end
+        end
+
+        AL.isLagging = anyLagging
+        if not AL.isLagging then
+            AL.suspectPlayer = nil
+        end
+
+        if currentFPS < AL.MinFPS then
+            if not AL.isFpsLow then
+                AL.isFpsLow = true
+                UpdateCharBeamState()
+            end
+        else
+            AL.isFpsLow = false
+        end
+    end
+    
+    frameCounter:Disconnect()
+end)
+
+local function AntiLagF()
+    if AL.connection then
+        AL.connection:Disconnect()
+        AL.connection = nil
+    end
+
+    UpdateCharBeamState()
+
+    AL.connection = Pline:Connect(function(fromPlr, ...)
+        if typeof(fromPlr) ~= "Instance" or not fromPlr:IsA("Player") then return end
+        if fromPlr == plr then return end
+
+        if not AL.antiLagEnabled or not AL.antiLagMode then return end
+
+        if not AL.fireCount[fromPlr] then
+            AL.fireCount[fromPlr] = {
+                count = 0,
+                cps = 0,
+                lastCallTime = 0,
+                isFlagged = false,
+                lastFrame = 0,
+                frameBurst = 0,
+                rapidWindowStart = 0,
+                rapidCount = 0
+            }
+        end
+
+        local data = AL.fireCount[fromPlr]
+        local currentTime = os.clock()
+
+        if data.lastFrame == AL.globalFrame then
+            data.frameBurst += 1
+
+            if data.frameBurst >= AL.FrameBurstLimit then
+                FlagPlayer(fromPlr)
+            end
+        else
+            data.lastFrame = AL.globalFrame
+            data.frameBurst = 1
+            AL.pendingResetFrame[fromPlr] = AL.globalFrame
+        end
+
+        if currentTime - data.rapidWindowStart > AL.RapidWindow then
+            data.rapidWindowStart = currentTime
+            data.rapidCount = 1
+        else
+            data.rapidCount += 1
+
+            if data.rapidCount >= AL.RapidLimit then
+                FlagPlayer(fromPlr)
+            end
+        end
+
+        if data.lastCallTime ~= 0 and (currentTime - data.lastCallTime) <= 0.025 then
+            data.count = AL.AntiLagV
+        end
+
+        data.lastCallTime = currentTime
+        data.count += 1
+
+        if data.count >= AL.AntiLagV then
+            FlagPlayer(fromPlr)
+        end
+    end)
+end
+
+AntiLagF()
+
 end
 do
 --__uiSafeBlock("UIcusTab", function()

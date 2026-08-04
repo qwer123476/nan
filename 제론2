@@ -1074,6 +1074,9 @@ Settings.Loop = Settings.Loop or {}
 
 local Settings = getgenv().Settings
 local State = getgenv().State
+Settings = Settings or {}
+Settings.BlobmanBeta = Settings.BlobmanBeta or {}
+Settings.BlobmanBeta.loopKillActive = false
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 

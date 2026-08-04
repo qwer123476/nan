@@ -9388,8 +9388,8 @@ Settings.Loop = Settings.Loop or {}
 
 local palletRagdollTask = nil
 
-ownershipKickSec:Toggle({
-    Text = "래그돌 타겟",
+LoopTab:AddToggle({
+  Name = "래그돌 타겟",
     Flag = "OwnershipPalletRagdoll",
     Default = false,
     Callback = function(v)

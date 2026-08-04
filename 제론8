@@ -8674,22 +8674,6 @@ LoopTab:AddToggle({
 LoopTab:AddSection({
     Name = "루프킥"
 })
-LoopTab:AddButton({
-    Name = "무질량 끄기",
-    Callback = function()
-
-        Players = game:GetService("Players")
-
-        if playersInLoop1V == 0 then return end
-
-        local Tchar = Tplr.Character
-        local THRP = Tchar:FindFirstChild("HumanoidRootPart")
-        if not THRP then return end
-
-        if THRP.Massless then THRP.Massless = false end
-
-    end
-})
 
 local blobLoopToggle = LoopTab:AddToggle({
     Name = "루프킥  <font color='rgb(255,154,123)'>[블롭맨]</font>",
@@ -8931,7 +8915,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local grabEventsFolder = grabEventsFolder or ReplicatedStorage:WaitForChild("GrabEvents", 5)
 
--- Settings 변수 안전 처리
+
 getgenv().Settings = getgenv().Settings or {}
 Settings.Loop = Settings.Loop or {}
 

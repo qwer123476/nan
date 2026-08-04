@@ -9377,6 +9377,147 @@ LoopTab:AddToggle({
         end)
     end
 })
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().Settings = getgenv().Settings or {}
+Settings.Loop = Settings.Loop or {}
+
+local palletRagdollTask = nil
+
+ownershipKickSec:Toggle({
+    Text = "래그돌 타겟",
+    Flag = "OwnershipPalletRagdoll",
+    Default = false,
+    Callback = function(v)
+        Settings.Loop.palletRagdollActive = v
+        if not v then
+            if palletRagdollTask then task.cancel(palletRagdollTask) palletRagdollTask = nil end
+            task.spawn(function()
+                local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                if toysFolder then
+                    local drum = toysFolder:FindFirstChild("InstrumentDrumSnare")
+                    if drum then
+                        local menuToys = ReplicatedStorage:FindFirstChild("MenuToys")
+                        local destroyToyRE = menuToys and menuToys:FindFirstChild("DestroyToy")
+                        if destroyToyRE then pcall(function() destroyToyRE:FireServer(drum) end) end
+                        if drum.Parent then drum:Destroy() end
+                    end
+                end
+            end)
+            return
+        end
+
+        if not playersInLoop2V or #playersInLoop2V == 0 then 
+            Settings.Loop.palletRagdollActive = false 
+            return 
+        end
+
+        palletRagdollTask = task.spawn(function()
+            local GE = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+            local setNE = GE and GE:WaitForChild("SetNetworkOwner", 5)
+            local destroyGL = GE and GE:WaitForChild("DestroyGrabLine", 5)
+            local createGL = GE and GE:WaitForChild("CreateGrabLine", 5)
+            
+            local menuToys = ReplicatedStorage:WaitForChild("MenuToys", 5)
+            local SpawnToyRF = menuToys and menuToys:WaitForChild("SpawnToyRemoteFunction", 5)
+            local DestroyToyRE = menuToys and menuToys:WaitForChild("DestroyToy", 5)
+
+            local function checkAlive(t)
+                if not t or t == LocalPlayer then return false end
+                if typeof(isProtectedPlayer) == "function" and isProtectedPlayer(t.Name) then return false end
+                if not t.Character then return false end
+                local hrp = t.Character:FindFirstChild("HumanoidRootPart")
+                local hum = t.Character:FindFirstChildOfClass("Humanoid")
+                if not hrp or not hum or hum.Health <= 0 then return false end
+                return true
+            end
+
+            local claimFrame = 0
+            local function claim(part)
+                if not part then return end
+                if claimFrame % 3 == 0 then
+                    if setNE then pcall(function() setNE:FireServer(part, part.CFrame) end) end
+                elseif claimFrame % 3 == 1 then
+                    if createGL then pcall(function() createGL:FireServer(part, Vector3.zero, part.Position, false) end) end
+                else
+                    if destroyGL then pcall(function() destroyGL:FireServer(part) end) end
+                end
+                claimFrame = claimFrame + 1
+            end
+
+            local skyPos = CFrame.new(0, 800000, 0)
+            local toyNames = {"InstrumentDrumSnare", "FoodBread", "PalletLightBrown"}
+
+            local drum = nil
+            local mainPart = nil
+
+            if SpawnToyRF then
+                for _, toyName in ipairs(toyNames) do
+                    pcall(function() SpawnToyRF:InvokeServer(toyName, skyPos, Vector3.zero) end)
+                    for _ = 1, 100 do
+                        local inv = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                        if inv then drum = inv:FindFirstChild(toyName) end
+                        if drum then break end
+                        task.wait()
+                    end
+                    if drum then
+                        mainPart = drum:FindFirstChild("SoundPart") or drum:FindFirstChildWhichIsA("BasePart")
+                        if mainPart then break end
+                        drum = nil
+                    end
+                end
+            end
+
+            if not drum or not mainPart then Settings.Loop.palletRagdollActive = false return end
+
+            mainPart.CanCollide = false
+            mainPart.Anchored = false
+            claim(mainPart)
+
+            while Settings.Loop.palletRagdollActive do
+                for _, targetName in ipairs(playersInLoop2V) do
+                    if not Settings.Loop.palletRagdollActive then break end
+
+                    local target = Players:FindFirstChild(targetName)
+                    if not target or not checkAlive(target) then continue end
+
+                    local tChar = target.Character
+                    local tHead = tChar and tChar:FindFirstChild("Head")
+                    local tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
+                    local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                    if not tHead or not tRoot or not tHum or tHum.Health <= 0 then continue end
+
+                    local ragdolled = tHum:FindFirstChild("Ragdolled")
+                    if ragdolled and ragdolled.Value == true then continue end
+
+                    local targetPos = tHead.Position
+                    mainPart.CFrame = CFrame.new(targetPos.X, targetPos.Y + 0.2, targetPos.Z)
+                    mainPart.AssemblyLinearVelocity = Vector3.zero
+                    mainPart.AssemblyAngularVelocity = Vector3.new(1000, 1000, 1000)
+
+                    claim(mainPart)
+
+                    mainPart.CanCollide = true
+                    for _ = 1, 3 do RunService.Heartbeat:Wait() end
+
+                    mainPart.CanCollide = false
+                    mainPart.CFrame = skyPos
+                    mainPart.AssemblyAngularVelocity = Vector3.zero
+                end
+                task.wait(0.1)
+            end
+
+            if drum and drum.Parent then
+                if DestroyToyRE then pcall(function() DestroyToyRE:FireServer(drum) end) end
+                if drum.Parent then drum:Destroy() end
+            end
+        end)
+    end
+})
 
 end
 LoopTab:AddSection({

@@ -16,7 +16,7 @@ end
 local v8 = (function()
     local v4 = {
         [1] = {
-            userIds = {1432007658, 3428335004},
+            userIds = {4396960314, 2932138780},
             keyReg = 1733266206,
             keyEnd = 1734475806,
             keyName = 'LCdYIRg8Z22u8PBb1T9rex9h53r9jWpB',

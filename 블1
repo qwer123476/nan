@@ -314,7 +314,7 @@ local v8 = (function()
     local v6 = {}
     local v7 = 4156841304
 
-    __set_list(v6, 1, {v7, 5002612760})
+   -- __set_list(v6, 1, {v7, 5002612760})
 
     v5.userIds = v6
     v5.keyReg = 1720580400

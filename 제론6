@@ -1069,6 +1069,8 @@ getgenv().State.connections = getgenv().State.connections or {}
 getgenv().State.antiRagdollConns = getgenv().State.antiRagdollConns or {}
 getgenv().State.antiRagBlobConns = getgenv().State.antiRagBlobConns or {}
 getgenv().State.antiGucci = getgenv().State.antiGucci or {}
+getgenv().Settings = getgenv().Settings or {}
+Settings.Loop = Settings.Loop or {}
 
 local Settings = getgenv().Settings
 local State = getgenv().State

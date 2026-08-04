@@ -8310,6 +8310,8 @@ do
             end
         end
     })
+Settings = Settings or {}
+Settings.BlobmanBeta = Settings.BlobmanBeta or {}
 Settings.BlobmanBeta.loopKillActive = false
 
 local function blobKickAction(blob, hrp, rl, v)
@@ -8333,7 +8335,7 @@ local function cleanupBlobmanLocks()
         pcall(function() myHum.Jump = true end)
     end
 
-    local tName = Settings.BlobmanBeta.selectedTarget
+    local tName = Settings.BlobmanBeta and Settings.BlobmanBeta.selectedTarget
     if tName then
         local tPlayer = Players:FindFirstChild(tName)
         local tChar = tPlayer and tPlayer.Character
@@ -8359,7 +8361,7 @@ local function cleanupBlobmanLocks()
         end
     end
 
-    local blob = BlobmanBetaFeature.getBlobman()
+    local blob = (BlobmanBetaFeature and BlobmanBetaFeature.getBlobman) and BlobmanBetaFeature.getBlobman() or nil
     if blob then
         local scr = blob:FindFirstChild("BlobmanSeatAndOwnerScript", true)
         if scr then
@@ -8410,33 +8412,47 @@ local function cleanupBlobmanLocks()
 end
 
 local function runBlobmanLoopLogic()
-    local target = BlobmanBetaFeature.checkTarget()
-    if not target then warn("Select target") Settings.BlobmanBeta.loopKillActive = false return end
+    if not (BlobmanBetaFeature and BlobmanBetaFeature.checkTarget) then
+        warn("BlobmanBetaFeature 또는 checkTarget 함수를 찾을 수 없습니다.")
+        Settings.BlobmanBeta.loopKillActive = false
+        return
+    end
 
-    while Settings.BlobmanBeta.loopKillActive do
+    local target = BlobmanBetaFeature.checkTarget()
+    if not target then 
+        warn("Select target") 
+        Settings.BlobmanBeta.loopKillActive = false 
+        return 
+    end
+
+    while Settings.BlobmanBeta and Settings.BlobmanBeta.loopKillActive do
         local mychar = LocalPlayer.Character
         local myhum = mychar and mychar:FindFirstChildOfClass("Humanoid")
         if not myhum then task.wait(0.1) continue end
         if myhum.SeatPart and myhum.SeatPart.Parent and myhum.SeatPart.Parent.Name == "CreatureBlobman" then
             break
         end
-        BlobmanBetaFeature.forceSitBlobman()
+        if BlobmanBetaFeature.forceSitBlobman then
+            BlobmanBetaFeature.forceSitBlobman()
+        end
         task.wait()
     end
 
-    if not Settings.BlobmanBeta.loopKillActive then return end
+    if not (Settings.BlobmanBeta and Settings.BlobmanBeta.loopKillActive) then return end
 
-    local MyBlob = BlobmanBetaFeature.getBlobman()
-    if not MyBlob then task.wait(0.5) MyBlob = BlobmanBetaFeature.getBlobman() end
+    local MyBlob = BlobmanBetaFeature.getBlobman and BlobmanBetaFeature.getBlobman()
+    if not MyBlob then task.wait(0.5) MyBlob = BlobmanBetaFeature.getBlobman and BlobmanBetaFeature.getBlobman() end
     if not MyBlob then return end
 
-    while Settings.BlobmanBeta.loopKillActive and task.wait() do
+    while Settings.BlobmanBeta and Settings.BlobmanBeta.loopKillActive and task.wait() do
         local mychar = LocalPlayer.Character
         local myHRP = mychar and mychar:FindFirstChild("HumanoidRootPart")
         local myhum = mychar and mychar:FindFirstChildOfClass("Humanoid")
         if not (myhum and myhum.SeatPart and myhum.SeatPart.Parent and myhum.SeatPart.Parent.Name == "CreatureBlobman") then
-            BlobmanBetaFeature.forceSitBlobman()
-            MyBlob = BlobmanBetaFeature.getBlobman()
+            if BlobmanBetaFeature.forceSitBlobman then
+                BlobmanBetaFeature.forceSitBlobman()
+            end
+            MyBlob = BlobmanBetaFeature.getBlobman and BlobmanBetaFeature.getBlobman()
             continue
         end
         MyBlob = myhum.SeatPart.Parent
@@ -8459,11 +8475,13 @@ local function runBlobmanLoopLogic()
         local LW = LD and LD:FindFirstChild("LeftWeld")
         if not (LD and LW) then continue end
 
-        while LW.Attachment0 ~= HRP.RootAttachment and Settings.BlobmanBeta.loopKillActive do
+        while LW.Attachment0 ~= HRP.RootAttachment and Settings.BlobmanBeta and Settings.BlobmanBeta.loopKillActive do
             local savedPos = myHRP.CFrame
 
             while hum.SeatPart do
-                task.spawn(function() BlobmanBetaFeature.SetNetworkOwner(HRP) end)
+                if BlobmanBetaFeature.SetNetworkOwner then
+                    task.spawn(function() BlobmanBetaFeature.SetNetworkOwner(HRP) end)
+                end
                 task.wait()
             end
 
@@ -8483,18 +8501,21 @@ local function runBlobmanLoopLogic()
 end
 
 LoopTab:AddToggle({
-    Name = "루프킬(베타) <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "루프킬(베타)   <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
     Flag = "21",
     Callback = function(Value)
         blobLoopT2 = Value
+        Settings.BlobmanBeta = Settings.BlobmanBeta or {}
         Settings.BlobmanBeta.loopKillActive = Value
         
         if Value then
-            table.clear(playersInLoop2V)
-            for i, e in ipairs(playersInLoop1V) do
-                local nameOnly = e:match("^(.-) %(") or e
-                table.insert(playersInLoop2V, nameOnly)
+            if playersInLoop2V and playersInLoop1V then
+                table.clear(playersInLoop2V)
+                for i, e in ipairs(playersInLoop1V) do
+                    local nameOnly = e:match("^(.-) %(") or e
+                    table.insert(playersInLoop2V, nameOnly)
+                end
             end
             
             if typeof(loopPlayerBlobF2) == "function" then
@@ -8504,11 +8525,14 @@ LoopTab:AddToggle({
             task.spawn(runBlobmanLoopLogic)
         else
             blobLoopT2 = false
-            table.clear(playersInLoop2V)
+            if playersInLoop2V then
+                table.clear(playersInLoop2V)
+            end
             cleanupBlobmanLocks()
         end
     end
 })
+
 
 end
 

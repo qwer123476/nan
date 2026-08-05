@@ -10979,7 +10979,7 @@ antiTab:AddToggle({
                         local toy = toysFolder:FindFirstChild(selectedToy)
                         if not toy then
                             pcall(function()
-                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 5, 0), Vector3.zero)
+                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                             end)
 
                             local t0 = tick()
@@ -11002,7 +11002,7 @@ antiTab:AddToggle({
                                 if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 20, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
                                     toy:Destroy()
@@ -11012,18 +11012,17 @@ antiTab:AddToggle({
                                             holdRemote:InvokeServer(toy, char)
                                         end)
                                     end
-                                    task.wait(0.05)
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 2000, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
-                                    task.wait(0.1)
+                                    task.wait(0.3)
                                 end
                             end
                         end
                     end
-                    task.wait(0.2)
+                    task.wait(0.05)
                 end
             end)
         end

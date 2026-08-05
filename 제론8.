@@ -1403,7 +1403,7 @@ local function SaveAll()
     local saveTable = {}
 
     for flag, obj in pairs(OrionLib.Flags or {}) do
-        if obj and obj.Value \~= nil then
+        if obj and obj.Value ~= nil then
             saveTable[flag] = obj.Value
         end
     end

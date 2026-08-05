@@ -10216,7 +10216,7 @@ end)
 
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸V2",
+    Name = "안티 오너쉽 스팸 V1",
     Default = false,
     flag = "fo27rwk",
     Callback = function(Value)
@@ -10229,7 +10229,7 @@ antiTab:AddToggle({
 --local isHeldLoop = nil
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸V3    <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "안티 오너쉽 스팸V2    <font color='rgb(0,0,255)'>[프리미엄]</font>",
     Default = false,
     flag = "f971rfutcss",
     Callback = function(Value)
@@ -10458,7 +10458,7 @@ antiTab:AddToggle({
         end
     end
 })
-
+--[[
 antiTab:AddToggle({
     Name = "안티그랩 |  StickyPart",
     
@@ -10471,132 +10471,9 @@ antiTab:AddToggle({
         end
     end
 })
+]]
 
-local itemTranslation = {
-    ["바나나"] = "FoodBanana",
-    ["빵"] = "FoodBread",
-    ["브로콜리"] = "FoodBroccoli",
-    ["케이크"] = "FoodCakePink",
-    ["코코넛"] = "FoodCoconut",
-    ["계란 후라이"] = "FoodDippyEgg",
-    ["도넛"] = "FoodDonut",
-    ["감자튀김"] = "FoodFrenchFries",
-    ["햄버거"] = "FoodHamburger",
-    ["핫도그"] = "FoodHotdog",
-    ["마요네즈"] = "FoodMayonnaise",
-    ["고기꼬치"] = "FoodMeatStick",
-    ["독버섯"] = "FoodMushroomPoison",
-    ["치즈 피자"] = "FoodPizzaCheese",
-    ["페페로니 피자"] = "FoodPizzaPepperoni",
-    ["음료수 캔"] = "FoodSodaCan",
-    ["나팔"] = "InstrumentBrassBugle",
-    ["트럼펫"] = "InstrumentBrassTrumpet",
-    ["봉고 드럼"] = "InstrumentDrumBongos",
-    ["스네어 드럼"] = "InstrumentDrumSnare",
-    ["어쿠스틱 기타"] = "InstrumentGuitarAcoustic",
-    ["벤조"] = "InstrumentGuitarBanjo",
-    ["리라"] = "InstrumentGuitarLyre",
-    ["우쿨렐레"] = "InstrumentGuitarUkulele",
-    ["바이올린"] = "InstrumentGuitarViolin",
-    ["전자 피아노"] = "InstrumentPianoKeyboard",
-    ["멜로디카"] = "InstrumentPianoMelodica",
-    ["마이크"] = "InstrumentVoiceMicrophone",
-    ["오카리나"] = "InstrumentWoodwindOcarina",
-    ["색소폰"] = "InstrumentWoodwindSaxophone",
-    ["부부젤라"] = "InstrumentBrassVuvuzela"
-}
 
-function AntiDeathF(itemName)
-    if activeConnection then
-        activeConnection:Disconnect()
-        activeConnection = nil
-    end
-
-    activeConnection = rs2.Heartbeat:Connect(function()
-        if not AntiDeathT then
-            if activeConnection then
-                activeConnection:Disconnect()
-                activeConnection = nil
-            end
-            return
-        end
-
-        local Character = plr.Character
-        if not Character then return end
-
-        local donut = inv:FindFirstChild(itemName)
-
-        if not donut then
-            pcall(function()
-                rs.MenuToys.SpawnToyRemoteFunction:InvokeServer(itemName, CFrame.new(0,0,0), Vector3.new(0,0,0))
-            end)
-            return
-        end
-
-        if not donut:FindFirstChild("HoldPart") then return end
-
-        local HoldItemRemoteFunction = donut.HoldPart:FindFirstChild("HoldItemRemoteFunction")
-        local DropItemRemoteFunction = donut.HoldPart:FindFirstChild("DropItemRemoteFunction")
-
-        if HoldItemRemoteFunction and DropItemRemoteFunction then
-            HoldItemRemoteFunction:InvokeServer(donut, Character)
-            DropItemRemoteFunction:InvokeServer(donut, CFrame.new(99999, 99999, 99999), Vector3.new(99999, 99999, 99999))
-        end
-    end)
-end
-
-RunService = game:GetService("RunService")
-Camera = workspace.CurrentCamera
-
-local currentSelectedOption = "FoodMayonnaise"
-
-antiTab:AddToggle({
-    Name = "안티 인풋   <font color='rgb(255,0,0)'>[NETWORK OWNER]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
-    
-    save = true,
-    Flag = "AntiDeathToggleFlag",
-    Callback = function(Value)
-        AntiDeathT = Value
-        if AntiDeathT then
-            task.spawn(function()
-                AntiDeathF(currentSelectedOption)
-            end)
-        else
-            if activeConnection then
-                activeConnection:Disconnect()
-                activeConnection = nil
-            end
-        end
-    end,
-})
-
-antiTab:AddDropdown({
-    Name = "사용할 아이템 선택(누나 빵 추천)",
-    Options = {
-        "마요네즈", "바나나", "빵", "브로콜리", "핑크 케이크", "코코넛", "반숙란", "도넛", 
-        "감자튀김", "햄버거", "핫도그", "우쿨렐레", "고기꼬치", "독버섯", "치즈 피자", 
-        "페페로니 피자", "음료수 캔", "나팔", "트럼펫", "봉고 드럼", "스네어 드럼", 
-        "어쿠스틱 기타", "벤조", "리라", "바이올린", "전자 피아노", "멜로디카", 
-        "마이크", "오카리나", "색소폰", "부부젤라"
-    },
-    Default = "마요네즈", 
-    save = true,
-    Flag = "ItemDropdownFlag",
-    Callback = function(Option)
-        local rawSelection = type(Option) == "table" and Option[1] or Option
-        if type(rawSelection) == "string" then
-            local englishName = itemTranslation[rawSelection]
-            if englishName then
-                currentSelectedOption = englishName
-                if AntiDeathT then
-                    task.spawn(function()
-                        AntiDeathF(englishName)
-                    end)
-                end
-            end
-        end
-    end,
-})
 
 antiTab:AddToggle({
     Name = "안티킥 <font color='rgb(0,255,0)'>[그랩]</font>",
@@ -10799,7 +10676,7 @@ antiTab:AddSection({
     Name = "킬"
 })
 antiTab:AddToggle({
-    Name = "Anti Ragdoll",
+    Name = "안티 래그돌킬",
     Default = false,
     Flag = "AntiRagdoll",
     Callback = function(v)
@@ -10838,66 +10715,9 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddToggle({
-    Name = "안티킬",
-    Default = false,
-    Flag = "AntiKillHamburger",
-    Callback = function(v)
-        Settings.Anti.AntiKillHamburger = v
-        if v then
-            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
-            local toggle = false
-            State.antiKillSpamConnection = RunService.Heartbeat:Connect(function()
-                if not Settings.Anti.AntiKillHamburger then return end
-                local character = LocalPlayer.Character
-                if not character or not character:FindFirstChild("Humanoid") or character.Humanoid.Health <= 0 then return end
-                local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-                local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
-                if not hamburger or not hamburger:FindFirstChild("HoldPart") then
-                    pcall(function()
-                        ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
-                            "FoodHamburger",
-                            CFrame.new(0, 300, 0),
-                            Vector3.new(0, 0, 0)
-                        )
-                    end)
-                    toggle = false
-                    return
-                end
-                toggle = not toggle
-                if toggle then
-                    pcall(function()
-                        hamburger.HoldPart.HoldItemRemoteFunction:InvokeServer(hamburger, character)
-                    end)
-                else
-                    pcall(function()
-                        hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
-                            hamburger,
-                            CFrame.new(0, 300, 0),
-                            Vector3.new(0, 0, 0)
-                        )
-                    end)
-                end
-            end)
-        else
-            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
-            local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-            local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
-            if hamburger and hamburger:FindFirstChild("HoldPart") then
-                pcall(function()
-                    hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
-                        hamburger,
-                        CFrame.new(0, 300, 0),
-                        Vector3.new(0, 0, 0)
-                    )
-                end)
-            end
-        end
-    end
-})
 
 antiTab:AddToggle({
-    Name = "안티 블롭 래그돌",
+    Name = "안티 블롭 래그돌킬",
     Default = false,
     Flag = "AntiRagBlob",
     Callback = function(v)
@@ -10979,6 +10799,319 @@ antiTab:AddToggle({
             if State.antiBlobmanKillConn then
                 State.antiBlobmanKillConn:Disconnect()
                 State.antiBlobmanKillConn = nil
+            end
+        end
+    end
+})
+antiTab:AddSection({
+    Name = "인풋류"
+})
+local itemTranslation = {
+    ["바나나"] = "FoodBanana",
+    ["빵"] = "FoodBread",
+    ["브로콜리"] = "FoodBroccoli",
+    ["케이크"] = "FoodCakePink",
+    ["코코넛"] = "FoodCoconut",
+    ["계란 후라이"] = "FoodDippyEgg",
+    ["도넛"] = "FoodDonut",
+    ["감자튀김"] = "FoodFrenchFries",
+    ["햄버거"] = "FoodHamburger",
+    ["핫도그"] = "FoodHotdog",
+    ["마요네즈"] = "FoodMayonnaise",
+    ["고기꼬치"] = "FoodMeatStick",
+    ["독버섯"] = "FoodMushroomPoison",
+    ["치즈 피자"] = "FoodPizzaCheese",
+    ["페페로니 피자"] = "FoodPizzaPepperoni",
+    ["음료수 캔"] = "FoodSodaCan",
+    ["나팔"] = "InstrumentBrassBugle",
+    ["트럼펫"] = "InstrumentBrassTrumpet",
+    ["봉고 드럼"] = "InstrumentDrumBongos",
+    ["스네어 드럼"] = "InstrumentDrumSnare",
+    ["어쿠스틱 기타"] = "InstrumentGuitarAcoustic",
+    ["벤조"] = "InstrumentGuitarBanjo",
+    ["리라"] = "InstrumentGuitarLyre",
+    ["우쿨렐레"] = "InstrumentGuitarUkulele",
+    ["바이올린"] = "InstrumentGuitarViolin",
+    ["전자 피아노"] = "InstrumentPianoKeyboard",
+    ["멜로디카"] = "InstrumentPianoMelodica",
+    ["마이크"] = "InstrumentVoiceMicrophone",
+    ["오카리나"] = "InstrumentWoodwindOcarina",
+    ["색소폰"] = "InstrumentWoodwindSaxophone",
+    ["부부젤라"] = "InstrumentBrassVuvuzela"
+}
+
+function AntiDeathF(itemName)
+    if activeConnection then
+        activeConnection:Disconnect()
+        activeConnection = nil
+    end
+
+    activeConnection = rs2.Heartbeat:Connect(function()
+        if not AntiDeathT then
+            if activeConnection then
+                activeConnection:Disconnect()
+                activeConnection = nil
+            end
+            return
+        end
+
+        local Character = plr.Character
+        if not Character then return end
+
+        local donut = inv:FindFirstChild(itemName)
+
+        if not donut then
+            pcall(function()
+                rs.MenuToys.SpawnToyRemoteFunction:InvokeServer(itemName, CFrame.new(0,0,0), Vector3.new(0,0,0))
+            end)
+            return
+        end
+
+        if not donut:FindFirstChild("HoldPart") then return end
+
+        local HoldItemRemoteFunction = donut.HoldPart:FindFirstChild("HoldItemRemoteFunction")
+        local DropItemRemoteFunction = donut.HoldPart:FindFirstChild("DropItemRemoteFunction")
+
+        if HoldItemRemoteFunction and DropItemRemoteFunction then
+            HoldItemRemoteFunction:InvokeServer(donut, Character)
+            DropItemRemoteFunction:InvokeServer(donut, CFrame.new(99999, 99999, 99999), Vector3.new(99999, 99999, 99999))
+        end
+    end)
+end
+
+RunService = game:GetService("RunService")
+Camera = workspace.CurrentCamera
+
+local currentSelectedOption = "FoodMayonnaise"
+
+antiTab:AddToggle({
+    Name = "안티 인풋   <font color='rgb(255,0,0)'>[NETWORK OWNER]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    
+    save = true,
+    Flag = "AntiDeathToggleFlag",
+    Callback = function(Value)
+        AntiDeathT = Value
+        if AntiDeathT then
+            task.spawn(function()
+                AntiDeathF(currentSelectedOption)
+            end)
+        else
+            if activeConnection then
+                activeConnection:Disconnect()
+                activeConnection = nil
+            end
+        end
+    end,
+})
+
+antiTab:AddDropdown({
+    Name = "사용할 아이템 선택(누나 빵 추천)",
+    Options = {
+        "마요네즈", "바나나", "빵", "브로콜리", "핑크 케이크", "코코넛", "반숙란", "도넛", 
+        "감자튀김", "햄버거", "핫도그", "우쿨렐레", "고기꼬치", "독버섯", "치즈 피자", 
+        "페페로니 피자", "음료수 캔", "나팔", "트럼펫", "봉고 드럼", "스네어 드럼", 
+        "어쿠스틱 기타", "벤조", "리라", "바이올린", "전자 피아노", "멜로디카", 
+        "마이크", "오카리나", "색소폰", "부부젤라"
+    },
+    Default = "마요네즈", 
+    save = true,
+    Flag = "ItemDropdownFlag",
+    Callback = function(Option)
+        local rawSelection = type(Option) == "table" and Option[1] or Option
+        if type(rawSelection) == "string" then
+            local englishName = itemTranslation[rawSelection]
+            if englishName then
+                currentSelectedOption = englishName
+                if AntiDeathT then
+                    task.spawn(function()
+                        AntiDeathF(englishName)
+                    end)
+                end
+            end
+        end
+    end,
+})
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().Settings = getgenv().Settings or {}
+getgenv().Settings.Anti = getgenv().Settings.Anti or {
+    AntiInputLag = false,
+    AntiInputLagToy = "Coconut"
+}
+
+getgenv().State = getgenv().State or {
+    antiInputLagThread = nil
+}
+
+local ToyList = {
+    ["Coconut"] = "FoodCoconut", ["Banana"] = "FoodBanana", ["Fries"] = "FoodFrenchFries",
+    ["MeatStick"] = "FoodMeatStick", ["Poop"] = "PoopPile", ["Donut"] = "FoodDonut",
+    ["Cake"] = "FoodCakePink", ["Burger"] = "FoodHamburger", ["Pizza"] = "FoodPizzaCheese",
+    ["Hotdog"] = "FoodHotdog", ["Mushroom"] = "FoodMushroomPoison", ["Banjo"] = "InstrumentGuitarBanjo",
+    ["Violin"] = "InstrumentGuitarViolin", ["Ukulele"] = "InstrumentGuitarUkulele",
+    ["Sax"] = "InstrumentWoodwindSaxophone", ["Vuvuzela"] = "InstrumentBrassVuvuzela",
+    ["Bongos"] = "InstrumentDrumBongos", ["Mic"] = "InstrumentVoiceMicrophone",
+    ["Pepperoni"] = "FoodPizzaPepperoni", ["Piano"] = "InstrumentPianoMelodica",
+    ["Bread"] = "FoodBread", ["Egg"] = "FoodDippyEgg", ["Mayo"] = "FoodMayonnaise",
+    ["WhiteMug"] = "CupMugWhite", ["Ocarina"] = "InstrumentWoodwindOcarina",
+    ["SparklePoop"] = "PoopPileSparkle", ["BrownMug"] = "CupMugBrown",
+    ["Trumpet"] = "InstrumentBrassTrumpet", ["Snare"] = "InstrumentDrumSnare",
+}
+
+antiTab:AddDropdown({
+    Name = "Input Lag Toy",
+    Default = "Coconut",
+    Options = {
+        "Coconut", "Banana", "Fries", "MeatStick", "Poop", "Donut", "Cake",
+        "Burger", "Pizza", "Hotdog", "Mushroom", "Banjo", "Violin", "Ukulele",
+        "Sax", "Vuvuzela", "Bongos", "Mic", "Pepperoni", "Piano", "Bread",
+        "Egg", "Mayo", "WhiteMug", "Ocarina", "SparklePoop", "BrownMug",
+        "Trumpet", "Snare"
+    },
+    Callback = function(Value)
+        getgenv().Settings.Anti.AntiInputLagToy = Value
+    end    
+})
+
+antiTab:AddToggle({
+    Name = "안티  인풋렉",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Settings.Anti.AntiInputLag = Value
+
+        if getgenv().State.antiInputLagThread then
+            task.cancel(getgenv().State.antiInputLagThread)
+            getgenv().State.antiInputLagThread = nil
+        end
+
+        if Value then
+            getgenv().State.antiInputLagThread = task.spawn(function()
+                while getgenv().Settings.Anti.AntiInputLag do
+                    local char = LocalPlayer.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    local menuToys = ReplicatedStorage:FindFirstChild("MenuToys")
+                    local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
+
+                    if hrp and SpawnRemote then
+                        local selectedToy = ToyList[getgenv().Settings.Anti.AntiInputLagToy] or "FoodCoconut"
+                        local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+
+                        if not toysFolder then
+                            task.wait(0.1)
+                            continue
+                        end
+
+                        local toy = toysFolder:FindFirstChild(selectedToy)
+                        if not toy then
+                            pcall(function()
+                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 5, 0), Vector3.zero)
+                            end)
+
+                            local t0 = tick()
+                            repeat
+                                RunService.Heartbeat:Wait()
+                                toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                                toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+                            until toy or (tick() - t0 > 1) or not getgenv().Settings.Anti.AntiInputLag
+                        end
+
+                        if toy and toy.Parent then
+                            local holdPart = toy:FindFirstChild("HoldPart")
+                            if holdPart then
+                                local holdingPlayerVal = holdPart:FindFirstChild("HoldingPlayer")
+                                local holdingPlayer = holdingPlayerVal and holdingPlayerVal.Value
+
+                                local dropRemote = holdPart:FindFirstChild("DropItemRemoteFunction")
+                                local holdRemote = holdPart:FindFirstChild("HoldItemRemoteFunction")
+
+                                if holdingPlayer and holdingPlayer ~= LocalPlayer then
+                                    if dropRemote then
+                                        pcall(function()
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 2000, 0), Vector3.zero)
+                                        end)
+                                    end
+                                    toy:Destroy()
+                                else
+                                    if holdRemote then
+                                        pcall(function()
+                                            holdRemote:InvokeServer(toy, char)
+                                        end)
+                                    end
+                                    task.wait(0.05)
+                                    if dropRemote then
+                                        pcall(function()
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 2000, 0), Vector3.zero)
+                                        end)
+                                    end
+                                    task.wait(0.5)
+                                end
+                            end
+                        end
+                    end
+                    task.wait(0.1)
+                end
+            end)
+        end
+    end
+})
+antiTab:AddToggle({
+    Name = "안티킬",
+    Default = false,
+    Flag = "AntiKillHamburger",
+    Callback = function(v)
+        Settings.Anti.AntiKillHamburger = v
+        if v then
+            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
+            local toggle = false
+            State.antiKillSpamConnection = RunService.Heartbeat:Connect(function()
+                if not Settings.Anti.AntiKillHamburger then return end
+                local character = LocalPlayer.Character
+                if not character or not character:FindFirstChild("Humanoid") or character.Humanoid.Health <= 0 then return end
+                local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
+                if not hamburger or not hamburger:FindFirstChild("HoldPart") then
+                    pcall(function()
+                        ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
+                            "FoodHamburger",
+                            CFrame.new(0, 300, 0),
+                            Vector3.new(0, 0, 0)
+                        )
+                    end)
+                    toggle = false
+                    return
+                end
+                toggle = not toggle
+                if toggle then
+                    pcall(function()
+                        hamburger.HoldPart.HoldItemRemoteFunction:InvokeServer(hamburger, character)
+                    end)
+                else
+                    pcall(function()
+                        hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
+                            hamburger,
+                            CFrame.new(0, 300, 0),
+                            Vector3.new(0, 0, 0)
+                        )
+                    end)
+                end
+            end)
+        else
+            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
+            local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+            local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
+            if hamburger and hamburger:FindFirstChild("HoldPart") then
+                pcall(function()
+                    hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
+                        hamburger,
+                        CFrame.new(0, 300, 0),
+                        Vector3.new(0, 0, 0)
+                    )
+                end)
             end
         end
     end
@@ -11091,9 +11224,6 @@ antiTab:AddToggle({
 })
 --AntiMassless:Set(true)
 
-antiTab:AddSection({
-    Name = "안티 에어 서스펜션"
-})
 antiTab:AddToggle({
     Name = "디펜스 / 에어 서브펜션",
 
@@ -11170,7 +11300,7 @@ antiTab:AddToggle({
 })
 --AntiVoid:Set(true)
 antiTab:AddSection({
-    Name = "붐"
+    Name = "폭탄"
 })
 antiTab:AddToggle({
     Name = "안티 폭탄",
@@ -11250,7 +11380,9 @@ task.spawn(function()
         AntiExplosionToggle:Set(true)
     end
 end)
-
+antiTab:AddSection({
+    Name = "불&페인트"
+})
 antiTab:AddToggle({
     Name = "불 무적",
     
@@ -11275,7 +11407,9 @@ antiTab:AddToggle({
 })
 --AntiPaint:Set(true)
 
-
+antiTab:AddSection({
+    Name = "베타안티렉"
+})
 antiTab:AddToggle({
     Name = "안티 렉",
     
@@ -11308,7 +11442,9 @@ antiTab:AddToggle({
         antiLagF()
     end
 })
-
+antiTab:AddSection({
+    Name = "잡기능"
+})
 antiTab:AddToggle({
     Name = "오토어택 | 킬",
     
@@ -11352,7 +11488,7 @@ antiTab:AddSection({
 --local flyingResetConn = nil
 --local resetProtectionConn = nil
 antiTab:AddToggle({
-    Name = "킥 방지리셋  <font color='rgb(50,0,50)'>[셀프 킬]</font>",
+    Name = "오토 리셋 <font color='rgb(50,0,50)'>[셀프 킬]</font>",
     
     save = true,
     Flag = "owiduxj",
@@ -11412,18 +11548,7 @@ antiTab:AddToggle({
 })
 --AntiKick:Set(true)
 
-antiTab:AddToggle({
-   Name = "안티킥",
-   
-    save = true,
-    Flag = "iiwiwow9w9",
-   Callback = function(Value)
-      AntiGrabStickyT = Value
-      if Value then
-          task.spawn(AntiGrabStickyF)
-      end
-   end,
-})
+
 
 antiTab:AddButton({
     Name = "안티킥   <font color='rgb(90,200,10)'>[TP]</font>",
@@ -11600,7 +11725,7 @@ antiTab:AddSection({
 })
 
 antiTab:AddToggle({
-    Name = "오토구찌 <font color='rgb(255,146,123)'>[블롭맨]</font>     <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "오토구찌 <font color='rgb(255,146,123)'>[블롭맨]</font>    <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
     Flag = "autoGucciToggleFlag",
@@ -11650,7 +11775,7 @@ end
 })
 
 
-
+--[[
 antiTab:AddToggle({
     Name = "기차 구찌",
     Default = false,
@@ -11794,6 +11919,7 @@ antiTab:AddToggle({
         end
     end
 })
+]]
 --[[
 antiTab:AddToggle({
     Name = "Anti Gucci Blobman",
@@ -11963,7 +12089,7 @@ do
     end
 
     antiTab:AddToggle({
-        Name = "기차 구찌 V2",
+        Name = " 구찌 V2",
         Default = false,
         Callback = function(Value)
             invisibleAntiGrabEnabled = Value

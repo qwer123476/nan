@@ -11041,7 +11041,7 @@ antiTab:AddToggle({
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
                         local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
 
-                        if not toy or not toy.Parent then
+                        if not toy or not toy.Parent or not toy:FindFirstChild("HoldPart") then
                             pcall(function()
                                 SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
                             end)

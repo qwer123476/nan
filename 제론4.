@@ -10803,6 +10803,7 @@ antiTab:AddToggle({
         end
     end
 })
+do
 antiTab:AddSection({
     Name = "인풋류"
 })
@@ -11116,7 +11117,7 @@ antiTab:AddToggle({
         end
     end
 })
-
+end
 antiTab:AddSection({
     Name = "블롭맨"
 })

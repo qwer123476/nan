@@ -11009,75 +11009,160 @@ local LocalPlayer = Players.LocalPlayer
 
 
 antiTab:AddToggle({
-    Name = "안티 인풋렉",
+    Name = "안티  인풋렉",
     Default = false,
     Flag = "wuidiooqow",
+    Callback = function(Value)
+        getgenv().Settings.Anti.AntiInputLag = Value
+
+        if getgenv().State.antiInputLagThread then
+            task.cancel(getgenv().State.antiInputLagThread)
+            getgenv().State.antiInputLagThread = nil
+        end
+
+        if Value then
+            getgenv().State.antiInputLagThread = task.spawn(function()
+                while getgenv().Settings.Anti.AntiInputLag do
+                    local char = LocalPlayer.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    local menuToys = ReplicatedStorage:FindFirstChild("MenuToys")
+                    local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
+
+                    if hrp and SpawnRemote then
+                        local selectedToy = "FoodHamburger"
+                        local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                        local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+
+                        if not toy or not toy.Parent then
+                            pcall(function()
+                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
+                            end)
+
+                            local t0 = tick()
+                            repeat
+                                RunService.Heartbeat:Wait()
+                                toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                                toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+                            until toy or (tick() - t0 > 0.5) or not getgenv().Settings.Anti.AntiInputLag
+                        end
+
+                        if toy and toy.Parent then
+                            local holdPart = toy:FindFirstChild("HoldPart")
+                            if holdPart then
+                                local holdingPlayerVal = holdPart:FindFirstChild("HoldingPlayer")
+                                local holdingPlayer = holdingPlayerVal and holdingPlayerVal.Value
+
+                                local dropRemote = holdPart:FindFirstChild("DropItemRemoteFunction")
+                                local holdRemote = holdPart:FindFirstChild("HoldItemRemoteFunction")
+
+                                if holdingPlayer and holdingPlayer \~= LocalPlayer then
+                                    if dropRemote then
+                                        pcall(function()
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                        end)
+                                    end
+                                    toy:Destroy()
+                                else
+                                    if holdRemote then
+                                        pcall(function()
+                                            holdRemote:InvokeServer(toy, char)
+                                        end)
+                                    end
+                                    RunService.Heartbeat:Wait()
+                                    if dropRemote then
+                                        pcall(function()
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                        end)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    task.wait(0.02)
+                end
+            end)
+        else
+            local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+            local toy = toysFolder and toysFolder:FindFirstChild("FoodHamburger")
+            if toy and toy:FindFirstChild("HoldPart") then
+                local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local dropRemote = toy.HoldPart:FindFirstChild("DropItemRemoteFunction")
+                if dropRemote and hrp then
+                    pcall(function()
+                        dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
+                    end)
+                end
+            end
+        end
+    end
+})
+antiTab:AddToggle({
+    Name = "안티킬",
+    Default = false,
+    Flag = "AntiKillMayoisididnnaise",
     Callback = function(v)
         getgenv().Settings = getgenv().Settings or {}
         getgenv().Settings.Anti = getgenv().Settings.Anti or {}
         getgenv().State = getgenv().State or {}
 
-        getgenv().Settings.Anti.AntiInputLag = v
+        getgenv().Settings.Anti.AntiKillMayonnaise = v
 
-        if getgenv().State.thread then
-            task.cancel(getgenv().State.thread)
-            getgenv().State.thread = nil
+        if getgenv().State.antiKillSpamConnection then 
+            getgenv().State.antiKillSpamConnection:Disconnect() 
+            getgenv().State.antiKillSpamConnection = nil 
         end
 
-        if not v then return end
-
-        getgenv().State.thread = task.spawn(function()
+        if v then
             local toggle = false
-
-            while getgenv().Settings.Anti.AntiInputLag do
-                local char = LocalPlayer.Character
-                local hrp = char and char:FindFirstChild("HumanoidRootPart")
-
-                local folder = Workspace:FindFirstChild(LocalPlayer.Name.."SpawnedInToys")
-                local burger = folder and folder:FindFirstChild("FoodHamburger")
-
-                if not burger or not burger.Parent or not burger:FindFirstChild("HoldPart") then
+            getgenv().State.antiKillSpamConnection = RunService.Heartbeat:Connect(function()
+                if not getgenv().Settings.Anti.AntiKillMayonnaise then return end
+                
+                local character = LocalPlayer.Character
+                if not character or not character:FindFirstChild("Humanoid") or character.Humanoid.Health <= 0 then return end
+                
+                local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                local mayo = spawnedFolder and spawnedFolder:FindFirstChild("FoodMayonnaise")
+                
+                if not mayo or not mayo:FindFirstChild("HoldPart") then
                     pcall(function()
                         ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
-                            "FoodHamburger",
-                            hrp and (hrp.CFrame * CFrame.new(0,99999,0)) or CFrame.new(0,99999,0),
-                            Vector3.zero
+                            "FoodMayonnaise",
+                            CFrame.new(0, 300, 0),
+                            Vector3.new(0, 0, 0)
                         )
                     end)
-
-                    task.wait()
-
-                    folder = Workspace:FindFirstChild(LocalPlayer.Name.."SpawnedInToys")
-                    burger = folder and folder:FindFirstChild("FoodHamburger")
-
-                    if burger and burger:FindFirstChild("HoldPart") then
-                        pcall(function()
-                            burger.HoldPart.HoldItemRemoteFunction:InvokeServer(burger, char)
-                        end)
-                    end
-
                     toggle = false
-                else
-                    toggle = not toggle
-
-                    if toggle then
-                        pcall(function()
-                            burger.HoldPart.HoldItemRemoteFunction:InvokeServer(burger, char)
-                        end)
-                    else
-                        pcall(function()
-                            burger.HoldPart.DropItemRemoteFunction:InvokeServer(
-                                burger,
-                                hrp and (hrp.CFrame * CFrame.new(0,13,0)) or CFrame.new(0,13,0),
-                                Vector3.zero
-                            )
-                        end)
-                    end
+                    return
                 end
-
-                task.wait(0.025)
+                
+                toggle = not toggle
+                if toggle then
+                    pcall(function()
+                        mayo.HoldPart.HoldItemRemoteFunction:InvokeServer(mayo, character)
+                    end)
+                else
+                    pcall(function()
+                        mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
+                            mayo,
+                            CFrame.new(0, 300, 0),
+                            Vector3.new(0, 0, 0)
+                        )
+                    end)
+                end
+            end)
+        else
+            local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+            local mayo = spawnedFolder and spawnedFolder:FindFirstChild("FoodMayonnaise")
+            if mayo and mayo:FindFirstChild("HoldPart") then
+                pcall(function()
+                    mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
+                        mayo,
+                        CFrame.new(0, 300, 0),
+                        Vector3.new(0, 0, 0)
+                    )
+                end)
             end
-        end)
+        end
     end
 })
 end

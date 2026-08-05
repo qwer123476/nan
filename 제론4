@@ -11112,7 +11112,7 @@ antiTab:AddToggle({
             end
         end
     end
-)}
+})
 
 
 antiTab:AddToggle({

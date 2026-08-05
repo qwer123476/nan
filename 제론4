@@ -11057,7 +11057,7 @@ antiTab:AddToggle({
                                 if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 13, 0), Vector3.zero)
                                         end)
                                     end
                                     pcall(function()
@@ -11072,7 +11072,7 @@ antiTab:AddToggle({
                                     RunService.Heartbeat:Wait()
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 13, 0), Vector3.zero)
                                         end)
                                     end
                                 end
@@ -11083,7 +11083,7 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    task.wait()
+                    task.wait(0.025)
                 end
             end)
         else
@@ -11104,7 +11104,6 @@ antiTab:AddToggle({
         end
     end
 })
-
 
 antiTab:AddToggle({
     Name = "안티킬",

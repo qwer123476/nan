@@ -10970,14 +10970,9 @@ antiTab:AddToggle({
                     if hrp and SpawnRemote then
                         local selectedToy = "FoodHamburger"
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                        local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
 
-                        if not toysFolder then
-                            task.wait(0.000001)
-                            continue
-                        end
-
-                        local toy = toysFolder:FindFirstChild(selectedToy)
-                        if not toy then
+                        if not toy or not toy.Parent then
                             pcall(function()
                                 SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                             end)
@@ -10987,7 +10982,7 @@ antiTab:AddToggle({
                                 RunService.Heartbeat:Wait()
                                 toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
                                 toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
-                            until toy or (tick() - t0 > 1) or not getgenv().Settings.Anti.AntiInputLag
+                            until toy or (tick() - t0 > 0.5) or not getgenv().Settings.Anti.AntiInputLag
                         end
 
                         if toy and toy.Parent then
@@ -11012,17 +11007,17 @@ antiTab:AddToggle({
                                             holdRemote:InvokeServer(toy, char)
                                         end)
                                     end
+                                    RunService.Heartbeat:Wait()
                                     if dropRemote then
                                         pcall(function()
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
-                                    task.wait(0.05)
                                 end
                             end
                         end
                     end
-                    task.wait(0.02)
+                    task.wait(0.03)
                 end
             end)
         end
@@ -12200,8 +12195,8 @@ playerTab:AddToggle({
 
 playerTab:AddSlider({
     Name = "걷기속도 조절",
-    Min = 10,
-    Max = 135,
+    Min = 16,
+    Max = 500,
     Default = 80,
     Flag = "furiqffuow",
     Increment = 10,
@@ -12221,30 +12216,62 @@ plr.CharacterAdded:Connect(function(char)
     updateWalkSpeedF()
 end)
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().Settings = getgenv().Settings or {}
+getgenv().Settings.Player = getgenv().Settings.Player or {
+    JumpToggle = false,
+    JumpPower = 50
+}
+
+local function applyJumpPower()
+    local char = LocalPlayer.Character
+    local humanoid = char and char:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        if getgenv().Settings.Player.JumpToggle then
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = getgenv().Settings.Player.JumpPower
+        else
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = 50
+        end
+    end
+end
+
 playerTab:AddToggle({
-    Name = "점프 높이   <font color='rgb(0,25,0)'>[굳]</font>",
+    Name = "점프 높이 변경",
     Default = false,
-    save = true,
-    Flag = "3oqp0",
+    Flag = "uof279tct"
     Callback = function(Value)
-        jumpPowerT = Value
-        updateJumpPowerF()
+        getgenv().Settings.Player.JumpToggle = Value
+        applyJumpPower()
     end
 })
 
-playerTab:AddTextbox({
-    Name = "값",
-    Default = "60",
-    save = true,
-    Placeholder = "Value",
-    RemoveTextAfterFocusLost = false,
-    Flag = "gdidoswh",
+playerTab:AddSlider({
+    Name = "점프 높이 ",
+    Min = 24,
+    Max = 500,
+    Default = 50,
+    Flag = "cwuowr7ofoyrxw"
+    Color = Color3.fromRGB(255, 255, 255),
+    Increment = 1,
+    ValueName = "JumpPower",
     Callback = function(Value)
-        jumpPowerV = Value
-        updateJumpPowerF()
+        getgenv().Settings.Player.JumpPower = Value
+        if getgenv().Settings.Player.JumpToggle then
+            applyJumpPower()
+        end
     end
 })
---jumpPowerInput:Set("60")
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+    task.wait(0.1)
+    applyJumpPower()
+end)
+
 
 
 

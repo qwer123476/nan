@@ -11055,7 +11055,7 @@ antiTab:AddToggle({
                                 local dropRemote = holdPart:FindFirstChild("DropItemRemoteFunction")
                                 local holdRemote = holdPart:FindFirstChild("HoldItemRemoteFunction")
 
-                                if holdingPlayer and holdingPlayer \~= LocalPlayer then
+                                if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)

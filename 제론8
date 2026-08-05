@@ -11024,7 +11024,7 @@ getgenv().State = getgenv().State or {
     antiInputLagThread = nil
 }
 
-AntiTab:AddToggle({
+antiTab:AddToggle({
     Name = "안티  인풋렉",
     Default = false,
     Flag = "wuidiooqow",

@@ -12242,7 +12242,7 @@ end
 playerTab:AddToggle({
     Name = "점프 높이 변경",
     Default = false,
-    Flag = "uof279tct"
+    Flag = "uof279tct",
     Callback = function(Value)
         getgenv().Settings.Player.JumpToggle = Value
         applyJumpPower()
@@ -12254,7 +12254,7 @@ playerTab:AddSlider({
     Min = 24,
     Max = 500,
     Default = 50,
-    Flag = "cwuowr7ofoyrxw"
+    Flag = "cwuowr7ofoyrxw",
     Color = Color3.fromRGB(255, 255, 255),
     Increment = 1,
     ValueName = "JumpPower",

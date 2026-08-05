@@ -11086,18 +11086,21 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(0.025)
+                    task.wait(0.04)
                 end
             end)
         else
-            local char = LocalPlayer.Character
-            local hrp = char and char:FindFirstChild("HumanoidRootPart")
-            local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-            local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
             local menuToys = ReplicatedStorage:FindFirstChild("MenuToys")
-                local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
-                if not SpawnRemote then return end
+                    local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
 
+                    if hrp and SpawnRemote then
+                        local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                        local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+
+                        if not toy or not toy.Parent then
+                            pcall(function()
+                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
+                            end)
             if toy and toy:FindFirstChild("HoldPart") then
                 local dropRemote = toy.HoldPart:FindFirstChild("DropItemRemoteFunction")
                 local dropCFrame = hrp and (hrp.CFrame * CFrame.new(0, 99999, 0)) or CFrame.new(0, 99999, 0)

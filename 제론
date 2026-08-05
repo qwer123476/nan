@@ -7056,13 +7056,23 @@ passTab:AddToggle({
 passTab:AddSection({
     Name = "패스 잠금 해제"
 })
-passTab:AddToggle({
+PassTab:AddToggle({
    Name = "긴줄 잠금해제   <font color='rgb(255,19,130)'>[바이패싱]</font>",
-   Callback = function()
-      local Reach = Instance.new("BoolValue")
+   Default = false,
+   Flag = "woucf",
+   Callback = function(Value)
+      if not Value then
+         local Reach = game.Players.LocalPlayer:FindFirstChild("FartherReach")
+         if Reach then
+            Reach:Destroy()
+         end
+         return
+      end
+
+      local Reach = game.Players.LocalPlayer:FindFirstChild("FartherReach") or Instance.new("BoolValue")
       Reach.Name = "FartherReach"
-      Reach.Parent = game.Players.LocalPlayer
       Reach.Value = true
+      Reach.Parent = game.Players.LocalPlayer
 
       local GamepassEvents = game:GetService("ReplicatedStorage"):FindFirstChild("GamepassEvents")
       local Notifier = GamepassEvents and GamepassEvents:FindFirstChild("FurtherReachBoughtNotifier")
@@ -7098,10 +7108,6 @@ passTab:AddToggle({
       end
    end,
 })
-
-
-
-
 
 getTab:AddToggle({
     Name = "킥알림",
@@ -11039,7 +11045,16 @@ antiTab:AddToggle({
                             pcall(function()
                                 SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
                             end)
-                        else
+                            
+                            local t0 = tick()
+                            repeat
+                                RunService.Heartbeat:Wait()
+                                toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+                                toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+                            until toy or (tick() - t0 > 0.5) or not getgenv().Settings.Anti.AntiInputLag
+                        end
+
+                        if toy and toy.Parent then
                             local holdPart = toy:FindFirstChild("HoldPart")
                             if holdPart then
                                 local holdingPlayerVal = holdPart:FindFirstChild("HoldingPlayer")
@@ -11071,7 +11086,7 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(0.03)
+                    task.wait(0.025)
                 end
             end)
         else

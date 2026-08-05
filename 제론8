@@ -1363,51 +1363,6 @@ end)
 end
 --local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/12345/main/Orion"))()
 
-local HttpService = game:GetService("HttpService")
-
-
-local FILE = "FTAP 콘픽"
-
-
-local function SaveAll()
-    local saveTable = {}
-
-    
-    for flag, obj in pairs(OrionLib.Flags or {}) do
-        if obj and obj.Value ~= nil then
-            saveTable[flag] = obj.Value
-        end
-    end
-
-    local success, err = pcall(function()
-        writefile(FILE, HttpService:JSONEncode(saveTable))
-    end)
-
-    if not success then
-        warn("SAVE ERROR:", err)
-    end
-end
-
-
-local function LoadAll()
-    if not isfile(FILE) then return end
-
-    local success, data = pcall(function()
-        return HttpService:JSONDecode(readfile(FILE))
-    end)
-
-    if success and type(data) == "table" then
-        for flag, value in pairs(data) do
-            if OrionLib.Flags and OrionLib.Flags[flag] then
-                pcall(function()
-                    OrionLib.Flags[flag]:Set(value)
-                end)
-            end
-        end
-    end
-end
-
-
 
 
 
@@ -1439,7 +1394,66 @@ local UIcusTab = Window:MakeTab({
 
 
 
+local HttpService = game:GetService("HttpService")
 
+-- 파일 이름은 영문으로 바꾸는 걸 추천 (한글 깨질 수 있음)
+local FILE = "FTAP_Config.json"
+
+local function SaveAll()
+    local saveTable = {}
+
+    for flag, obj in pairs(OrionLib.Flags or {}) do
+        if obj and obj.Value \~= nil then
+            saveTable[flag] = obj.Value
+        end
+    end
+
+    local success, err = pcall(function()
+        writefile(FILE, HttpService:JSONEncode(saveTable))
+    end)
+
+    if success then
+        print("[Config] 저장 완료 | 저장된 플래그 수:", #HttpService:JSONEncode(saveTable))
+    else
+        warn("[Config] 저장 실패:", err)
+    end
+end
+
+local function LoadAll()
+    if not isfile(FILE) then
+        warn("[Config] 파일 없음")
+        return
+    end
+
+    local success, data = pcall(function()
+        return HttpService:JSONDecode(readfile(FILE))
+    end)
+
+    if not (success and type(data) == "table") then
+        warn("[Config] 불러오기 실패")
+        return
+    end
+
+    local loaded = 0
+    for flag, value in pairs(data) do
+        local obj = OrionLib.Flags and OrionLib.Flags[flag]
+        if obj then
+            local ok = pcall(function()
+                obj:Set(value)
+            end)
+            if ok then
+                loaded += 1
+            else
+                
+                pcall(function()
+                    obj.Value = value
+                end)
+            end
+        end
+    end
+
+    print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
+end
 
 
 do
@@ -17292,19 +17306,7 @@ refreshPlayerList(PlayerToTarget)
 
 
 
-CreditsTab:AddButton({
-    Name = "저장",
-    Callback = function()
-        SaveAll()
-    end
-})
 
-CreditsTab:AddButton({
-    Name = "불러오기",
-    Callback = function()
-        LoadAll()
-    end
-})
 local character = plr.Character or plr.CharacterAdded:Wait()
 local rootPart = character:WaitForChild("HumanoidRootPart", 5)
 
@@ -17356,13 +17358,13 @@ task.spawn(function()
 end)
 
 --Window:AddConfigTab()
-LoadAll()
 
 
 
-function OrionLib:Destroy()
-	Orion:Destroy()
-end
+
+--function OrionLib:Destroy()
+	--Orion:Destroy()
+--end
 
 
 --[[
@@ -17771,4 +17773,19 @@ SettingsSection:AddButton({
 
 
 end
-SaveManager:LoadAutoloadConfig()
+CreditsTab:AddButton({
+    Name = "저장",
+    Callback = function()
+        SaveAll()
+    end
+})
+
+CreditsTab:AddButton({
+    Name = "불러오기",
+    Callback = function()
+        LoadAll()
+    end
+})
+
+
+LoadAll()

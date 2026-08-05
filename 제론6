@@ -10972,7 +10972,7 @@ antiTab:AddToggle({
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
 
                         if not toysFolder then
-                            task.wait(0.1)
+                            task.wait(0.000001)
                             continue
                         end
 
@@ -11017,7 +11017,7 @@ antiTab:AddToggle({
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
-                                    task.wait(0.1)
+                                    task.wait(0.05)
                                 end
                             end
                         end

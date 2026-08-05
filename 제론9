@@ -7056,7 +7056,7 @@ passTab:AddToggle({
 passTab:AddSection({
     Name = "패스 잠금 해제"
 })
-passTab:AddButton({
+passTab:AddToggle({
    Name = "긴줄 잠금해제   <font color='rgb(255,19,130)'>[바이패싱]</font>",
    Callback = function()
       local Reach = Instance.new("BoolValue")
@@ -7106,7 +7106,7 @@ passTab:AddButton({
 getTab:AddToggle({
     Name = "킥알림",
     Default = false,
-    flag = "uo9td186tf7wvo",
+    Flag = "uo9td186tf7wvo",
     Callback = function(Value)
         if Value then
             kickNotifyConnection = workspace.ChildAdded:Connect(function(obj)
@@ -7161,7 +7161,7 @@ getTab:AddToggle({
 getTab:AddToggle({
     Name = "패킷렉 알림",
     Default = false,
-    flag = "iqtv9ysoyg",
+    Flag = "iqtv9ysoyg",
     Callback = function(Value)
         packetLagNotifyEnabled = Value
         if Value and not lastLagSource then
@@ -8024,7 +8024,7 @@ end
 LoopTab:AddToggle({
     Name = "데스토리 구찌   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
-    Flag = "2195533",
+    --Flag = "2195533",
     Callback = function(Value)
         blobLoopT3 = Value
         destroyGucciActive = Value
@@ -8096,7 +8096,7 @@ LoopTab:AddTextbox({
     LoopTab:AddToggle({
         Name = "스팸킥    <font color='rgb(255,0,255)'>[스팸]</font>    <font color='rgb(0,0,255)'>[프리미엄]</font>",
         Default = false,
-        Flag = "21",
+       -- Flag = "21",
         Callback = function(Value)
             blobLoopT4 = Value
             if blobLoopT4 then
@@ -8339,7 +8339,7 @@ do
     LoopTab:AddToggle({
         Name = "루프 킬  <font color='#07FF00'>[오너쉽]</font>",
         Default = false,
-        Flag = "21",
+        --Flag = "21",
         Callback = function(Value)
             getgenv().loopKillEnabled = Value
 
@@ -8564,7 +8564,7 @@ end
 LoopTab:AddToggle({
     Name = "루프킬(베타)   <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         blobLoopT2 = Value
         Settings.BlobmanBeta = Settings.BlobmanBeta or {}
@@ -8605,7 +8605,7 @@ LoopTab:AddSection({
 LoopTab:AddToggle({
     Name = "레이지봇 킥   <font color='rgb(255,154,123)'>[레이지봇]</font>  <font color='rgb(0,255,0)'>[프리미엄]</font>  <font color='rgb(255,0,1)'>[바이패스]</font>  <font color='rgb(0,154,48)'>[락]</font>",
     Default = false,
-    Flag = "22",
+    --Flag = "22",
     Callback = function(Value)
         blobKickT3 = Value
         
@@ -8827,7 +8827,7 @@ LoopTab:AddSection({
 LoopTab:AddToggle({
     Name = "블롭킥     <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         blobLoopT3 = Value
         loopKickBlobActive = Value
@@ -8966,7 +8966,7 @@ LoopTab:AddSection({
 local blobLoopToggle = LoopTab:AddToggle({
     Name = "루프킥  <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         blobLoopT = Value
         if blobLoopT then
@@ -9010,7 +9010,7 @@ LoopTab:AddSection({
 LoopTab:AddToggle({
     Name = "루프킬   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
-    Flag = "21",
+   -- Flag = "21",
     Callback = function(Value)
         blobLoopT3 = Value
         if blobLoopT3 then
@@ -9031,7 +9031,7 @@ LoopTab:AddToggle({
 LoopTab:AddToggle({
     Name = "블롭 루프킬V2  <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         blobLoopT3 = Value
         
@@ -9131,7 +9131,7 @@ LoopTab:AddToggle({
 LoopTab:AddToggle({
     Name = "루프 그랩   <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         blobLoopT2 = Value
         if blobLoopT2 then
@@ -9154,7 +9154,7 @@ LoopTab:AddSection({
 LoopTab:AddToggle({
     Name = "루프킬   <font color='rgb(0,255,0)'>[그랩]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         loopPlayerT = Value
         if loopPlayerT then
@@ -9176,7 +9176,7 @@ LoopTab:AddToggle({
 LoopTab:AddToggle({
     Name = "루프킥   <font color='rgb(0,255,0)'>[그랩]</font>",
     Default = false,
-    Flag = "21",
+    --Flag = "21",
     Callback = function(Value)
         loopPlayerT2 = Value
         if loopPlayerT2 then
@@ -9213,7 +9213,7 @@ local ownershipKickFloatConn = nil
 LoopTab:AddToggle({
     Name = "루프 킥 V1   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
-    Flag = "OwnershipKickLoopV1",
+    --Flag = "OwnershipKickLoopV1",
     Callback = function(Value)
         Settings.Loop.ownershipKickActive = Value
         if not Value then
@@ -9356,7 +9356,7 @@ local ownershipKickV2FloatConn = nil
 LoopTab:AddToggle({
     Name = "루프 킥 V2   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
     Default = false,
-    Flag = "OwnershipKickLoopV2",
+    --Flag = "OwnershipKickLoopV2",
     Callback = function(Value)
         Settings.Loop.ownershipKickV2Active = Value
         if not Value then
@@ -9833,7 +9833,7 @@ LoopTab:AddSection({
 LoopTab:AddToggle({
     Name = "스팸  <font color='rgb(0,0,255)'>[프리미엄]</font>",
     Default = false,
-    Flag = "27",
+    Flag = "27y9hw",
     Callback = function(Value)
         LoopSnowBallT = Value
         LoopSnowBallF()
@@ -11034,11 +11034,10 @@ antiTab:AddToggle({
                     if hrp and SpawnRemote then
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
                         local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
-                        local targetCFrame = hrp.CFrame * CFrame.new(0, 99999, 0)
 
                         if not toy or not toy.Parent then
                             pcall(function()
-                                SpawnRemote:InvokeServer(selectedToy, targetCFrame, Vector3.zero)
+                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
                             end)
                         else
                             local holdPart = toy:FindFirstChild("HoldPart")
@@ -11052,7 +11051,7 @@ antiTab:AddToggle({
                                 if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
                                     toy:Destroy()
@@ -11065,14 +11064,14 @@ antiTab:AddToggle({
                                     RunService.Heartbeat:Wait()
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
                                 end
                             end
                         end
                     end
-                    task.wait(0.02)
+                    task.wait(0.03)
                 end
             end)
         else
@@ -11083,16 +11082,17 @@ antiTab:AddToggle({
             
             if toy and toy:FindFirstChild("HoldPart") then
                 local dropRemote = toy.HoldPart:FindFirstChild("DropItemRemoteFunction")
-                local targetCFrame = hrp and (hrp.CFrame * CFrame.new(0, 99999, 0)) or CFrame.new(0, 99999, 0)
+                local dropCFrame = hrp and (hrp.CFrame * CFrame.new(0, 99999, 0)) or CFrame.new(0, 99999, 0)
                 if dropRemote then
                     pcall(function()
-                        dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
+                        dropRemote:InvokeServer(toy, dropCFrame, Vector3.zero)
                     end)
                 end
             end
         end
     end
 })
+
 
 antiTab:AddToggle({
     Name = "안티킬",
@@ -11233,6 +11233,7 @@ local antiRagBlobConnections = {}
 
 antiTab:AddToggle({
     Name = "안티 레그돌 블롭",
+    Flag = "wupvt97tgw",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -11776,7 +11777,7 @@ antiTab:AddToggle({
     Name = "오토구찌 <font color='rgb(255,146,123)'>[블롭맨]</font>    <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
-    Flag = "autoGucciToggleFlag",
+    Flag = "autoGucciToglocal2ag",
     Callback = function(Value)
         AutoGucciT = Value
         if AutoGucciT then
@@ -11802,7 +11803,7 @@ antiTab:AddToggle({
     Name = "기차 구찌",
     
     save = true,
-    Flag = "autoGucciToggleFla1g",
+    Flag = "autoGucciToggleFyquxla1g",
     Callback = function(Value)
         AutoGucciTV2 = Value
         if AutoGucciTV2 then
@@ -12386,6 +12387,7 @@ end
 playerTab:AddToggle({
     Name = "바다걷기",
     Default = false,
+    Flag = "wipspyhi",
     Callback = function(Value)
         setWaterWalk(Value)
     end    
@@ -12589,7 +12591,7 @@ AuraTab:AddToggle({
 AuraTab:AddToggle({
     Name = "안티 킥 아우라",
     Default = false,
-    flag = "o71rciy",
+      Flag = "o71rciy",
     Callback = function(Value)
         removeAntiKickActive = Value
         
@@ -12866,15 +12868,13 @@ local label = plotTab:AddLabel("Time: ...")
 plotTab:AddToggle({
     Name="오토 슬롯",
     Default=false,
-    flag = "uot1fugwo",
+    Flag = "uot1fugwo",
     Callback=function(v)
         enabled = v
         if v then loop(label) end
     end
 })
-plotTab:AddSection({
-    Name = "무한 집시간"
-})
+
 
 funTab:AddSection({
     Name = "꼬추 만들기"
@@ -13290,6 +13290,7 @@ end
 funTab:AddToggle({
     Name = "노클립 타겟(Q)",
     Default = false,
+    Flag = "wgutowutog",
     Callback = function(Value)
         if Value then
             RemoveGui()
@@ -16367,16 +16368,6 @@ game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function()
     vu6 = false
 end)
 
-keybindTab:AddSection({
-    Name = "마우스"
-})
-
-keybindTab:AddBind({
-    Text = "텔포",
-    Default = Enum.KeyCode.Z,
-    Hold = false,
-    Callback = tpF
-})
 
 
 plotTab:AddSection({

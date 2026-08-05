@@ -12215,7 +12215,7 @@ plr.CharacterAdded:Connect(function(char)
     task.wait(0.1)
     updateWalkSpeedF()
 end)
-
+do
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -12272,7 +12272,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     applyJumpPower()
 end)
 
-
+end
 
 
 playerTab:AddSection({
@@ -12289,7 +12289,7 @@ playerTab:AddToggle({
     end
 })
 --local isWaterWalking = false
-
+do
 local function setWaterWalk(state)
     local workspaceMap = workspace:FindFirstChild("Map")
     if workspaceMap then
@@ -12320,7 +12320,7 @@ playerTab:AddToggle({
         setWaterWalk(Value)
     end    
 })
-
+end
 playerTab:AddToggle({
     Name = "무한 점프",
     Default = false,

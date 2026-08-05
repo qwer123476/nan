@@ -10941,43 +10941,12 @@ local LocalPlayer = Players.LocalPlayer
 
 getgenv().Settings = getgenv().Settings or {}
 getgenv().Settings.Anti = getgenv().Settings.Anti or {
-    AntiInputLag = false,
-    AntiInputLagToy = "Coconut"
+    AntiInputLag = false
 }
 
 getgenv().State = getgenv().State or {
     antiInputLagThread = nil
 }
-
-local ToyList = {
-    ["Coconut"] = "FoodCoconut", ["Banana"] = "FoodBanana", ["Fries"] = "FoodFrenchFries",
-    ["MeatStick"] = "FoodMeatStick", ["Poop"] = "PoopPile", ["Donut"] = "FoodDonut",
-    ["Cake"] = "FoodCakePink", ["Burger"] = "FoodHamburger", ["Pizza"] = "FoodPizzaCheese",
-    ["Hotdog"] = "FoodHotdog", ["Mushroom"] = "FoodMushroomPoison", ["Banjo"] = "InstrumentGuitarBanjo",
-    ["Violin"] = "InstrumentGuitarViolin", ["Ukulele"] = "InstrumentGuitarUkulele",
-    ["Sax"] = "InstrumentWoodwindSaxophone", ["Vuvuzela"] = "InstrumentBrassVuvuzela",
-    ["Bongos"] = "InstrumentDrumBongos", ["Mic"] = "InstrumentVoiceMicrophone",
-    ["Pepperoni"] = "FoodPizzaPepperoni", ["Piano"] = "InstrumentPianoMelodica",
-    ["Bread"] = "FoodBread", ["Egg"] = "FoodDippyEgg", ["Mayo"] = "FoodMayonnaise",
-    ["WhiteMug"] = "CupMugWhite", ["Ocarina"] = "InstrumentWoodwindOcarina",
-    ["SparklePoop"] = "PoopPileSparkle", ["BrownMug"] = "CupMugBrown",
-    ["Trumpet"] = "InstrumentBrassTrumpet", ["Snare"] = "InstrumentDrumSnare",
-}
-
-antiTab:AddDropdown({
-    Name = "Input Lag Toy",
-    Default = "Coconut",
-    Options = {
-        "Coconut", "Banana", "Fries", "MeatStick", "Poop", "Donut", "Cake",
-        "Burger", "Pizza", "Hotdog", "Mushroom", "Banjo", "Violin", "Ukulele",
-        "Sax", "Vuvuzela", "Bongos", "Mic", "Pepperoni", "Piano", "Bread",
-        "Egg", "Mayo", "WhiteMug", "Ocarina", "SparklePoop", "BrownMug",
-        "Trumpet", "Snare"
-    },
-    Callback = function(Value)
-        getgenv().Settings.Anti.AntiInputLagToy = Value
-    end    
-})
 
 antiTab:AddToggle({
     Name = "안티  인풋렉",
@@ -10999,7 +10968,7 @@ antiTab:AddToggle({
                     local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
 
                     if hrp and SpawnRemote then
-                        local selectedToy = ToyList[getgenv().Settings.Anti.AntiInputLagToy] or "FoodCoconut"
+                        local selectedToy = "FoodHamburger"
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
 
                         if not toysFolder then
@@ -11033,7 +11002,7 @@ antiTab:AddToggle({
                                 if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 2000, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 20, 0), Vector3.zero)
                                         end)
                                     end
                                     toy:Destroy()
@@ -11049,36 +11018,49 @@ antiTab:AddToggle({
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 2000, 0), Vector3.zero)
                                         end)
                                     end
-                                    task.wait(0.5)
+                                    task.wait(0.1)
                                 end
                             end
                         end
                     end
-                    task.wait(0.1)
+                    task.wait(0.2)
                 end
             end)
         end
     end
 })
+
 antiTab:AddToggle({
     Name = "안티킬",
     Default = false,
-    Flag = "AntiKillHamburger",
+    Flag = "AntiKillMayonnaise",
     Callback = function(v)
-        Settings.Anti.AntiKillHamburger = v
+        getgenv().Settings = getgenv().Settings or {}
+        getgenv().Settings.Anti = getgenv().Settings.Anti or {}
+        getgenv().State = getgenv().State or {}
+
+        getgenv().Settings.Anti.AntiKillMayonnaise = v
+
+        if getgenv().State.antiKillSpamConnection then 
+            getgenv().State.antiKillSpamConnection:Disconnect() 
+            getgenv().State.antiKillSpamConnection = nil 
+        end
+
         if v then
-            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
             local toggle = false
-            State.antiKillSpamConnection = RunService.Heartbeat:Connect(function()
-                if not Settings.Anti.AntiKillHamburger then return end
+            getgenv().State.antiKillSpamConnection = RunService.Heartbeat:Connect(function()
+                if not getgenv().Settings.Anti.AntiKillMayonnaise then return end
+                
                 local character = LocalPlayer.Character
                 if not character or not character:FindFirstChild("Humanoid") or character.Humanoid.Health <= 0 then return end
+                
                 local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-                local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
-                if not hamburger or not hamburger:FindFirstChild("HoldPart") then
+                local mayo = spawnedFolder and spawnedFolder:FindFirstChild("FoodMayonnaise")
+                
+                if not mayo or not mayo:FindFirstChild("HoldPart") then
                     pcall(function()
                         ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
-                            "FoodHamburger",
+                            "FoodMayonnaise",
                             CFrame.new(0, 300, 0),
                             Vector3.new(0, 0, 0)
                         )
@@ -11086,15 +11068,16 @@ antiTab:AddToggle({
                     toggle = false
                     return
                 end
+                
                 toggle = not toggle
                 if toggle then
                     pcall(function()
-                        hamburger.HoldPart.HoldItemRemoteFunction:InvokeServer(hamburger, character)
+                        mayo.HoldPart.HoldItemRemoteFunction:InvokeServer(mayo, character)
                     end)
                 else
                     pcall(function()
-                        hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
-                            hamburger,
+                        mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
+                            mayo,
                             CFrame.new(0, 300, 0),
                             Vector3.new(0, 0, 0)
                         )
@@ -11102,13 +11085,12 @@ antiTab:AddToggle({
                 end
             end)
         else
-            if State.antiKillSpamConnection then State.antiKillSpamConnection:Disconnect() State.antiKillSpamConnection = nil end
             local spawnedFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-            local hamburger = spawnedFolder and spawnedFolder:FindFirstChild("FoodHamburger")
-            if hamburger and hamburger:FindFirstChild("HoldPart") then
+            local mayo = spawnedFolder and spawnedFolder:FindFirstChild("FoodMayonnaise")
+            if mayo and mayo:FindFirstChild("HoldPart") then
                 pcall(function()
-                    hamburger.HoldPart.DropItemRemoteFunction:InvokeServer(
-                        hamburger,
+                    mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
+                        mayo,
                         CFrame.new(0, 300, 0),
                         Vector3.new(0, 0, 0)
                     )
@@ -11117,6 +11099,7 @@ antiTab:AddToggle({
         end
     end
 })
+
 end
 antiTab:AddSection({
     Name = "블롭맨"

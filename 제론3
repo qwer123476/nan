@@ -11045,16 +11045,7 @@ antiTab:AddToggle({
                             pcall(function()
                                 SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 99999, 0), Vector3.zero)
                             end)
-                            
-                            local t0 = tick()
-                            repeat
-                                RunService.Heartbeat:Wait()
-                                toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-                                toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
-                            until toy or (tick() - t0 > 0.5) or not getgenv().Settings.Anti.AntiInputLag
-                        end
-
-                        if toy and toy.Parent then
+                        else
                             local holdPart = toy:FindFirstChild("HoldPart")
                             if holdPart then
                                 local holdingPlayerVal = holdPart:FindFirstChild("HoldingPlayer")
@@ -11069,7 +11060,9 @@ antiTab:AddToggle({
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
-                                    toy:Destroy()
+                                    pcall(function()
+                                        toy:Destroy()
+                                    end)
                                 else
                                     if holdRemote then
                                         pcall(function()
@@ -11083,10 +11076,14 @@ antiTab:AddToggle({
                                         end)
                                     end
                                 end
+                            else
+                                pcall(function()
+                                    toy:Destroy()
+                                end)
                             end
                         end
                     end
-                    task.wait(0.025)
+                    task.wait()
                 end
             end)
         else

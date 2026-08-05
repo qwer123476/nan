@@ -5278,6 +5278,53 @@ function KickGrabF()
         end
     end)
 end
+local Players = game:GetService("Players")
+
+getgenv().IfKickThenT = true
+getgenv().AnchoredCache = getgenv().AnchoredCache or {}
+
+local function ifKickThenF()
+    Players.PlayerAdded:Connect(function(plr)
+        plr.CharacterAdded:Connect(function(char)
+            local hrp = char:WaitForChild("HumanoidRootPart", 1)
+            if hrp then
+                getgenv().AnchoredCache[plr] = false
+            end
+        end)
+    end)
+
+    Players.PlayerRemoving:Connect(function(plr)
+        if getgenv().AnchoredCache[plr] == true then
+            local DISP = plr.DisplayName
+            local NAP = plr.Name
+            
+            OrionLib:MakeNotification({
+                Name = "[ 킥당한새끼 ]",
+                Content = "[" .. DISP .. "] ( @" .. NAP ..  ")",
+                Image = "rbxassetid://4483345998",
+                Time = 7
+            })
+        end
+        getgenv().AnchoredCache[plr] = nil
+    end)
+
+    task.spawn(function()
+        while getgenv().IfKickThenT do
+            for _, plr in ipairs(Players:GetPlayers()) do
+                local char = plr.Character
+                if char then
+                    local hrp = char:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        getgenv().AnchoredCache[plr] = (hrp.Anchored == true)
+                    end
+                end
+            end
+            task.wait()
+        end
+    end)
+end
+
+ifKickThenF()
 
 function MasslessGrabF()
     while MasslessGrabT and task.wait() do

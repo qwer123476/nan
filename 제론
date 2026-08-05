@@ -1366,7 +1366,7 @@ end
 local HttpService = game:GetService("HttpService")
 
 
-local FILE = "config.txt"
+local FILE = "FTAP 콘픽"
 
 
 local function SaveAll()
@@ -1412,7 +1412,7 @@ end
 
 
 
-local MyTab = Window:MakeTab({Name = "Xeron",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+--local MyTab = Window:MakeTab({Name = "Xeron",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
 local playerTab = Window:MakeTab({Name = "플레이어 설정", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
 local passTab = Window:MakeTab({Name = "패스잠금해제", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local getTab = Window:MakeTab({Name = "알림", Icon = "rbxassetid://649498361", PremiumOnly = false})

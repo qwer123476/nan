@@ -7056,7 +7056,7 @@ passTab:AddToggle({
 passTab:AddSection({
     Name = "패스 잠금 해제"
 })
-PassTab:AddToggle({
+passTab:AddToggle({
    Name = "긴줄 잠금해제   <font color='rgb(255,19,130)'>[바이패싱]</font>",
    Default = false,
    Flag = "woucf",

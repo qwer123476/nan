@@ -11017,12 +11017,12 @@ antiTab:AddToggle({
                                             dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
                                         end)
                                     end
-                                    task.wait(0.3)
+                                    task.wait(0.1)
                                 end
                             end
                         end
                     end
-                    task.wait(0.05)
+                    task.wait(0.02)
                 end
             end)
         end

@@ -11112,8 +11112,8 @@ antiTab:AddToggle({
             end
         end
     end
-end 
-})
+
+
 
 antiTab:AddToggle({
     Name = "안티킬",

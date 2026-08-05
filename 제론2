@@ -9998,7 +9998,7 @@ antiTab:AddSection({
 })
 antiTab:AddToggle({
     Name = "무질량 이동 | TP",
-    
+   
     save = true,
     Flag = "FakeTP",
     Callback = function(Value)
@@ -10119,7 +10119,7 @@ antiTab:AddSection({
 antiTab:AddToggle({
     Name = "안티  오너쉽 스팸 B1",
     Default = false,
-    Flag = "AntiOwnership",
+    Flag = "AntiOwnersh2hhip",
     Callback = function(v)
         Settings.Anti.AntiOwnership = v
         if v then
@@ -10161,7 +10161,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 B2",
     Default = false,
-    Flag = "AntiOwnership2",
+    Flag = "AntiOwnewyrship2",
     Callback = function(v)
         Settings.Anti.AntiOwnership2 = v
         if v then
@@ -10505,7 +10505,7 @@ antiTab:AddToggle({
         end
     end
 })
---[[
+
 antiTab:AddToggle({
     Name = "안티그랩 |  StickyPart",
     
@@ -10518,7 +10518,7 @@ antiTab:AddToggle({
         end
     end
 })
-]]
+
 
 
 
@@ -10661,7 +10661,7 @@ LocalPlayer.CharacterAdded:Connect(monitorCharacter)
 antiTab:AddToggle({
     Name = "집 안티그랩",
     Default = false,
-    Flag = "HouseTpAntiGrab",
+    Flag = "HouseTpAntisGrab",
     Callback = function(v)
         Settings.Anti.HouseTpAntiGrab = v
         if v then
@@ -10725,7 +10725,7 @@ antiTab:AddSection({
 antiTab:AddToggle({
     Name = "안티 래그돌킬",
     Default = false,
-    Flag = "AntiRagdoll",
+    Flag = "AntiRagdojiiwll",
     Callback = function(v)
         Settings.Anti.AntiRagdoll = v
         if v then
@@ -10766,7 +10766,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 블롭 래그돌킬",
     Default = false,
-    Flag = "AntiRagBlob",
+    Flag = "AntiRagBw8ieeilob",
     Callback = function(v)
         Settings.Anti.AntiRagBlob = v
         if v then
@@ -10818,7 +10818,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 블롭킬",
     Default = false,
-    Flag = "AntiBlobmanKill",
+    Flag = "AntiBlobiwiwmanKill",
     Callback = function(v)
         Settings.Anti.AntiBlobmanKill = v
         if v then
@@ -10936,7 +10936,7 @@ antiTab:AddToggle({
     Name = "안티 인풋   <font color='rgb(255,0,0)'>[NETWORK OWNER]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
-    Flag = "AntiDeathToggleFlag",
+    Flag = "AntiDeathToggiwleFlag",
     Callback = function(Value)
         AntiDeathT = Value
         if AntiDeathT then
@@ -10963,7 +10963,7 @@ antiTab:AddDropdown({
     },
     Default = "마요네즈", 
     save = true,
-    Flag = "ItemDropdownFlag",
+    Flag = "ItemDropdwiownFlag",
     Callback = function(Option)
         local rawSelection = type(Option) == "table" and Option[1] or Option
         if type(rawSelection) == "string" then
@@ -10998,6 +10998,7 @@ getgenv().State = getgenv().State or {
 antiTab:AddToggle({
     Name = "안티  인풋렉",
     Default = false,
+    Flag = "wuidiooqow",
     Callback = function(Value)
         getgenv().Settings.Anti.AntiInputLag = Value
 
@@ -11064,7 +11065,7 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(0.03)
+                    task.wait(0.02)
                 end
             end)
         end
@@ -11074,7 +11075,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티킬",
     Default = false,
-    Flag = "AntiKillMayonnaise",
+    Flag = "AntiKillMayoisididnnaise",
     Callback = function(v)
         getgenv().Settings = getgenv().Settings or {}
         getgenv().Settings.Anti = getgenv().Settings.Anti or {}

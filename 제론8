@@ -10279,7 +10279,7 @@ end)
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 V1",
     Default = false,
-    flag = "fo27rwk",
+    Flag = "fo27rw8yvw8bwk",
     Callback = function(Value)
         antiOwnershipActive = Value
         if antiOwnershipActive then
@@ -10292,7 +10292,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸V2    <font color='rgb(0,0,255)'>[프리미엄]</font>",
     Default = false,
-    flag = "f971rfutcss",
+    Flag = "f971rfutcss",
     Callback = function(Value)
         if Value then
             local plr = game:GetService("Players").LocalPlayer
@@ -10377,7 +10377,7 @@ antiTab:AddSection({
 antiTab:AddToggle({
     Name = "안티 바나나(sit불가)",
     Default = false,
-    flag = "oudrqu91",
+    Flag = "oudrqu91",
     Callback = function(Value)
         antiBananaSitActive = Value
         
@@ -11021,6 +11021,8 @@ antiTab:AddToggle({
             getgenv().State.antiInputLagThread = nil
         end
 
+        local selectedToy = "FoodHamburger"
+
         if Value then
             getgenv().State.antiInputLagThread = task.spawn(function()
                 while getgenv().Settings.Anti.AntiInputLag do
@@ -11030,24 +11032,15 @@ antiTab:AddToggle({
                     local SpawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
 
                     if hrp and SpawnRemote then
-                        local selectedToy = "FoodHamburger"
                         local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
                         local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+                        local targetCFrame = hrp.CFrame * CFrame.new(0, 99999, 0)
 
                         if not toy or not toy.Parent then
                             pcall(function()
-                                SpawnRemote:InvokeServer(selectedToy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                SpawnRemote:InvokeServer(selectedToy, targetCFrame, Vector3.zero)
                             end)
-
-                            local t0 = tick()
-                            repeat
-                                RunService.Heartbeat:Wait()
-                                toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
-                                toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
-                            until toy or (tick() - t0 > 0.5) or not getgenv().Settings.Anti.AntiInputLag
-                        end
-
-                        if toy and toy.Parent then
+                        else
                             local holdPart = toy:FindFirstChild("HoldPart")
                             if holdPart then
                                 local holdingPlayerVal = holdPart:FindFirstChild("HoldingPlayer")
@@ -11059,7 +11052,7 @@ antiTab:AddToggle({
                                 if holdingPlayer and holdingPlayer ~= LocalPlayer then
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
                                         end)
                                     end
                                     toy:Destroy()
@@ -11072,7 +11065,7 @@ antiTab:AddToggle({
                                     RunService.Heartbeat:Wait()
                                     if dropRemote then
                                         pcall(function()
-                                            dropRemote:InvokeServer(toy, hrp.CFrame * CFrame.new(0, 15, 0), Vector3.zero)
+                                            dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
                                         end)
                                     end
                                 end
@@ -11082,6 +11075,21 @@ antiTab:AddToggle({
                     task.wait(0.02)
                 end
             end)
+        else
+            local char = LocalPlayer.Character
+            local hrp = char and char:FindFirstChild("HumanoidRootPart")
+            local toysFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+            local toy = toysFolder and toysFolder:FindFirstChild(selectedToy)
+            
+            if toy and toy:FindFirstChild("HoldPart") then
+                local dropRemote = toy.HoldPart:FindFirstChild("DropItemRemoteFunction")
+                local targetCFrame = hrp and (hrp.CFrame * CFrame.new(0, 99999, 0)) or CFrame.new(0, 99999, 0)
+                if dropRemote then
+                    pcall(function()
+                        dropRemote:InvokeServer(toy, targetCFrame, Vector3.zero)
+                    end)
+                end
+            end
         end
     end
 })

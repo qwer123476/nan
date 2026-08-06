@@ -7327,6 +7327,7 @@ if u625 and _Character4 and v627 then
 end
 
 end
+do
 local u737 = nil
 local u738 = nil
 local u739 = nil
@@ -7474,6 +7475,7 @@ grabTab:AddSlider({
 		getgenv().Settings.Fov = v
 	end
 })
+end 
 grabTab:AddSection({
 	Name = "플링"
 })

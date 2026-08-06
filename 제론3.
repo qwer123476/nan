@@ -17074,7 +17074,7 @@ ChaosGrabToggle = lagTab:AddToggle({
     end
 })
 
-LagTab:AddToggle({
+lagTab:AddToggle({
     Name = "킬 서버 (제로핑 울트라)",
     Default = false,
     Callback = function(Value)

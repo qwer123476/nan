@@ -7326,7 +7326,8 @@ if u625 and _Character4 and v627 then
 	return v627  
 end
 
-endlocal u737 = nil
+end
+local u737 = nil
 local u738 = nil
 local u739 = nil
 local u740 = nil

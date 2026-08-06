@@ -7335,7 +7335,7 @@ local u740 = nil
 local _Circle = Drawing.new('Circle')
 local _Circle2 = Drawing.new('Circle')
 
-_RunService.RenderStepped:Connect(function()
+--_RunService.RenderStepped:Connect(function()
 if _Circle then
 _Circle.Radius = getgenv().Settings.Fov
 _Circle.Thickness = 2

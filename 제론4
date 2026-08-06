@@ -7251,7 +7251,7 @@ function CheckFakeAim()
 			smalldiceToyFound = nil  
 			u619 = nil  
 			u623:Disconnect()  
-			print('Pew!')  
+			print('PPSK')  
 		end)  
 		u619:SetAttribute('Connected2', true)  
 	end  
@@ -7358,12 +7358,12 @@ do
 		u747 = hookmetamethod(game, '__namecall', function(...)  
 			local v750 = getnamecallmethod()  
 			
-			-- 모든 함수를 unpack 하지 않고 목적이 Raycast일 때만 안전하게 인자를 변형합니다.
+			
 			if v750 == 'Raycast' and not checkcaller() then
 				local v748 = {...}  
 				local v749 = v748[1]  
 				
-				-- 런타임 오류 방지를 위한 FindFirstChild 안전 검사 추가
+				
 				if v749 == workspace and (u737 and u737.Character and u737.Character:FindFirstChild("HumanoidRootPart") and u721 and u721.Character and u721.Character:FindFirstChild("HumanoidRootPart")) and (u737.Character:FindFirstChild("Humanoid") and 0 < u737.Character.Humanoid.Health and (not u737.InPlot.Value and _G.SilentAim)) then  
 					
 					local _magnitude2 = (u721.Character.HumanoidRootPart.Position - u737.Character.HumanoidRootPart.Position).magnitude  
@@ -7384,65 +7384,16 @@ do
 						u739 = nil  
 						u740 = nil  
 						
-						return u747(unpack(v748)) -- 수정한 경우에만 재조립하여 반환
+						return u747(unpack(v748)) 
 					end  
 				end
 			end  
 			
-			return u747(...) -- Raycast가 아닌 나머지 모든 게임 엔진 기본 Namecall 호출은 원형 보존
+			return u747(...)
 		end)
 	end
 
-	local function u757()
-		local v752, v753, v754 = pairs(_Workspace.Slots:GetChildren())
-		local v755 = nil
 
-		while true do  
-			local v756  
-			v754, v756 = v752(v753, v754)  
-			if v754 == nil then  
-				break  
-			end  
-			if v756.SlotHandle.LightBall.Material ~= Enum.Material.Neon then  
-				v755 = false  
-				break  
-			end  
-			v755 = true  
-		end  
-		return v755
-	end
-
-	local function u760(p758)
-		local v759
-		if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then  
-			v759 = _LocalPlayer.Character.HumanoidRootPart  
-		else  
-			v759 = nil  
-		end  
-		if p758 == 'Spin' then  
-			if v759 then  
-				_G.SavedPositionInSpin = v759.CFrame  
-			end  
-		elseif p758 == 'House' and v759 then  
-			_G.SavedPositionOutHouse = v759.CFrame  
-		end
-	end
-
-	local function u763(p761)
-		local v762
-		if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then  
-			v762 = _LocalPlayer.Character.HumanoidRootPart  
-		else  
-			v762 = nil  
-		end  
-		if p761 == 'Spin' then  
-			if v762 then  
-				v762.CFrame = _G.SavedPositionInSpin  
-			end  
-		elseif p761 == 'House' and v762 then  
-			v762.CFrame = _G.SavedPositionOutHouse  
-		end
-	end
 
 	getgenv().SilentAim = true
 

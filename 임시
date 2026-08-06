@@ -1,0 +1,228 @@
+--// Load
+repeat task.wait() until game:IsLoaded()
+local Orion = loadstring(game:HttpGet("https://raw.githubusercontent.com/BlizTBr/scripts/main/Orion%20X"))()
+
+
+--// Services
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local Camera = workspace.CurrentCamera
+
+
+--// Wait Character
+repeat task.wait() until LocalPlayer.Character
+local Character = LocalPlayer.Character
+
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+Character = char
+end)
+
+
+--// Remotes
+local GrabEvents = ReplicatedStorage:WaitForChild("GrabEvents")
+local MenuToys = ReplicatedStorage:WaitForChild("MenuToys")
+local CharacterEvents = ReplicatedStorage:WaitForChild("CharacterEvents")
+
+
+if not GrabEvents or not MenuToys or not CharacterEvents then
+warn("Remotes not found")
+return
+end
+
+
+local SetNetworkOwner = GrabEvents:WaitForChild("SetNetworkOwner")
+local CreateGrabLine = GrabEvents:WaitForChild("CreateGrabLine")
+local DestroyGrabLine = GrabEvents:WaitForChild("DestroyGrabLine")
+
+
+--// Settings
+local ReachDistance = 30
+local LinePower = 200
+local SilentAimEnabled = false
+local StraightLineEnabled = false
+
+
+_G.FurtherExtend = false
+local ExtendAmount = 3
+local MinDistance = 3
+
+
+--// Grab distance env
+local GrabEnv = nil
+
+
+local function LoadGrabEnv()
+local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local grabScript = char:WaitForChild("GrabbingScript")
+if grabScript and getsenv then
+GrabEnv = getsenv(grabScript)
+end
+end
+
+
+LoadGrabEnv()
+LocalPlayer.CharacterAdded:Connect(LoadGrabEnv)
+
+
+--// Extend functions
+local function IncreaseDistance()
+if GrabEnv and GrabEnv.distance and _G.FurtherExtend then
+GrabEnv.distance += ExtendAmount
+if GrabEnv.distance < MinDistance then
+GrabEnv.distance = MinDistance
+end
+end
+end
+
+
+local function DecreaseDistance()
+if GrabEnv and GrabEnv.distance and _G.FurtherExtend then
+GrabEnv.distance -= ExtendAmount
+if GrabEnv.distance < MinDistance then
+GrabEnv.distance = MinDistance
+end
+end
+end
+
+
+--// Mouse wheel control
+UserInputService.InputChanged:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseWheel and _G.FurtherExtend then
+if input.Position.Z > 0 then
+IncreaseDistance()
+else
+DecreaseDistance()
+end
+end
+end)
+
+
+--// Target finder
+local function GetClosestPlayer()
+local closest = nil
+local dist = math.huge
+
+
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local d = (Camera.CFrame.Position - player.Character.HumanoidRootPart.Position).Magnitude
+        if d < dist then
+            dist = d
+            closest = player
+        end
+    end
+end
+
+return closest
+
+
+
+end
+
+
+--// Silent Aim Hook
+local oldNamecall
+oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+local args = {...}
+local method = getnamecallmethod()
+
+
+if method == "Raycast" and not checkcaller() and SilentAimEnabled then
+    local target = GetClosestPlayer()
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local origin = args[1]
+        local targetPos = target.Character.HumanoidRootPart.Position
+        args[2] = (targetPos - origin).Unit * 1000
+        return oldNamecall(self, unpack(args))
+    end
+end
+
+return oldNamecall(self, ...)
+
+
+
+end)
+
+
+--// Orion UI
+local Window = Orion:MakeWindow({
+Name = "FTAP Client",
+SaveConfig = true,
+ConfigFolder = "FTAP"
+})
+
+
+local Tab = Window:MakeTab({
+Name = "Main"
+})
+
+
+-- Silent Aim
+Tab:AddToggle({
+Name = "Silent Aim",
+Default = false,
+Callback = function(v)
+SilentAimEnabled = v
+end
+})
+
+
+Tab:AddSlider({
+Name = "Reach Distance",
+Min = 0,
+Max = 50,
+Default = 30,
+Callback = function(v)
+ReachDistance = v
+end
+})
+
+
+-- Line Control
+Tab:AddToggle({
+Name = "Straight Line",
+Default = false,
+Callback = function(v)
+StraightLineEnabled = v
+end
+})
+
+
+Tab:AddSlider({
+Name = "Line Power",
+Min = 50,
+Max = 500,
+Default = 200,
+Callback = function(v)
+LinePower = v
+end
+})
+
+
+-- Extend
+Tab:AddToggle({
+Name = "Further Extend",
+Default = false,
+Callback = function(v)
+_G.FurtherExtend = v
+end
+})
+
+
+Tab:AddSlider({
+Name = "Extend Amount",
+Min = 1,
+Max = 25,
+Default = 3,
+Callback = function(v)
+ExtendAmount = v
+end
+})
+
+
+Tab:AddLabel("Use mouse wheel or mobile buttons")
+

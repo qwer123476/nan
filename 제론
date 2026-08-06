@@ -7188,7 +7188,7 @@ getTab:AddToggle({
         end
     end    
 })
-
+--[[
 do
 grabTab:AddSection({
 	Name = "사일런트에임"
@@ -7416,6 +7416,7 @@ do
 	})
 end
 end
+]]
 grabTab:AddSection({
 	Name = "플링"
 })

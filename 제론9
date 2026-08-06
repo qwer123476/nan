@@ -7190,10 +7190,291 @@ getTab:AddToggle({
 })
 
 
-
-
 grabTab:AddSection({
-	Name = "Fling"
+	Name = "사일런트에임"
+})
+
+function CheckFakeAim()
+local v614 = GetPlayerCFrame()
+local v615 = u17
+local v616, v617, v618 = pairs(v615:GetChildren())
+local u619 = nil
+
+while true do  
+	local v620  
+
+	v618, v620 = v616(v617, v618)  
+
+	if v618 == nil then  
+		break  
+	end  
+	if v620.Name == 'DiceSmall' and v620:FindFirstChild('Center') then  
+		if v620.PrimaryPart and Getdistancefromcharacter(v620.PrimaryPart.Position) < 30 then  
+			u619 = v620  
+		end  
+	end  
+end  
+
+if not u619 then  
+	if v614 then  
+		local v621 = {  
+			'DiceSmall',  
+			CFrame.new(v614.Position.X, v614.Position.Y, v614.Position.Z, -0.133750245, -0.471861839, 0.871468484, -3.7252903e-9, 0.879369617, 0.476139903, -0.991015136, 0.0636838302, -0.117615893),  
+			Vector3.new(0, 97.69000244140625, 0),  
+		}  
+
+		SpawnToy(v621)  
+	end  
+
+	BuyToy:InvokeServer('DiceSmall')  
+end  
+if u619 and u619:FindFirstChild('Center') and not u619:GetAttribute('Connected2') then  
+	local u623 = u619.DescendantAdded:Connect(function(p622)  
+		if p622.Name == 'PartOwner' and p622.Value ~= _LocalPlayer.Name then  
+			u619:SetAttribute('AlreadySetOwnerShip', false)  
+		end  
+	end)  
+	local _SoundPart = u619:FindFirstChild('SoundPart')  
+
+	task.spawn(function()  
+		while u619.Parent do  
+			if not u619:GetAttribute('AlreadySetOwnerShip') then  
+				if SNOWshipOnce(_SoundPart) then  
+					u619:SetAttribute('AlreadySetOwnerShip', true)  
+				elseif Getdistancefromcharacter(_SoundPart.Position) > 30 then  
+					DeleteToyRE:FireServer(u619)  
+				end  
+			end  
+			if not _G.FireworkEffectSpam then  
+				DeleteToyRE:FireServer(u619)  
+			end  
+
+			task.wait(0.1)  
+		end  
+
+		_SoundPart = nil  
+		smalldiceToyFound = nil  
+		u619 = nil  
+
+		u623:Disconnect()  
+		print('Pew!')  
+	end)  
+	u619:SetAttribute('Connected2', true)  
+end  
+
+smalldiceToyFound = u619
+
+end
+function GetFakeAim()
+if smalldiceToyFound and smalldiceToyFound.Parent ~= nil then
+return smalldiceToyFound
+end
+
+CheckFakeAim()
+
+end
+function GetFakeAim2()
+local u625 = GetFakeAim()
+local _Character4 = _LocalPlayer.Character
+local v627
+
+if u625 then  
+	v627 = u625.PrimaryPart  
+else  
+	v627 = nil  
+end  
+if u625 and _Character4 and v627 then  
+	hitpart = u625:FindFirstChild('StickyRemoverPart')  
+
+	if not v627:FindFirstChild('AimPosRemove') and u625:GetAttribute('AlreadySetOwnerShip') then  
+		SetAimPart(u625)  
+
+		local _BodyPosition5 = Instance.new('BodyPosition', v627)  
+
+		_BodyPosition5.Name = 'AimPosRemove'  
+		_BodyPosition5.MaxForce = Vector3.new(math.huge, math.huge, math.huge)  
+		_BodyPosition5.P = 40000  
+		_BodyPosition5.D = 950  
+
+		local u629 = nil  
+		local u630 = nil  
+		local u631 = nil  
+
+		task.spawn(function()  
+			while u625.Parent do  
+				if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('CamPart') then  
+					u629 = Ray.new(_LocalPlayer.Character.CamPart.Position, _LocalPlayer.Character.CamPart.CFrame.lookVector * 5000)  
+
+					local v632, v633 = _Workspace:FindPartOnRayWithIgnoreList(u629, {  
+						_LocalPlayer.Character,  
+						u17,  
+					})  
+
+					u631 = v633  
+					u630 = v632  
+
+					if u630 and u631 then  
+						_BodyPosition5.Position = u631  
+					end  
+				end  
+
+				task.wait()  
+			end  
+		end)  
+	end  
+
+	return v627  
+end
+
+endlocal u737 = nil
+local u738 = nil
+local u739 = nil
+local u740 = nil
+local _Circle = Drawing.new('Circle')
+local _Circle2 = Drawing.new('Circle')
+
+_RunService.RenderStepped:Connect(function()
+if _Circle then
+_Circle.Radius = getgenv().Settings.Fov
+_Circle.Thickness = 2
+_Circle.Position = Vector2.new(_CurrentCamera2.ViewportSize.X / 2, _CurrentCamera2.ViewportSize.Y / 2 + 36)
+_Circle.Transparency = 1
+_Circle.Filled = false
+_Circle.Color = Color3.fromRGB(255, 255, 255)
+_Circle.Visible = getgenv().Settings.FovCircle
+_Circle.ZIndex = 2
+end
+if _Circle2 then
+_Circle2.Radius = getgenv().Settings.Fov
+_Circle2.Thickness = 4
+_Circle2.Position = Vector2.new(_CurrentCamera2.ViewportSize.X / 2, _CurrentCamera2.ViewportSize.Y / 2 + 36)
+_Circle2.Transparency = 1
+_Circle2.Filled = false
+_Circle2.Color = Color3.new()
+_Circle2.Visible = getgenv().Settings.FovCircle
+_Circle2.ZIndex = 1
+end
+
+u737 = u736(getgenv().Settings.Fov)
+
+end)
+
+local function u746(p743, p744, p745)
+return (p744 - p743).Unit * p745
+end
+
+if hookmetamethod then
+local u747 = nil
+
+u747 = hookmetamethod(game, '__namecall', function(...)  
+	local v748 = {...}  
+	local v749 = v748[1]  
+	local v750 = getnamecallmethod()  
+
+	if v749 == workspace and (not checkcaller() and v750 == 'Raycast') and (u737 and u737.Character and (u737.Character.HumanoidRootPart and u721.Character.HumanoidRootPart)) and (u737.Character.Humanoid and 0 < u737.Character.Humanoid.Health and (not u737.InPlot.Value and _G.SilentAim)) then  
+		local _magnitude2 = (u721.Character.HumanoidRootPart.Position - u737.Character.HumanoidRootPart.Position).magnitude  
+
+		u738 = math.random(1, #getgenv().Settings.Hitbox)  
+		u739 = getgenv().Settings.Hitbox[u738]  
+		u740 = u737.Character[u739]  
+
+		if _magnitude2 <= u724 and u740 then  
+			v748[3] = u746(v748[2], u737.Character[u739].Position, 1000)  
+			v748[4] = RaycastParams.new()  
+			v748[4].FilterDescendantsInstances = {  
+				u737.Character,  
+			}  
+			v748[4].FilterType = Enum.RaycastFilterType.Include  
+			u738 = nil  
+			u739 = nil  
+			u740 = nil  
+		end  
+	end  
+
+	return u747(unpack(v748))  
+end)
+
+end
+
+local function u757()
+local v752, v753, v754 = pairs(_Workspace.Slots:GetChildren())
+local v755 = nil
+
+while true do  
+	local v756  
+
+	v754, v756 = v752(v753, v754)  
+
+	if v754 == nil then  
+		break  
+	end  
+	if v756.SlotHandle.LightBall.Material ~= Enum.Material.Neon then  
+		v755 = false  
+
+		break  
+	end  
+
+	v755 = true  
+end  
+
+return v755
+
+end
+local function u760(p758)
+local v759
+
+if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then  
+	v759 = _LocalPlayer.Character.HumanoidRootPart  
+else  
+	v759 = nil  
+end  
+if p758 == 'Spin' then  
+	if v759 then  
+		_G.SavedPositionInSpin = v759.CFrame  
+	end  
+elseif p758 == 'House' and v759 then  
+	_G.SavedPositionOutHouse = v759.CFrame  
+end
+
+end
+local function u763(p761)
+local v762
+
+if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then  
+	v762 = _LocalPlayer.Character.HumanoidRootPart  
+else  
+	v762 = nil  
+end  
+if p761 == 'Spin' then  
+	if v762 then  
+		v762.CFrame = _G.SavedPositionInSpin  
+	end  
+elseif p761 == 'House' and v762 then  
+	v762.CFrame = _G.SavedPositionOutHouse  
+end
+
+end
+getgenv().SilentAim = true
+
+grabTab:AddToggle({
+	Name = "사일런트에임",
+	Default = true,
+	Callback = function(v)
+		getgenv().SilentAim = v
+	end
+})
+
+grabTab:AddSlider({
+	Name = "FOV",
+	Min = 10,
+	Max = 500,
+	Default = getgenv().Settings.Fov,
+	Callback = function(v)
+		getgenv().Settings.Fov = v
+	end
+})
+grabTab:AddSection({
+	Name = "플링"
 })
 grabTab:AddToggle({
     Name = "던지기 V1   <font color='rgb(255,0,0)'>[데스크톱]</font>",

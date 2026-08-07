@@ -11324,7 +11324,7 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(0.04)
+                    task.wait()
                 end
             end)
         else

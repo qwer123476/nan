@@ -10416,7 +10416,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸 B2",
+    Name = "안티 오너쉽 스팸 V1",
     Default = false,
     Flag = "AntiOwnewyrship2",
     Callback = function(v)
@@ -10484,52 +10484,10 @@ antiTab:AddToggle({
     end
 })
 
-local ToyCollisionDisabled = false
-local PlayerCollisionDisabled = false
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-
-RunService.Stepped:Connect(function()
-    if PlayerCollisionDisabled then
-        for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= LocalPlayer and player.Character then
-                for _, part in ipairs(player.Character:GetChildren()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
-                    end
-                end
-            end
-        end
-    end
-    
-    if ToyCollisionDisabled then
-        local targets = {workspace:FindFirstChild("Toys"), workspace:FindFirstChild("MapObjects")}
-        for _, folder in ipairs(targets) do
-            if folder then
-                for _, v in ipairs(folder:GetDescendants()) do
-                    if v:IsA("BasePart") then
-                        v.CanCollide = false
-                    end
-                end
-            end
-        end
-    end
-end)
 
 
-antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸 V1",
-    Default = false,
-    Flag = "fo27rw8yvw8bwk",
-    Callback = function(Value)
-        antiOwnershipActive = Value
-        if antiOwnershipActive then
-            task.spawn(AntiOwnershipFunction)
-        end
-    end    
-})
+
+
 local isHeldLoop = nil
 
 antiTab:AddToggle({

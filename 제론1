@@ -18095,8 +18095,3 @@ CreditsTab:AddButton({
 
 LoadAll()
 
-if queue_on_teleport then
-    queue_on_teleport(scriptCode)
-end
-
-loadstring(scriptCode)()

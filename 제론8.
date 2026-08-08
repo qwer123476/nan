@@ -18065,13 +18065,13 @@ spawn(function()
         if ping >= 1000 then
             OrionLib:MakeNotification({
                 Name = "핑 경고",
-                Content = "핑이 매우높습니다!",
+                Content = "핑이 매우높습니다! ("..ping..")",
                 Time = 3
             })
         elseif ping >= 610 then
             OrionLib:MakeNotification({
                 Name = "핑 경고",
-                Content = "핑이높습니다!",
+                Content = "핑이높습니다! ("..ping..")",
                 Time = 3
             })
         end

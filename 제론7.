@@ -7186,17 +7186,7 @@ getTab:AddToggle({
     end    
 })
 
-getTab:AddToggle({
-    Name = "패킷렉 알림",
-    Default = false,
-    Flag = "iqtv9ysoyg",
-    Callback = function(Value)
-        packetLagNotifyEnabled = Value
-        if Value and not lastLagSource then
-            StartPacketLagDetector()
-        end
-    end    
-})
+
 --[[
 do
 grabTab:AddSection({

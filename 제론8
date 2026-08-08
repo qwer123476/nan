@@ -18056,7 +18056,27 @@ SettingsSection:AddButton({
     end
 })
 
+local Stats = game:GetService("Stats")
 
+spawn(function()
+    while task.wait(1) do
+        local ping = tonumber(string.split(Stats.Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1])
+
+        if ping >= 1000 then
+            OrionLib:MakeNotification({
+                Name = "핑 경고",
+                Content = "핑이 매우높습니다!",
+                Time = 3
+            })
+        elseif ping >= 610 then
+            OrionLib:MakeNotification({
+                Name = "핑 경고",
+                Content = "핑이높습니다!",
+                Time = 3
+            })
+        end
+    end
+end)
 
 end
 CreditsTab:AddButton({

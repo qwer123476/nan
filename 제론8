@@ -8803,7 +8803,7 @@ local function runBlobmanLoopLogic()
         end
     end
 end
-
+--[[
 LoopTab:AddToggle({
     Name = "루프킬(베타)   <font color='rgb(255,154,123)'>[블롭맨]</font>",
     Default = false,
@@ -8836,7 +8836,7 @@ LoopTab:AddToggle({
         end
     end
 })
-
+]]
 
 end
 
@@ -9201,7 +9201,7 @@ LoopTab:AddToggle({
         end
     end
 })
-
+--[[
 LoopTab:AddSection({
     Name = "루프킥"
 })
@@ -9246,7 +9246,7 @@ LoopTab:AddToggle({
         LoopBringMODED = Value
     end
 })
-
+]]
 LoopTab:AddSection({
     Name = "루프킬"
 })

@@ -33,6 +33,18 @@ local ApA = {
     InputStroke = Color3.fromRGB(35, 35, 35),
     PlaceholderColor = Color3.fromRGB(100, 100, 100),
 }
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+Players = game:GetService("Players")
+plr = game.Players.LocalPlayer
+cam = workspace.CurrentCamera
+mouse = plr:GetMouse()
+uis = game:GetService("UserInputService")
+inv = workspace:WaitForChild(plr.Name.."SpawnedInToys")
+rs = game:GetService("ReplicatedStorage")
+RepStorage = game:GetService("ReplicatedStorage")
+rs2 = game:GetService("RunService")
+deb = game:GetService("Debris")
 
 local Window = Rayfield:CreateWindow({
     Name = "배경체인져", 

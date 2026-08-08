@@ -1424,23 +1424,30 @@ local function LoadAll()
 
     local loaded = 0
     for flag, value in pairs(data) do
-        pcall(function()
-            local obj = OrionLib.Flags and OrionLib.Flags[flag]
-            if obj then
+        local obj = OrionLib.Flags and OrionLib.Flags[flag]
+        if obj then
+            local ok = pcall(function()
                 if typeof(obj.Set) == "function" then
+                    -- OrionLib 슬라이더/드롭다운 등에서 Set 메서드 에러 방지
                     obj:Set(value)
+                elseif typeof(obj.SetState) == "function" then
+                    obj:SetState(value)
                 else
                     obj.Value = value
+                    if typeof(obj.Callback) == "function" then
+                        task.spawn(obj.Callback, value)
+                    end
                 end
+            end)
+            if ok then
                 loaded = loaded + 1
             end
-        end)
+        end
     end
 
     getgenv().IsLoadingConfig = false
     print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
 end
-
 
 getgenv().Settings.Misc = getgenv().Settings.Misc or {}
 
@@ -18096,7 +18103,7 @@ CreditsTab:AddButton({
 })
 
 task.spawn(function()
-    task.wait(0.5)
+    task.wait(2)
     LoadAll()
 end)
 

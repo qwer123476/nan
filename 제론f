@@ -1,3 +1,4 @@
+do
 if game.PlaceId ~= 6961824067 then
     game.Players.LocalPlayer:Kick("지원하지 않는 게임입니다.")
     return
@@ -17,6 +18,7 @@ end
 if not passed then
     game.Players.LocalPlayer:Kick("미지원 실행기입니다. ")
     return
+end
 end
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"

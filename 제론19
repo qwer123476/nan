@@ -1412,9 +1412,8 @@ local function LoadAll()
     end
 
     local success, data = pcall(function()
-        return HttpService:JSONEncode and HttpService:JSONDecode(readfile(FILE))
-    end
-end)
+        return HttpService:JSONDecode(readfile(FILE))
+    end)
 
     if not (success and type(data) == "table") then
         warn("[Config] 불러오기 실패 (파일 손상 가능성)")
@@ -1441,6 +1440,7 @@ end)
     getgenv().IsLoadingConfig = false
     print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
 end
+
 
 getgenv().Settings.Misc = getgenv().Settings.Misc or {}
 

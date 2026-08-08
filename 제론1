@@ -17066,7 +17066,7 @@ lagTab:AddToggle({
                     local randomPart = workspace:FindFirstChildOfClass("Part")
                     if randomPart then
                         coroutine.wrap(function()
-                            for i = 1, 10000 do
+                            for i = 1, 4000 do
                                 task.defer(function()
                                     pcall(function()
                                         createGrabLine:FireServer(
@@ -17623,12 +17623,7 @@ ImageSection:AddLabel("그럼재미 있게 즐겨주세요!")
 
 --local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/웹"))
 
-if loader then
-    pcall(loader)
-    print("warking")
-else
-    warn("[Loader] 스크립트 주소가 잘못되었거나 불러오지 못했습니다.")
-end
+
 end
 do
 local Players = game:GetService("Players")
@@ -17859,7 +17854,8 @@ AntiLagF()
 
 end
 do
---__uiSafeBlock("UIcusTab", function()
+--[[
+__uiSafeBlock("UIcusTab", function()
 	ColorsSection = UIcusTab:AddSection({
 		Name = "Interface Colors"
 	})
@@ -18012,7 +18008,7 @@ SettingsSection:AddButton({
         })
     end
 })
-
+]]
 local Stats = game:GetService("Stats")
 
 spawn(function()

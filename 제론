@@ -10484,8 +10484,8 @@ antiTab:AddToggle({
     end
 })
 
---local ToyCollisionDisabled = false
---local PlayerCollisionDisabled = false
+local ToyCollisionDisabled = false
+local PlayerCollisionDisabled = false
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -10530,7 +10530,7 @@ antiTab:AddToggle({
         end
     end    
 })
---local isHeldLoop = nil
+local isHeldLoop = nil
 
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸V2    <font color='rgb(0,0,255)'>[프리미엄]</font>",

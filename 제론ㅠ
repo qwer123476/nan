@@ -3779,6 +3779,10 @@ local RunService = game:GetService("RunService")
 local notifyCooldowns = {}
 local AntiBlobConnection = nil
 
+local function CheckBlob(blob, myHRP, myAttach, occupantName)
+
+end
+
 function AntiBlobF()
     if AntiBlobConnection then 
         AntiBlobConnection:Disconnect() 

@@ -1396,7 +1396,7 @@ local UIcusTab = Window:MakeTab({
 
 local HttpService = game:GetService("HttpService")
 
--- 파일 이름은 영문으로 바꾸는 걸 추천 (한글 깨질 수 있음)
+
 local FILE = "FTAP_Config.json"
 
 local function SaveAll()
@@ -1454,7 +1454,6 @@ local function LoadAll()
 
     print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
 end
-
 
 do
 for k, v in pairs(getgc(true)) do

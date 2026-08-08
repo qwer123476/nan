@@ -1,5 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
+--[[
 local ApA = {
     TextColor = Color3.fromRGB(240, 240, 240),
     Background = Color3.fromRGB(10, 10, 10),
@@ -33,6 +33,7 @@ local ApA = {
     InputStroke = Color3.fromRGB(35, 35, 35),
     PlaceholderColor = Color3.fromRGB(100, 100, 100),
 }
+]]
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 Players = game:GetService("Players")

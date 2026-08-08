@@ -45,9 +45,8 @@ local Window = Rayfield:CreateWindow({
         FileName = "Config"
     }
 })
-local bdTab = Window:MakeTab({Name = "배경체인저", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-
-bdTab:AddButton({
+local bdTab = Window:CreateTab("배경체인저", "rbxassetid://4483345998")
+bdTab:CreateButton({
     Name = "기본값",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -93,7 +92,7 @@ bdTab:AddButton({
     end
 })
 
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "낮시간",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -141,7 +140,7 @@ bdTab:AddButton({
     end
 })
 
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "새벽",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -205,7 +204,7 @@ bdTab:AddButton({
     end
 })
 
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "아침",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -265,7 +264,7 @@ bdTab:AddButton({
     end
 })
 
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "제론의 회상",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -312,7 +311,7 @@ bdTab:AddButton({
         cc.TintColor = Color3.fromRGB(220, 235, 255)
     end
 })
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "사이버네틱스",
     Callback = function()
         local Lighting = game:GetService("Lighting")
@@ -358,7 +357,7 @@ bdTab:AddButton({
     end
 })
 
-bdTab:AddButton({
+bdTab:CreateButton({
     Name = "황혼의 낙원",
     Callback = function()
         local Lighting = game:GetService("Lighting")

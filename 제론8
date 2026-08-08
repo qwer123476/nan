@@ -1381,8 +1381,9 @@ local UIcusTab = Window:MakeTab({
 
 local HttpService = game:GetService("HttpService")
 
-
 local FILE = "FTAP_Config.json"
+
+getgenv().IsLoadingConfig = false
 
 local function SaveAll()
     local saveTable = {}
@@ -1398,7 +1399,7 @@ local function SaveAll()
     end)
 
     if success then
-        print("[Config] 저장 완료 | 저장된 플래그 수:", #HttpService:JSONEncode(saveTable))
+        print("[Config] 저장 완료")
     else
         warn("[Config] 저장 실패:", err)
     end
@@ -1406,39 +1407,40 @@ end
 
 local function LoadAll()
     if not isfile(FILE) then
-        warn("[Config] 파일 없음")
+        warn("[Config] 저장된 파일이 없습니다.")
         return
     end
 
     local success, data = pcall(function()
-        return HttpService:JSONDecode(readfile(FILE))
+        return HttpService:JSONEncode and HttpService:JSONDecode(readfile(FILE))
     end)
 
     if not (success and type(data) == "table") then
-        warn("[Config] 불러오기 실패")
+        warn("[Config] 불러오기 실패 (파일 손상 가능성)")
         return
     end
 
+    getgenv().IsLoadingConfig = true
+
     local loaded = 0
     for flag, value in pairs(data) do
-        local obj = OrionLib.Flags and OrionLib.Flags[flag]
-        if obj then
-            local ok = pcall(function()
-                obj:Set(value)
-            end)
-            if ok then
-                loaded += 1
-            else
-                
-                pcall(function()
+        pcall(function()
+            local obj = OrionLib.Flags and OrionLib.Flags[flag]
+            if obj then
+                if typeof(obj.Set) == "function" then
+                    obj:Set(value)
+                else
                     obj.Value = value
-                end)
+                end
+                loaded = loaded + 1
             end
-        end
+        end)
     end
 
+    getgenv().IsLoadingConfig = false
     print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
 end
+
 getgenv().Settings.Misc = getgenv().Settings.Misc or {}
 
 getgenv().State = getgenv().State or {}
@@ -18092,6 +18094,9 @@ CreditsTab:AddButton({
     end
 })
 
+task.spawn(function()
+    task.wait(0.5)
+    LoadAll()
+end)
 
-LoadAll()
 

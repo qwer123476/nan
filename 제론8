@@ -7784,6 +7784,67 @@ grabTab:AddToggle({
         end
     end
 })
+grabTab:AddToggle({
+    Name = "보이드 그랩",
+    Default = false,
+    Save = true,
+    Flag = "VoidGrabTo1ggle",
+    Callback = function(Value)
+        getgenv().LoopGrabActive = Value
+        
+        if Value then
+            local Players = game:GetService("Players")
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local plr = Players.LocalPlayer
+
+            task.spawn(function()
+                while getgenv().LoopGrabActive do
+                    local grabParts = workspace:FindFirstChild("GrabParts")
+                    if not grabParts then
+                        task.wait()
+                        continue
+                    end
+
+                    local gp = grabParts:FindFirstChild("GrabPart")
+                    local weld = gp and gp:FindFirstChildOfClass("WeldConstraint")
+                    local part1 = weld and weld.Part1
+
+                    if part1 then
+                        local ownerPlayer = nil
+                        for _, pl in ipairs(Players:GetPlayers()) do
+                            if pl.Character and part1:IsDescendantOf(pl.Character) then
+                                ownerPlayer = pl
+                                break
+                            end
+                        end
+
+                        while getgenv().LoopGrabActive and workspace:FindFirstChild("GrabParts") do
+                            if not part1.Anchored then
+                                if ownerPlayer then
+                                    local tgtTorso = ownerPlayer.Character and ownerPlayer.Character:FindFirstChild("HumanoidRootPart") 
+                                    
+                                    if tgtTorso then
+                                        pcall(function()
+                                            tgtTorso.CFrame = CFrame.new(tgtTorso.Position.X, -59999, tgtTorso.Position.Z)
+                                        end)
+                                    end
+                                else
+                                    if part1.Parent then
+                                        pcall(function()
+                                            part1.CFrame = CFrame.new(part1.Position.X, -59999, part1.Position.Z)
+                                        end)
+                                    end
+                                end
+                            end
+                            task.wait()
+                        end
+                    end
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
 
 grabTab:AddToggle({ 
     Name = "킬그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>   <font color='rgb(0,0,255)'>[프리미엄]</font>", 
@@ -13499,6 +13560,149 @@ local function loop(label)
         end
     end)
 end
+plotTab:AddSection({
+    Name = "플롯 얻기"
+})
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local repStorage = game:GetService("ReplicatedStorage")
+
+local plotCFrames = {
+    [1] = CFrame.new(-532.0158081054688, -5.591518878936768, 95.6521987915039, -0.865190327167511, -0.2596333920955658, 0.42899444699287415, 0, 0.8555188179016113, 0.51777184009552, -0.50144362449646, 0.4479711949825287, -0.7401865720748901),
+    [2] = CFrame.new(-493.17340087890625, -5.653066158294678, -164.51084899902344, 0.30851930379867554, -0.37542006373405457, 0.8739997744560242, 0, 0.9188216924667358, 0.3946729600429535, -0.9512181282043457, -0.12176422774791718, 0.2834742069244385),
+    [3] = CFrame.new(256.76751708984375, -5.380659103393555, 466.65625, -0.8961027264595032, 0.30602845549583435, -0.321475625038147, 0, 0.7242941856384277, 0.6894912123680115, 0.44384679198265076, 0.6178549528121948, -0.6490419507026672),
+    [4] = CFrame.new(513.7680053710938, 85.13038635253906, -345.8212585449219, 0.4605468213558197, 0.5212469696998596, -0.7184693813323975, 0, 0.8094194531440735, 0.5872309803962708, 0.887635350227356, -0.27044737339019775, 0.3727755844593048),
+    [5] = CFrame.new(559.8180541992188, 125.14988708496094, -76.7403335571289, 0.02620585821568966, 0.622352659702301, -0.7822982668876648, 0, 0.7825670838356018, 0.6225664615631104, 0.999656617641449, -0.01631488837301731, 0.02050784043967724)
+}
+
+local selectedPlotNum = 1
+
+plotTab:AddDropdown({
+    Name = "플롯(집) 선택",
+    Default = "집 1",
+    Options = {"집 1", "집 2", "집 3", "집 4", "집 5"},
+    Callback = function(Value)
+        local num = string.match(Value, "%d+")
+        if num then
+            selectedPlotNum = tonumber(num)
+        end
+    end
+})
+
+plotTab:AddButton({
+    Name = "선택한 플롯 획득 시도",
+    Callback = function()
+        local character = player.Character or player.CharacterAdded:Wait()
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        local setNetworkOwner = repStorage:FindFirstChild("GrabEvents") and repStorage.GrabEvents:FindFirstChild("SetNetworkOwner")
+        
+        if not rootPart or not setNetworkOwner then return end
+
+        local ownedPlot = nil
+        for i = 1, 5 do
+            local plot = workspace.Plots:FindFirstChild("Plot" .. i)
+            if plot then
+                local ownersFolder = plot:FindFirstChild("PlotSign") and plot.PlotSign:FindFirstChild("ThisPlotsOwners")
+                if ownersFolder then
+                    for _, child in pairs(ownersFolder:GetChildren()) do
+                        local success, val = pcall(function() return tostring(child.Value) end)
+                        if (success and string.find(val, player.Name)) or string.find(child.Name, player.Name) then
+                            ownedPlot = i
+                            break
+                        end
+                    end
+                end
+            end
+            if ownedPlot then break end
+        end
+
+        if ownedPlot then
+            if OrionLib then
+                OrionLib:MakeNotification({
+                    Name = "[  집 이미 획득 함 ]",
+                    Content = "이미 Plot" .. ownedPlot .. "를 소유하고 있습니다.",
+                    Time = 4
+                })
+            end
+            return
+        end
+
+        local targetPlotNum = selectedPlotNum
+        local originalPosition = rootPart.CFrame
+        local targetCFrame = plotCFrames[targetPlotNum]
+        
+        local plotFolder = workspace.Plots:FindFirstChild("Plot" .. targetPlotNum)
+        local grabPart = plotFolder and plotFolder:FindFirstChild("PlotSign") and plotFolder.PlotSign:FindFirstChild("Sign") and plotFolder.PlotSign.Sign:FindFirstChild("Plus") and plotFolder.PlotSign.Sign.Plus:FindFirstChild("PlusGrabPart")
+
+        if not grabPart then return end
+
+        local maxAttempts = 3
+        local acquired = false
+
+        for attempt = 1, maxAttempts do
+            rootPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+            rootPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+            rootPart.CFrame = targetCFrame
+
+            task.wait(0.07)
+
+            local timeElapsed = 0
+            local duration = 0.3
+
+            while timeElapsed < duration do
+                pcall(function()
+                    setNetworkOwner:FireServer(grabPart, targetCFrame)
+                end)
+                timeElapsed = timeElapsed + task.wait(0.03)
+            end
+
+            rootPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+            rootPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+            rootPart.CFrame = originalPosition
+
+            local checkTimeout = 0.5
+            local checkTimeElapsed = 0
+
+            while checkTimeElapsed < checkTimeout do
+                local plotToCheck = workspace.Plots:FindFirstChild("Plot" .. targetPlotNum)
+                if plotToCheck then
+                    local ownersFolder = plotToCheck:FindFirstChild("PlotSign") and plotToCheck.PlotSign:FindFirstChild("ThisPlotsOwners")
+                    if ownersFolder then
+                        for _, child in pairs(ownersFolder:GetChildren()) do
+                            local success, val = pcall(function() return tostring(child.Value) end)
+                            if (success and string.find(val, player.Name)) or string.find(child.Name, player.Name) then
+                                acquired = true
+                                break
+                            end
+                        end
+                    end
+                end
+
+                if acquired then break end
+                checkTimeElapsed = checkTimeElapsed + task.wait(0.03)
+            end
+
+            if acquired then break end
+        end
+
+        if OrionLib then
+            if acquired then
+                OrionLib:MakeNotification({
+                    Name = "[ 집 획득 ]",
+                    Content = "Plot" .. targetPlotNum .. " 획득 성공",
+                    Time = 4
+                })
+            else
+                OrionLib:MakeNotification({
+                    Name = "[ 집 획득 ]",
+                    Content = "획득 실패 (이미 소유자가 있습니다.)",
+                    Time = 4
+                })
+            end
+        end
+    end
+})
 plotTab:AddSection({
     Name = "자동 슬롯"
 })

@@ -1,3 +1,4 @@
+do
 local ID_LIST_URL = "https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/L"
 
 local HttpService = game:GetService("HttpService")
@@ -156,7 +157,7 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(ConnectPlayer)
-
+end
 do
 if game.PlaceId ~= 6961824067 then
     game.Players.LocalPlayer:Kick("지원하지 않는 게임입니다.")

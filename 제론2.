@@ -2065,7 +2065,7 @@ function AutoGucciF()
         
         hrp.CFrame = OCF
 
-        successCheck = true
+        successCheck = false
         sitJumpT = false
         RagdollRemote:FireServer(hrp, 0.001)
 

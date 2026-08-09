@@ -18754,9 +18754,7 @@ end)
 
 end
 do
-local InfoSection = UDTab:AddSection({
-    Name = "정보"
-})
+ 
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")

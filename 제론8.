@@ -18778,32 +18778,36 @@ pcall(function()
     hwid = RbxAnalyticsService:GetClientId()
 end)
 
+local InfoSection = UDTab:AddSection({
+    Name = "정보"
+})
+
 InfoSection:AddLabel("타이틀: 정보")
 InfoSection:AddLabel("버전: V4.14")
 InfoSection:AddLabel("난독화 타입: Luraph V15")
 InfoSection:AddLabel("관리자: 파카")
 
-local ParagraphText = [[
-• 안티렉V3추가
-• 안티오너쉽스팸 F1추가
-• 안티PCLD추가
-• 오토구찌 개선
-• 기차구찌개선
-• 킥그랩 앵커 추가
-• 킥그랩 개선
-• 킬그랩 공허 추가
-• 킬그랩개선
-• 바이패스 개선
-• 안티렉V2 강도 개선
-• 안티킬 개선
-• 오너쉽킥 V2추가
-• 바다 걷기 렉 개선
-• 스팸킥 속도 UP
-• 자동 플롯소유권 추가
-• (오너용) 래그돌킥 추가
-]]
+local UpdateSection = UDTab:AddSection({
+    Name = "8.10 업데이트 내역"
+})
 
-UDTab:AddParagraph("8월10일 업데이트", ParagraphText)
+UpdateSection:AddLabel("• 안티렉V3추가")
+UpdateSection:AddLabel("• 안티오너쉽스팸 F1추가")
+UpdateSection:AddLabel("• 안티PCLD추가")
+UpdateSection:AddLabel("• 오토구찌 개선")
+UpdateSection:AddLabel("• 기차구찌개선")
+UpdateSection:AddLabel("• 킥그랩 앵커 추가")
+UpdateSection:AddLabel("• 킥그랩 개선")
+UpdateSection:AddLabel("• 킬그랩 공허 추가")
+UpdateSection:AddLabel("• 킬그랩개선")
+UpdateSection:AddLabel("• 바이패스 개선")
+UpdateSection:AddLabel("• 안티렉V2 강도 개선")
+UpdateSection:AddLabel("• 안티킬 개선")
+UpdateSection:AddLabel("• 오너쉽킥 V2추가")
+UpdateSection:AddLabel("• 바다 걷기 렉 개선")
+UpdateSection:AddLabel("• 스팸킥 속도 UP")
+UpdateSection:AddLabel("• 자동 플롯소유권 추가")
+UpdateSection:AddLabel("• (오너용) 래그돌킥 추가")
 
 local ExecSection = UDTab:AddSection({
     Name = "실행자 정보"

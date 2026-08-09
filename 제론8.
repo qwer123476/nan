@@ -13560,6 +13560,7 @@ local function loop(label)
         end
     end)
 end
+do
 plotTab:AddSection({
     Name = "플롯 얻기"
 })
@@ -13703,6 +13704,7 @@ plotTab:AddButton({
         end
     end
 })
+end
 plotTab:AddSection({
     Name = "자동 슬롯"
 })
@@ -13906,7 +13908,7 @@ funTab:AddButton({
 
 		if not TNUM or TNUM <= 0 or TNUM > 100 then
 			OrionLib:MakeNotification({
-				Name = "[ 🥷 ]",
+				Name = "[ ? ]",
 				Content = "Invalid Value",
 				Time = 3
 			})

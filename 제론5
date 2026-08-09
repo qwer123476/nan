@@ -11538,9 +11538,7 @@ local itemTranslation = {
     ["계란 후라이"] = "FoodDippyEgg",
     ["도넛"] = "FoodDonut",
     ["감자튀김"] = "FoodFrenchFries",
-    ["햄버거"] = "FoodHamburger",
     ["핫도그"] = "FoodHotdog",
-    ["마요네즈"] = "FoodMayonnaise",
     ["고기꼬치"] = "FoodMeatStick",
     ["독버섯"] = "FoodMushroomPoison",
     ["치즈 피자"] = "FoodPizzaCheese",
@@ -11597,7 +11595,7 @@ function AntiDeathF(itemName)
 
         if HoldItemRemoteFunction and DropItemRemoteFunction then
             HoldItemRemoteFunction:InvokeServer(donut, Character)
-            DropItemRemoteFunction:InvokeServer(donut, CFrame.new(99999, 99999, 99999), Vector3.new(99999, 99999, 99999))
+            DropItemRemoteFunction:InvokeServer(donut, CFrame.new(999999, 999999, 999999), Vector3.new(999999, 999999, 999999))
         end
     end)
 end
@@ -11605,7 +11603,7 @@ end
 RunService = game:GetService("RunService")
 Camera = workspace.CurrentCamera
 
-local currentSelectedOption = "FoodMayonnaise"
+local currentSelectedOption = "FoodBanana"
 
 antiTab:AddToggle({
     Name = "안티 인풋 <font color='rgb(255,0,0)'>[NWO]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
@@ -13580,9 +13578,9 @@ local plotCFrames = {
 local selectedPlotNum = 1
 
 plotTab:AddDropdown({
-    Name = "플롯(집) 선택",
-    Default = "집 1",
-    Options = {"집 1", "집 2", "집 3", "집 4", "집 5"},
+    Name = "집 선택",
+    Default = "초록집",
+    Options = {"초록집", "분홍집", "마녀집(보라)", "파랑집", "빨간집"},
     Callback = function(Value)
         local num = string.match(Value, "%d+")
         if num then
@@ -13592,7 +13590,7 @@ plotTab:AddDropdown({
 })
 
 plotTab:AddButton({
-    Name = "선택한 플롯 획득 시도",
+    Name = "선택한 집 획득",
     Callback = function()
         local character = player.Character or player.CharacterAdded:Wait()
         local rootPart = character:FindFirstChild("HumanoidRootPart")

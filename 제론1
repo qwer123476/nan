@@ -2100,12 +2100,12 @@ function AutoGucciF()
                 pcall(function()
                     SetNetworkOwner:FireServer(blobHRP, hrp)
                 end)
-                blobHRP.CFrame = CFrame.new( 0, 9999, 0)
+                blobHRP.CFrame = CFrame.new( 0, 999, 100)
             end
 
             task.wait()
         end
-
+--[[
         if not successCheck then
             blobHRP = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
             
@@ -2114,7 +2114,7 @@ function AutoGucciF()
                 Content = "Gucci | Wait",
                 Time = 1
             })
-
+]]
             if hum then
                 rs.CharacterEvents.Struggle:FireServer(plr)
                 hum.Sit = true

@@ -7856,12 +7856,19 @@ grabTab:AddToggle({
         KillGrabF()
     end
 })
+grabTab:AddToggle({ 
+    Name = "ㄴ 공허 ", 
+    Default = false,
+    Callback = function(Value)
+        TpKLG = Value
+    end
+})
 
 grabTab:AddSection({
 	Name = "킥"
 })
 grabTab:AddToggle({
-    Name = "킥그랩(더럽게 안됨)  <font color='rgb(255,0,0)'>[오너쉽]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "킥그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
     Flag = "99999j",
@@ -7871,6 +7878,13 @@ grabTab:AddToggle({
     end
 })
 
+grabTab:AddToggle({
+    Name = "ㄴ 앵커",
+    Default = false,
+    Callback = function(Value)
+        AnhKick = Value
+    end
+})
 
 grabTab:AddSection({
 	Name = "앵커"

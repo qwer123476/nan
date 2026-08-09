@@ -1533,7 +1533,7 @@ end
 
 
 
---local MyTab = Window:MakeTab({Name = "Xeron",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+local UDTab = Window:MakeTab({Name = "실행자 정보",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
 local playerTab = Window:MakeTab({Name = "플레이어 설정", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
 local passTab = Window:MakeTab({Name = "패스잠금해제", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local getTab = Window:MakeTab({Name = "알림", Icon = "rbxassetid://649498361", PremiumOnly = false})
@@ -1552,11 +1552,7 @@ local funTab = Window:MakeTab({Name = "찌끄레기", Icon = "rbxassetid://44833
 local keybindTab = Window:MakeTab({Name = "설정", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
 local lagTab = Window:MakeTab({Name = "렉", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
 local CreditsTab = Window:MakeTab({Name = "설정 저장", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
-local UIcusTab = Window:MakeTab({
-    Name = "라이브러리",
-    Icon = "rbxassetid://7734053426",
-    PremiumOnly = false
-}) 
+
 
 
 
@@ -18756,6 +18752,101 @@ spawn(function()
     end
 end)
 
+end
+do
+local InfoSection = UDTab:AddSection({
+    Name = "정보"
+})
+local Players = game:GetService("Players")
+local Stats = game:GetService("Stats")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+
+local LocalPlayer = Players.LocalPlayer
+
+local ownerIDs = {
+    [5352731855] = true,
+    [2932138780] = true,
+    [11000044399] = true
+}
+
+local isOwner = ownerIDs[LocalPlayer.UserId] or false
+local userRole = isOwner and "Owner" or "User"
+local userRank = isOwner and "Owner Rank" or "Premium Rank"
+
+local hwid = "Unknown"
+pcall(function()
+    hwid = RbxAnalyticsService:GetClientId()
+end)
+
+InfoSection:AddLabel("타이틀: 정보")
+InfoSection:AddLabel("버전: V4.14")
+InfoSection:AddLabel("난독화 타입: Luraph V15")
+InfoSection:AddLabel("관리자: 파카")
+
+local ParagraphText = [[
+• 안티렉V3추가
+• 안티오너쉽스팸 F1추가
+• 안티PCLD추가
+• 오토구찌 개선
+• 기차구찌개선
+• 킥그랩 앵커 추가
+• 킥그랩 개선
+• 킬그랩 공허 추가
+• 킬그랩개선
+• 바이패스 개선
+• 안티렉V2 강도 개선
+• 안티킬 개선
+• 오너쉽킥 V2추가
+• 바다 걷기 렉 개선
+• 스팸킥 속도 UP
+• 자동 플롯소유권 추가
+• (오너용) 래그돌킥 추가
+]]
+
+UDTab:AddParagraph("8월10일 업데이트", ParagraphText)
+
+local ExecSection = UDTab:AddSection({
+    Name = "실행자 정보"
+})
+
+local dispName = LocalPlayer.DisplayName
+local realName = LocalPlayer.Name
+ExecSection:AddLabel("닉네임: " .. dispName .. " (@" .. realName .. ")")
+
+ExecSection:AddLabel("HWID: " .. hwid)
+
+ExecSection:AddLabel("IP: 기밀")
+
+ExecSection:AddLabel("유저 상태: " .. userRole)
+
+ExecSection:AddLabel("실행자 등급: " .. userRank)
+
+local PingLabel = ExecSection:AddLabel("핑: 계산 중...")
+local FPSLabel = ExecSection:AddLabel("FPS: 계산 중...")
+
+task.spawn(function()
+    local RunService = game:GetService("RunService")
+    local lastTime = os.clock()
+    local frameCount = 0
+    
+    RunService.RenderStepped:Connect(function()
+        frameCount = frameCount + 1
+        local currentTime = os.clock()
+        if currentTime - lastTime >= 1 then
+            local fps = math.floor(frameCount / (currentTime - lastTime))
+            FPSLabel:Set("FPS: " .. tostring(fps))
+            frameCount = 0
+            lastTime = currentTime
+        end
+    end)
+    
+    while task.wait(1) do
+        pcall(function()
+            local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+            PingLabel:Set("핑: " .. tostring(ping) .. " ms")
+        end)
+    end
+end)
 end
 CreditsTab:AddButton({
     Name = "저장",

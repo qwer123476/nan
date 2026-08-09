@@ -2251,7 +2251,7 @@ end
         if ToggleActive then
             StartMonitoring()
         end
-    end
+    
 
 
 plotItemsFolder = workspace:WaitForChild("PlotItems")

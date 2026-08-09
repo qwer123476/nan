@@ -2065,9 +2065,9 @@ function AutoGucciF()
         
         hrp.CFrame = OCF
 
-        successCheck = false
+        successCheck = true
         sitJumpT = false
-        RagdollRemote:FireServer(hrp, 0.001)
+        RagdollRemote:FireServer(hrp, 0.008)
 
         while successCheck and AutoGucciT do
             if hum.Health <= 0 then
@@ -2088,7 +2088,7 @@ function AutoGucciF()
             if rag.Value == true or held.Value == true then
                 while (rag.Value == true or held.Value == true) and AutoGucciT do
                     rs.CharacterEvents.Struggle:FireServer()
-                    task.wait()
+                    task.wait(0.1)
                 end
                 successCheck = false
                 break
@@ -2100,10 +2100,10 @@ function AutoGucciF()
                 pcall(function()
                     SetNetworkOwner:FireServer(blobHRP, hrp)
                 end)
-                blobHRP.CFrame = CFrame.new( 0, 999, 100)
+                blobHRP.CFrame = CFrame.new( 0, 99999, 100)
             end
 
-            task.wait()
+            task.wait(0.2)
         end
 --[[
         if not successCheck then

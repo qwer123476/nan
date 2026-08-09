@@ -2100,7 +2100,7 @@ function AutoGucciF()
                 pcall(function()
                     SetNetworkOwner:FireServer(blobHRP, hrp)
                 end)
-                blobHRP.CFrame = CFrame.new(0, 999, 0)
+                blobHRP.CFrame = CFrame.new( 0, 999999, 0)
             end
 
             task.wait()

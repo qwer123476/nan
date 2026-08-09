@@ -10758,7 +10758,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 F1",
     Default = false,
-    Flag = "AntiOwnewyrship2_PCLD",
+    Flag = "AntiOwnewyrshisp2_PCLD",
     Callback = function(v)
         Settings.Anti.AntiOwnership2 = v
         local RunService = game:GetService("RunService")
@@ -10789,10 +10789,20 @@ antiTab:AddToggle({
                                 part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
                             end
                         end
-                        if part:IsA("JointInstance") or part:IsA("Constraint") then
-                            if (part.Part0 and not part.Part0:IsDescendantOf(char)) or (part.Part1 and not part.Part1:IsDescendantOf(char)) then
-                                pcall(function() part:Destroy() end)
-                            end
+                        if part:IsA("JointInstance") then
+                            pcall(function()
+                                if (part.Part0 and not part.Part0:IsDescendantOf(char)) or (part.Part1 and not part.Part1:IsDescendantOf(char)) then
+                                    part:Destroy()
+                                end
+                            end)
+                        elseif part:IsA("Constraint") then
+                            pcall(function()
+                                local att0 = part.Attachment0
+                                local att1 = part.Attachment1
+                                if (att0 and att0.Parent and not att0.Parent:IsDescendantOf(char)) or (att1 and att1.Parent and not att1.Parent:IsDescendantOf(char)) then
+                                    part:Destroy()
+                                end
+                            end)
                         end
                     end
 

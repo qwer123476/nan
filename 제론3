@@ -9877,7 +9877,7 @@ LoopTab:AddToggle({
 
                         local spinAngle = 0
                         local lastRemote = 0
-                        local REMOTE_DELAY = 0.3
+                        local REMOTE_DELAY = 0.0003
                         local spinFrame = 0
 
                         while Settings.Loop.ownershipKickV2Active do
@@ -9891,14 +9891,14 @@ LoopTab:AddToggle({
                             tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
                             if not tRoot or not tHum or tHum.Health <= 0 then break end
 
-                            lockPos = myRoot.CFrame * CFrame.new(0, 12, 0)
+                            lockPos = myRoot.CFrame * CFrame.new(0, 25, 0)
 
                             tRoot.AssemblyLinearVelocity = Vector3.zero
                             tRoot.AssemblyAngularVelocity = Vector3.zero
                             tHum.PlatformStand = true
                             tHum.Sit = true
 
-                            spinAngle = spinAngle + 3 * 0.016
+                            spinAngle = spinAngle + 99 * 0.016
 
                             bodyPos.Position = lockPos.Position
                             bodyGyro.CFrame = CFrame.new(tRoot.Position) * CFrame.Angles(math.pi, spinAngle, 0)

@@ -10833,7 +10833,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 F1",
     Default = false,
-    Flag = "AntiOwnewyrshisp2_PCLD",
+    Flag = "AntiOwnewyrship2_PCLD",
     Callback = function(v)
         Settings.Anti.AntiOwnership2 = v
         local RunService = game:GetService("RunService")
@@ -10878,18 +10878,6 @@ antiTab:AddToggle({
                                     part:Destroy()
                                 end
                             end)
-                        end
-                    end
-
-                    for _, otherPlayer in ipairs(Players:GetPlayers()) do
-                        if otherPlayer ~= plr and otherPlayer.Character then
-                            for _, otherPart in ipairs(otherPlayer.Character:GetDescendants()) do
-                                if otherPart:IsA("BasePart") then
-                                    otherPart.CanCollide = false
-                                    otherPart.Massless = true
-                                    otherPart.CustomPhysicalProperties = PhysicalProperties.new(0.01, 0, 0, 0, 0)
-                                end
-                            end
                         end
                     end
                 end)
@@ -10991,18 +10979,18 @@ antiTab:AddToggle({
     end
 })
 
+
 antiTab:AddSection({
     Name = "PCLD"
 })
 antiTab:AddToggle({
     Name = "안티 PCLD",
     Default = false,
-    Flag = "AntiPCLD_Only",
+    Flag = "AntiPCLD_7gwOnly",
     Callback = function(v)
         Settings.Anti.AntiPCLD = v
         local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local LocalPlayer = Players.LocalPlayer
+        local LocalPlayer = game:GetService("Players").LocalPlayer
 
         if v then
             State.antiPCLDTask_Only = RunService.Stepped:Connect(function()
@@ -11022,18 +11010,6 @@ antiTab:AddToggle({
                         end
                     end
                 end
-
-                for _, player in ipairs(Players:GetPlayers()) do
-                    if player ~= LocalPlayer and player.Character then
-                        for _, otherPart in ipairs(player.Character:GetDescendants()) do
-                            if otherPart:IsA("BasePart") then
-                                otherPart.CanCollide = false
-                                otherPart.Massless = true
-                                otherPart.CustomPhysicalProperties = PhysicalProperties.new(0.01, 0, 0, 0, 0)
-                            end
-                        end
-                    end
-                end
             end)
         else
             if State.antiPCLDTask_Only then
@@ -11043,6 +11019,7 @@ antiTab:AddToggle({
         end
     end
 })
+
 
 antiTab:AddSection({
     Name = "안티 바나나"
@@ -12203,6 +12180,57 @@ antiTab:AddToggle({
         antiLagF()
     end
 })
+do
+getgenv().anticreatelinelocalscript = getgenv().anticreatelinelocalscript or nil
+
+local lineSpamTask = nil
+
+antiTab:AddToggle({
+    Name = "안티 렉 V3",
+    Default = false,
+    Save = true,
+    Flag = "AntiLeefag",
+    Callback = function(enabled)
+        Settings.Anti.AntiLag = enabled
+        
+        local scriptObj = getgenv().anticreatelinelocalscript
+        if scriptObj then
+            pcall(function()
+                scriptObj.Disabled = enabled
+            end)
+        end
+
+        local function clearSpamObjects(parent)
+            if not parent then return end
+            for _, obj in ipairs(parent:GetDescendants()) do
+                if obj:IsA("LineHandleAdornment") or obj:IsA("Beam") or obj:IsA("Trail") or obj:IsA("SelectionBox") or obj:IsA("CylinderHandleAdornment") then
+                    pcall(function() obj:Destroy() end)
+                end
+            end
+        end
+
+        if enabled then
+            clearSpamObjects(workspace)
+            clearSpamObjects(game:GetService("Lighting"))
+
+            if State then
+                State.antiOwnershipConns["AntiLineSpamConn"] = workspace.DescendantAdded:Connect(function(obj)
+                    if Settings.Anti.AntiLag then
+                        if obj:IsA("LineHandleAdornment") or obj:IsA("Beam") or obj:IsA("Trail") or obj:IsA("SelectionBox") or obj:IsA("CylinderHandleAdornment") then
+                            pcall(function() obj:Destroy() end)
+                        end
+                    end
+                end)
+            end
+        else
+            if State and State.antiOwnershipConns["AntiLineSpamConn"] then
+                pcall(function() State.antiOwnershipConns["AntiLineSpamConn"]:Disconnect() end)
+                State.antiOwnershipConns["AntiLineSpamConn"] = nil
+            end
+        end
+    end
+})
+end
 antiTab:AddSection({
     Name = "잡기능"
 })

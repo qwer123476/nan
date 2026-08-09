@@ -10758,11 +10758,13 @@ antiTab:AddToggle({
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 F1",
     Default = false,
-    Flag = "AntiOwnewyrshi81p2",
+    Flag = "AntiOwnewyrship2_PCLD",
     Callback = function(v)
         Settings.Anti.AntiOwnership2 = v
         local RunService = game:GetService("RunService")
         local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
         
         if v then
             pcall(function()
@@ -10782,7 +10784,7 @@ antiTab:AddToggle({
                             part.Massless = false
                             local vel = part.AssemblyLinearVelocity
                             local rotvel = part.AssemblyAngularVelocity
-                            if vel.Magnitude > 150 or rotvel.Magnitude > 50 then
+                            if vel.Magnitude > 1100 or rotvel.Magnitude > 1100 then
                                 part.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
                                 part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
                             end
@@ -10847,7 +10849,7 @@ antiTab:AddToggle({
                     end
                 end)
                 State.antiOwnershipConns["AntiOwn2CharConn"] = plr.CharacterAdded:Connect(function(char)
-                    task.wait(0.05)
+                    task.wait(0.5)
                     pcall(function()
                         local hrp = char:WaitForChild("HumanoidRootPart", 5)
                         if hrp then savedCFrame = hrp.CFrame end
@@ -10867,7 +10869,7 @@ antiTab:AddToggle({
                     State.antiOwnershipConns["AntiOwn2Task"] = task.spawn(function()
                         while isHeld and isHeld.Value and Settings.Anti.AntiOwnership2 do
                             pcall(function() struggleEvent:FireServer(plr) end)
-                            task.wait(0.04)
+                            task.wait(0.05)
                         end
                         if hrp and hrp.Parent then
                             pcall(function() hrp.Anchored = false end)
@@ -10903,13 +10905,14 @@ antiTab:AddToggle({
         end
     end
 })
+
 antiTab:AddSection({
     Name = "PCLD"
 })
 antiTab:AddToggle({
     Name = "안티 PCLD",
     Default = false,
-    Flag = "AntiPCLD",
+    Flag = "AntiPCLD_Only",
     Callback = function(v)
         Settings.Anti.AntiPCLD = v
         local RunService = game:GetService("RunService")
@@ -10917,7 +10920,7 @@ antiTab:AddToggle({
         local LocalPlayer = Players.LocalPlayer
 
         if v then
-            State.antiPCLDTask = RunService.Stepped:Connect(function()
+            State.antiPCLDTask_Only = RunService.Stepped:Connect(function()
                 local char = LocalPlayer.Character
                 if not char then return end
 
@@ -10928,7 +10931,7 @@ antiTab:AddToggle({
                         
                         local vel = part.AssemblyLinearVelocity
                         local rotvel = part.AssemblyAngularVelocity
-                        if vel.Magnitude > 150 or rotvel.Magnitude > 50 then
+                        if vel.Magnitude > 1100 or rotvel.Magnitude > 1100 then
                             part.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
                             part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
                         end
@@ -10948,9 +10951,9 @@ antiTab:AddToggle({
                 end
             end)
         else
-            if State.antiPCLDTask then
-                State.antiPCLDTask:Disconnect()
-                State.antiPCLDTask = nil
+            if State.antiPCLDTask_Only then
+                State.antiPCLDTask_Only:Disconnect()
+                State.antiPCLDTask_Only = nil
             end
         end
     end
@@ -11534,7 +11537,7 @@ Camera = workspace.CurrentCamera
 local currentSelectedOption = "FoodMayonnaise"
 
 antiTab:AddToggle({
-    Name = "안티 인풋   <font color='rgb(255,0,0)'>[NETWORK OWNER]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "안티 인풋 <font color='rgb(255,0,0)'>[NWO]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
     Flag = "AntiDeathToggiwleFlag",
@@ -11554,15 +11557,15 @@ antiTab:AddToggle({
 })
 
 antiTab:AddDropdown({
-    Name = "사용할 아이템 선택(누나 빵 추천)",
+    Name = "사용할 아이템 선택",
     Options = {
-        "마요네즈", "바나나", "빵", "브로콜리", "핑크 케이크", "코코넛", "반숙란", "도넛", 
-        "감자튀김", "햄버거", "핫도그", "우쿨렐레", "고기꼬치", "독버섯", "치즈 피자", 
+         "바나나", "빵", "브로콜리", "핑크 케이크", "코코넛", "반숙란", "도넛", 
+        "감자튀김", "핫도그", "우쿨렐레", "고기꼬치", "독버섯", "치즈 피자", 
         "페페로니 피자", "음료수 캔", "나팔", "트럼펫", "봉고 드럼", "스네어 드럼", 
         "어쿠스틱 기타", "벤조", "리라", "바이올린", "전자 피아노", "멜로디카", 
         "마이크", "오카리나", "색소폰", "부부젤라"
     },
-    Default = "마요네즈", 
+    Default = "바나나", 
     save = true,
     Flag = "ItemDropdwiownFlag",
     Callback = function(Option)
@@ -11865,10 +11868,10 @@ antiTab:AddToggle({
 })
 
 antiTab:AddSection({
-    Name = "안티 메슬리즈"
+    Name = "안티 마스리스"
 })
 antiTab:AddToggle({
-    Name = "안티 메슬리즈  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "안티 마스리스  <font color='rgb(0,0,255)'>[프리미엄]</font>",
     
     save = true,
     Flag = "17yeydywi",
@@ -11953,6 +11956,26 @@ antiTab:AddToggle({
         end
     end,
 })
+antiTab:AddToggle({
+    Name = "안티 보이드 V2",
+    Default = false,
+    Save = true,
+    Flag = "AntiVoidTo1ggle",
+    Callback = function(Value)
+        _G.UniqueInfiniteVoidActive = Value
+        
+        if Value then
+            local existingPlatform = workspace:FindFirstChild("AntiVoidPlatform")
+            if existingPlatform then
+                existingPlatform:Destroy()
+            end
+            workspace.FallenPartsDestroyHeight = 0/0
+        else
+            workspace.FallenPartsDestroyHeight = -500000000
+        end
+    end
+})
+
 --AntiVoid:Set(true)
 antiTab:AddSection({
     Name = "폭탄"

@@ -2114,7 +2114,7 @@ function AutoGucciF()
                 Content = "Gucci | Wait",
                 Time = 1
             })
-]]
+
             if hum then
                 rs.CharacterEvents.Struggle:FireServer(plr)
                 hum.Sit = true
@@ -2124,7 +2124,7 @@ function AutoGucciF()
                     DestroyToy:FireServer(blobmanInstanceS) 
                 end
             end
-
+]]
             sitJumpT = false
             task.wait(1)
         end

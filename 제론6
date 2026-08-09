@@ -10906,7 +10906,7 @@ antiTab:AddToggle({
 antiTab:AddSection({
     Name = "PCLD"
 })
-AntiTab:AddToggle({
+antiTab:AddToggle({
     Name = "안티 PCLD",
     Default = false,
     Flag = "AntiPCLD",

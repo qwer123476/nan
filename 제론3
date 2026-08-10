@@ -17803,60 +17803,58 @@ ChaosGrabToggle = lagTab:AddToggle({
 })
 
 lagTab:AddToggle({
-    Name = "킬 서버 (모바일 이용 불가)",
-    Default = false,
-    Callback = function(Value)
-        local Stats = game:GetService("Stats")
-        
-        if Value then
-            getgenv().killServerRunning = true
-            
-        
-            task.spawn(function()
-                local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
-                local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
-                if not createGrabLine then return end
+Name = "킬 서버 (모바일 이용 불가)",
+Default = false,
+Callback = function(Value)
+local Stats = game:GetService("Stats")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-                while getgenv().killServerRunning do
-                    
-                    local success, currentPing = pcall(function()
-                        return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                    end)
-                    
-                    if success and currentPing and currentPing > 400 then
-                        repeat
-                            task.wait(0.2)
-                            local s, p = pcall(function()
-                                return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                            end)
-                            currentPing = s and p or 0
-                        until currentPing < 300 or not getgenv().killServerRunning
-                    end
 
-            
-                    local randomPart = workspace:FindFirstChildOfClass("Part")
-                    if randomPart then
-                        coroutine.wrap(function()
-                            for i = 1, 4000 do
-                                task.defer(function()
-                                    pcall(function()
-                                        createGrabLine:FireServer(
-                                            randomPart,
-                                            CFrame.new(0/0, 0/0, 0/0) 
-                                        )
-                                    end)
-                                end)
-                            end
-                        end)()
+    if Value then
+        getgenv().killServerRunning = true
+
+        task.spawn(function()
+            local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+            local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
+            if not createGrabLine then return end
+
+            local rate = 50
+
+            while getgenv().killServerRunning do
+                local success, ping = pcall(function()
+                    return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+                end)
+
+                if success and ping then
+                    if ping > 300 then
+                        rate = 20
+                    elseif ping < 150 then
+                        rate = 80
                     end
-                    
-                  task.wait(0.1)
                 end
-            end)
-        else
-            getgenv().killServerRunning = false
-        end
+
+                local randomPart = workspace:FindFirstChildOfClass("Part")
+                if randomPart then
+                    for i = 1, rate do
+                        pcall(function()
+                            createGrabLine:FireServer(
+                                randomPart,
+                                randomPart.CFrame
+                            )
+                        end)
+                    end
+                end
+
+                task.wait(1)
+            end
+        end)
+    else
+        getgenv().killServerRunning = false
     end
+end
+
+
+
 })
 
 

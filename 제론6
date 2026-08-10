@@ -12718,7 +12718,7 @@ antiTab:AddToggle({
         end
     end
 })
-
+--[[
 antiTab:AddToggle({
     Name = "안티킥(초기버전)",
     Default = false,
@@ -12734,7 +12734,7 @@ antiTab:AddToggle({
     end
 })
 
-
+]]
 
 antiTab:AddButton({
     Name = "안티킥   <font color='rgb(90,200,10)'>[TP]</font>",

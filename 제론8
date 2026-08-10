@@ -8279,6 +8279,9 @@ task.defer(function()
     UpdateDropdown()
 end)
 do
+ListTab:AddSection({
+    Name = "기타"
+})
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -8376,7 +8379,7 @@ ListTab:AddToggle({
                     if SelectedPlayer and SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart") then
                         if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                             local targetCF = SelectedPlayer.Character.HumanoidRootPart.CFrame
-                            LocalPlayer.Character.HumanoidRootPart.CFrame = targetCF * CFrame.new(0, 0, -15)
+                            LocalPlayer.Character.HumanoidRootPart.CFrame = targetCF * CFrame.new(0, -10, 0)
                             
                             local replicatedStorage = game:GetService("ReplicatedStorage")
                             for _, v in pairs(replicatedStorage:GetDescendants()) do

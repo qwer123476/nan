@@ -8377,21 +8377,31 @@ ListTab:AddToggle({
             task.spawn(function()
                 while NetworkOwnerLoop do
                     if SelectedPlayer and SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        local targetChar = SelectedPlayer.Character
+                        local targetRoot = targetChar.HumanoidRootPart
+                        local targetTorso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso") or targetRoot
+
                         if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                            local targetCF = SelectedPlayer.Character.HumanoidRootPart.CFrame
-                            LocalPlayer.Character.HumanoidRootPart.CFrame = targetCF * CFrame.new(0, -10, 0)
-                            
+                            LocalPlayer.Character.HumanoidRootPart.CFrame = targetRoot.CFrame * CFrame.new(0, -20, 0)
+
                             local replicatedStorage = game:GetService("ReplicatedStorage")
-                            for _, v in pairs(replicatedStorage:GetDescendants()) do
-                                if v:IsA("RemoteEvent") and string.find(string.lower(v.Name), "network") then
-                                    pcall(function()
-                                        v:FireServer(SelectedPlayer)
-                                    end)
+                            local grabEvents = replicatedStorage:FindFirstChild("GrabEvents")
+                            local setNetworkOwner = grabEvents and grabEvents:FindFirstChild("SetNetworkOwner")
+
+                            if setNetworkOwner then
+                                setNetworkOwner:FireServer(targetTorso, targetRoot.CFrame)
+                            else
+                                for _, v in pairs(replicatedStorage:GetDescendants()) do
+                                    if v:IsA("RemoteEvent") and string.find(string.lower(v.Name), "network") then
+                                        pcall(function()
+                                            v:FireServer(targetTorso, targetRoot.CFrame)
+                                        end)
+                                    end
                                 end
                             end
                         end
                     end
-                    task.wait(0.1)
+                    task.wait(0.06)
                 end
             end)
         else
@@ -8401,6 +8411,7 @@ ListTab:AddToggle({
         end
     end
 })
+
 end
 --[[
 

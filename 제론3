@@ -7894,7 +7894,6 @@ local grabbedPart = nil
 local model = nil
 
 
-
 local SpinSection = grabTab:AddSection({
     Name = "스핀"
 })
@@ -7910,6 +7909,16 @@ local function StartSpinGrab()
     end
 
     activeSpinThread = task.spawn(function()
+        local beamPart = workspace:FindFirstChild("GrabParts") and workspace.GrabParts:FindFirstChild("BeamPart")
+        if beamPart then
+            local grabBeam = beamPart:FindFirstChild("GrabBeam")
+            if grabBeam then
+                pcall(function()
+                    grabBeam.Enabled = Settings.Grab.SpinGrab
+                end)
+            end
+        end
+
         local weld = grabPart:FindFirstChildOfClass("WeldConstraint")
         if weld then weld:Destroy() end
 
@@ -7981,6 +7990,7 @@ SpinSection:AddTextbox({
         end
     end
 })
+
 end
 grabTab:AddSection({
 	Name = "앵커"

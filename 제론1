@@ -7881,6 +7881,105 @@ grabTab:AddToggle({
         AnhKick = Value
     end
 })
+local Settings = {
+    Grab = {
+        SpinGrab = false,
+        SpinSpeed = 1000
+    }
+}
+
+local grabPart = nil
+local grabbedPart = nil
+local model = nil
+
+
+
+local SpinSection = grabTab:AddSection({
+    Name = "스핀"
+})
+
+local activeSpinThread = nil
+
+local function StartSpinGrab()
+    if not (grabPart and grabbedPart and model) then return end
+
+    if activeSpinThread then
+        task.cancel(activeSpinThread)
+        activeSpinThread = nil
+    end
+
+    activeSpinThread = task.spawn(function()
+        local weld = grabPart:FindFirstChildOfClass("WeldConstraint")
+        if weld then weld:Destroy() end
+
+        local bp = Instance.new("BodyPosition")
+        bp.Name = "_SpinGrabFollow"
+        bp.MaxForce = Vector3.one * math.huge
+        bp.D = 500
+        bp.P = 1e5
+        bp.Position = grabbedPart.Position
+        bp.Parent = grabbedPart
+
+        local bav = Instance.new("BodyAngularVelocity")
+        bav.Name = "_SpinGrabSpin"
+        bav.AngularVelocity = Vector3.new(0, Settings.Grab.SpinSpeed, 0)
+        bav.MaxTorque = Vector3.one * math.huge
+        bav.Parent = grabbedPart
+
+        while Settings.Grab.SpinGrab and model and model.Parent and grabbedPart and grabbedPart.Parent do
+            pcall(function()
+                bp.Position = grabPart.Position
+                bav.AngularVelocity = Vector3.new(0, Settings.Grab.SpinSpeed, 0)
+                grabbedPart.AssemblyLinearVelocity = Vector3.zero
+            end)
+            task.wait()
+        end
+
+        pcall(function()
+            if bp and bp.Parent then bp:Destroy() end
+            if bav and bav.Parent then bav:Destroy() end
+        end)
+    end)
+end
+
+SpinSection:AddToggle({
+    Name = "스핀 그랩",
+    Default = false,
+    Callback = function(Value)
+        Settings.Grab.SpinGrab = Value
+        if Value then
+            StartSpinGrab()
+        end
+    end    
+})
+
+local SpinSlider = SpinSection:AddSlider({
+    Name = "스핀 속도",
+    Min = 0,
+    Max = 5000,
+    Default = 1000,
+    Color = Color3.fromRGB(255, 255, 255),
+    Increment = 100,
+    ValueName = "Speed",
+    Callback = function(Value)
+        Settings.Grab.SpinSpeed = Value
+    end    
+})
+
+SpinSection:AddTextbox({
+    Name = "스핀 속도",
+    Default = "1000",
+    TextDisappear = false,
+    Callback = function(Value)
+        local num = tonumber(Value)
+        if num then
+            Settings.Grab.SpinSpeed = num
+            pcall(function()
+                SpinSlider:Set(num)
+            end)
+        end
+    end
+})
 
 grabTab:AddSection({
 	Name = "앵커"

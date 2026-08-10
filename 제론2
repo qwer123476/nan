@@ -7821,13 +7821,13 @@ grabTab:AddToggle({
                                     
                                     if tgtTorso then
                                         pcall(function()
-                                            tgtTorso.CFrame = CFrame.new(tgtTorso.Position.X, -59999, tgtTorso.Position.Z)
+                                            tgtTorso.CFrame = CFrame.new(tgtTorso.Position.X, -5999, tgtTorso.Position.Z)
                                         end)
                                     end
                                 else
                                     if part1.Parent then
                                         pcall(function()
-                                            part1.CFrame = CFrame.new(part1.Position.X, -59999, part1.Position.Z)
+                                            part1.CFrame = CFrame.new(part1.Position.X, -5999, part1.Position.Z)
                                         end)
                                     end
                                 end
@@ -7881,6 +7881,7 @@ grabTab:AddToggle({
         AnhKick = Value
     end
 })
+do
 local Settings = {
     Grab = {
         SpinGrab = false,
@@ -7980,7 +7981,7 @@ SpinSection:AddTextbox({
         end
     end
 })
-
+end
 grabTab:AddSection({
 	Name = "앵커"
 })

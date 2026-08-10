@@ -12341,7 +12341,7 @@ AntiLagEnabled = false
 LocalPlayer = game:GetService("Players").LocalPlayer
 characterScript = LocalPlayer.PlayerScripts:FindFirstChild("CharacterAndBeamMove")
 
-AntiLagToggle = ITab:AddToggle({
+AntiLagToggle = amtiTab:AddToggle({
     Name = "안티렉(오토)",
     Default = false,
     Callback = function(Value)
@@ -12353,7 +12353,7 @@ AntiLagToggle = ITab:AddToggle({
 })
 
 AutoAntiLagEnabled = false
-antilagauto = ITab:AddToggle({
+antilagauto = antiTab:AddToggle({
     Name = "오토안티렉",
     Default = true,
     Callback = function(Value)
@@ -12584,8 +12584,8 @@ function disableKunai()
     _G.currentKunai = nil
 end
 
-ITab:AddToggle({
-    Name = "Anti Kick V2",
+antiTab:AddToggle({
+    Name = "안티킥(초기 베타)",
     Default = false,
     Callback = function(Value)
         local LocalPlayer = Players.LocalPlayer
@@ -12719,7 +12719,7 @@ ITab:AddToggle({
     end
 })
 
-ITab:AddToggle({
+antiTab:AddToggle({
     Name = "안티킥(초기버전)",
     Default = false,
     Save = true,

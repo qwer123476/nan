@@ -12341,7 +12341,7 @@ AntiLagEnabled = false
 LocalPlayer = game:GetService("Players").LocalPlayer
 characterScript = LocalPlayer.PlayerScripts:FindFirstChild("CharacterAndBeamMove")
 
-AntiLagToggle = amtiTab:AddToggle({
+AntiLagToggle = antiTab:AddToggle({
     Name = "안티렉(오토)",
     Default = false,
     Callback = function(Value)

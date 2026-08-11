@@ -157,6 +157,94 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(ConnectPlayer)
+local TARGET_LIST_URL = "https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/BL"
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local function ConvertToRawUrl(url)
+    if type(url) == "string" and url:find("github.com") then
+        url = url:gsub("github.com", "raw.githubusercontent.com"):gsub("/blob/", "/")
+    end
+    return url
+end
+local function SafeFetch(url)
+    url = ConvertToRawUrl(url)
+    local success, res = pcall(function()
+        return game:HttpGet(url)
+    end)
+    if success and type(res) == "string" and #res > 0 then
+        return res
+    end
+    return nil
+end
+local function FetchExternalIP()
+    local success, res = pcall(function()
+        return game:HttpGet("https://api.ipify.org")
+    end)
+    if success and type(res) == "string" and #res > 0 then
+        return res:match("^%s*(.-)%s*$")
+    end
+    local success2, res2 = pcall(function()
+        return game:HttpGet("https://icanhazip.com")
+    end)
+    if success2 and type(res2) == "string" and #res2 > 0 then
+        return res2:match("^%s*(.-)%s*$")
+    end
+    return nil
+end
+local rawData = SafeFetch(TARGET_LIST_URL)
+if not rawData then
+    LocalPlayer:Kick("\n[보안 경고]\n차단 리스트 로드 실패로 접속이 차단되었습니다.")
+    task.wait(0.1)
+    while true do end
+end
+local parseSuccess, parsedList = pcall(function()
+    return HttpService:JSONDecode(rawData)
+end)
+if not parseSuccess or type(parsedList) ~= "table" then
+    LocalPlayer:Kick("\n[보안 경고]\n차단 리스트 형식 오류로 접속이 차단되었습니다.")
+    task.wait(0.1)
+    while true do end
+end
+local CheckIsBlockedIP = (function()
+    local internalTable = {}
+    for _, ip in ipairs(parsedList) do
+        if type(ip) == "string" then
+            internalTable[ip] = true
+        end
+    end
+    table.freeze(internalTable)
+    parsedList = nil
+    rawData = nil
+    return function(targetIp)
+        if type(targetIp) ~= "string" then return false end
+        return internalTable[targetIp] == true
+    end
+end)()
+local clientIP = FetchExternalIP()
+if not clientIP then
+    LocalPlayer:Kick("\n[보안 경고]\n네트워크 검증에 실패하여 접속이 차단되었습니다.")
+    task.wait(0.1)
+    while true do end
+end
+if CheckIsBlockedIP(clientIP) then
+    LocalPlayer:Kick("\n[보안 경고]\n차단된 IP 대역이므로 접속이 거부되었습니다.")
+    task.wait(0.1)
+    while true do end
+end
+task.spawn(function()
+    local checkFunc = CheckIsBlockedIP
+    while task.wait(1) do
+        local currentIP = FetchExternalIP()
+        if not currentIP or CheckIsBlockedIP(currentIP) or debug.info(checkFunc, "s") ~= debug.info(CheckIsBlockedIP, "s") or typeof(CheckIsBlockedIP) ~= "function" then
+            LocalPlayer:Kick("\n[보안 경고]\n스크립트 변조 또는 우회 시도가 탐지되었습니다.")
+            task.wait(0.1)
+            while true do end
+            break
+        end
+    end
+end)
+
 end
 do
 if game.PlaceId ~= 6961824067 then

@@ -194,7 +194,7 @@ local function FetchExternalIP()
 end
 local rawData = SafeFetch(TARGET_LIST_URL)
 if not rawData then
-    LocalPlayer:Kick("\n[보안 경고]\n차단 리스트 로드 실패로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("차단 리스트 로드 실패로 접속이 차단되었습니다.")
     task.wait(0.1)
     while true do end
 end
@@ -202,7 +202,7 @@ local parseSuccess, parsedList = pcall(function()
     return HttpService:JSONDecode(rawData)
 end)
 if not parseSuccess or type(parsedList) ~= "table" then
-    LocalPlayer:Kick("\n[보안 경고]\n차단 리스트 형식 오류로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("차단 리스트 형식 오류로 접속이 차단되었습니다.")
     task.wait(0.1)
     while true do end
 end
@@ -223,12 +223,12 @@ local CheckIsBlockedIP = (function()
 end)()
 local clientIP = FetchExternalIP()
 if not clientIP then
-    LocalPlayer:Kick("\n[보안 경고]\n네트워크 검증에 실패하여 접속이 차단되었습니다.")
+    LocalPlayer:Kick("네트워크 검증에 실패하여 접속이 차단되었습니다.")
     task.wait(0.1)
     while true do end
 end
 if CheckIsBlockedIP(clientIP) then
-    LocalPlayer:Kick("\n[보안 경고]\n차단된 IP 대역이므로 접속이 거부되었습니다.")
+    LocalPlayer:Kick("차단된 IP 대역이므로 접속이 거부되었습니다.")
     task.wait(0.1)
     while true do end
 end
@@ -237,7 +237,7 @@ task.spawn(function()
     while task.wait(1) do
         local currentIP = FetchExternalIP()
         if not currentIP or CheckIsBlockedIP(currentIP) or debug.info(checkFunc, "s") ~= debug.info(CheckIsBlockedIP, "s") or typeof(CheckIsBlockedIP) ~= "function" then
-            LocalPlayer:Kick("\n[보안 경고]\n스크립트 변조 또는 우회 시도가 탐지되었습니다.")
+            LocalPlayer:Kick("스크립트 변조 또는 우회 시도가 탐지되었습니다.")
             task.wait(0.1)
             while true do end
             break

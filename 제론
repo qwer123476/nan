@@ -1,4 +1,117 @@
- do
+do
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local localPlayer = Players.LocalPlayer
+local playerGui = localPlayer:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MadeByPacaGui"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 220, 0, 45)
+mainFrame.Position = UDim2.new(1, -230, 0, 10)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+mainFrame.BackgroundTransparency = 1
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = mainFrame
+
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Color = Color3.fromRGB(120, 90, 255)
+uiStroke.Thickness = 2
+uiStroke.Transparency = 1
+uiStroke.Parent = mainFrame
+
+local uiGradient = Instance.new("UIGradient")
+uiGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(140, 80, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 160, 255))
+})
+uiGradient.Parent = uiStroke
+
+local label = Instance.new("TextLabel")
+label.Name = "CreditLabel"
+label.Size = UDim2.new(1, -40, 1, 0)
+label.Position = UDim2.new(0, 12, 0, 0)
+label.BackgroundTransparency = 1
+label.Text = "made by paca <font color=\"#AAAAAA\">(T키로 삭제)</font>"
+label.RichText = true
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.TextSize = 14
+label.Font = Enum.Font.FredokaOne
+label.TextXAlignment = Enum.TextXAlignment.Left
+label.Parent = mainFrame
+
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 28, 0, 28)
+closeButton.Position = UDim2.new(1, -34, 0.5, -14)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundTransparency = 0.9
+closeButton.Text = "×"
+closeButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+closeButton.TextSize = 20
+closeButton.Font = Enum.Font.FredokaOne
+closeButton.Parent = mainFrame
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 8)
+closeCorner.Parent = closeButton
+
+screenGui.Parent = playerGui
+
+local tweenInfo = TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local fadeInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+
+mainFrame.Position = UDim2.new(1, -230, 0, -60)
+TweenService:Create(mainFrame, tweenInfo, {
+    Position = UDim2.new(1, -230, 0, 10),
+    BackgroundTransparency = 0.15
+}):Play()
+TweenService:Create(uiStroke, tweenInfo, {Transparency = 0}):Play()
+
+task.spawn(function()
+    while mainFrame and mainFrame.Parent do
+        uiGradient.Rotation = (uiGradient.Rotation + 2) % 360
+        task.wait(0.03)
+    end
+end)
+
+local isDestroying = false
+local function removeGui()
+    if isDestroying then return end
+    isDestroying = true
+    
+    local exitTween = TweenService:Create(mainFrame, fadeInfo, {
+        Position = UDim2.new(1, -230, 0, -60),
+        BackgroundTransparency = 1
+    })
+    TweenService:Create(uiStroke, fadeInfo, {Transparency = 1}):Play()
+    
+    exitTween:Play()
+    exitTween.Completed:Connect(function()
+        screenGui:Destroy()
+    end)
+end
+
+closeButton.MouseButton1Click:Connect(removeGui)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.T then
+        removeGui()
+    end
+end)
+end
+do
 local discord = "https://discord.com/api/webhooks/1527679411942461440/brWNwqDMyVwB04tWq1DDKhtrzvp_VsqlqmB0VLyAK5dlhNQ7PE0_t_z0eL4Jk286tgTI"
 
 if not discord or discord == "" then return end

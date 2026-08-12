@@ -14801,10 +14801,183 @@ funTab:AddButton({
 })
 
 
+funTab:AddSection({
+	Name = "텔낙(컴&모바일)"
+
+})
+
+funTab:AddToggle({
+    Name = "텔낙(L)",
+    Default = false,
+    Callback = function(Value)
+        if not Value then return end
+        
+        local UIS = game:GetService("UserInputService")
+        local Players = game:GetService("Players")
+        local lp = Players.LocalPlayer
+        local TweenService = game:GetService("TweenService")
+
+        local function triggerLag()
+            local start = tick()
+            local trashTable = {}
+            local dummyStr = "fuckthislaggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+            while tick() - start < 1.5 do
+                for i = 1, 350000 do
+                    trashTable[i] = tostring(i) .. dummyStr .. tostring(math.sin(i)) .. tostring(math.random(1,999999))
+                end
+                for _ = 1, 40 do
+                    table.insert(trashTable, string.rep("LAG", 2000))
+                end
+                collectgarbage("count")
+            end
+            trashTable = nil
+            collectgarbage("collect")
+        end
+
+        if UIS.TouchEnabled then
+            local pg = lp:WaitForChild("PlayerGui")
+            for _, v in pg:GetChildren() do
+                if v.Name == "MobatelNakUI" then v:Destroy() end
+            end
+            local sg = Instance.new("ScreenGui")
+            sg.Name = "MobatelNakUI"
+            sg.ResetOnSpawn = false
+            sg.Parent = pg
+            local frame = Instance.new("Frame")
+            frame.Size = UDim2.new(0, 140, 0, 90)
+            frame.Position = UDim2.new(0.5, -70, 0.5, -45)
+            frame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+            frame.BorderSizePixel = 0
+            frame.Active = true
+            frame.Draggable = true
+            frame.Parent = sg
+            local corner = Instance.new("UICorner")
+            corner.CornerRadius = UDim.new(0, 10)
+            corner.Parent = frame
+            local title = Instance.new("TextLabel")
+            title.Size = UDim2.new(1, 0, 0, 26)
+            title.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+            title.Text = "모바텔낙"
+            title.TextColor3 = Color3.fromRGB(220, 100, 100)
+            title.Font = Enum.Font.GothamBlack
+            title.TextSize = 15
+            title.Parent = frame
+            local btn = Instance.new("TextButton")
+            btn.Size = UDim2.new(0.75, 0, 0, 36)
+            btn.Position = UDim2.new(0.125, 0, 0.48, 0)
+            btn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+            btn.Text = "텔낙"
+            btn.TextColor3 = Color3.new(1,1,1)
+            btn.Font = Enum.Font.GothamBold
+            btn.TextSize = 17
+            btn.Parent = frame
+            local uic = Instance.new("UICorner", btn)
+            uic.CornerRadius = UDim.new(0, 8)
+            btn.MouseButton1Click:Connect(function()
+                task.spawn(triggerLag)
+            end)
+            sg.IgnoreGuiInset = true
+        else
+            local pg = lp:WaitForChild("PlayerGui")
+            for _, v in pg:GetChildren() do
+                if v.Name == "TelNakBadgeNotify" then v:Destroy() end
+            end
+            local function showBadgeNotification()
+                local sg = Instance.new("ScreenGui")
+                sg.Name = "TelNakBadgeNotify"
+                sg.ResetOnSpawn = false
+                sg.IgnoreGuiInset = true
+                sg.Parent = pg
+                local frame = Instance.new("Frame")
+                frame.Size = UDim2.new(0, 280, 0, 80)
+                frame.Position = UDim2.new(1, 20, 1, 100)
+                frame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+                frame.BackgroundTransparency = 0.2
+                frame.BorderSizePixel = 0
+                frame.Parent = sg
+                local corner = Instance.new("UICorner")
+                corner.CornerRadius = UDim.new(0, 16)
+                corner.Parent = frame
+                local stroke = Instance.new("UIStroke")
+                stroke.Color = Color3.fromRGB(180, 60, 60)
+                stroke.Thickness = 1.5
+                stroke.Transparency = 0.5
+                stroke.Parent = frame
+                local grad = Instance.new("UIGradient")
+                grad.Color = ColorSequence.new{
+                    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 55)),
+                    ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 10, 20))
+                }
+                grad.Rotation = 90
+                grad.Parent = frame
+                local icon = Instance.new("TextLabel")
+                icon.Size = UDim2.new(0, 48, 0, 48)
+                icon.Position = UDim2.new(0, 16, 0.5, -24)
+                icon.BackgroundTransparency = 1
+                icon.Text = "⚡"
+                icon.TextSize = 38
+                icon.TextColor3 = Color3.fromRGB(255, 140, 100)
+                icon.Font = Enum.Font.GothamBlack
+                icon.Parent = frame
+                local iconCorner = Instance.new("UICorner")
+                iconCorner.CornerRadius = UDim.new(1, 0)
+                iconCorner.Parent = icon
+                local title = Instance.new("TextLabel")
+                title.Size = UDim2.new(1, -80, 0, 28)
+                title.Position = UDim2.new(0, 75, 0, 12)
+                title.BackgroundTransparency = 1
+                title.Text = "컴텔낙 로드완료!"
+                title.TextColor3 = Color3.fromRGB(255, 220, 220)
+                title.Font = Enum.Font.GothamBlack
+                title.TextSize = 19
+                title.TextXAlignment = Enum.TextXAlignment.Left
+                title.Parent = frame
+                local desc = Instance.new("TextLabel")
+                desc.Size = UDim2.new(1, -80, 0, 28)
+                desc.Position = UDim2.new(0, 75, 0, 40)
+                desc.BackgroundTransparency = 1
+                desc.Text = "L키로 텔낙 (파카가..)"
+                desc.TextColor3 = Color3.fromRGB(200, 200, 255)
+                desc.Font = Enum.Font.Gotham
+                desc.TextSize = 15
+                desc.TextXAlignment = Enum.TextXAlignment.Left
+                desc.Parent = frame
+                local tweenIn = TweenService:Create(frame, TweenInfo.new(0.65, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                    Position = UDim2.new(1, -300, 1, -95),
+                    BackgroundTransparency = 0.2
+                })
+                tweenIn:Play()
+                task.delay(1.5, function()
+                    local tweenOut = TweenService:Create(frame, TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+                        Position = UDim2.new(1, -300, 1, -60),
+                        BackgroundTransparency = 1
+                    })
+                    tweenOut:Play()
+                    TweenService:Create(title, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
+                    TweenService:Create(desc, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
+                    TweenService:Create(icon, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
+                    tweenOut.Completed:Connect(function()
+                        sg:Destroy()
+                    end)
+                end)
+            end
+            UIS.InputBegan:Connect(function(input, gameProcessed)
+                if gameProcessed then return end
+                if input.KeyCode == Enum.KeyCode.L then
+                    task.spawn(triggerLag)
+                end
+            end)
+            showBadgeNotification()
+        end
+    end    
+})
 
 
 
 
+funTab:AddSection({
+	Name = "무력화&여러가지"
+})
 --local InputValue = ""
 
 funTab:AddTextbox({
@@ -14816,9 +14989,9 @@ funTab:AddTextbox({
 	end
 })
 
-funTab:AddSection({
-	Name = "UFO,하늘섬 돌,광산열차를 잡은채로 10으로설정한후 만들기를 해보세요."
-})
+
+
+
 
 funTab:AddButton({
 	Name = "무력화 [프리미엄]",

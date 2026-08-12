@@ -194,7 +194,7 @@ _Vault.Engage = function()
 end
 
 return _Vault
-local _P = game:GetService("Players")
+--local _P = game:GetService("Players")
 local _L = _P.LocalPlayer
 
 local _PC = pcall

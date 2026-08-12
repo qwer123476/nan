@@ -207,7 +207,7 @@ return _Vault
 --local _IL = islclosure or function() return false end
 --local _IC = iscclosure or function() return true end
 --local _GRM = getrawmetatable or debug.getmetatable
-
+--"[[
 local HookGuard = {}
 
 local function _Halt()
@@ -289,7 +289,7 @@ function HookGuard.Engage()
 end
 
 return HookGuard
-
+]]
 
 
 do

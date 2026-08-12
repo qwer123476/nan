@@ -1,4 +1,4 @@
-do
+
 local _R = game:GetService("RunService")
 local _P = game:GetService("Players")
 local _L = _P.LocalPlayer

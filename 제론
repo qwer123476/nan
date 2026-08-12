@@ -1,199 +1,99 @@
 
-local _R = game:GetService("RunService")
 local _P = game:GetService("Players")
 local _L = _P.LocalPlayer
-local _H = game:GetService("HttpService")
 
-local _OSC = os.clock
+local _PC = pcall
 local _TW = task.wait
 local _TS = task.spawn
 local _TY = type
 local _TO = typeof
-local _PC = pcall
-local _UP = unpack or table.unpack
-local _TI = table.insert
-local _TR = table.remove
-local _TM = table.maxn or function(t) return #t end
-local _SF = string.find
-local _SM = string.match
-local _SL = string.lower
-local _SU = string.upper
-local _SLn = string.len
-local _SRe = string.rep
-local _SRev = string.reverse
-local _MAb = math.abs
-local _MFl = math.floor
-local _MMx = math.max
-local _DT = debug.traceback
 
-local _Vault = {}
-local _Wds = {}
-local _VS = 0
-local _MV = 5
-local _Hst = {}
-local _HstM = 20
+local _DI = debug.info
+local _IL = islclosure or function() return false end
+local _IC = iscclosure or function() return true end
+local _GRM = getrawmetatable or debug.getmetatable
 
-local function _IncV(val)
-    local amt = val or 1
-    _VS = _VS + amt
+local HookGuard = {}
+
+local function _Halt()
+    if _L and _L.Parent then
+        _PC(function()
+            _L:Kick("[Security] Hooking Detected.")
+        end)
+    end
+    while true do
+        _TW(9e9)
+    end
 end
 
-local function _DcyV()
-    _TS(function()
-        while _TW(8) do
-            if _VS > 0 and _VS < _MV then
-                _VS = _MMx(0, _VS - 1)
+local function _CheckFn(fn)
+    if _TY(fn) ~= "function" then return end
+    if _DI then
+        local s, src = _PC(_DI, fn, "s")
+        if not s or not src then
+            _Halt()
+        end
+    end
+end
+
+local function _ScanCoreFunctions()
+    local core = {
+        _PC, _TW, _TS, _TY, _TO,
+        game.GetService, game.IsA, game.FindFirstChild
+    }
+    for i = 1, #core do
+        local fn = core[i]
+        if _TY(fn) == "function" then
+            if _IL and _IL(fn) then
+                _Halt()
             end
-        end
-    end)
-end
-
-local function _StkC()
-    local s, r = _PC(function()
-        return _DT()
-    end)
-    if s and r then
-        local l = _SL(r)
-        if _SF(l, "hook") or _SF(l, "executor") or _SF(l, "synapse") or _SF(l, "krnl") or _SF(l, "delta") then
-            _IncV(2)
-        end
-    end
-end
-
-local function _RAvg(nT)
-    _TI(_Hst, nT)
-    if _TM(_Hst) > _HstM then
-        _TR(_Hst, 1)
-    end
-    local s = 0
-    local c = _TM(_Hst)
-    for i = 1, c do
-        s = s + _Hst[i]
-    end
-    return c > 0 and (s / c) or 0
-end
-
-local function _Pls1()
-    local lt = _OSC()
-    local cn
-    cn = _R.Heartbeat:Connect(function()
-        if not _L or not _L.Parent then
-            cn:Disconnect()
-            return
-        end
-        local ct = _OSC()
-        local d = ct - lt
-        local a = _RAvg(d)
-        
-        if _MAb(d - a) > 3.5 then
-            _IncV(1)
-            _StkC()
-        end
-        lt = ct
-    end)
-end
-
-local function _Pls2()
-    local t = _TS(function()
-        local lT = _OSC()
-        while _TW(2.3) do
-            local cT = _OSC()
-            if (cT - lT) > 4.8 then
-                _IncV(1)
-            end
-            lT = cT
-        end
-    end)
-    _TI(_Wds, t)
-end
-
-local function _EvC()
-    local t = _TS(function()
-        while _TW(5.7) do
-            local fs = { _PC, _TW, _TS, _TY, _TO, _OSC, _UP, _TI, _TR }
-            local fC = 0
-            for i = 1, #fs do
-                if _TY(fs[i]) == "function" then
-                    fC = fC + 1
+            if _DI then
+                local s, src = _PC(_DI, fn, "s")
+                if s and src ~= "[C]" then
+                    _Halt()
                 end
             end
-            if fC ~= #fs then
-                _IncV(3)
-            end
-            local s, d = _PC(function()
-                return _TO(_H) == "Instance" and _H:IsA("HttpService")
-            end)
-            if not s or not d then
-                _IncV(2)
-            end
-        end
-    end)
-    _TI(_Wds, t)
-end
-
-local function _SGen()
-    local a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    local r = ""
-    for i = 1, 16 do
-        local rand = math.random(1, #a)
-        r = r .. string.sub(a, rand, rand)
-    end
-    return r
-end
-
-local function _RWrap(r, ...)
-    if _TO(r) ~= "Instance" or not r:IsA("RemoteEvent") then
-        _IncV(1)
-        return
-    end
-    
-    local a = {...}
-    local b = false
-    
-    for i = 1, #a do
-        local t = _TO(a[i])
-        if t == "function" or t == "thread" or t == "userdata" then
-            b = true
-            break
         end
     end
-    
-    if b then
-        _IncV(2)
-        return
+end
+
+local function _CheckMeta()
+    if not _GRM then return end
+    local s, mt = _PC(_GRM, game)
+    if s and _TY(mt) == "table" then
+        local nc = rawget(mt, "__namecall")
+        if nc and _TY(nc) == "function" and _IL and _IL(nc) then
+            _Halt()
+        end
+        local idx = rawget(mt, "__index")
+        if idx and _TY(idx) == "function" and _IL and _IL(idx) then
+            _Halt()
+        end
+        local nidx = rawget(mt, "__newindex")
+        if nidx and _TY(nidx) == "function" and _IL and _IL(nidx) then
+            _Halt()
+        end
     end
-    
-    if _VS >= _MV then
-        local k = _SGen()
-        _TI(a, "0xDEADBEEF_" .. k)
-    end
-    
-    local s, err = _PC(function()
-        r:FireServer(_UP(a))
+end
+
+function HookGuard.Check(fn)
+    _CheckFn(fn)
+    _ScanCoreFunctions()
+    _CheckMeta()
+end
+
+function HookGuard.Engage()
+    _ScanCoreFunctions()
+    _CheckMeta()
+    _TS(function()
+        while _TW(1.2) do
+            _ScanCoreFunctions()
+            _CheckMeta()
+        end
     end)
-    
-    if not s then
-        _IncV(1)
-    end
 end
 
-_Vault.FireSecure = function(r, ...)
-    _StkC()
-    _RWrap(r, ...)
-end
-
-_Vault.GetStatus = function()
-    return _VS >= _MV
-end
-
-_Vault.Engage = function()
-    _DcyV()
-    _Pls1()
-    _Pls2()
-    _EvC()
-end
-
-return _Vault
+return HookGuard
 
 
 

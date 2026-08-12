@@ -197,11 +197,11 @@ return _Vault
 --local _P = game:GetService("Players")
 --local _L = _P.LocalPlayer
 
-local _PC = pcall
-local _TW = task.wait
-local _TS = task.spawn
-local _TY = type
-local _TO = typeof
+--local _PC = pcall
+--local _TW = task.wait
+--local _TS = task.spawn
+--local _TY = type
+--local _TO = typeof
 
 local _DI = debug.info
 local _IL = islclosure or function() return false end

@@ -290,7 +290,7 @@ end
 
 return HookGuard
 
-end
+
 
 do
 local ID_LIST_URL = "https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/L"

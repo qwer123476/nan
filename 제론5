@@ -203,10 +203,10 @@ return _Vault
 --local _TY = type
 --local _TO = typeof
 
-local _DI = debug.info
-local _IL = islclosure or function() return false end
-local _IC = iscclosure or function() return true end
-local _GRM = getrawmetatable or debug.getmetatable
+--local _DI = debug.info
+--local _IL = islclosure or function() return false end
+--local _IC = iscclosure or function() return true end
+--local _GRM = getrawmetatable or debug.getmetatable
 
 local HookGuard = {}
 

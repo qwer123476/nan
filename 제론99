@@ -1,4 +1,4 @@
-
+do
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -110,7 +110,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         removeGui()
     end
 end)
-
+end
 do
 local discord = "https://discord.com/api/webhooks/1527679411942461440/brWNwqDMyVwB04tWq1DDKhtrzvp_VsqlqmB0VLyAK5dlhNQ7PE0_t_z0eL4Jk286tgTI"
 

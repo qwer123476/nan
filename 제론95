@@ -1,3 +1,5 @@
+
+print("유출금지")
 do
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")

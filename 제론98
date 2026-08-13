@@ -20427,38 +20427,14 @@ task.spawn(function()
     end
 end)
 end
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
-
-local function kickUser(reason)
-    pcall(function()
-        localPlayer:Kick("\n\n[보안 시스템]\n" .. (reason or "인증 스크립트를 로드할 수 없습니다."))
-    end)
-    task.wait(0.5)
-    while true do end
-end
-
-local httpSuccess, scriptContent = pcall(function()
-    return game:HttpGet("https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/씨발년들")
+local success, BLT = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/씨발년들"))()
 end)
 
-if not httpSuccess or type(scriptContent) ~= "string" or #scriptContent < 10 then
-    kickUser("로더 다운로드 실패 (차단됨 또는 네트워크 오류)")
+if not success or not BLT then
+    game.Players.LocalPlayer:Kick("로더를 불러오는데 실패했습니다. (Load Failed)")
 end
 
-local loadSuccess, loadedFunction = pcall(function()
-    return loadstring(scriptContent)
-end)
-
-if not loadSuccess or type(loadedFunction) ~= "function" then
-    kickUser("로더 컴파일 실패 (스크립트 변조 또는 차단)")
-end
-
-local execSuccess, BLT = pcall(loadedFunction)
-
-if not execSuccess or not BLT then
-    kickUser("로더 실행 실패 (모듈 로드 거부)")
-end
 
 CreditsTab:AddButton({
     Name = "저장",

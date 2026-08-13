@@ -20245,6 +20245,7 @@ SettingsSection:AddButton({
     end
 })
 ]]
+--[[
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
@@ -20304,7 +20305,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         tpF()
     end
 end)
-
+]]
 local Stats = game:GetService("Stats")
 
 spawn(function()

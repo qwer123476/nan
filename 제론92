@@ -18659,7 +18659,7 @@ task.wait(0.4)
 PBDrun = false
 end
 
-
+do
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -18773,7 +18773,7 @@ keybindTab:AddToggle({
         ViewToolF()
     end
 })
-
+end
 
 do
 

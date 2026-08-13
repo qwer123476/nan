@@ -11423,7 +11423,7 @@ antiTab:AddToggle({
         end
     end
 })
---[[
+
 antiTab:AddToggle({
     Name = "안티 오너쉽 스팸 F1",
     Default = false,
@@ -11614,7 +11614,7 @@ antiTab:AddToggle({
     end
 })
 
-]]
+
 antiTab:AddSection({
     Name = "안티 바나나"
 })
@@ -11813,9 +11813,9 @@ antiTab:AddToggle({
     end
 })
 
---local Players = game:GetService("Players")
---local RunService = game:GetService("RunService")
---local LocalPlayer = Players.LocalPlayer
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
 
 local characterConnections = {}
 local activeCharacters = setmetatable({}, { __mode = "k" })
@@ -14033,7 +14033,7 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
     end
 end)
---[[
+
 playerTab:AddToggle({ 
     Name = "플라이   <font color='rgb(255,0,0)'>[데스크톱]</font>", 
     Default = false,
@@ -14128,7 +14128,7 @@ playerTab:AddTextbox({
         mflyV = Value
     end
 })
-]]
+
 playerTab:AddSection({
     Name = "오토 네트워크"
 })
@@ -14150,7 +14150,7 @@ playerTab:AddToggle({
 						SetNetworkOwner:FireServer(torso, torso.CFrame)
 					end
 					
-					task.wait(0.8)
+					task.wait(0.7)
 
 
 
@@ -20363,13 +20363,13 @@ InfoSection:AddLabel("난독화 타입: Luraph V15")
 InfoSection:AddLabel("관리자: 파카")
 
 local UpdateSection = UDTab:AddSection({
-    Name = "8.10 업데이트 내역"
+    Name = "8.14 업데이트 내역"
 })
 
-UpdateSection:AddLabel("• 안티렉V3추가")
-UpdateSection:AddLabel("• 안티오너쉽스팸 F1추가")
-UpdateSection:AddLabel("• 안티PCLD추가")
-UpdateSection:AddLabel("• 오토구찌 개선")
+UpdateSection:AddLabel("• 안티렉V3업그레이드")
+UpdateSection:AddLabel("• 안티오너쉽스팸 F1버그픽스")
+UpdateSection:AddLabel("• 안티PCLD버그픽스")
+UpdateSection:AddLabel("• 스팸 픽스")
 UpdateSection:AddLabel("• 기차구찌개선")
 UpdateSection:AddLabel("• 킥그랩 앵커 추가")
 UpdateSection:AddLabel("• 킥그랩 개선")

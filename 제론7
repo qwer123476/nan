@@ -14147,7 +14147,7 @@ playerTab:AddToggle({
 						SetNetworkOwner:FireServer(torso, torso.CFrame)
 					end
 					
-					task.wait()
+					task.wait(0.08)
 				end
 			end)
 		end
@@ -14271,7 +14271,7 @@ AuraTab:AddToggle({
                             local tRoot = tChar and tChar:FindFirstChild("HumanoidRootPart")
                             if not tRoot then continue end
                             
-                            if (tRoot.Position - myRoot.Position).Magnitude <= removeAntiKickRadius then
+                           -- if (tRoot.Position - myRoot.Position).Magnitude <= removeAntiKickRadius then
                                 local spawned = workspace:FindFirstChild(target.Name .. "SpawnedInToys")
                                 if spawned then
                                     for _, toyName in ipairs({"NinjaKunai", "NinjaShuriken", "AntiKick"}) do

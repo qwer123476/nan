@@ -14133,37 +14133,25 @@ playerTab:AddSection({
 playerTab:AddToggle({
 	Name = "오토 네트워크",
 	Default = false,
-    Flag = "wuocrqvuto",
+	Flag = "wuocrqvuto",
 	Callback = function(Value)
 		isAntiGrabActive = Value
 		
 		if isAntiGrabActive then
-			print("")
-			
-			
 			task.spawn(function()
 				while isAntiGrabActive do
 					local character = LocalPlayer.Character
 					local torso = character and character:FindFirstChild("Torso")
 					
 					if torso then
-						local args = {
-							torso,
-							CFrame.new(-304.137451171875, -7.384815216064453, -0.5625085830688477, 0.9025987386703491, 0, 0.43048295378685, 0, 1, 0, -0.43048295378685, 0, 0.9025987386703491)
-						}
-						
-						
-						SetNetworkOwner:FireServer(unpack(args))
+						SetNetworkOwner:FireServer(torso, torso.CFrame)
 					end
 					
-					
-					task.wait(0.01)
+					task.wait()
 				end
 			end)
-		else
-			print("")
 		end
-	end    
+	end
 })
 
 playerTab:AddSection({

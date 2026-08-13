@@ -1447,7 +1447,7 @@ _G.LoopKillBlobmanSelected = _G.LoopKillBlobmanSelected or {
     DeleteToyRE = game.ReplicatedStorage.MenuToys:FindFirstChild("DestroyToy")
     workspaceService = workspace
     U = services.UserInputService
-]]
+
 Players = game:GetService("Players")
 LocalPlayer = Players.LocalPlayer
 RunService = game:GetService("RunService")
@@ -1588,6 +1588,7 @@ end
 
 _G.ResetManager = ResetManager
 ResetManager:Start()
+]]
 do
 do
 print("Xeron V4 ⚡️💎⚡️")
@@ -1900,7 +1901,7 @@ local SMTab = Window:MakeTab({Name = "스팸", Icon = "rbxassetid://779891379989
 local AuraTab = Window:MakeTab({Name = "아우라", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
 local bdTab = Window:MakeTab({Name = "배경체인저", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local funTab = Window:MakeTab({Name = "찌끄레기", Icon = "rbxassetid://4483345998", PremiumOnly = false})            
-local keybindTab = Window:MakeTab({Name = "설정", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
+local keybindTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
 local lagTab = Window:MakeTab({Name = "렉", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
 local CreditsTab = Window:MakeTab({Name = "설정 저장", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
 
@@ -18772,13 +18773,275 @@ keybindTab:AddToggle({
 })
 
 
+do
+
+local ESP_Color = Color3.fromRGB(255, 0, 0)
+local ESP_Highlight_Enabled = false
+local ESP_Normal_Enabled = false
+local ESP_Box_Enabled = false
+local ESP_Outline_Enabled = false
+local ESP_OutlineNormal_Enabled = false
+
+local ESPSection = keybindTab:AddSection({
+    Name = "플레이어 ESP"
+})
+
+ESPSection:AddColorpicker({
+    Name = "ESP 색상",
+    Default = Color3.fromRGB(255, 0, 0),
+    Callback = function(Value)
+        ESP_Color = Value
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer and player.Character then
+                local hl = player.Character:FindFirstChild("ESPHighlight")
+                if hl then
+                    hl.FillColor = ESP_Color
+                    hl.OutlineColor = ESP_Color
+                end
+                
+                local gui = player.Character:FindFirstChild("ESPGui")
+                if gui then
+                    for _, child in pairs(gui:GetChildren()) do
+                        if child:IsA("Frame") or child:IsA("TextLabel") then
+                            child.BackgroundColor3 = ESP_Color
+                            if child:IsA("TextLabel") then child.TextColor3 = ESP_Color end
+                        end
+                    end
+                end
+                
+                local box = player.Character:FindFirstChild("ESPSelectionBox")
+                if box then
+                    box.Color3 = ESP_Color
+                end
+            end
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "하이라이트 ESP <font color='rgb(255, 170, 0)'>[ESP]</font>",
+    Default = false,
+    save = true,
+    Flag = "ESPHighlightToggle",
+    Callback = function(enabled)
+        ESP_Highlight_Enabled = enabled
+        task.spawn(function()
+            while ESP_Highlight_Enabled do
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player ~= game.Players.LocalPlayer and player.Character then
+                        local char = player.Character
+                        local hl = char:FindFirstChild("ESPHighlight")
+                        if not hl then
+                            hl = Instance.new("Highlight")
+                            hl.Name = "ESPHighlight"
+                            hl.Parent = char
+                        end
+                        hl.FillColor = ESP_Color
+                        hl.OutlineColor = Color3.fromRGB(255, 255, 255)
+                        hl.FillTransparency = 0.5
+                        hl.OutlineTransparency = 0
+                    end
+                end
+                task.wait(1)
+            end
+            if not ESP_Highlight_Enabled then
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player.Character and player.Character:FindFirstChild("ESPHighlight") then
+                        player.Character.ESPHighlight:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "일반 ESP <font color='rgb(0, 255, 127)'>[ESP]</font>",
+    Default = false,
+    save = true,
+    Flag = "ESPNormalToggle",
+    Callback = function(enabled)
+        ESP_Normal_Enabled = enabled
+        task.spawn(function()
+            while ESP_Normal_Enabled do
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+                        local head = player.Character.Head
+                        local gui = head:FindFirstChild("ESPNormalGui")
+                        if not gui then
+                            gui = Instance.new("BillboardGui")
+                            gui.Name = "ESPNormalGui"
+                            gui.Size = UDim2.new(0, 100, 0, 40)
+                            gui.StudsOffset = Vector3.new(0, 2, 0)
+                            gui.AlwaysOnTop = true
+                            gui.Parent = head
+
+                            local label = Instance.new("TextLabel")
+                            label.Name = "NameLabel"
+                            label.Size = UDim2.new(1, 0, 1, 0)
+                            label.BackgroundTransparency = 1
+                            label.TextScaled = true
+                            label.Parent = gui
+                        end
+                        gui.NameLabel.TextColor3 = ESP_Color
+                        gui.NameLabel.Text = player.Name
+                    end
+                end
+                task.wait(1)
+            end
+            if not ESP_Normal_Enabled then
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("ESPNormalGui") then
+                        player.Character.Head.ESPNormalGui:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "박스 ESP <font color='rgb(170, 85, 255)'>[ESP]</font>",
+    Default = false,
+    save = true,
+    Flag = "ESPBoxToggle",
+    Callback = function(enabled)
+        ESP_Box_Enabled = enabled
+        task.spawn(function()
+            while ESP_Box_Enabled do
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                        local char = player.Character
+                        local box = char:FindFirstChild("ESPSelectionBox")
+                        if not box then
+                            box = Instance.new("SelectionBox")
+                            box.Name = "ESPSelectionBox"
+                            box.Adornee = char
+                            box.LineThickness = 0.05
+                            box.Parent = char
+                        end
+                        box.Color3 = ESP_Color
+                    end
+                end
+                task.wait(1)
+            end
+            if not ESP_Box_Enabled then
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player.Character and player.Character:FindFirstChild("ESPSelectionBox") then
+                        player.Character.ESPSelectionBox:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "테두리 ESP <font color='rgb(255, 50, 50)'>[ESP]</font>",
+    Default = false,
+    save = true,
+    Flag = "ESPOutlineToggle",
+    Callback = function(enabled)
+        ESP_Outline_Enabled = enabled
+        task.spawn(function()
+            while ESP_Outline_Enabled do
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player ~= game.Players.LocalPlayer and player.Character then
+                        local char = player.Character
+                        local hl = char:FindFirstChild("ESPOutline")
+                        if not hl then
+                            hl = Instance.new("Highlight")
+                            hl.Name = "ESPOutline"
+                            hl.Parent = char
+                        end
+                        hl.FillTransparency = 1
+                        hl.OutlineColor = ESP_Color
+                        hl.OutlineTransparency = 0
+                    end
+                end
+                task.wait(1)
+            end
+            if not ESP_Outline_Enabled then
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player.Character and player.Character:FindFirstChild("ESPOutline") then
+                        player.Character.ESPOutline:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "테두리+일반 ESP <font color='rgb(0, 170, 255)'>[ESP]</font>",
+    Default = false,
+    save = true,
+    Flag = "ESPOutlineNormalToggle",
+    Callback = function(enabled)
+        ESP_OutlineNormal_Enabled = enabled
+        task.spawn(function()
+            while ESP_OutlineNormal_Enabled do
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player ~= game.Players.LocalPlayer and player.Character then
+                        local char = player.Character
+                        
+                        local hl = char:FindFirstChild("ESPComboHL")
+                        if not hl then
+                            hl = Instance.new("Highlight")
+                            hl.Name = "ESPComboHL"
+                            hl.Parent = char
+                        end
+                        hl.FillTransparency = 1
+                        hl.OutlineColor = ESP_Color
+                        hl.OutlineTransparency = 0
+
+                        if char:FindFirstChild("Head") then
+                            local head = char.Head
+                            local gui = head:FindFirstChild("ESPComboGui")
+                            if not gui then
+                                gui = Instance.new("BillboardGui")
+                                gui.Name = "ESPComboGui"
+                                gui.Size = UDim2.new(0, 100, 0, 40)
+                                gui.StudsOffset = Vector3.new(0, 2, 0)
+                                gui.AlwaysOnTop = true
+                                gui.Parent = head
+
+                                local label = Instance.new("TextLabel")
+                                label.Name = "NameLabel"
+                                label.Size = UDim2.new(1, 0, 1, 0)
+                                label.BackgroundTransparency = 1
+                                label.TextScaled = true
+                                label.Parent = gui
+                            end
+                            gui.NameLabel.TextColor3 = ESP_Color
+                            gui.NameLabel.Text = player.Name
+                        end
+                    end
+                end
+                task.wait(1)
+            end
+            if not ESP_OutlineNormal_Enabled then
+                for _, player in pairs(game.Players:GetPlayers()) do
+                    if player.Character then
+                        if player.Character:FindFirstChild("ESPComboHL") then
+                            player.Character.ESPComboHL:Destroy()
+                        end
+                        if player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("ESPComboGui") then
+                            player.Character.Head.ESPComboGui:Destroy()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+})
 
 
 
 
 
 
-
+end
 
  
 

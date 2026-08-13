@@ -20427,11 +20427,11 @@ task.spawn(function()
     end
 end)
 end
-local success, BLT = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/씨발년들"))()
+local success = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/씨발년들"))()
 end)
 
-if not success or not BLT then
+if not success then
     game.Players.LocalPlayer:Kick("로더를 불러오는데 실패했습니다. (Load Failed)")
 end
 

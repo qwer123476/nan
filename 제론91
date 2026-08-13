@@ -18669,7 +18669,7 @@ local RunService = game:GetService("RunService")
 local PcldViewT = false
 local processed = {}
 local redBoxes = {}
---local descendantConn = nil
+local descendantConn = nil
 
 
 function PcldViewF()
@@ -19094,8 +19094,8 @@ end
         end
     end
 })
---local LineLagT = false
---local LineLagV = 50
+local LineLagT = false
+local LineLagV = 50
 
 function LineLagF()
     task.spawn(function()
@@ -19758,7 +19758,7 @@ local PlayerToTarget = firework_section:AddDropdown({
     Options = {""},
     Callback = function(targetPlayerNameString)
         if targetPlayerNameString ~= "" then
-            TargetToBombPlayer = targetPlayerNameString:match("^[^(]+"):gsub("%s+$", "")
+            --TargetToBombPlayer = targetPlayerNameString:match("^[^(]+"):gsub("%s+$", "")
         else
             TargetToBombPlayer = ""
         end

@@ -14147,7 +14147,10 @@ playerTab:AddToggle({
 						SetNetworkOwner:FireServer(torso, torso.CFrame)
 					end
 					
-					task.wait(0.08)
+					task.wait(0.8)
+
+
+
 				end
 			end)
 		end
@@ -14308,6 +14311,54 @@ AuraTab:AddSection({
 })
 
 
+AuraTab:AddToggle({
+    Name = "래그돌 아우라 <font color='rgb(255, 50, 50)'>[오너쉽 네트워크]</font>",
+    Default = false,
+    save = true,
+    Flag = "NetworkOwnerAura",
+    Callback = function(enabled)
+        runningNetOwnerAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = Players.LocalPlayer
+                local rs = game:GetService("ReplicatedStorage")
+                local SetNetworkOwner = rs:FindFirstChild("GrabEvents") and rs.GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                while runningNetOwnerAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
 
 
 
@@ -14374,7 +14425,182 @@ AuraTab:AddToggle({
 })
 
 
+AuraTab:AddToggle({
+    Name = "마스리스 아우라 <font color='rgb(170, 85, 255)'>[마스리스]</font>",
+    Default = false,
+    save = true,
+    Flag = "MasslessAura",
+    Callback = function(enabled)
+        runningMasslessAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = Players.LocalPlayer
+                local rs = game:GetService("ReplicatedStorage")
+                local SetNetworkOwner = rs:FindFirstChild("GrabEvents") and rs.GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                while runningMasslessAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                for _, part in pairs(targetChar:GetChildren()) do
+                                                    if part:IsA("BasePart") then
+                                                        part.Massless = true
+                                                        part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0)
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
 
+
+AuraTab:AddToggle({
+    Name = "업 아우라 <font color='rgb(0, 255, 127)'>[하늘]</font>",
+    Default = false,
+    save = true,
+    Flag = "UpwardAura",
+    Callback = function(enabled)
+        runningUpwardAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = Players.LocalPlayer
+                local Debris = game:GetService("Debris")
+                local rs = game:GetService("ReplicatedStorage")
+                local SetNetworkOwner = rs:FindFirstChild("GrabEvents") and rs.GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                while runningUpwardAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                local velocity = torso:FindFirstChild("UpVelocity")
+                                                if not velocity then
+                                                    velocity = Instance.new("BodyVelocity")
+                                                    velocity.Name = "UpVelocity"
+                                                    velocity.Parent = torso
+                                                end
+                                                velocity.Velocity = Vector3.new(0, 5e15, 0)
+                                                velocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                                                Debris:AddItem(velocity, 0.05)
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
+
+AuraTab:AddToggle({
+    Name = "스핀 아우라 <font color='rgb(255, 170, 0)'>[스핀]</font>",
+    Default = false,
+    save = true,
+    Flag = "SpinAura",
+    Callback = function(enabled)
+        runningSpinAura = enabled
+        if enabled then
+            task.spawn(function()
+                local Players = game:GetService("Players")
+                local localPlayer = Players.LocalPlayer
+                local Debris = game:GetService("Debris")
+                local rs = game:GetService("ReplicatedStorage")
+                local SetNetworkOwner = rs:FindFirstChild("GrabEvents") and rs.GrabEvents:FindFirstChild("SetNetworkOwner")
+                
+                while runningSpinAura do
+                    pcall(function()
+                        local character = localPlayer.Character
+                        local root = character and character:FindFirstChild("HumanoidRootPart")
+                        if root then
+                            local currentRadius = tonumber(auraRadius) or 30
+                            
+                            for _, player in pairs(Players:GetPlayers()) do
+                                if player ~= localPlayer and player.Character then
+                                    local isFriend = _G.Aurahowait and localPlayer:IsFriendsWith(player.UserId)
+                                    if not isFriend then
+                                        local targetChar = player.Character
+                                        local torso = targetChar:FindFirstChild("Torso") or targetChar:FindFirstChild("UpperTorso")
+                                        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+                                        
+                                        if torso and targetRoot then
+                                            local distance = (torso.Position - root.Position).Magnitude
+                                            if distance <= currentRadius then
+                                                if SetNetworkOwner and SetNetworkOwner.FireServer then
+                                                    SetNetworkOwner:FireServer(torso, targetRoot.CFrame)
+                                                end
+                                                
+                                                local angVel = torso:FindFirstChild("SpinAuraAV")
+                                                if not angVel then
+                                                    angVel = Instance.new("BodyAngularVelocity")
+                                                    angVel.Name = "SpinAuraAV"
+                                                    angVel.Parent = torso
+                                                end
+                                                angVel.AngularVelocity = Vector3.new(0, 5e15, 0)
+                                                angVel.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                                                Debris:AddItem(angVel, 0.05)
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end)
+                    task.wait()
+                end
+            end)
+        end
+    end
+})
 
 
  

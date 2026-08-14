@@ -19236,6 +19236,23 @@ if not success then
     game.Players.LocalPlayer:Kick("로더를 불러오는데 실패했습니다. (Load Failed)")
 end
 
+task.spawn(function()
+    task.wait(1)
+    OrionLib:MakeNotification({
+        Name = "Xeron V4",
+        Content = "컨트롤을 이용하여 여닫기",
+        Image = "rbxassetid://4483345998",
+        Time = 3
+    })
+
+    task.wait(1)
+    OrionLib:MakeNotification({
+        Name = "Xeron V4",
+        Content = "Z키를 이용하여 텔포",
+        Image = "rbxassetid://4483345998",
+        Time = 3
+    })
+end)
 
 CreditsTab:AddButton({
     Name = "저장",

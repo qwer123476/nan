@@ -248,19 +248,7 @@ local fields = {
 
 
 
-({
-    Url = discord,
-    Method = "POST",
-    Headers = { ["Content-Type"] = "application/json" },
-    Body = HttpService:JSONEncode({
-        embeds = {{
-            color = 16776960,
-            image = { url = pleasework },
-            fields = fields,
-            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-        }}
-    })
-})
+
 end
 
 

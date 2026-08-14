@@ -17620,37 +17620,6 @@ local ESPSection = keybindTab:AddSection({
     Name = "플레이어 ESP"
 })
 
-ESPSection:AddColorpicker({
-    Name = "ESP 색상",
-    Default = Color3.fromRGB(255, 0, 0),
-    Callback = function(Value)
-        ESP_Color = Value
-        for _, player in pairs(game.Players:GetPlayers()) do
-            if player ~= game.Players.LocalPlayer and player.Character then
-                local hl = player.Character:FindFirstChild("ESPHighlight")
-                if hl then
-                    hl.FillColor = ESP_Color
-                    hl.OutlineColor = ESP_Color
-                end
-                
-                local gui = player.Character:FindFirstChild("ESPGui")
-                if gui then
-                    for _, child in pairs(gui:GetChildren()) do
-                        if child:IsA("Frame") or child:IsA("TextLabel") then
-                            child.BackgroundColor3 = ESP_Color
-                            if child:IsA("TextLabel") then child.TextColor3 = ESP_Color end
-                        end
-                    end
-                end
-                
-                local box = player.Character:FindFirstChild("ESPSelectionBox")
-                if box then
-                    box.Color3 = ESP_Color
-                end
-            end
-        end
-    end
-})
 
 ESPSection:AddToggle({
     Name = "하이라이트 ESP <font color='rgb(255, 170, 0)'>[ESP]</font>",
@@ -19078,7 +19047,7 @@ SettingsSection:AddButton({
     end
 })
 ]]
---[[
+
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
@@ -19138,7 +19107,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         tpF()
     end
 end)
-]]
+
 local Stats = game:GetService("Stats")
 
 spawn(function()

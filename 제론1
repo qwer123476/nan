@@ -6549,7 +6549,7 @@ UtilityTab:AddButton({
 
 
 
-
+--[[
 passTab:AddSection({
     Name = "라인"
 })
@@ -6681,7 +6681,9 @@ passTab:AddToggle({
           end
       end
    end,
+
 })
+]]
 passTab:AddSection({
 	Name = "에임 모양"
 })

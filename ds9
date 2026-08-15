@@ -2327,7 +2327,7 @@ ScriptTab:AddButton({
                     r42("Loaded!", "Script Successfully Loaded!", 5, 6034304908)
                     hb = r26
                     hb.LoadConfiguration(hb)
-                else
+                end
                     r94 = "https://raw.githubusercontent.com/Fluxincontroller/RandomStuff/refs/heads/main/reloadshi"
                     if B then
                         B.Connect(B, function(arg1_54, ...)

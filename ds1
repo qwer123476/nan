@@ -149,12 +149,12 @@ local mel_8 = 1
                                 F.FindFirstChild(F, "Humanoid", true).Health = 0 
                             end
                                 X.GetChildren(X)
-                            }
+                            
                             for o, F in pairs(q(F)) do
                                 F.FindFirstChild(F, "Humanoid", true).Health = 0 
                             end
                                 X.GetChildren(X)
-                            }
+                            
                             for o, F in pairs(q(F)) do
                                 F.FindFirstChild(F, "Humanoid", true).Health = 0 
                             end
@@ -173,12 +173,12 @@ local mel_8 = 1
                                 mel_8.FireServer(mel_8, F, 64.8, 4) 
                             end
                                 mel_8(X)
-                            }
+                            
                             for o, F in X[1], pairs(q(F)) do
                                 mel_8.FireServer(mel_8, F, 64.8, 4) 
                             end
                                 mel_8(X)
-                            }
+                            
                             for o, F in pairs(q(F)) do
                                 mel_8.FireServer(mel_8, F, 64.8, 4) 
                             end

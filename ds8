@@ -1864,7 +1864,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in pairs(q(X)) do
                                 table.insert(mel_1, mel_8.Name) 
                             end

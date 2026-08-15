@@ -1,0 +1,2080 @@
+--This file was generated with Lua Land Hub bot | https://discord.gg/dfZDFdwDN
+local v = {}
+local mel_8 = 1
+        r15 = setmetatable({}, {
+            ["__index"] = r23,
+            ["__metatable"] = nil
+        })
+        if queue_on_teleport then
+        else
+            if syn and syn.queue_on_teleport then
+            else
+                if fluxus and fluxus.queue_on_teleport then
+                end
+                if r24 then
+                    print("[Teleport Test] queue_on_teleport detected \xe2\x80\x93 teleport persistence WILL work.")
+                else
+                    warn("[Teleport Test] queue_on_teleport NOT found \xe2\x80\x93 script will NOT survive teleports.")
+                end
+                print("[Teleport Test] Script loaded! (Current server: " .. game.JobId .. ")")
+                if game.PlaceId == 13864667823 then
+                    r25.Size = Vector3.new(5, 1, 5)
+                    r25.Parent = mel_11.GetService(mel_11, "Workspace")
+                    r25.Anchored = true
+                    r25.Transparency = 1
+                    r28 = "Med Kit"
+                    r31 = x.GetService(x, "Players").LocalPlayer
+                    FA[5] = 17739426734148
+                    FA[4] = "6\xbcG\rs\xc5\xf9\x88bU\x88\x9f\x867\x11\xee\x9a\xbc\x93t\x12\xf6v\xd5\xfaA\xeb\xde\xe4\xdbJ\xd2Qape\x83\xd33\xb7\xba\x9a\xbd\x14K\x80\x98\"\xde\xb6\x13\xdc\x98\x08\xa6c+\x80/!\xf8\xb2\xf9OU\x12W'\x0e\xa7\xd5\x04Yo=.U[@\xa7w\x91}\x8e\xd6\x8d\x86\x99\xb8\xb5y\x08\x05\xc3\xb8\x84\xe5\xe8\x13\x0f\xcf\x10\xe2i\xb0{{\"DI\xd3\xd9\xf4\x00"
+                    FA[3] = 19405890462540
+                    getgenv().RemoveSlipping = false
+                    getgenv().SemiGodmode = false
+                    r41 = {
+                        "HatCollected",
+                        "MaskCollected",
+                        "CrowbarCollected"
+                    }
+                    local function r42(arg1_2, arg2_2, arg3_2, arg4_2, ...)
+                        mel_10.Notify(mel_10, {
+                            ["Title"] = arg1_2,
+                            ["Content"] = arg2_2,
+                            ["Duration"] = arg3_2,
+                            ["Image"] = arg4_2
+                        })
+                        return 
+                    end
+                    local function r43(arg1_3, ...)
+                        pcall(function(...)
+                            local g = {
+                                g[1],
+                                g[2],
+                                g[3],
+                                25
+                            }
+                            mel_7.FireServer(mel_7, r44)
+                            return 
+                        end)
+                        return 
+                    end
+                    local function r45(...)
+                        for u, F in o, pairs(o.GetChildren(o)) do
+                            if F.IsA(F, "Tool") then
+                                F.Parent = r31.Backpack
+                            end 
+                        end
+                        return 
+                    end
+                    local function r46(...)
+                        for u, F in pairs(o.GetChildren(o)) do
+                            if F.IsA(F, "Tool") then
+                                F.Parent = r31.Character
+                            end 
+                        end
+                        return 
+                    end
+                    local function r47(arg1_4, ...)
+                        if arg1_4 == mel_7 then
+                            mel_7.FireServer(mel_7, 3, "Armor2", "Armor", tostring(r31), 1)
+                        else
+                            return
+                        end 
+                    end
+                    local function r48(...)
+                        for u, F in o, pairs(o.GetChildren(o)) do
+                        end
+                        return 
+                    end
+                    local function r49(...)
+                        for u, F in o, pairs(o.GetChildren(o)) do
+                        end
+                        return 
+                    end
+                    local function r50(arg1_5, ...)
+                        mel_7.FireServer(mel_7, arg1_5)
+                        return 
+                    end
+                    local function r51(arg1_6, ...)
+                        mel_7.FireServer(mel_7, -arg1_6, false, false)
+                        return 
+                    end
+                    local function r52(arg1_7, ...)
+                        r31.Character.HumanoidRootPart.CFrame = arg1_7
+                        return 
+                    end
+                    local function r53(...)
+                        r48()
+                        task.wait(.1)
+                        r47("Armor")
+                        task.wait(.1)
+                        for J = 1, 5 do
+                            r50("Speed")
+                            r50("Strength") 
+                        end
+                        task.wait(.1)
+                        r45()
+                        if (F or not X and mel_1 <= 15) and F then
+                            return
+                        end
+                        return 
+                    end
+                    local function r54(...)
+                        r45()
+                        task.wait(.2)
+                        r47("Golden Apple")
+                        task.wait(0.5)
+                        mel_10.WaitForChild(mel_10, "GoldenApple").Parent = r31.Character
+                        task.wait(0.5)
+                        mel_7.FireServer(mel_7)
+                        return 
+                    end
+                    local function r55(...)
+                        r47("Pizza")
+                        mel_10.FireServer(mel_10, 25, "Pizza")
+                        return 
+                    end
+                    local function r56(...)
+                        for u, F in pairs(o.GetChildren(o)) do
+                            for n = 1, 20 do
+                            end 
+                        end
+                        return 
+                    end
+                    local function r57(...)
+                        pcall(function(...)
+                            local g = {
+                                g[1],
+                                g[2]
+                            }
+                            for u, F in pairs(o.GetChildren(o)) do
+                                F.FindFirstChild(F, "Humanoid", true).Health = 0 
+                            end
+                                X.GetChildren(X)
+                            }
+                            for o, F in pairs(q(F)) do
+                                F.FindFirstChild(F, "Humanoid", true).Health = 0 
+                            end
+                                X.GetChildren(X)
+                            }
+                            for o, F in pairs(q(F)) do
+                                F.FindFirstChild(F, "Humanoid", true).Health = 0 
+                            end
+                            return 
+                        end)
+                        return 
+                    end
+                    local function r58(...)
+                        pcall(function(...)
+                            local g = {
+                                g[1],
+                                g[2],
+                                g[3]
+                            }
+                            for u, F in pairs(o.GetChildren(o)) do
+                                mel_8.FireServer(mel_8, F, 64.8, 4) 
+                            end
+                                mel_8(X)
+                            }
+                            for o, F in X[1], pairs(q(F)) do
+                                mel_8.FireServer(mel_8, F, 64.8, 4) 
+                            end
+                                mel_8(X)
+                            }
+                            for o, F in pairs(q(F)) do
+                                mel_8.FireServer(mel_8, F, 64.8, 4) 
+                            end
+                            if mel_1.FindFirstChild(mel_1, "BadGuyPizza", true) then
+                                mel_1.FireServer(mel_1, o.FindFirstChild(o, "BadGuyPizza", true), 64.8, 4)
+                            end
+                            if mel_1.FindFirstChild(mel_1, "BadGuyBrute") then
+                                mel_1.FireServer(mel_1, o.GetService(o, "Workspace").BadGuyBrute, 64.8, 4)
+                            end
+                            return 
+                        end)
+                        return 
+                    end
+                    local function r59(...)
+                        for u, F in pairs(o.GetChildren(o)) do
+                        end
+                        task.wait(2)
+                        for u = 1, 3 do
+                            r52(CFrame.new(-203.533081, 30.4500484, -790.901428, -0.0148558766, 8.85941187e-09, -0.999889672, 2.65695732e-08, 1, 8.46563175e-09, .999889672, -2.64408779e-08, -0.0148558766) + Vector3.new(0, 5, 0))
+                            task.wait(.1) 
+                        end 
+                    end
+                    local function r60(...)
+                        r47("Louise")
+                        task.wait(.1)
+                        mel_10.WaitForChild(mel_10, "Louise").Parent = r31.Character
+                        mel_7.FireServer(mel_7, 2)
+                        return 
+                    end
+                    local function r61(...)
+                        r47("Key")
+                        task.wait(.1)
+                        mel_10.WaitForChild(mel_10, "Key").Parent = r31.Character
+                        wait(0.5)
+                        mel_10.FireServer(mel_10)
+                        return 
+                    end
+                    local function r62(...)
+                        fireclickdetector(o.GetService(o, "Workspace").UnclePete.ClickDetector)
+                        return 
+                    end
+                    local function r63(...)
+                        for u, F in o, pairs(q(o)) do
+                            if F.Name == "Part" and (F.FindFirstChild(F, "TouchInterest") and (F.FindFirstChild(F, "Weld") and F.Transparency == 1)) then
+                                firetouchinterest(F, r31.Character.HumanoidRootPart, 0)
+                            end 
+                        end
+                        return 
+                    end
+                    local function r64(...)
+                        r52(CFrame.new(-199.240555, 30.0009422, -790.182739, .08340507, 2.48169538e-08, .996515751, -2.7112752e-09, 1, -2.46767993e-08, -0.996515751, -6.43658127e-10, .08340507))
+                        for u, F in o, pairs(o.GetChildren(o)) do
+                            if F.IsA(F, "BasePart") then
+                                if F.FindFirstChild(F, "TouchInterest") then
+                                    firetouchinterest(F, r31.Character.HumanoidRootPart, 0)
+                                else
+                                    if F.FindFirstChild(F, "ClickDetector") then
+                                        fireclickdetector(F.ClickDetector)
+                                    end
+                                end
+                            else
+                                if F.IsA(F, "Model") then
+                                    for mel_12, U in U[1], pairs(U(F)) do
+                                        if U.IsA(U, "BasePart") then
+                                            if U.FindFirstChild(U, "TouchInterest") then
+                                                firetouchinterest(U, r31.Character.HumanoidRootPart, 0)
+                                            else
+                                                if U.FindFirstChild(U, "ClickDetector") then
+                                                    fireclickdetector(U.ClickDetector)
+                                                end
+                                            end
+                                        end 
+                                    end
+                                end
+                            end 
+                        end
+                        mel_10.MoveTo(mel_10, r31.Character.HumanoidRootPart.Position + Vector3.new(-10, 0, 0))
+                        return 
+                    end
+                    local function r65(...)
+                        pcall(function(...)
+                            local g = {
+                                g[1],
+                                g[2]
+                            }
+                            for u, F in o, pairs(o.GetChildren(o)) do
+                                F.HumanoidRootPart.Anchored = true
+                                F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 
+                            end
+                                pairs(X.GetChildren(X))
+                            }
+                        end)
+                        return 
+                    end
+                    local function r66(arg1_8, ...)
+                        r31.Character.HumanoidRootPart.CanCollide = u
+                        for o, mel_8 in pairs(X.GetChildren(X)) do
+                            if mel_8.IsA(mel_8, "MeshPart") then
+                                mel_8.CanCollide = arg1_8
+                            end 
+                        end
+                        return 
+                    end
+                    local function r67(...)
+                        for u, F in mel_10("pairs") do
+                            mel_10.FireServer(mel_10, F, true) 
+                        end
+                        return 
+                    end
+                    local function r68(...)
+                        if mel_7.FindFirstChild(mel_7, "FallenTrees") then
+                            for u, F in o, pairs(o.GetChildren(o)) do
+                                for n = 1, 20 do
+                                end 
+                            end
+                            task.wait(1)
+                            r52(CFrame.new(61.8781624, 29.4499969, -534.381165, -0.584439218, -1.05103076e-07, .811437488, -3.12853778e-08, 1, 1.06993674e-07, -0.811437488, 3.71451705e-08, -0.584439218))
+                            task.wait(0.5)
+                            fireclickdetector(X.GetService(X, "Workspace").GoldenApple.ClickDetector)
+                        else
+                            r42("Error", "Golden Apple Has Not Spawned Yet, Please Wait Until the First Wave.", 5, 6034304908)
+                        end
+                        return 
+                    end
+                    local function r69(arg1_9, ...)
+                        for o, mel_8 in pairs(X.GetDescendants(X)) do
+                            if mel_8.Name == "Mud" and mel_8.IsA(mel_8, "Part") then
+                                mel_8.CanTouch = false
+                            end 
+                        end
+                        return 
+                    end
+                    local function r70(...)
+                        if mel_7.FindFirstChild(mel_7, "WavePart") then
+                            r43(u.GetService(u, "Workspace").WavePart)
+                        end
+                        return 
+                    end
+                    local function r71(...)
+                        if mel_7.FindFirstChild(mel_7, "WavePart") then
+                            mel_7.GetService(mel_7, "Workspace").WavePart.CanTouch = false
+                        end
+                        return 
+                    end
+                    pb = r26
+                    pb.Notify(pb, {
+                        ["Title"] = "Key System",
+                        ["Content"] = "Link Copied!!\xf0\x9f\x97\x9d\xef\xb8\x8f",
+                        ["Duration"] = 20.5,
+                        ["Image"] = "key-round"
+                    })
+                    setclipboard("https://loot-link.com/s?a7825yMi")
+                    pb = r26
+                    FA[1] = 19613548159917
+                    FA[2] = "x\xa1@"
+                    FA[1] = r16(FA[2], FA[3])
+                    FA[1] = r15
+                    FA[2] = r16
+                    FA[3] = FA[2](FA[4], FA[5])
+                    cb = pb.CreateWindow(pb, {
+                        ["Name"] = "Exclusionz Hub",
+                        ["Icon"] = 0,
+                        ["LoadingTitle"] = "Loading Script",
+                        ["LoadingSubtitle"] = "Break in 2",
+                        ["Theme"] = "Default",
+                        ["DisableRayfieldPrompts"] = false,
+                        ["DisableBuildWarnings"] = false,
+                        ["ConfigurationSaving"] = {
+                            ["Enabled"] = true,
+                            ["FolderName"] = nil,
+                            ["FileName"] = "Big Hub"
+                        },
+                        ["Discord"] = {
+                            ["Enabled"] = false,
+                            ["Invite"] = "noinvitelink",
+                            ["RememberJoins"] = true
+                        },
+                        ["KeySystem"] = true,
+                        ["KeySettings"] = {
+                            ["Title"] = "Enter Access Key",
+                            ["Subtitle"] = "Key Verification",
+                            ["Note"] = "Link Copied!\xf0\x9f\x97\x9d\xef\xb8\x8f\xf0\x9f\x95\xb8\xef\xb8\x8f",
+                            ["FileName"] = "aUltimateHubKey2",
+                            ["SaveKey"] = false,
+                            [r15[r16("\xa4.\x86\xe2-@/\xb3F\xdet?\xca\x14\xa0", FA[1])]] = true,
+                            [r15[FA[1]]] = {
+                                FA[1][FA[3]]
+                            }
+                        }
+                    })
+                    pb = cb.CreateTab(cb, "Overpowered", 4483362458)
+                    pb.CreateSection(pb, "Training")
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Train Strength",
+                        ["Callback"] = function(...)
+                            r50("Strength")
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Train Speed",
+                        ["Callback"] = function(...)
+                            r50("Speed")
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Heal Yourself")
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Heal Yourself",
+                        ["Callback"] = function(...)
+                            for J = 1, 10 do
+                                r55() 
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Loop Heal Yourself",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_10, ...)
+                            getgenv().HealLoop = arg1_10
+                            while HealLoop do
+                                r55()
+                                task.wait(.1) 
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Heal All")
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Heal All",
+                        ["Callback"] = function(...)
+                            r54()
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Loop Heal All",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_11, ...)
+                            getgenv().HealAllLoop = arg1_11
+                            while HealAllLoop do
+                                r54()
+                                task.wait(3) 
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Item Giver")
+                    pb.CreateParagraph(pb, {
+                        ["Title"] = "Note:",
+                        ["Content"] = "Warning: Duplicating or grabbing multiple of the same item can cause it to malfunction and become unusable or unequippable. To avoid this, only take one item at a time \xe2\x80\x94 especially items accessible to all players."
+                    })
+                    FA[1] = 20709418722731
+                    pb.CreateDropdown(pb, {
+                        ["Name"] = "Item",
+                        ["Options"] = {
+                            "Crowbar 1",
+                            "Crowbar 2",
+                            "Bat",
+                            "Pitchfork",
+                            "Hammer",
+                            "Wrench",
+                            "Broom",
+                            "Armor",
+                            "Med Kit",
+                            "Key",
+                            "Gold Key",
+                            "Louise",
+                            "Lollipop",
+                            "Chips",
+                            "Golden Apple",
+                            "Pizza",
+                            "Gold Pizza",
+                            "Rainbow Pizza",
+                            "Rainbow Pizza Box",
+                            "Book",
+                            "Phone",
+                            "Cookie",
+                            "Apple",
+                            "Bloxy Cola",
+                            "Expired Bloxy Cola",
+                            "Bottle",
+                            "Ladder",
+                            r15[r16("I\xc3q\xc7\x0ex$", FA[1])]
+                        },
+                        ["CurrentOption"] = {
+                            "Med Kit"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "ItemDropdown3",
+                        ["Callback"] = function(arg1_12, ...)
+                            if u == "Book" or u == "Phone" then
+                                r42("Warning", u .. " Wont Work Unless You Own The Corresponding Gamepass.", 7, 6034304908)
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Get Item",
+                        ["Callback"] = function(...)
+                            r47(r28)
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Quality Of Life")
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Semi-Godmode",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_13, ...)
+                            getgenv().SemiGodmode = u
+                            if SemiGodmode == true then
+                                r42("Info", "What Semi-Godmode Works On: Special Attacks (Pizza Boss's Pepper Attack, All Scarry Larry/Marry Attacks Except Monster Spawner), Hailing And Possibly Some Others\nWhat Semi-Godmode Doesnt Work On: Enemies, Ice (Use Anti Slip), Getting Locked In A Room While An Enemy Wave Comes, And Possibly Some Others.", 7, 4483345998)
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Remove Slipping",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_14, ...)
+                            getgenv().RemoveSlipping = u
+                            if RemoveSlipping == true then
+                                r42("Credits To", "Leo Dicap On V3rmillion For Making This Feature!", 7, 6034304908)
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Remove Hailing",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_15, ...)
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Remove Wind",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_16, ...)
+                            getgenv().NoWind = u
+                            while NoWind == true do
+                                r71()
+                                task.wait(0.5) 
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Remove Mud",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_17, ...)
+                            r69(arg1_17)
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Kitchen Food")
+                    pb.CreateSlider(pb, {
+                        ["Name"] = "Table Food Slot",
+                        ["Range"] = {
+                            0,
+                            4
+                        },
+                        ["Increment"] = 1,
+                        ["Suffix"] = "",
+                        ["CurrentValue"] = 1,
+                        ["Flag"] = "Slider13131",
+                        ["Callback"] = function(arg1_18, ...)
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Spawn Pizza Box",
+                        ["Callback"] = function(...)
+                            mel_7.FireServer(mel_7, 6, {
+                                ["item2"] = "Pizza",
+                                ["placement"] = r72
+                            })
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Spawn Bloxy Cola",
+                        ["Callback"] = function(...)
+                            mel_7.FireServer(mel_7, 6, {
+                                ["item2"] = "BloxyPack",
+                                ["placement"] = r72
+                            })
+                            return 
+                        end
+                    })
+                    pb.CreateSection(pb, "Others")
+                    pb.CreateToggle(pb, {
+                        ["Name"] = "Lag/Crash The Server",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_19, ...)
+                            while arg1_19 == true do
+                                for u = 1, 10 do
+                                    for n = mel_7, 4 do
+                                        mel_7.FireServer(mel_7, 6, {
+                                            ["item2"] = "Pizza",
+                                            ["placement"] = mel_6
+                                        })
+                                        mel_7.FireServer(mel_7, 6, {
+                                            ["item2"] = "BloxyPack",
+                                            ["placement"] = mel_6
+                                        }) 
+                                    end 
+                                end
+                                task.wait(.1) 
+                            end
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Break The Game",
+                        ["Callback"] = function(...)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.UnclePete.PrimaryPart.CFrame
+                            task.wait(0.5)
+                            mel_10.MoveTo(mel_10, Vector3.new(math.huge, math.huge, math.huge))
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Teleport To Private Lobby",
+                        ["Callback"] = function(...)
+                            mel_7.Teleport(mel_7, 14775231477, r31)
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Unlock Secret Ending",
+                        ["Callback"] = function(...)
+                            r67()
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Get The Best Weapon",
+                        ["Callback"] = function(...)
+                            r48()
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Get The Best Food",
+                        ["Callback"] = function(...)
+                            r49()
+                            return 
+                        end
+                    })
+                    pb.CreateButton(pb, {
+                        ["Name"] = "Get All Equipment",
+                        ["Callback"] = function(...)
+                            r53()
+                            return 
+                        end
+                    })
+                    Mb = cb.CreateTab(cb, "Combat", 4483362458)
+                    Mb.CreateSection(Mb, "Kill Enemies")
+                    Mb.CreateButton(Mb, {
+                        ["Name"] = "Kill All Enemies",
+                        ["Callback"] = function(...)
+                            for J = 1, 10 do
+                                r58() 
+                            end
+                            return 
+                        end
+                    })
+                    Mb.CreateToggle(Mb, {
+                        ["Name"] = "Loop Kill All",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_20, ...)
+                            getgenv().KillAllLoop = arg1_20
+                            while KillAllLoop do
+                                for u = 1, 3 do
+                                    r58() 
+                                end
+                                task.wait(.1) 
+                            end
+                            return 
+                        end
+                    })
+                    Mb.CreateSection(Mb, "Break Enemies")
+                    Mb.CreateButton(Mb, {
+                        ["Name"] = "Break All Enemies",
+                        ["Callback"] = function(...)
+                            r57()
+                            return 
+                        end
+                    })
+                    Mb.CreateToggle(Mb, {
+                        ["Name"] = "Loop Break All",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_21, ...)
+                            getgenv().BreakAllLoop = arg1_21
+                            while BreakAllLoop do
+                                r57()
+                                task.wait(1) 
+                            end
+                            return 
+                        end
+                    })
+                    Mb.CreateSection(Mb, "Bring Enemies")
+                    Mb.CreateButton(Mb, {
+                        ["Name"] = "Bring All Enemies",
+                        ["Callback"] = function(...)
+                            r65()
+                            return 
+                        end
+                    })
+                    Mb.CreateToggle(Mb, {
+                        ["Name"] = "Loop Bring All",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_22, ...)
+                            getgenv().BringAllLoop = arg1_22
+                            while BringAllLoop do
+                                r65()
+                                task.wait(.1) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub = cb.CreateTab(cb, "Game Breaking", 4483362458)
+                    Ub.CreateLabel(Ub, "Visible By Everyone")
+                    Ub.CreateSection(Ub, "Mass Deletion")
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete The House",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(o.GetChildren(o)) do
+                                if F.Name ~= "FloorLayer" then
+                                    r43(F)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete The Game(\xe2\x98\xa0\xef\xb8\x8f)",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q("pairs")) do
+                                r43(F) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Player Remover")
+                    Ub.CreateInput(Ub, {
+                        ["Name"] = "Delete Player's Body",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "PlayerName",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input122",
+                        ["Callback"] = function(arg1_23, ...)
+                            r43(o.GetService(o, "Workspace")[arg1_23])
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Other's Body",
+                        ["Callback"] = function(...)
+                            for u, F in o, pairs(q(o)) do
+                                if F.Name ~= mel_12 then
+                                    r43(mel_12.FindFirstChild(mel_12, tostring(F.Name), true))
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Everyone's Body",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q(o)) do
+                                r43(mel_12.FindFirstChild(mel_12, tostring(F.Name), true)) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Limbs Deletion")
+                    Ub.CreateInput(Ub, {
+                        ["Name"] = "Delete Player's Limbs",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "PlayerName",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input13333",
+                        ["Callback"] = function(arg1_24, ...)
+                            r43(u.LeftHand)
+                            r43(u.LeftFoot)
+                            r43(u.LeftLowerArm)
+                            r43(u.LeftLowerLeg)
+                            r43(u.LeftUpperArm)
+                            r43(u.LeftUpperLeg)
+                            r43(u.RightFoot)
+                            r43(u.RightHand)
+                            r43(u.RightLowerArm)
+                            r43(u.RightLowerLeg)
+                            r43(u.RightUpperArm)
+                            r43(u.RightUpperLeg)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Other's Limbs",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q("pairs")) do
+                                if F.Name ~= tostring(mel_11.GetService(mel_11, "Players").LocalPlayer.Name) then
+                                    r43(mel_8.LeftHand)
+                                    r43(mel_8.LeftFoot)
+                                    r43(mel_8.LeftLowerArm)
+                                    r43(mel_8.LeftLowerLeg)
+                                    r43(mel_8.LeftUpperArm)
+                                    r43(mel_8.LeftUpperLeg)
+                                    r43(mel_8.RightFoot)
+                                    r43(mel_8.RightHand)
+                                    r43(mel_8.RightLowerArm)
+                                    r43(mel_8.RightLowerLeg)
+                                    r43(mel_8.RightUpperArm)
+                                    r43(mel_8.RightUpperLeg)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Everyone's Limbs",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q(o)) do
+                                r43(mel_8.LeftHand)
+                                r43(mel_8.LeftFoot)
+                                r43(mel_8.LeftLowerArm)
+                                r43(mel_8.LeftLowerLeg)
+                                r43(mel_8.LeftUpperArm)
+                                r43(mel_8.LeftUpperLeg)
+                                r43(mel_8.RightFoot)
+                                r43(mel_8.RightHand)
+                                r43(mel_8.RightLowerArm)
+                                r43(mel_8.RightLowerLeg)
+                                r43(mel_8.RightUpperArm)
+                                r43(mel_8.RightUpperLeg) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Character Freezing")
+                    Ub.CreateInput(Ub, {
+                        ["Name"] = "Freeze Player",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "PlayerName",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input11111111",
+                        ["Callback"] = function(arg1_25, ...)
+                            pcall(function(...)
+                                local g = {
+                                    g[1],
+                                    g[2],
+                                    g[3],
+                                    95
+                                }
+                                v[g[1]](o.FindFirstChild(o, tostring(r73)).LowerTorso)
+                                return 
+                            end)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Freeze Other's Characters",
+                        ["Callback"] = function(...)
+                            for u, F in o, pairs(q(o)) do
+                                if F.Name ~= tostring(mel_15.GetService(mel_15, "Players").LocalPlayer.Name) and F.FindFirstChild(F, "LowerTorso") then
+                                    r43(a.FindFirstChild(a, tostring(F.Name)).LowerTorso)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Freeze Everyone's Characters",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q("pairs")) do
+                                if F.FindFirstChild(F, "LowerTorso") then
+                                    r43(a.FindFirstChild(a, tostring(F.Name)).LowerTorso)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Kill Players")
+                    Ub.CreateInput(Ub, {
+                        ["Name"] = "Kill Player",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "PlayerName",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input111111121",
+                        ["Callback"] = function(arg1_26, ...)
+                            pcall(function(...)
+                                local g = {
+                                    g[1],
+                                    g[2],
+                                    g[3],
+                                    35
+                                }
+                                v[g[1]](o.FindFirstChild(o, tostring(r74)).Head)
+                                v[g[1]](o.FindFirstChild(o, tostring(r74)).UpperTorso)
+                                return 
+                            end)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Kill Others",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q(o)) do
+                                if r75.Name ~= tostring(mel_11.GetService(mel_11, "Players").LocalPlayer.Name) then
+                                    pcall(function(...)
+                                        r43(o.FindFirstChild(o, tostring(r75.Name)).Head)
+                                        r43(o.FindFirstChild(o, tostring(r75.Name)).UpperTorso)
+                                        return 
+                                    end)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Kill Everyone",
+                        ["Callback"] = function(...)
+                            for u, F in o, pairs(q(o)) do
+                                pcall(function(...)
+                                    r43(o.FindFirstChild(o, tostring(r76.Name)).Head)
+                                    r43(o.FindFirstChild(o, tostring(r76.Name)).UpperTorso)
+                                    return 
+                                end) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Delete Models")
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Treadmills",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").Tredmills)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Benches",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").BenchPresses)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete TV",
+                        ["Callback"] = function(...)
+                            r43(o.GetService(o, "Workspace").TheHouse.Projector)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Vending Machines",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").VendingMachines)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Boss Room",
+                        ["Callback"] = function(...)
+                            r43(o.GetService(o, "Workspace").Final.BossRoom)
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Delete Enemies")
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Bad Guys",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(o.GetChildren(o)) do
+                                r43(F) 
+                            end
+                                X.GetChildren(X)
+                            }
+                            for o, F in pairs(q(F)) do
+                                r43(F) 
+                            end
+                                X.GetChildren(X)
+                            }
+                            for o, F in X[1], pairs(q(F)) do
+                                r43(F) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Pizza Miniboss",
+                        ["Callback"] = function(...)
+                            r43(u.FindFirstChild(u, "BadGuyPizza", true))
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Brute",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").BadGuyBrute)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Scary Mary",
+                        ["Callback"] = function(...)
+                            if mel_7.FindFirstChild(mel_7, "Villainess") then
+                                r43(u.GetService(u, "Workspace").Villainess)
+                                return
+                            end
+                            o, F = mel_1(u, o)
+                            while o do
+                                F.HumanoidRootPart.Anchored = true
+                                F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 
+                            end
+                                X.GetChildren(X)
+                            }
+                            for o, F in X[1], pairs(q(F)) do
+                                F.HumanoidRootPart.Anchored = true
+                                F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Delete Scary Larry",
+                        ["Callback"] = function(...)
+                            if mel_7.FindFirstChild(mel_7, "BigBoss") then
+                                r43(u.GetService(u, "Workspace").BigBoss)
+                            else
+                                r42("Warning", "Scary Larry Is Already Deleted Or Boss Fight Hasnt Started!", 7, 6034304908)
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateSection(Ub, "Weather Modifications")
+                    Ub.CreateToggle(Ub, {
+                        ["Name"] = "Remove Wind For Everyone",
+                        ["CurrentValue"] = false,
+                        ["Flag"] = "Toggle212431313131",
+                        ["Callback"] = function(arg1_27, ...)
+                            getgenv().NoWindSS = u
+                            while NoWindSS == true do
+                                r70()
+                                task.wait(.1) 
+                            end
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Remove Ice For Everyone",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").Terrain)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Remove Hailing For Everyone",
+                        ["Callback"] = function(...)
+                            r43(u.GetService(u, "Workspace").Hails)
+                            return 
+                        end
+                    })
+                    Ub.CreateButton(Ub, {
+                        ["Name"] = "Remove Mud For Everyone",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(o.GetDescendants(o)) do
+                                if F.Name == "Mud" and F.IsA(F, "Part") then
+                                    r43(F)
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Bb = cb.CreateTab(cb, "Teleports", 4483362458)
+                    Bb.CreateSection(Bb, "Main")
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Home",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-239, 30, -790))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Boss Fight",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-1565.78772, -368.711945, -1040.66626, .0929690823, -1.97564436e-08, .995669007, -1.53269308e-08, 1, 2.1273511e-08, -0.995669007, -1.72383299e-08, .0929690823))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Shop",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-246.653229, 30.4500484, -847.319275, .999987781, -9.18427645e-08, -0.00494772941, 9.19905787e-08, 1, 2.96483353e-08, .00494772941, -3.01031164e-08, .999987781))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Kitchen",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-249.753555, 30.4500484, -732.703125, -0.999205947, -1.97705017e-08, .0398429185, -2.00601384e-08, 1, -6.86967372e-09, -0.0398429185, -7.66347341e-09, -0.999205947))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Fighting Arena",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-255.521988, 62.7139359, -723.436035, -0.0542500541, 4.28905356e-09, -0.998527408, 1.07862625e-08, 1, 3.70936082e-09, .998527408, -1.05691456e-08, -0.0542500541))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "The Gym",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-256.477448, 63.4500465, -840.825562, .999789953, 2.17116263e-08, .020495005, -2.15169358e-08, 1, -9.7199333e-09, -0.020495005, 9.27690191e-09, .999789953))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Golden Apple",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(61.8781624, 29.4499969, -534.381165, -0.584439218, -1.05103076e-07, .811437488, -3.12853778e-08, 1, 1.06993674e-07, -0.811437488, 3.71451705e-08, -0.584439218))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Feeding Instructions",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-207.885056, 60.4500465, -830.583557, .118373089, 3.89876789e-08, -0.992969215, 3.47791551e-09, 1, 3.96783406e-08, .992969215, -8.15031065e-09, .118373089))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Middle Room",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-209.951859, 30.4590473, -789.723877, -0.0485812724, 6.74905039e-08, .998819232, 1.19352916e-09, 1, -6.75122394e-08, -0.998819232, -2.08771045e-09, -0.0485812724))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Scarry Mary Pillar",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-1501.49597, -325.156891, -1060.63367, -0.691015959, 7.43958628e-09, .722839475, -5.03345055e-09, 1, -1.51040194e-08, -0.722839475, -1.40754954e-08, -0.691015959))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Outside Loot",
+                        ["Callback"] = function(...)
+                            r52(o.FindFirstChildWhichIsA(o, "Part", true).CFrame + Vector3.new(10, 0, 0))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Experiment Room",
+                        ["Callback"] = function(...)
+                            r52(X.GetChildren(X)[2].CFrame + Vector3.new(20, 0, 0))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Cafeteria",
+                        ["Callback"] = function(...)
+                            r52(u.FindFirstChild(u, "Legs", true).CFrame)
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Rainbow Pizza Box",
+                        ["Callback"] = function(...)
+                            r52(o.GetService(o, "Workspace").RainbowPizzaBox.CFrame)
+                            return 
+                        end
+                    })
+                    Bb.CreateSection(Bb, "NPC's")
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Secret Agent Bradley",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-281.792053, 95.4500275, -790.556946, -0.116918251, -7.95074726e-08, -0.993141532, -2.79918044e-09, 1, -7.97270019e-08, .993141532, -6.54155974e-09, -0.116918251))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Twando The Dog",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-257.56839, 29.4499969, -910.452637, -0.238445505, 7.71292363e-09, .971155882, 1.2913591e-10, 1, -7.91029819e-09, -0.971155882, -1.76076387e-09, -0.238445505))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Uncle Pete",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-294.208923, 63.4182587, -737.712036, -0.998669028, -7.34403613e-08, -0.05157727, -7.2258743e-08, 1, -2.47743781e-08, .05157727, -2.1014495e-08, -0.998669028))
+                            return 
+                        end
+                    })
+                    Bb.CreateSection(Bb, "Secret Ending")
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Golden Crowbar",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-147.337204, 29.4477005, -929.365295, .756779075, 4.53537341e-09, -0.653670728, 5.82708326e-09, 1, 1.36845468e-08, .653670728, -1.4165173e-08, .756779075))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Purple Mask",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(102.560722, 29.2477055, -976.389954, -0.951403797, 3.76210636e-08, -0.307946175, 1.89752569e-08, 1, 6.35433466e-08, .307946175, 5.46120233e-08, -0.951403797))
+                            return 
+                        end
+                    })
+                    Bb.CreateButton(Bb, {
+                        ["Name"] = "Homeless Kid",
+                        ["Callback"] = function(...)
+                            r52(CFrame.new(-79.4871826, 29.4477024, -932.782715, -0.215949073, 3.18771427e-08, .976404607, -7.60385461e-08, 1, -4.94647345e-08, -0.976404607, -8.49262562e-08, -0.215949073))
+                            return 
+                        end
+                    })
+                    Ob = cb.CreateTab(cb, "Player Ability", 4483362458)
+                    Ob.CreateSection(Ob, "Settings")
+                    Ob.CreateSlider(Ob, {
+                        ["Name"] = "Walk Speed",
+                        ["Range"] = {
+                            0,
+                            500
+                        },
+                        ["Increment"] = 1,
+                        ["Suffix"] = "Speed",
+                        ["CurrentValue"] = 50,
+                        ["Flag"] = "Slide3131",
+                        ["Callback"] = function(arg1_28, ...)
+                            return 
+                        end
+                    })
+                    Ob.CreateSlider(Ob, {
+                        ["Name"] = "Jump Power",
+                        ["Range"] = {
+                            0,
+                            500
+                        },
+                        ["Increment"] = 1,
+                        ["Suffix"] = "Power",
+                        ["CurrentValue"] = 50,
+                        ["Flag"] = "Slide31312",
+                        ["Callback"] = function(arg1_29, ...)
+                            return 
+                        end
+                    })
+                    Ob.CreateSection(Ob, "Player")
+                    Ob.CreateToggle(Ob, {
+                        ["Name"] = "Enable Walk Speed",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_30, ...)
+                            if arg1_30 == true then
+                                r31.Character.Humanoid.WalkSpeed = r35
+                            else
+                                r31.Character.Humanoid.WalkSpeed = r33
+                            end
+                            return 
+                        end
+                    })
+                    Ob.CreateToggle(Ob, {
+                        ["Name"] = "Enable Jump Power",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_31, ...)
+                            if mel_1 == true then
+                                r31.Character.Humanoid.JumpPower = r36
+                                r31.Character.Humanoid.UseJumpPower = o
+                            else
+                                r31.Character.Humanoid.JumpPower = r34
+                            end
+                            return 
+                        end
+                    })
+                    Ob.CreateToggle(Ob, {
+                        ["Name"] = "Enable Noclip",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_32, ...)
+                            getgenv().Noclipping = u
+                            if Noclipping == true then
+                                spawn(function(...)
+                                    while Noclipping == true do
+                                        r66(false)
+                                        task.wait(.05) 
+                                    end
+                                    return 
+                                end)
+                            end
+                            if Noclipping == false then
+                                r66(true)
+                            end
+                            return 
+                        end
+                    })
+                    Ob.CreateToggle(Ob, {
+                        ["Name"] = "Enable Floating",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_33, ...)
+                            getgenv().Float = u
+                            if Float == true then
+                                spawn(function(...)
+                                    while Float == true do
+                                        r25.CFrame = r31.Character.HumanoidRootPart.CFrame + Vector3.new(0, -4, 0)
+                                        task.wait(.05) 
+                                    end
+                                    return 
+                                end)
+                            end
+                            if Float == false then
+                                r25.CFrame = r31.Character.HumanoidRootPart.CFrame + Vector3.new(0, 999, 0)
+                            end
+                            return 
+                        end
+                    })
+                    Eb = cb.CreateTab(cb, "Badges", 4483362458)
+                    Eb.CreateSection(Eb, "Origin ending")
+                    r77 = ".gg/rTw5M8dRXN | Breaking Blitz has"
+                    Eb.CreateInput(Eb, {
+                        ["Name"] = "origin ending message(troll)",
+                        ["CurrentValue"] = r77,
+                        ["PlaceholderText"] = "Message to origin ending",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input2222",
+                        ["Callback"] = function(arg1_34, ...)
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Unlock ending",
+                        ["Callback"] = function(...)
+                            mel_10.FireServer(mel_10, 5, r77)
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "esp hidden items in origin ending",
+                        ["Callback"] = function(...)
+                            local function r78(arg1_35, arg2_35, ...)
+                                return 
+                            end
+                            local function o(arg1_37, ...)
+                                mel_10.Connect(mel_10, function(arg1_38, ...)
+                                    if mel_1.Name == "HiddenItem" and mel_1.IsA(mel_1, "Model") then
+                                        r78(mel_1, r82)
+                                    end
+                                    return 
+                                end)
+                                if u then
+                                end
+                                if u then
+                                    r78(u, r82)
+                                end
+                                return 
+                            end
+                            for F, mel_12 in mel_8, pairs(q(mel_8)) do
+                                o(mel_12)
+                            end
+                            mel_10.Connect(mel_10, o)
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "auto rose",
+                        ["Callback"] = function(...)
+                            for o = 1, 10 do
+                                for p = 1, 6 do
+                                    for O = 1, 6 do
+                                        mel_10.FireServer(mel_10, workspace.Gym.Roses.Rose, mel_12) 
+                                    end 
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Eb.CreateSection(Eb, "others")
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Dream Team (And The 3 Below)",
+                        ["Callback"] = function(...)
+                            r59()
+                            task.wait(5)
+                            r60()
+                            task.wait(1)
+                            r61()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Operation: Dog Rescue",
+                        ["Callback"] = function(...)
+                            r59()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Wake Up, Bradley!",
+                        ["Callback"] = function(...)
+                            r60()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Uncle Pete's Return",
+                        ["Callback"] = function(...)
+                            r61()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "The Golden Apple",
+                        ["Callback"] = function(...)
+                            r68()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Delivery's Here",
+                        ["Callback"] = function(...)
+                            r64()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "So Speedy",
+                        ["Callback"] = function(...)
+                            for J = 1, 5 do
+                                r50("Speed") 
+                            end
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "So Strong",
+                        ["Callback"] = function(...)
+                            for J = 1, 5 do
+                                r50("Strength") 
+                            end
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Reformed",
+                        ["Callback"] = function(...)
+                            r67()
+                            return 
+                        end
+                    })
+                    Eb.CreateButton(Eb, {
+                        ["Name"] = "Avoid Humiliation",
+                        ["Callback"] = function(...)
+                            r53()
+                            task.wait(4)
+                            r59()
+                            task.wait(5)
+                            r60()
+                            task.wait(1)
+                            r61()
+                            return 
+                        end
+                    })
+                    ab = cb.CreateTab(cb, "Misc", 4483362458)
+                    ab.CreateSection(ab, "Harmful")
+                    ab.CreateSlider(ab, {
+                        ["Name"] = "Damage Amount",
+                        ["Range"] = {
+                            0,
+                            200
+                        },
+                        ["Increment"] = 1,
+                        ["Suffix"] = "Damage",
+                        ["CurrentValue"] = 5,
+                        ["Flag"] = "Slider1313131",
+                        ["Callback"] = function(arg1_39, ...)
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Damage Yourself",
+                        ["Callback"] = function(...)
+                            if SemiGodmode ~= false then
+                                r42("Warning", "Damaging Yourself Won't Work Due To Having 'Semi Godmode' Enabled!", 7, 6034304908)
+                            else
+                                r51(r29)
+                            end
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Slip",
+                        ["Callback"] = function(...)
+                            if mel_7 ~= false then
+                                r42("Warning", "Slipping Won't Work Due To Having 'Remove Slipping' Enabled!", 7, 6034304908)
+                            else
+                                mel_7.FireServer(mel_7, Vector3.new(0, 0, 0))
+                            end
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "Tools")
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Equip All",
+                        ["Callback"] = function(...)
+                            r46()
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Unequip All",
+                        ["Callback"] = function(...)
+                            r45()
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "Bosses")
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Delete Scary Mary",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Delete Scary Larry",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "NPC's")
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Get All NPC's",
+                        ["Callback"] = function(...)
+                            r59()
+                            task.wait(5)
+                            r60()
+                            task.wait(1)
+                            r61()
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Get Dog",
+                        ["Callback"] = function(...)
+                            r59()
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Get Agent Bradley",
+                        ["Callback"] = function(...)
+                            r60()
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Get Uncle Pete",
+                        ["Callback"] = function(...)
+                            r61()
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "Cash")
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Collect Cash",
+                        ["Callback"] = function(...)
+                            r63()
+                            return 
+                        end
+                    })
+                    ab.CreateToggle(ab, {
+                        ["Name"] = "Auto Collect Cash",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_40, ...)
+                            getgenv().CollectAllCash = arg1_40
+                            while CollectAllCash do
+                                r63()
+                                task.wait(1) 
+                            end
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "Others")
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Get All Items From Outside(fixed working any executor)",
+                        ["Callback"] = function(...)
+                            r64()
+                            return 
+                        end
+                    })
+                    ab.CreateButton(ab, {
+                        ["Name"] = "Break Fallen Trees",
+                        ["Callback"] = function(...)
+                            r56()
+                            return 
+                        end
+                    })
+                    ab.CreateToggle(ab, {
+                        ["Name"] = "Hidden Items ESP",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_41, ...)
+                            if arg1_41 == true then
+                                for o, mel_8 in pairs(X.GetChildren(X)) do
+                                    mel_6.Parent = mel_8
+                                    mel_6.FillColor = Color3.fromRGB(255, 0, 255)
+                                    mel_6.FillTransparency = 0
+                                    mel_6.OutlineTransparency = 0
+                                    mel_6.OutlineColor = Color3.fromRGB(0, 0, 255) 
+                                end
+                            else
+                                for X, mel_8 in pairs(q(mel_8)) do
+                                end
+                                return
+                            end 
+                        end
+                    })
+                    ab.CreateToggle(ab, {
+                        ["Name"] = "Full Bright",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_42, ...)
+                            if arg1_42 == true then
+                                r32.Brightness = 1
+                                r32.FogEnd = 999999
+                                r32.GlobalShadows = false
+                            else
+                                r32.Brightness = r37
+                                r32.FogEnd = r38
+                                r32.GlobalShadows = r39
+                            end
+                            return 
+                        end
+                    })
+                    ab.CreateSection(ab, "Auto Func")
+                    ab.CreateToggle(ab, {
+                        ["Name"] = "Auto Quests",
+                        ["CurrentValue"] = false,
+                        ["Callback"] = function(arg1_43, ...)
+                            getgenv().AutoPete = mel_1
+                            return 
+                        end
+                    })
+                    Rb = cb.CreateTab(cb, "Game Breaking 2", 4483362458)
+                    Rb.CreateSection(Rb, "Break in 2")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Infinite Yield",
+                        ["Callback"] = function(...)
+                            loadstring(mel_1.HttpGet(mel_1, "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Dex",
+                        ["Callback"] = function(...)
+                            loadstring(mel_1.HttpGet(mel_1, "https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Kick Players")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in pairs(q(X)) do
+                                if mel_8.Character then
+                                    table.insert({}, mel_8.Name)
+                                end 
+                            end
+                            return {} 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown1",
+                        ["Callback"] = function(arg1_44, ...)
+                            r83 = arg1_44[1]
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Kick",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Naked")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in X, pairs(q(X)) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown2",
+                        ["Callback"] = function(arg1_45, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Clothes",
+                        ["Callback"] = function(...)
+                            if r84 and r84.Character then
+                                if u then
+                                    r43(u)
+                                end
+                                if o then
+                                    r43(o)
+                                end
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Everyone's Clothes (fixed)",
+                        ["Callback"] = function(...)
+                                mel_8(mel_1)
+                            }
+                            for X, mel_6 in pairs(q(F)) do
+                                u[mel_6.Name] = true 
+                            end
+                            for F, mel_6 in pairs(mel_6.GetChildren(mel_6)) do
+                                if mel_6.IsA(mel_6, "Model") and u[mel_6.Name] then
+                                    for U, B in pairs(B(mel_6)) do
+                                        if B.ClassName == "Shirt" or B.ClassName == "Pants" then
+                                            r43(B)
+                                        end 
+                                    end
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Accessory")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in pairs(q(X)) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown3",
+                        ["Callback"] = function(arg1_46, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Selected Player's Accessories",
+                        ["Callback"] = function(...)
+                            if r85 and r85.Character then
+                                for u, F in pairs(o.GetChildren(o)) do
+                                    if F.IsA(F, "Accessory") then
+                                        r43(F)
+                                    end 
+                                end
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Everyone's Accessories",
+                        ["Callback"] = function(...)
+                            for u, F in pairs(q(o)) do
+                                if F[r15[a]] then
+                                        a.GetChildren(a)
+                                    }
+                                    for mel_12, U in pairs(q(U)) do
+                                        if U.IsA(U, "Accessory") then
+                                            r43(U)
+                                        end 
+                                    end
+                                end 
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Player Hair")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in X, pairs(q(X)) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown4",
+                        ["Callback"] = function(arg1_47, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Hair",
+                        ["Callback"] = function(...)
+                            if r86 and r86.Character then
+                                for u, F in o, pairs(o.GetChildren(o)) do
+                                    if F.IsA(F, "Accessory") and F.AccessoryType == Enum.AccessoryType.Hair then
+                                        r43(F)
+                                    end 
+                                end
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Player Face")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in pairs(q("pairs")) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown5",
+                        ["Callback"] = function(arg1_48, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Face",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Player TShirt")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in pairs(q(X)) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown6",
+                        ["Callback"] = function(arg1_49, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete TShirt",
+                        ["Callback"] = function(...)
+                            if r88 and r88.Character then
+                                for u, F in pairs(o.GetChildren(o)) do
+                                    if F.IsA(F, mel_12) and mel_12.find(mel_12, "shirt") then
+                                        r43(F)
+                                    end 
+                                end
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Player Hat")
+                    Rb.CreateDropdown(Rb, {
+                        ["Name"] = "Select Player",
+                        ["Options"] = (function(...)
+                                F.GetPlayers(F)
+                            }
+                            for o, mel_8 in pairs(q(X)) do
+                                table.insert(mel_1, mel_8.Name) 
+                            end
+                            return mel_1 
+                        end)(),
+                        ["CurrentOption"] = {
+                            "Select Player"
+                        },
+                        ["MultipleOptions"] = false,
+                        ["Flag"] = "SelectPlayerDropdown7",
+                        ["Callback"] = function(arg1_50, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Hat",
+                        ["Callback"] = function(...)
+                            if r89 and r89.Character then
+                                for u, F in pairs(o.GetChildren(o)) do
+                                    if F.IsA(F, mel_12) and mel_12.find(mel_12, "hat") then
+                                        r43(F)
+                                    end 
+                                end
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Tool")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Tool (you can delete things and the game may broken)",
+                        ["Callback"] = function(...)
+                            mel_1.Name = "Delete Tool"
+                            mel_1.RequiresHandle = false
+                            mel_1.Parent = game.Players.LocalPlayer.Backpack
+                            mel_10.Connect(mel_10, function(...)
+                                return 
+                            end)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Harked")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Harked SS Script",
+                        ["Callback"] = function(...)
+                            loadstring(mel_1.HttpGet(mel_1, "https://raw.githubusercontent.com/JulesV2/sigma-sigma-boy/refs/heads/main/break%20in%202%20harked.lua"))()
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Funny")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete all BenchPress",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete all Tredmills",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Doors")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Doors (I do not recommend)",
+                        ["Callback"] = function(...)
+                            if u then
+                                r43(u)
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Trees")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Trees",
+                        ["Callback"] = function(...)
+                            for u, F in pairs("pairs") do
+                            end
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete NPCs")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete UnclePete",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Dog",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Agent Bradley",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete VendingMachines")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Weapons",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Food",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Drinks",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Armor",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete all VendingMachines",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete any model (use Dex)")
+                    r90 = ""
+                    Rb.CreateInput(Rb, {
+                        ["Name"] = "Enter Model Name",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "Model Name",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input31",
+                        ["Callback"] = function(arg1_51, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Model",
+                        ["Callback"] = function(...)
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete any Folder")
+                    r91 = ""
+                    Rb.CreateInput(Rb, {
+                        ["Name"] = "Enter Folder Name",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "Folder Name",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input69",
+                        ["Callback"] = function(arg1_52, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Folder",
+                        ["Callback"] = function(...)
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete any Part")
+                    r92 = ""
+                    Rb.CreateInput(Rb, {
+                        ["Name"] = "Enter Part Name",
+                        ["CurrentValue"] = "",
+                        ["PlaceholderText"] = "Part Name",
+                        ["RemoveTextAfterFocusLost"] = false,
+                        ["Flag"] = "Input1",
+                        ["Callback"] = function(arg1_53, ...)
+                            return 
+                        end
+                    })
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete Part",
+                        ["Callback"] = function(...)
+                        end
+                    })
+                    Rb.CreateSection(Rb, "Delete Golden Apple")
+                    Rb.CreateButton(Rb, {
+                        ["Name"] = "Delete GoldenApple",
+                        ["Callback"] = function(...)
+                            return 
+                        end
+                    })
+                    Rb.CreateParagraph(Rb, {
+                        ["Title"] = "\xe2\x9c\x85",
+                        ["Content"] = "Why are we deleting the Golden Apple? If you delete the Golden Apple, normal players won't be able to get it. So, what happens if normal players do get it? You won't be able to use the 'heal all' command or obtain it from the 'get item' section. Why? Because once they get it, the Golden Apple won't be available again. If you want to prevent this, you can delete it."
+                    })
+                    r42("Loaded!", "Script Successfully Loaded!", 5, 6034304908)
+                    hb = r26
+                    hb.LoadConfiguration(hb)
+                else
+                    r94 = "https://raw.githubusercontent.com/Fluxincontroller/RandomStuff/refs/heads/main/reloadshi"
+                    if B then
+                        B.Connect(B, function(arg1_54, ...)
+                            if not r95 then
+                                print("[Teleport Test] Teleport detected \xe2\x80\x93 re\xe2\x80\x91queuing script.")
+                                r24("loadstring(game:HttpGet('" .. r94 .. "'))()")
+                            end
+                            if arg1_54 == Enum.TeleportState.Completed then
+                                print("[Teleport Test] Teleport completed.")
+                            end
+                            return 
+                        end)
+                    end
+                    return
+                end
+            end
+        end

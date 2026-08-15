@@ -12744,6 +12744,7 @@ plr.CharacterAdded:Connect(function(char)
     updateWalkSpeedF()
 end)
 do
+--[[
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -12799,7 +12800,60 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     task.wait(0.1)
     applyJumpPower()
 end)
+]]
 
+local plr = game.Players.LocalPlayer
+local jumpPowerT = false
+local jumpPowerV = 50
+
+local function updateJumpPowerF()
+    local function apply(char)
+        local hum = char:WaitForChild("Humanoid")
+
+        if jumpPowerT then
+            hum.UseJumpPower = true
+            hum.JumpPower = jumpPowerV
+            hum:GetPropertyChangedSignal("JumpPower"):Connect(function()
+                if jumpPowerT then
+                    hum.JumpPower = jumpPowerV
+                end
+            end)
+        else
+            hum.UseJumpPower = true
+            hum.JumpPower = 50
+        end
+    end
+
+    if plr.Character then
+        apply(plr.Character)
+    end
+
+    plr.CharacterAdded:Connect(apply)
+end
+playerTab:AddToggle({
+    Name = "점프높이",
+    Default = false,
+    Callback = function(Value)
+        jumpPowerT = Value
+        updateJumpPowerF()
+    end    
+})
+
+playerTab:AddSlider({
+    Name = "점프 높이 조절",
+    Min = 24,
+    Max = 500,
+    Default = 50,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "Power",
+    Callback = function(Value)
+        jumpPowerV = Value
+        if jumpPowerT then
+            updateJumpPowerF()
+        end
+    end    
+})
 end
 playerTab:AddSection({
     Name = "자가 킬"
@@ -12832,14 +12886,14 @@ task.spawn(function()
 end)
 
 
-Tab:AddButton({
+playerTab:AddButton({
     Name = "자가 킬",
     Callback = function()
         KillSelf()
     end    
 })
 
-Tab:AddToggle({
+playerTab:AddToggle({
     Name = "자가 루프 킬",
     Default = false,
     Callback = function(Value)

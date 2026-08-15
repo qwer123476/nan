@@ -1,0 +1,97 @@
+local function isBlocked(url)
+    if type(url) ~= 'string' then return false end
+    
+    local cleanUrl = url:gsub("%%(%x%x)", function(hex)
+        return string.char(tonumber(hex, 16))
+    end):lower()
+
+    local targets = {
+        'discord.com/api/webhooks', 'discordapp.com/api/webhooks',
+        'api.telegram.org', 'guilded.gg/api/webhooks', 'hooks.hyra.io',
+        'webhook.lewisakura.moe', 'webhook.pm', 'webhook.site', 'pipedream',
+        'requestbin', 'log', 'logger', 'iplogger', 'grabify', 'blasthk',
+        'ps3cfw', '2no.co', 'yc.do', 'pastebin.com/raw', 'hastebin', 'controlc',
+        'jnkie.com', 'jnkie', 'relay', 'webhooks', 'vercel.app', 'herokuapp.com',
+        'render.com', 'glitch.me', 'repl.co', 'replit.dev', 'ngrok', 'loca.lt',
+        'telemetry', 'analytics', 'track', 'capture'
+    }
+
+    for i = 1, #targets do
+        if cleanUrl:find(targets[i], 1, true) then
+            return true
+        end
+    end
+
+    if cleanUrl:find('%d+%.%d+%.%d+%.%d+') or cleanUrl:find('0x%x+') then
+        return true
+    end
+
+    return false
+end
+
+do
+    local rawHttpGet
+    rawHttpGet = hookfunction(game.HttpGet, newcclosure(function(self, url, ...)
+        if isBlocked(url) then
+            warn('[강제 차단] ' .. tostring(url))
+            return "return {}"
+        end
+        return rawHttpGet(self, url, ...)
+    end))
+end
+
+do
+    local env = getgenv and getgenv() or _G
+    local reqNames = {'request', 'http_request'}
+
+    for i = 1, #reqNames do
+        local name = reqNames[i]
+        local orig = env[name]
+        if type(orig) == 'function' then
+            local hooked
+            hooked = hookfunction(orig, newcclosure(function(req, ...)
+                local url = (type(req) == 'table' and req.Url) or (type(req) == 'string' and req) or ''
+                if isBlocked(url) then
+                    warn('[강제 차단] ' .. tostring(url))
+                    return {Success = false, StatusCode = 403, StatusMessage = 'Forbidden', Headers = {}, Body = 'Access Denied'}
+                end
+                return hooked(req, ...)
+            end))
+        end
+    end
+
+    local libs = {'http', 'syn', 'fluxus', 'krnl', 'delta'}
+    for i = 1, #libs do
+        local lib = env[libs[i]]
+        if type(lib) == 'table' and type(lib.request) == 'function' then
+            local orig = lib.request
+            local hooked
+            hooked = hookfunction(orig, newcclosure(function(req, ...)
+                local url = (type(req) == 'table' and req.Url) or (type(req) == 'string' and req) or ''
+                if isBlocked(url) then
+                    warn('[강제 차단] ' .. tostring(url))
+                    return {Success = false, StatusCode = 403, StatusMessage = 'Forbidden', Headers = {}, Body = 'Access Denied'}
+                end
+                return hooked(req, ...)
+            end))
+        end
+    end
+end
+
+do
+    local env = getgenv and getgenv() or _G
+    local wsObj = WebSocket or (syn and syn.websocket)
+    if wsObj and type(wsObj.connect) == 'function' then
+        local origWs = wsObj.connect
+        local hooked
+        hooked = hookfunction(origWs, newcclosure(function(url, ...)
+            if isBlocked(url) then
+                warn('[강제 차단] WebSocket: ' .. tostring(url))
+                return nil
+            end
+            return hooked(url, ...)
+        end))
+    end
+end
+
+print('로드완료')

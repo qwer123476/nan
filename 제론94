@@ -12833,6 +12833,7 @@ end
 playerTab:AddToggle({
     Name = "점프높이",
     Default = false,
+    Flag = "운지",
     Callback = function(Value)
         jumpPowerT = Value
         updateJumpPowerF()
@@ -12844,6 +12845,7 @@ playerTab:AddSlider({
     Min = 24,
     Max = 500,
     Default = 50,
+    Flag = "보댕이",
     Color = Color3.fromRGB(255,255,255),
     Increment = 1,
     ValueName = "Power",
@@ -12906,7 +12908,7 @@ playerTab:AddButton({
 })
 
 playerTab:AddToggle({
-    Name = "자가 루프 킬",
+    Name = "자가 루프 킬(키지마셈ㅋ)",
     Default = false,
     Callback = function(Value)
         LoopKill = Value

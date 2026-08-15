@@ -1756,7 +1756,7 @@ local mel_8 = 1
                             for u, F in pairs(q(o)) do
                                 if F[r15[a]] then
                                         a.GetChildren(a)
-                                    }
+                                    
                                     for mel_12, U in pairs(q(U)) do
                                         if U.IsA(U, "Accessory") then
                                             r43(U)
@@ -1772,7 +1772,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in X, pairs(q(X)) do
                                 table.insert(mel_1, mel_8.Name) 
                             end
@@ -1805,7 +1805,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in pairs(q("pairs")) do
                                 table.insert(mel_1, mel_8.Name) 
                             end
@@ -1831,7 +1831,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in pairs(q(X)) do
                                 table.insert(mel_1, mel_8.Name) 
                             end

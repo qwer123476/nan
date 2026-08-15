@@ -1990,7 +1990,7 @@ Rb:AddDropdown({
     Name = "플레이어 선택",
     Options = (function()
         local plrs = {}
-        for o, mel_8 in pairs(q(X)) do
+        --for o, mel_8 in pairs(q(X)) do
             table.insert(plrs, mel_8.Name)
         end
         return plrs

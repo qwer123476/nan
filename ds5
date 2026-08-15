@@ -1639,7 +1639,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in pairs(q(X)) do
                                 if mel_8.Character then
                                     table.insert({}, mel_8.Name)
@@ -1668,7 +1668,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in X, pairs(q(X)) do
                                 table.insert(mel_1, mel_8.Name) 
                             end
@@ -1701,7 +1701,7 @@ local mel_8 = 1
                         ["Name"] = "Delete Everyone's Clothes (fixed)",
                         ["Callback"] = function(...)
                                 mel_8(mel_1)
-                            }
+                            
                             for X, mel_6 in pairs(q(F)) do
                                 u[mel_6.Name] = true 
                             end
@@ -1722,7 +1722,7 @@ local mel_8 = 1
                         ["Name"] = "Select Player",
                         ["Options"] = (function(...)
                                 F.GetPlayers(F)
-                            }
+                            
                             for o, mel_8 in pairs(q(X)) do
                                 table.insert(mel_1, mel_8.Name) 
                             end

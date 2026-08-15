@@ -958,7 +958,7 @@ local mel_8 = 1
                                 r43(F) 
                             end
                                 X.GetChildren(X)
-                            }
+                            
                             for o, F in pairs(q(F)) do
                                 r43(F) 
                             end

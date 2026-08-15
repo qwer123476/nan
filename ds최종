@@ -1144,11 +1144,11 @@ GameBreakTab:AddTextbox({
 --local Window = OrionLib:MakeWindow({Name = "Break In 2 Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionConfig"})
 
 ---local MainTab = Window:MakeTab({Name = "메인", Icon = "rbxassetid://4483362458", PremiumOnly = false})
---local TeleportTab = Window:MakeTab({Name = "텔레포트", Icon = "rbxassetid://4483362458", PremiumOnly = false})
---local AbilityTab = Window:MakeTab({Name = "능력치", Icon = "rbxassetid://4483362458", PremiumOnly = false})
---local BadgeTab = Window:MakeTab({Name = "배지 / 엔딩", Icon = "rbxassetid://4483362458", PremiumOnly = false})
---local MiscTab = Window:MakeTab({Name = "기타", Icon = "rbxassetid://4483362458", PremiumOnly = false})
---local ScriptTab = Window:MakeTab({Name = "외부 스크립트", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local TeleportTab = Window:MakeTab({Name = "텔레포트", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local AbilityTab = Window:MakeTab({Name = "능력치", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local BadgeTab = Window:MakeTab({Name = "배지 / 엔딩", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local MiscTab = Window:MakeTab({Name = "기타", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+local ScriptTab = Window:MakeTab({Name = "외부 스크립트", Icon = "rbxassetid://4483362458", PremiumOnly = false})
 
 MainTab:AddSection({Name = "플레이어 처치"})
 
@@ -1552,7 +1552,7 @@ AbilityTab:AddToggle({
 })
 
 AbilityTab:AddToggle({
-    Name = "공중 부유",
+    Name = "힙하이스트",
     Default = false,
     Callback = function(Value)
         getgenv().Float = Value
@@ -1570,11 +1570,11 @@ AbilityTab:AddToggle({
     end
 })
 
-BadgeTab:AddSection({Name = "오리진 엔딩"})
+BadgeTab:AddSection({Name = "오리지널 엔딩"})
 
-local originMsg = ".gg/rTw5M8dRXN | Breaking Blitz has"
+local originMsg = "ZK HUB EMDING"
 BadgeTab:AddTextbox({
-    Name = "오리진 엔딩 메시지",
+    Name = "오리지널 엔딩 메시지",
     Default = originMsg,
     TextDisappear = false,
     Callback = function(Value)
@@ -1674,7 +1674,7 @@ BadgeTab:AddButton({
 })
 
 BadgeTab:AddButton({
-    Name = "속도 만렙",
+    Name = "속도스탯 올리기",
     Callback = function()
         for J = 1, 5 do
             r50("Speed")
@@ -1683,7 +1683,7 @@ BadgeTab:AddButton({
 })
 
 BadgeTab:AddButton({
-    Name = "힘 만렙",
+    Name = "힘스탯 올리기",
     Callback = function()
         for J = 1, 5 do
             r50("Strength")
@@ -1692,7 +1692,7 @@ BadgeTab:AddButton({
 })
 
 BadgeTab:AddButton({
-    Name = "교화됨",
+    Name = "교화",
     Callback = function()
         r67()
     end
@@ -1711,7 +1711,7 @@ BadgeTab:AddButton({
     end
 })
 
-MiscTab:AddSection({Name = "자해 / 데미지"})
+MiscTab:AddSection({Name = "데미지"})
 
 MiscTab:AddSlider({
     Name = "데미지 수치",
@@ -1726,10 +1726,10 @@ MiscTab:AddSlider({
 })
 
 MiscTab:AddButton({
-    Name = "자해하기",
+    Name = "자살",
     Callback = function()
         if SemiGodmode ~= false then
-            r42("Warning", "Damaging Yourself Won't Work Due To Having 'Semi Godmode' Enabled!", 7, 6034304908)
+            r42("위험", "'세미 갓모드'를 가지고 있어서 자가 데미지는 효과가 없을 거예요.' 활성화!", 7, 6034304908)
         else
             r51(r29)
         end
@@ -1740,7 +1740,7 @@ MiscTab:AddButton({
     Name = "미끄러지기",
     Callback = function()
         if mel_7 ~= false then
-            r42("Warning", "Slipping Won't Work Due To Having 'Remove Slipping' Enabled!", 7, 6034304908)
+            r42("위험", "미끄러짐을 제거해야 해서 미끄러짐이 효과가 없을거에요.'활성화!", 7, 6034304908)
         else
             mel_7.FireServer(mel_7, Vector3.new(0, 0, 0))
         end
@@ -1868,7 +1868,7 @@ MiscTab:AddToggle({
 })
 
 MiscTab:AddToggle({
-    Name = "밝게 보기 (Full Bright)",
+    Name = "안티 다크",
     Default = false,
     Callback = function(Value)
         if Value == true then
@@ -1909,7 +1909,7 @@ ScriptTab:AddButton({
     end
 })
 
-ScriptTab:AddSection({Name = "플레이어 강퇴"})
+ScriptTab:AddSection({Name = "플레이어 킥"})
 
 local selectedPlayerToKick = ""
 ScriptTab:AddDropdown({
@@ -1930,7 +1930,7 @@ ScriptTab:AddDropdown({
 })
 
 ScriptTab:AddButton({
-    Name = "강퇴 ",
+    Name = "킥",
     Callback = function()
     end
 })
@@ -1960,388 +1960,372 @@ ScriptTab:AddButton({
         end
     end
 })
+--local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+--local Window = OrionLib:MakeWindow({Name = "Break In 2 Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionConfig"})
+local Rb = Window:MakeTab({Name = "게임 파괴 2", Icon = "rbxassetid://4483362458", PremiumOnly = false})
+
+Rb:AddButton({
+    Name = "모든 플레이어 의상 삭제 (수정됨)",
+    Callback = function()
+        mel_8(mel_1)
+        for X, mel_6 in pairs(q(F)) do
+            u[mel_6.Name] = true
+        end
+        for F, mel_6 in pairs(mel_6.GetChildren(mel_6)) do
+            if mel_6.IsA(mel_6, "Model") and u[mel_6.Name] then
+                for U, B in pairs(B(mel_6)) do
+                    if B.ClassName == "Shirt" or B.ClassName == "Pants" then
+                        r43(B)
+                    end
+                end
+            end
+        end
+    end
+})
+
+Rb:AddSection({Name = "악세사리 삭제"})
+
+local selectedAccPlayer = ""
+Rb:AddDropdown({
+    Name = "플레이어 선택",
+    Options = (function()
+        local plrs = {}
+        for o, mel_8 in pairs(q(X)) do
+            table.insert(plrs, mel_8.Name)
+        end
+        return plrs
+    end)(),
+    Default = "플레이어 선택",
+    Callback = function(Value)
+        selectedAccPlayer = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "선택한 플레이어 악세사리 삭제",
+    Callback = function()
+        if r85 and r85.Character then
+            for u, F in pairs(o.GetChildren(o)) do
+                if F.IsA(F, "Accessory") then
+                    r43(F)
+                end
+            end
+        end
+    end
+})
+
+Rb:AddButton({
+    Name = "모든 플레이어 악세사리 삭제",
+    Callback = function()
+        for u, F in pairs(q(o)) do
+            if F[r15[a]] then
+                a.GetChildren(a)
+                for mel_12, U in pairs(q(U)) do
+                    if U.IsA(U, "Accessory") then
+                        r43(U)
+                    end
+                end
+            end
+        end
+    end
+})
+
+Rb:AddSection({Name = "머리카락 삭제"})
+
+local selectedHairPlayer = ""
+Rb:AddDropdown({
+    Name = "플레이어 선택",
+    Options = (function()
+        local plrs = {}
+        for o, mel_8 in X, pairs(q(X)) do
+            table.insert(plrs, mel_8.Name)
+        end
+        return plrs
+    end)(),
+    Default = "플레이어 선택",
+    Callback = function(Value)
+        selectedHairPlayer = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "머리카락 삭제",
+    Callback = function()
+        if r86 and r86.Character then
+            for u, F in o, pairs(o.GetChildren(o)) do
+                if F.IsA(F, "Accessory") and F.AccessoryType == Enum.AccessoryType.Hair then
+                    r43(F)
+                end
+            end
+        end
+    end
+})
+
+Rb:AddSection({Name = "얼굴 삭제"})
+
+local selectedFacePlayer = ""
+Rb:AddDropdown({
+    Name = "플레이어 선택",
+    Options = (function()
+        local plrs = {}
+        for o, mel_8 in pairs(q("pairs")) do
+            table.insert(plrs, mel_8.Name)
+        end
+        return plrs
+    end)(),
+    Default = "플레이어 선택",
+    Callback = function(Value)
+        selectedFacePlayer = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "얼굴 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "티셔츠 삭제"})
+
+local selectedTShirtPlayer = ""
+Rb:AddDropdown({
+    Name = "플레이어 선택",
+    Options = (function()
+        local plrs = {}
+        for o, mel_8 in pairs(q(X)) do
+            table.insert(plrs, mel_8.Name)
+        end
+        return plrs
+    end)(),
+    Default = "플레이어 선택",
+    Callback = function(Value)
+        selectedTShirtPlayer = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "티셔츠 삭제",
+    Callback = function()
+        if r88 and r88.Character then
+            for u, F in pairs(o.GetChildren(o)) do
+                if F.IsA(F, mel_12) and mel_12.find(mel_12, "shirt") then
+                    r43(F)
+                end
+            end
+        end
+    end
+})
+
+Rb:AddSection({Name = "모자 삭제"})
+
+local selectedHatPlayer = ""
+Rb:AddDropdown({
+    Name = "플레이어 선택",
+    Options = (function()
+        local plrs = {}
+        for o, mel_8 in pairs(q(X)) do
+            table.insert(plrs, mel_8.Name)
+        end
+        return plrs
+    end)(),
+    Default = "플레이어 선택",
+    Callback = function(Value)
+        selectedHatPlayer = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "모자 삭제",
+    Callback = function()
+        if r89 and r89.Character then
+            for u, F in pairs(o.GetChildren(o)) do
+                if F.IsA(F, mel_12) and mel_12.find(mel_12, "hat") then
+                    r43(F)
+                end
+            end
+        end
+    end
+})
+
+Rb:AddSection({Name = "삭제 툴"})
+
+Rb:AddButton({
+    Name = "삭제 툴 지급 (클릭시 오브젝트 삭제)",
+    Callback = function()
+        mel_1.Name = "Delete Tool"
+        mel_1.RequiresHandle = false
+        mel_1.Parent = game.Players.LocalPlayer.Backpack
+        mel_10.Connect(mel_10, function()
+        end)
+    end
+})
+
+Rb:AddSection({Name = "Harked 스크립트"})
+
+Rb:AddButton({
+    Name = "Harked SS 스크립트 실행",
+    Callback = function()
+        loadstring(mel_1.HttpGet(mel_1, "https://raw.githubusercontent.com/JulesV2/sigma-sigma-boy/refs/heads/main/break%20in%202%20harked.lua"))()
+    end
+})
+
+Rb:AddSection({Name = "기구 삭제"})
+
+Rb:AddButton({
+    Name = "모든 벤치프레스 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "모든 런닝머신 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "문"})
+
+Rb:AddButton({
+    Name = "모든 문 삭제 (비권장)",
+    Callback = function()
+        if u then
+            r43(u)
+        end
+    end
+})
+
+Rb:AddSection({Name = "나무"})
+
+Rb:AddButton({
+    Name = "모든 나무 삭제",
+    Callback = function()
+        for u, F in pairs("pairs") do
+        end
+    end
+})
+
+Rb:AddSection({Name = "NPC 삭제"})
+
+Rb:AddButton({
+    Name = "피트 삼촌 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "강아지 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "요원 브래들리 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "자판기 삭제"})
+
+Rb:AddButton({
+    Name = "무기 자판기 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "음식 자판기 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "음료 자판기 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "방어구 자판기 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddButton({
+    Name = "모든 자판기 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "커스텀 모델 삭제 (Dex 활용)"})
+
+local targetModelName = ""
+Rb:AddTextbox({
+    Name = "모델 이름 입력",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        targetModelName = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "모델 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "커스텀 폴더 삭제"})
+
+local targetFolderName = ""
+Rb:AddTextbox({
+    Name = "폴더 이름 입력",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        targetFolderName = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "폴더 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "커스텀 파트 삭제"})
+
+local targetPartName = ""
+Rb:AddTextbox({
+    Name = "파트 이름 입력",
+    Default = "",
+    TextDisappear = false,
+    Callback = function(Value)
+        targetPartName = Value
+    end
+})
+
+Rb:AddButton({
+    Name = "파트 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddSection({Name = "황금 사과 삭제"})
+
+Rb:AddButton({
+    Name = "황금 사과 삭제",
+    Callback = function()
+    end
+})
+
+Rb:AddParagraph({
+    Title = "황금 사과 삭제 안내",
+    Content = "황금 사과를 삭제하는 이유: 일반 유저가 황금 사과를 얻는 것을 방지합니다. 일반 유저가 사과를 가져가면 '전체 회복' 기능을 쓰거나 아이템 획득 탭에서 사과를 가져올 수 없게 됩니다. 이를 막고 싶다면 황금 사과를 삭제하세요."
+})
+
+
 
 
 
                     
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Everyone's Clothes (fixed)",
-                        ["Callback"] = function(...)
-                                mel_8(mel_1)
-                            
-                            for X, mel_6 in pairs(q(F)) do
-                                u[mel_6.Name] = true 
-                            end
-                            for F, mel_6 in pairs(mel_6.GetChildren(mel_6)) do
-                                if mel_6.IsA(mel_6, "Model") and u[mel_6.Name] then
-                                    for U, B in pairs(B(mel_6)) do
-                                        if B.ClassName == "Shirt" or B.ClassName == "Pants" then
-                                            r43(B)
-                                        end 
-                                    end
-                                end 
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Accessory")
-                    Rb.CreateDropdown(Rb, {
-                        ["Name"] = "Select Player",
-                        ["Options"] = (function(...)
-                                F.GetPlayers(F)
-                            
-                            for o, mel_8 in pairs(q(X)) do
-                                table.insert(mel_1, mel_8.Name) 
-                            end
-                            return mel_1 
-                        end)(),
-                        ["CurrentOption"] = {
-                            "Select Player"
-                        },
-                        ["MultipleOptions"] = false,
-                        ["Flag"] = "SelectPlayerDropdown3",
-                        ["Callback"] = function(arg1_46, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Selected Player's Accessories",
-                        ["Callback"] = function(...)
-                            if r85 and r85.Character then
-                                for u, F in pairs(o.GetChildren(o)) do
-                                    if F.IsA(F, "Accessory") then
-                                        r43(F)
-                                    end 
-                                end
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Everyone's Accessories",
-                        ["Callback"] = function(...)
-                            for u, F in pairs(q(o)) do
-                                if F[r15[a]] then
-                                        a.GetChildren(a)
-                                    
-                                    for mel_12, U in pairs(q(U)) do
-                                        if U.IsA(U, "Accessory") then
-                                            r43(U)
-                                        end 
-                                    end
-                                end 
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Player Hair")
-                    Rb.CreateDropdown(Rb, {
-                        ["Name"] = "Select Player",
-                        ["Options"] = (function(...)
-                                F.GetPlayers(F)
-                            
-                            for o, mel_8 in X, pairs(q(X)) do
-                                table.insert(mel_1, mel_8.Name) 
-                            end
-                            return mel_1 
-                        end)(),
-                        ["CurrentOption"] = {
-                            "Select Player"
-                        },
-                        ["MultipleOptions"] = false,
-                        ["Flag"] = "SelectPlayerDropdown4",
-                        ["Callback"] = function(arg1_47, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Hair",
-                        ["Callback"] = function(...)
-                            if r86 and r86.Character then
-                                for u, F in o, pairs(o.GetChildren(o)) do
-                                    if F.IsA(F, "Accessory") and F.AccessoryType == Enum.AccessoryType.Hair then
-                                        r43(F)
-                                    end 
-                                end
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Player Face")
-                    Rb.CreateDropdown(Rb, {
-                        ["Name"] = "Select Player",
-                        ["Options"] = (function(...)
-                                F.GetPlayers(F)
-                            
-                            for o, mel_8 in pairs(q("pairs")) do
-                                table.insert(mel_1, mel_8.Name) 
-                            end
-                            return mel_1 
-                        end)(),
-                        ["CurrentOption"] = {
-                            "Select Player"
-                        },
-                        ["MultipleOptions"] = false,
-                        ["Flag"] = "SelectPlayerDropdown5",
-                        ["Callback"] = function(arg1_48, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Face",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Player TShirt")
-                    Rb.CreateDropdown(Rb, {
-                        ["Name"] = "Select Player",
-                        ["Options"] = (function(...)
-                                F.GetPlayers(F)
-                            
-                            for o, mel_8 in pairs(q(X)) do
-                                table.insert(mel_1, mel_8.Name) 
-                            end
-                            return mel_1 
-                        end)(),
-                        ["CurrentOption"] = {
-                            "Select Player"
-                        },
-                        ["MultipleOptions"] = false,
-                        ["Flag"] = "SelectPlayerDropdown6",
-                        ["Callback"] = function(arg1_49, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete TShirt",
-                        ["Callback"] = function(...)
-                            if r88 and r88.Character then
-                                for u, F in pairs(o.GetChildren(o)) do
-                                    if F.IsA(F, mel_12) and mel_12.find(mel_12, "shirt") then
-                                        r43(F)
-                                    end 
-                                end
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Player Hat")
-                    Rb.CreateDropdown(Rb, {
-                        ["Name"] = "Select Player",
-                        ["Options"] = (function(...)
-                                F.GetPlayers(F)
-                            
-                            for o, mel_8 in pairs(q(X)) do
-                                table.insert(mel_1, mel_8.Name) 
-                            end
-                            return mel_1 
-                        end)(),
-                        ["CurrentOption"] = {
-                            "Select Player"
-                        },
-                        ["MultipleOptions"] = false,
-                        ["Flag"] = "SelectPlayerDropdown7",
-                        ["Callback"] = function(arg1_50, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Hat",
-                        ["Callback"] = function(...)
-                            if r89 and r89.Character then
-                                for u, F in pairs(o.GetChildren(o)) do
-                                    if F.IsA(F, mel_12) and mel_12.find(mel_12, "hat") then
-                                        r43(F)
-                                    end 
-                                end
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Tool")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Tool (you can delete things and the game may broken)",
-                        ["Callback"] = function(...)
-                            mel_1.Name = "Delete Tool"
-                            mel_1.RequiresHandle = false
-                            mel_1.Parent = game.Players.LocalPlayer.Backpack
-                            mel_10.Connect(mel_10, function(...)
-                                return 
-                            end)
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Harked")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Harked SS Script",
-                        ["Callback"] = function(...)
-                            loadstring(mel_1.HttpGet(mel_1, "https://raw.githubusercontent.com/JulesV2/sigma-sigma-boy/refs/heads/main/break%20in%202%20harked.lua"))()
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Funny")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete all BenchPress",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete all Tredmills",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Doors")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Doors (I do not recommend)",
-                        ["Callback"] = function(...)
-                            if u then
-                                r43(u)
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Trees")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Trees",
-                        ["Callback"] = function(...)
-                            for u, F in pairs("pairs") do
-                            end
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete NPCs")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete UnclePete",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Dog",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Agent Bradley",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete VendingMachines")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Weapons",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Food",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Drinks",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Armor",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete all VendingMachines",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete any model (use Dex)")
-                    r90 = ""
-                    Rb.CreateInput(Rb, {
-                        ["Name"] = "Enter Model Name",
-                        ["CurrentValue"] = "",
-                        ["PlaceholderText"] = "Model Name",
-                        ["RemoveTextAfterFocusLost"] = false,
-                        ["Flag"] = "Input31",
-                        ["Callback"] = function(arg1_51, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Model",
-                        ["Callback"] = function(...)
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete any Folder")
-                    r91 = ""
-                    Rb.CreateInput(Rb, {
-                        ["Name"] = "Enter Folder Name",
-                        ["CurrentValue"] = "",
-                        ["PlaceholderText"] = "Folder Name",
-                        ["RemoveTextAfterFocusLost"] = false,
-                        ["Flag"] = "Input69",
-                        ["Callback"] = function(arg1_52, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Folder",
-                        ["Callback"] = function(...)
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete any Part")
-                    r92 = ""
-                    Rb.CreateInput(Rb, {
-                        ["Name"] = "Enter Part Name",
-                        ["CurrentValue"] = "",
-                        ["PlaceholderText"] = "Part Name",
-                        ["RemoveTextAfterFocusLost"] = false,
-                        ["Flag"] = "Input1",
-                        ["Callback"] = function(arg1_53, ...)
-                            return 
-                        end
-                    })
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete Part",
-                        ["Callback"] = function(...)
-                        end
-                    })
-                    Rb.CreateSection(Rb, "Delete Golden Apple")
-                    Rb.CreateButton(Rb, {
-                        ["Name"] = "Delete GoldenApple",
-                        ["Callback"] = function(...)
-                            return 
-                        end
-                    })
-                    Rb.CreateParagraph(Rb, {
-                        ["Title"] = "\xe2\x9c\x85",
-                        ["Content"] = "Why are we deleting the Golden Apple? If you delete the Golden Apple, normal players won't be able to get it. So, what happens if normal players do get it? You won't be able to use the 'heal all' command or obtain it from the 'get item' section. Why? Because once they get it, the Golden Apple won't be available again. If you want to prevent this, you can delete it."
-                    })
-                    r42("Loaded!", "Script Successfully Loaded!", 5, 6034304908)
-                    hb = r26
-                    hb.LoadConfiguration(hb)
-                
-                    r94 = "https://raw.githubusercontent.com/Fluxincontroller/RandomStuff/refs/heads/main/reloadshi"
-                    if B then
-                        B.Connect(B, function(arg1_54, ...)
-                            if not r95 then
-                                print("[Teleport Test] Teleport detected \xe2\x80\x93 re\xe2\x80\x91queuing script.")
-                                r24("loadstring(game:HttpGet('" .. r94 .. "'))()")
-                            end
-                            if arg1_54 == Enum.TeleportState.Completed then
-                                print("[Teleport Test] Teleport completed.")
-                            end
-                            return 
-                        end)
-                    end
-                    return
-                
-            
-        
+                    

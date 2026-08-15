@@ -12855,6 +12855,7 @@ playerTab:AddSlider({
     end    
 })
 end
+do
 playerTab:AddSection({
     Name = "자가 킬"
 })
@@ -12900,6 +12901,7 @@ playerTab:AddToggle({
         LoopKill = Value
     end    
 })
+end
 playerTab:AddSection({
     Name = "다른것들"
 })

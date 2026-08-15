@@ -14787,7 +14787,289 @@ do
 		ContextActionService:BindAction('Control(C)', controlBind, false, Enum.KeyCode.C)
 	end
 end
+do
 
+--local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+--local Window = OrionLib:MakeWindow({Name = "Black Hole Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "BHKickConfig"})
+
+local RunService = game:GetService("RunService")
+local CustomModelId = "rbxassetid://111278758469077"
+local CustomModelAsset = nil
+
+pcall(function()
+    CustomModelAsset = game:GetObjects(CustomModelId)[1]
+end)
+
+local FeatureEnabled = false
+local ActiveConnections = {}
+local CreatedModels = {}
+
+local function ScaleNumberSequence(seq, scale)
+    if not seq then return end
+    local keypoints = {}
+    for _, kp in ipairs(seq.Keypoints) do
+        table.insert(keypoints, NumberSequenceKeypoint.new(kp.Time, kp.Value * scale, kp.Envelope * scale))
+    end
+    return NumberSequence.new(keypoints)
+end
+
+local function ScaleNumberRange(range, scale)
+    if not range then return end
+    return NumberRange.new(range.Min * scale, range.Max * scale)
+end
+
+local function CleanupCustomizations()
+    for _, conn in pairs(ActiveConnections) do
+        if conn then conn:Disconnect() end
+    end
+    table.clear(ActiveConnections)
+
+    for _, model in pairs(CreatedModels) do
+        if model and model.Parent then
+            model:Destroy()
+        end
+    end
+    table.clear(CreatedModels)
+
+    for _, obj in pairs(workspace:GetDescendants()) do
+        if obj.Name == "Hole" and obj:IsA("BasePart") then
+            obj.Transparency = 0
+            obj:SetAttribute("HasCustomHole", nil)
+        elseif obj.Name == "BillboardGui" and obj:IsA("BillboardGui") then
+            obj.Enabled = true
+        end
+    end
+end
+
+local function ApplyChangesToObj(d)
+    if not FeatureEnabled then return end
+
+    if d.Name == 'Drone' then
+        task.defer(function()
+            if d and d.Parent then d:Destroy() end
+        end)
+        return
+    end
+
+    if d.Name == 'BillboardGui' and d:IsA('BillboardGui') then
+        local function HideGui()
+            if not FeatureEnabled then return end
+            d.Enabled = false
+            for _, f in pairs(d:GetDescendants()) do
+                pcall(function() f.BackgroundTransparency = 1 end)
+                pcall(function() f.TextTransparency = 1 end)
+                pcall(function() f.ImageTransparency = 1 end)
+            end
+        end
+        HideGui()
+        table.insert(ActiveConnections, d.Changed:Connect(HideGui))
+        table.insert(ActiveConnections, d.DescendantAdded:Connect(HideGui))
+
+    elseif d.Name == 'Hole' and d:IsA('BasePart') then
+        task.wait(0.1)
+        if not FeatureEnabled then return end
+        d.Transparency = 1
+        
+        table.insert(ActiveConnections, d:GetPropertyChangedSignal('Transparency'):Connect(function()
+            if FeatureEnabled and d.Transparency ~= 1 then 
+                d.Transparency = 1 
+            end
+        end))
+
+        if CustomModelAsset and not d:GetAttribute('HasCustomHole') then
+            d:SetAttribute('HasCustomHole', true)
+            local customModel = CustomModelAsset:Clone()
+            customModel.Name = 'CustomHoleModel'
+            customModel.Parent = workspace
+            table.insert(CreatedModels, customModel)
+
+            local rotCFrame = CFrame.Angles(math.rad(90), 0, 0)
+            local savedProps = {}
+
+            local function SaveProps(h)
+                if h:IsA('BasePart') then
+                    savedProps[h] = {Size = h.Size}
+                elseif h:IsA('SpecialMesh') or h:IsA('BlockMesh') or h:IsA('CylinderMesh') then
+                    savedProps[h] = {Scale = h.Scale}
+                elseif h:IsA('Attachment') then
+                    savedProps[h] = {Position = h.Position}
+                elseif h:IsA('ParticleEmitter') then
+                    savedProps[h] = {Size = h.Size, Speed = h.Speed}
+                elseif h:IsA('Beam') then
+                    savedProps[h] = {Width0 = h.Width0, Width1 = h.Width1, CurveSize0 = h.CurveSize0, CurveSize1 = h.CurveSize1}
+                elseif h:IsA('Trail') then
+                    savedProps[h] = {WidthScale = h.WidthScale}
+                elseif h:IsA('PointLight') or h:IsA('SurfaceLight') or h:IsA('SpotLight') then
+                    savedProps[h] = {Range = h.Range}
+                end
+            end
+
+            if customModel:IsA('Model') then
+                local boundingCFrame = customModel:GetBoundingBox()
+                for _, j in pairs(customModel:GetDescendants()) do
+                    if j:IsA('BasePart') then
+                        j.Anchored = false
+                        j.CanCollide = false
+                        local relCFrame = boundingCFrame:ToObjectSpace(j.CFrame)
+                        j.CFrame = (d.CFrame * rotCFrame) * relCFrame
+                        local weld = Instance.new('WeldConstraint')
+                        weld.Part0 = j
+                        weld.Part1 = d
+                        weld.Parent = j
+                        for _, n in pairs(j:GetChildren()) do
+                            if n:IsA('Attachment') then
+                                n.CFrame = rotCFrame * n.CFrame
+                            end
+                        end
+                    end
+                end
+            elseif customModel:IsA('BasePart') then
+                customModel.Anchored = false
+                customModel.CanCollide = false
+                customModel.CFrame = d.CFrame * rotCFrame
+                for _, i in pairs(customModel:GetChildren()) do
+                    if i:IsA('Attachment') then
+                        i.CFrame = rotCFrame * i.CFrame
+                    end
+                end
+                local weld = Instance.new('WeldConstraint')
+                weld.Part0 = customModel
+                weld.Part1 = d
+                weld.Parent = customModel
+            end
+
+            local soundPart = customModel:IsA('BasePart') and customModel or customModel:FindFirstChildWhichIsA('BasePart', true)
+            local sound
+            if soundPart then
+                sound = Instance.new('Sound')
+                sound.SoundId = 'rbxassetid://71291438346620'
+                sound.PlaybackSpeed = 0.5
+                sound.Volume = 1.8
+                sound.Looped = true
+                sound.RollOffMaxDistance = 130
+                sound.RollOffMinDistance = 15
+                sound.Parent = soundPart
+                sound:Play()
+            end
+
+            SaveProps(customModel)
+            for _, k in pairs(customModel:GetDescendants()) do
+                SaveProps(k)
+            end
+
+            local isDestroyed, currentScale, shrinkSpeed = false, 1, 1
+
+            local function OnHoleDestroyed()
+                if isDestroyed then return end
+                isDestroyed = true
+                for _, n in pairs(customModel:GetDescendants()) do
+                    if n:IsA('BasePart') then n.Anchored = true end
+                end
+                if customModel:IsA('BasePart') then customModel.Anchored = true end
+            end
+
+            table.insert(ActiveConnections, d.AncestryChanged:Connect(function(_, parent)
+                if not parent then OnHoleDestroyed() end
+            end))
+
+            local heartbeatConn
+            heartbeatConn = RunService.Heartbeat:Connect(function(dt)
+                if not FeatureEnabled or not customModel or not customModel.Parent then
+                    heartbeatConn:Disconnect()
+                    return
+                end
+
+                if isDestroyed then
+                    currentScale = currentScale - (dt * shrinkSpeed)
+                    if currentScale <= 0 then
+                        currentScale = 0
+                        heartbeatConn:Disconnect()
+                        customModel:Destroy()
+                        return
+                    end
+                    if sound then sound.Volume = 2 * currentScale end
+                end
+
+                local baseScale, generalScale = 0.5 * currentScale, currentScale
+                for obj, props in pairs(savedProps) do
+                    if obj:IsA('BasePart') then
+                        obj.Size = props.Size * baseScale
+                    elseif obj:IsA('SpecialMesh') or obj:IsA('BlockMesh') or obj:IsA('CylinderMesh') then
+                        obj.Scale = props.Scale * baseScale
+                    elseif obj:IsA('Attachment') then
+                        obj.Position = props.Position * baseScale
+                    elseif obj:IsA('ParticleEmitter') then
+                        obj.Size = ScaleNumberSequence(props.Size, generalScale)
+                        if props.Speed then obj.Speed = ScaleNumberRange(props.Speed, generalScale) end
+                    elseif obj:IsA('Beam') then
+                        obj.Width0 = props.Width0 * generalScale
+                        obj.Width1 = props.Width1 * generalScale
+                        if props.CurveSize0 then
+                            obj.CurveSize0 = props.CurveSize0 * generalScale
+                            obj.CurveSize1 = props.CurveSize1 * generalScale
+                        end
+                    elseif obj:IsA('Trail') then
+                        obj.WidthScale = ScaleNumberSequence(props.WidthScale, generalScale)
+                    elseif obj:IsA('PointLight') or obj:IsA('SurfaceLight') or obj:IsA('SpotLight') then
+                        obj.Range = props.Range * generalScale
+                    end
+                end
+            end)
+            table.insert(ActiveConnections, heartbeatConn)
+        end
+    end
+end
+
+local function HandleBlackHoleKick(bhk)
+    for _, f in pairs(bhk:GetDescendants()) do
+        if f.Name == 'Drone' then
+            task.defer(function() if f and f.Parent then f:Destroy() end end)
+        end
+    end
+    table.insert(ActiveConnections, bhk.DescendantAdded:Connect(function(e)
+        if FeatureEnabled and e.Name == 'Drone' then
+            task.defer(function() if e and e.Parent then e:Destroy() end end)
+        end
+    end))
+
+    for _, f in pairs(bhk:GetDescendants()) do
+        ApplyChangesToObj(f)
+    end
+    table.insert(ActiveConnections, bhk.DescendantAdded:Connect(ApplyChangesToObj))
+end
+
+local Tab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+funTab:AddToggle({
+    Name = "블랙홀 바꾸기",
+    Default = false,
+    Callback = function(Value)
+        FeatureEnabled = Value
+        if FeatureEnabled then
+            for _, e in pairs(workspace:GetDescendants()) do
+                if e.Name == 'BlackHoleKick' then
+                    HandleBlackHoleKick(e)
+                end
+            end
+            table.insert(ActiveConnections, workspace.DescendantAdded:Connect(function(d)
+                if FeatureEnabled and d.Name == 'BlackHoleKick' then
+                    HandleBlackHoleKick(d)
+                end
+            end))
+        else
+            CleanupCustomizations()
+        end
+    end    
+})
+
+
+
+
+end
 
 
 

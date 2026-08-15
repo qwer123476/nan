@@ -1984,18 +1984,27 @@ Rb:AddButton({
 })
 
 
+local Players = game:GetService("Players")
+
+local function GetPlayer(Name)
+    return Players:FindFirstChild(Name)
+end
+
+local function GetPlayerNames()
+    local plrs = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        table.insert(plrs, player.Name)
+    end
+    return plrs
+end
+
 Rb:AddSection({Name = "머리카락 삭제"})
 
 local selectedHairPlayer = ""
+
 Rb:AddDropdown({
     Name = "플레이어 선택",
-    Options = (function()
-        local plrs = {}
-        for o, mel_8 in X, pairs(q(X)) do
-            table.insert(plrs, mel_8.Name)
-        end
-        return plrs
-    end)(),
+    Options = GetPlayerNames(),
     Default = "플레이어 선택",
     Callback = function(Value)
         selectedHairPlayer = Value
@@ -2005,11 +2014,14 @@ Rb:AddDropdown({
 Rb:AddButton({
     Name = "머리카락 삭제",
     Callback = function()
-        if r86 and r86.Character then
-            for u, F in o, pairs(o.GetChildren(o)) do
-                if F.IsA(F, "Accessory") and F.AccessoryType == Enum.AccessoryType.Hair then
-                    r43(F)
-                end
+        local player = GetPlayer(selectedHairPlayer)
+        if not player or not player.Character then
+            return
+        end
+
+        for _, obj in ipairs(player.Character:GetChildren()) do
+            if obj:IsA("Accessory") and obj.AccessoryType == Enum.AccessoryType.Hair then
+                obj:Destroy()
             end
         end
     end
@@ -2018,15 +2030,10 @@ Rb:AddButton({
 Rb:AddSection({Name = "얼굴 삭제"})
 
 local selectedFacePlayer = ""
+
 Rb:AddDropdown({
     Name = "플레이어 선택",
-    Options = (function()
-        local plrs = {}
-        for o, mel_8 in pairs(q("pairs")) do
-            table.insert(plrs, mel_8.Name)
-        end
-        return plrs
-    end)(),
+    Options = GetPlayerNames(),
     Default = "플레이어 선택",
     Callback = function(Value)
         selectedFacePlayer = Value
@@ -2036,21 +2043,30 @@ Rb:AddDropdown({
 Rb:AddButton({
     Name = "얼굴 삭제",
     Callback = function()
+        local player = GetPlayer(selectedFacePlayer)
+        if not player or not player.Character then
+            return
+        end
+
+        local head = player.Character:FindFirstChild("Head")
+        if not head then
+            return
+        end
+
+        local face = head:FindFirstChild("face")
+        if face and face:IsA("Decal") then
+            face:Destroy()
+        end
     end
 })
 
 Rb:AddSection({Name = "티셔츠 삭제"})
 
 local selectedTShirtPlayer = ""
+
 Rb:AddDropdown({
     Name = "플레이어 선택",
-    Options = (function()
-        local plrs = {}
-        for o, mel_8 in pairs(q(X)) do
-            table.insert(plrs, mel_8.Name)
-        end
-        return plrs
-    end)(),
+    Options = GetPlayerNames(),
     Default = "플레이어 선택",
     Callback = function(Value)
         selectedTShirtPlayer = Value
@@ -2060,12 +2076,14 @@ Rb:AddDropdown({
 Rb:AddButton({
     Name = "티셔츠 삭제",
     Callback = function()
-        if r88 and r88.Character then
-            for u, F in pairs(o.GetChildren(o)) do
-                if F.IsA(F, mel_12) and mel_12.find(mel_12, "shirt") then
-                    r43(F)
-                end
-            end
+        local player = GetPlayer(selectedTShirtPlayer)
+        if not player or not player.Character then
+            return
+        end
+
+        local shirtGraphic = player.Character:FindFirstChildOfClass("ShirtGraphic")
+        if shirtGraphic then
+            shirtGraphic:Destroy()
         end
     end
 })
@@ -2073,15 +2091,10 @@ Rb:AddButton({
 Rb:AddSection({Name = "모자 삭제"})
 
 local selectedHatPlayer = ""
+
 Rb:AddDropdown({
     Name = "플레이어 선택",
-    Options = (function()
-        local plrs = {}
-        for o, mel_8 in pairs(q(X)) do
-            table.insert(plrs, mel_8.Name)
-        end
-        return plrs
-    end)(),
+    Options = GetPlayerNames(),
     Default = "플레이어 선택",
     Callback = function(Value)
         selectedHatPlayer = Value
@@ -2091,11 +2104,14 @@ Rb:AddDropdown({
 Rb:AddButton({
     Name = "모자 삭제",
     Callback = function()
-        if r89 and r89.Character then
-            for u, F in pairs(o.GetChildren(o)) do
-                if F.IsA(F, mel_12) and mel_12.find(mel_12, "hat") then
-                    r43(F)
-                end
+        local player = GetPlayer(selectedHatPlayer)
+        if not player or not player.Character then
+            return
+        end
+
+        for _, obj in ipairs(player.Character:GetChildren()) do
+            if obj:IsA("Accessory") and obj.AccessoryType == Enum.AccessoryType.Hat then
+                obj:Destroy()
             end
         end
     end

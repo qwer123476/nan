@@ -997,7 +997,7 @@ local mel_8 = 1
                                 F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 
                             end
                                 X.GetChildren(X)
-                            }
+                            
                             for o, F in X[1], pairs(q(F)) do
                                 F.HumanoidRootPart.Anchored = true
                                 F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 

@@ -269,7 +269,7 @@ local mel_8 = 1
                                 F.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -4) 
                             end
                                 pairs(X.GetChildren(X))
-                            }
+                            
                         end)
                         return 
                     end

@@ -1983,52 +1983,6 @@ Rb:AddButton({
     end
 })
 
-Rb:AddSection({Name = "악세사리 삭제"})
-
-local selectedAccPlayer = ""
-Rb:AddDropdown({
-    Name = "플레이어 선택",
-    Options = (function()
-        local plrs = {}
-        --for o, mel_8 in pairs(q(X)) do
-            table.insert(plrs, mel_8.Name)
-        end
-        --return plrs
-    end)(),
-    Default = "플레이어 선택",
-    Callback = function(Value)
-        selectedAccPlayer = Value
-    end
-})
-
-Rb:AddButton({
-    Name = "선택한 플레이어 악세사리 삭제",
-    Callback = function()
-        if r85 and r85.Character then
-            for u, F in pairs(o.GetChildren(o)) do
-                if F.IsA(F, "Accessory") then
-                    r43(F)
-                end
-            end
-        end
-    end
-})
-
-Rb:AddButton({
-    Name = "모든 플레이어 악세사리 삭제",
-    Callback = function()
-        for u, F in pairs(q(o)) do
-            if F[r15[a]] then
-                a.GetChildren(a)
-                for mel_12, U in pairs(q(U)) do
-                    if U.IsA(U, "Accessory") then
-                        r43(U)
-                    end
-                end
-            end
-        end
-    end
-})
 
 Rb:AddSection({Name = "머리카락 삭제"})
 

@@ -15038,13 +15038,8 @@ local function HandleBlackHoleKick(bhk)
     table.insert(ActiveConnections, bhk.DescendantAdded:Connect(ApplyChangesToObj))
 end
 
-local Tab = Window:MakeTab({
-    Name = "Main",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
 
-funTab:AddToggle({
+funTab:AddButton({
     Name = "블랙홀 바꾸기",
     Default = false,
     Callback = function(Value)

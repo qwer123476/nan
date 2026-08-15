@@ -12801,8 +12801,51 @@ LocalPlayer.CharacterAdded:Connect(function(char)
 end)
 
 end
+playerTab:AddSection({
+    Name = "자가 킬"
+})
+
+local Player = game.Players.LocalPlayer
+local LoopKill = false
+
+local function KillSelf()
+    local char = Player.Character
+    if char then
+        local head = char:FindFirstChild("Head")
+        if head and head:FindFirstChild("Neck") then
+            head.Neck:Destroy()
+        end
+        
+        local humanoid = char:FindFirstChild("Humanoid")
+        if humanoid then
+            humanoid.Health = 0
+        end
+    end
+end
+
+task.spawn(function()
+    while task.wait(0.1) do
+        if LoopKill then
+            KillSelf()
+        end
+    end
+end)
 
 
+Tab:AddButton({
+    Name = "자가 킬",
+    Callback = function()
+        KillSelf()
+    end    
+})
+
+Tab:AddToggle({
+    Name = "자가 루프 킬",
+    Default = false,
+    Callback = function(Value)
+        LoopKill = Value
+    end    
+})
 playerTab:AddSection({
     Name = "다른것들"
 })

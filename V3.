@@ -2109,7 +2109,7 @@ function anchorGrab()
     end
 end
 function cleanupAnchoredParts()
-    local v408, v409, v410 = ipairs(vu10)
+    --local v408, v409, v410 = ipairs(vu10)
     while true do
         local v411
         v410, v411 = v408(v409, v410)

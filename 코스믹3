@@ -3066,7 +3066,7 @@ if v540 and v541 then
         }
       --  __set_list(v640, 1, {
            -- v641
-        })
+        --})
         v639.embeds = v640
         return vu637.HttpService:JSONEncode(v639)
     end

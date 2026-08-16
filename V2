@@ -6799,7 +6799,7 @@ OrionLib:MakeNotification({
     Image = "rbxassetid://18793558154",
     Time = 4
 })
-OrionLib:MakeNotific OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/VerbalHubz/Verbal-Hub/main/Orion%20Hub%20Ui", true))()
+--OrionLib:MakeNotific OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/VerbalHubz/Verbal-Hub/main/Orion%20Hub%20Ui", true))()
 Window = OrionLib:MakeWindow({
     Name = "Verbal Hub Sigma Advance Ftap ",
     HidePremium = false,

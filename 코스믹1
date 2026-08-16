@@ -3064,7 +3064,7 @@ if v540 and v541 then
                 url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. vu637.UserId .. "&width=150&height=150&format=png"
             }
         }
-        __set_list(v640, 1, {
+      --  __set_list(v640, 1, {
             v641
         })
         v639.embeds = v640

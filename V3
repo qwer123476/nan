@@ -1,4 +1,4 @@
-
+do
 
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/VerbalHubz/Verbal-Hub/main/Orion%20Hub%20Ui", true))()
 Window = OrionLib:MakeWindow({
@@ -1706,6 +1706,8 @@ function grabEverything()
         wait(grabSpeed)
     end
 end
+end
+do
 local function vu313()
     if grabEnabled then
         grabEverything()
@@ -5046,6 +5048,8 @@ local function vu981(pu980)
         vu967[pu980.Parent] = true
     end
 end
+end
+do
 local function vu983(pu982)
     if pu982 then
         pcall(function()
@@ -7747,6 +7751,8 @@ function handleLoop()
         wait(1)
     end
 end
+end
+do
 Tab:AddDropdown({
     Name = "Choose Plot",
     Default = "Plot1",
@@ -13445,6 +13451,7 @@ Tab:AddSlider({
         end
     end
 })
+end
 Tab:AddButton({
     Name = "THROWS U TO THE GALAXY\226\154\160\239\184\143\226\154\160\239\184\143",
     Callback = function()

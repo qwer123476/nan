@@ -1,0 +1,557 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+
+local Window = Rayfield:CreateWindow({
+
+Name = "Full Lexer Pure VM Engine",
+
+LoadingTitle = "Building Lexer & Stack VM...",
+
+ConfigurationSaving = { Enabled = false },
+
+KeySystem = false
+
+})
+
+
+local Tab = Window:CreateTab("Compiler", 4483362458)
+
+local TargetURL = ""
+
+
+Tab:CreateInput({
+
+Name = "Target Script URL",
+
+PlaceholderText = "https://raw.githubusercontent.com/...",
+
+RemoveTextAfterFocusLost = false,
+
+Callback = function(v) TargetURL = v end,
+
+})
+
+
+-- 상형문자 난독화 변수 생성기
+
+local function GenSymbol()
+
+local symbols = {"𓀀","𓀁","𓀂","𓀃","𓀄","𓀅","𓀆","𓀇","𓀈","𓀉","𓀊","𓀋","𓀌","𓀍","𓀎","𓀏","𓀐","𓀑","𓀒"}
+
+local name = "_"
+
+for _ = 1, math.random(10, 18) do
+
+name = name .. symbols[math.random(1, #symbols)]
+
+end
+
+return name
+
+end
+
+
+-- XOR 암호화
+
+local function Crypt(str, key)
+
+local res = {}
+
+for i = 1, #str do
+
+table.insert(res, bit32.bxor(string.byte(str, i), key))
+
+end
+
+return table.concat(res, ",")
+
+end
+
+
+-- [100% Pure Lua Lexer & Bytecode Compiler]
+
+local function CompileToLuauVM(source)
+
+local consts = {}
+
+local cMap = {}
+
+local instrs = {}
+
+
+local function getK(v)
+
+if not cMap[v] then
+
+table.insert(consts, tostring(v))
+
+cMap[v] = #consts
+
+end
+
+return cMap[v]
+
+end
+
+
+-- Lexer: 소스코드를 토큰 단위로 분석
+
+local pos = 1
+
+local len = #source
+
+
+local function peek() return string.sub(source, pos, pos) end
+
+local function get() local c = peek(); pos = pos + 1; return c end
+
+local function skipWhitespace()
+
+while pos <= len do
+
+local c = peek()
+
+if c == " " or c == "\t" or c == "\r" or c == "\n" then
+
+get()
+
+elseif c == "-" and string.sub(source, pos+1, pos+1) == "-" then
+
+while pos <= len and peek() ~= "\n" do get() end
+
+else
+
+break
+
+end
+
+end
+
+end
+
+
+local function readToken()
+
+skipWhitespace()
+
+if pos > len then return nil end
+
+local c = peek()
+
+
+  -- String  
+  if c == '"' or c == "'" then  
+     local quote = get()  
+     local str = ""  
+     while pos <= len do  
+        local ch = get()  
+        if ch == quote then break end  
+        str = str .. ch  
+     end  
+     return {type = "string", val = str}  
+  end  
+
+  -- Number  
+  if string.match(c, "%d") then  
+     local num = ""  
+     while pos <= len and string.match(peek(), "[%d%.]") do  
+        num = num .. get()  
+     end  
+     return {type = "number", val = tonumber(num)}  
+  end  
+
+  -- Identifier / Keyword  
+  if string.match(c, "[%a_]") then  
+     local id = ""  
+     while pos <= len and string.match(peek(), "[%w_]") do  
+        id = id .. get()  
+     end  
+     return {type = "ident", val = id}  
+  end  
+
+  -- Symbol  
+  return {type = "symbol", val = get()}  
+
+
+
+end
+
+
+-- Tokens 추출
+
+local tokens = {}
+
+while pos <= len do
+
+local tok = readToken()
+
+if tok then table.insert(tokens, tok) end
+
+end
+
+
+-- Compiler: 토큰 흐름을 Opcode로 파싱
+
+local tIdx = 1
+
+local function tPeek() return tokens[tIdx] end
+
+local function tGet() local t = tPeek(); tIdx = tIdx + 1; return t end
+
+
+local regCount = 0
+
+local function allocR() regCount = regCount + 1; return regCount end
+
+
+while tIdx <= #tokens do
+
+local tok = tGet()
+
+if tok.type == "ident" then
+
+if tok.val == "local" then
+
+local varTok = tGet()
+
+if varTok and varTok.type == "ident" then
+
+local nextT = tPeek()
+
+if nextT and nextT.val == "=" then
+
+tGet() -- '=' 소비
+
+local valTok = tGet()
+
+local rDst = allocR()
+
+if valTok.type == "number" or valTok.type == "string" then
+
+-- Opcode 1: LOADK (상수 로드)
+
+table.insert(instrs, {1, rDst, getK(valTok.val)})
+
+elseif valTok.type == "ident" then
+
+-- Opcode 2: GETGLOBAL
+
+table.insert(instrs, {2, rDst, getK(valTok.val)})
+
+end
+
+end
+
+end
+
+else
+
+-- 변수/함수 이름 파싱
+
+local firstName = tok.val
+
+local rObj = allocR()
+
+table.insert(instrs, {2, rObj, getK(firstName)}) -- GETGLOBAL
+
+
+        while tPeek() and (tPeek().val == "." or tPeek().val == ":") do  
+           local opTok = tGet()  
+           local memberTok = tGet()  
+           if opTok.val == "." then  
+              -- Opcode 3: GETFIELD (a.b)  
+              local rRes = allocR()  
+              table.insert(instrs, {3, rRes, rObj, getK(memberTok.val)})  
+              rObj = rRes  
+           elseif opTok.val == ":" then  
+              -- Opcode 4: METHOD_CALL 준비 (a:b(...))  
+              local rMethod = allocR()  
+              table.insert(instrs, {3, rMethod, rObj, getK(memberTok.val)})  
+                
+              -- 인자 파싱  
+              if tPeek() and tPeek().val == "(" then  
+                 tGet() -- '('  
+                 local args = {}  
+                 while tPeek() and tPeek().val ~= ")" do  
+                    local argTok = tGet()  
+                    if argTok.val ~= "," then  
+                       local rArg = allocR()  
+                       if argTok.type == "string" or argTok.type == "number" then  
+                          table.insert(instrs, {1, rArg, getK(argTok.val)})  
+                       else  
+                          table.insert(instrs, {2, rArg, getK(argTok.val)})  
+                       end  
+                       table.insert(args, rArg)  
+                    end  
+                 end  
+                 if tPeek() then tGet() end -- ')'  
+                   
+                 -- Opcode 5: INVOKE_METHOD (self 자동 전달 포함)  
+                 local rRet = allocR()  
+                 local argStr = table.concat(args, ",")  
+                 table.insert(instrs, {5, rRet, rMethod, rObj, getK(argStr)})  
+              end  
+           end  
+        end  
+
+        -- 일반 함수 호출 fn(...)  
+        if tPeek() and tPeek().val == "(" then  
+           tGet() -- '('  
+           local rArg = allocR()  
+           local argTok = tGet()  
+           if argTok and argTok.val ~= ")" then  
+              if argTok.type == "string" or argTok.type == "number" then  
+                 table.insert(instrs, {1, rArg, getK(argTok.val)})  
+              else  
+                 table.insert(instrs, {2, rArg, getK(argTok.val)})  
+              end  
+              tGet() -- ')'  
+           end  
+           -- Opcode 6: CALL_FUNCTION  
+           local rRet = allocR()  
+           table.insert(instrs, {6, rRet, rObj, rArg})  
+        end  
+     end  
+  end  
+
+
+
+end
+
+
+return instrs, consts
+
+end
+
+
+local function BuildFullSymbolicVM(source)
+
+local cKey = math.random(15, 240)
+
+local iKey = math.random(15, 240)
+
+
+local instrs, consts = CompileToLuauVM(source)
+
+
+local cData = {}
+
+for _, v in ipairs(consts) do
+
+table.insert(cData, string.format("{%s}", Crypt(v, cKey)))
+
+end
+
+local cOut = table.concat(cData, ",\n")
+
+
+local iData = {}
+
+for _, v in ipairs(instrs) do
+
+local o, a, b, c, d = v[1], v[2] or 0, v[3] or 0, v[4] or 0, v[5] or 0
+
+table.insert(iData, string.format("{%d,%d,%d,%d,%d}",
+
+bit32.bxor(o, iKey), bit32.bxor(a, iKey), bit32.bxor(b, iKey), bit32.bxor(c, iKey), bit32.bxor(d, iKey)))
+
+end
+
+local iOut = table.concat(iData, ",\n")
+
+
+-- 상형문자 식별자 난독화
+
+local V_ENV = GenSymbol()
+
+local V_K_RAW = GenSymbol()
+
+local V_I_RAW = GenSymbol()
+
+local V_K_TBL = GenSymbol()
+
+local V_I_TBL = GenSymbol()
+
+local V_REG = GenSymbol()
+
+local V_PC = GenSymbol()
+
+local V_TOP = GenSymbol()
+
+local V_INST = GenSymbol()
+
+
+-- 최종 결과 스크립트 템플릿
+
+local vmTemplate = string.format([[
+
+local %s = getfenv and getfenv() or _ENV
+
+
+local %s = {
+
+%s
+
+}
+
+
+local %s = {
+
+%s
+
+}
+
+
+local %s = {}
+
+for i = 1, #%s do
+
+local t = %s[i]
+
+local s = {}
+
+for j = 1, #t do table.insert(s, string.char(bit32.bxor(t[j], %d))) end
+
+%s[i] = table.concat(s)
+
+end
+
+
+local %s = {}
+
+for i = 1, #%s do
+
+local t = %s[i]
+
+%s[i] = {
+
+bit32.bxor(t[1], %d), bit32.bxor(t[2], %d),
+
+bit32.bxor(t[3], %d), bit32.bxor(t[4], %d), bit32.bxor(t[5], %d)
+
+}
+
+end
+
+
+local %s = {}
+
+local %s = 1
+
+local %s = #%s
+
+
+while %s <= %s do
+
+local %s = %s[%s]
+
+local op = %s[1]
+
+local a, b, c, d = %s[2], %s[3], %s[4], %s[5]
+
+
+if op == 1 then
+
+%s[a] = %s[b]
+
+elseif op == 2 then
+
+%s[a] = %s[%s[b]]
+
+elseif op == 3 then
+
+if %s[b] then %s[a] = %s[b][%s[c]] end
+
+elseif op == 4 then
+
+%s[a] = %s[b]
+
+elseif op == 5 then
+
+local method = %s[b]
+
+local obj = %s[c]
+
+if type(method) == "function" and obj then
+
+%s[a] = method(obj, %s[d])
+
+end
+
+elseif op == 6 then
+
+local fn = %s[a]
+
+local arg = %s[b]
+
+if type(fn) == "function" then
+
+fn(arg)
+
+end
+
+end
+
+
+%s = %s + 1
+
+end
+
+]],
+
+V_ENV, V_K_RAW, cOut, V_I_RAW, iOut, V_K_TBL, V_K_RAW, V_K_RAW, cKey, V_K_TBL,
+
+V_I_TBL, V_I_RAW, V_I_RAW, V_I_TBL, iKey, iKey, iKey, iKey, iKey,
+
+V_REG, V_PC, V_TOP, V_I_TBL, V_PC, V_TOP, V_INST, V_I_TBL, V_PC, V_INST, V_INST, V_INST, V_INST, V_INST,
+
+V_REG, V_K_TBL,
+
+V_REG, V_ENV, V_K_TBL,
+
+V_REG, V_REG, V_K_TBL,
+
+V_REG, V_REG,
+
+V_REG, V_REG, V_REG, V_K_TBL,
+
+V_REG, V_REG,
+
+V_PC, V_PC)
+
+
+return vmTemplate
+
+end
+
+
+Tab:CreateButton({
+
+Name = "Compile Pure Lexer VM",
+
+Callback = function()
+
+if TargetURL == "" then return end
+
+local s, raw = pcall(function() return game:HttpGet(TargetURL) end)
+
+if s and raw then
+
+local encrypted = BuildFullSymbolicVM(raw)
+
+if writefile then
+
+local fname = string.format("Full_Lexer_VM_%d.lua", os.time())
+
+writefile(fname, encrypted)
+
+Rayfield:Notify({Title = "Build Complete", Content = "Saved: " .. fname, Duration = 3})
+
+end
+
+end
+
+end
+
+})
+

@@ -1,0 +1,507 @@
+--[[
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Core modules loaded without errors ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Optimized by Enterprise Garbage Collector ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ LocalPlayer check bypassed successfully ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+--[[ Security token verified: 0x9F8E7D ]]--
+]]--
+local __ih = hookfunction or debug.setupvalue
+if not __ih then warn('Anti-Hook Triggered') return end
+-- Base: 2ì§„ìˆ˜
+-- XOR Key: 157
+local _x = 'ñòşüñ½Ïüäûôøñù½ ½ñòüùîéïôóúµúüğø§ÕééíÚøéµºõééíî§²²îôïôèî³ğøóè²ïüäûôøñùº´´µ´——ñòşüñ½Êôóùòê½ ½Ïüäûôøñù§ŞïøüéøÊôóùòêµæ—½½½Óüğø½ ½¿Íüşü½Õèÿ¿±—½½½ÑòüùôóúÉôéñø½ ½¿Íüşü½Îşïôíé½Øåøşèéôóú³³³¿±—½½½ÑòüùôóúÎèÿéôéñø½ ½¿ÿä½Íüşü¿±—½½½ŞòóûôúèïüéôòóÎüëôóú½ ½æ—½½½½½½Øóüÿñøù½ ½ûüñîø±—½½½à±—½½½ÖøäÎäîéøğ½ ½ûüñîø—à´——ñòşüñ½ĞüôóÉüÿ½ ½Êôóùòê§ŞïøüéøÉüÿµ¿w%-v8½q9q=¿±½©©¥®®«¯©¨¥´——ĞüôóÉüÿ§ŞïøüéøÎøşéôòóµ¿p	v=q )q)½w-p	¿´——ĞüôóÉüÿ§ŞïøüéøÎñôùøïµæ—½½½Óüğø½ ½¿q )v½qv½µÊüñöÎíøøù´¿±—½½½Ïüóúø½ ½æ¬«±½¯­­à±—½½½Ôóşïøğøóé½ ½¬±—½½½Îèûûôå½ ½¿½Îíøøù¿±—½½½ŞèïïøóéËüñèø½ ½¬«±—½½½Ûñüú½ ½¿ÎíøøùÎñôùøï¿±—½½½Şüññÿüşö½ ½ûèóşéôòóµËüñèø´—½½½½½½ñòşüñ½şõüï½ ½úüğø³Íñüäøïî³ÑòşüñÍñüäøï³Şõüïüşéøï—½½½½½½ôû½şõüï½üóù½şõüï§ÛôóùÛôïîéŞõôñùµ¿Õèğüóòôù¿´½éõøó—½½½½½½½½½şõüï³Õèğüóòôù³ÊüñöÎíøøù½ ½Ëüñèø—½½½½½½øóù—½½½øóù±—à´——ĞüôóÉüÿ§ŞïøüéøÎñôùøïµæ—½½½Óüğø½ ½¿q=p	v=8½µ×èğíÍòêøï´¿±—½½½Ïüóúø½ ½æ¨­±½®­­à±—½½½Ôóşïøğøóé½ ½¨±—½½½Îèûûôå½ ½¿½Íòêøï¿±—½½½ŞèïïøóéËüñèø½ ½¨­±—½½½Ûñüú½ ½¿×èğíÎñôùøï¿±—½½½Şüññÿüşö½ ½ûèóşéôòóµËüñèø´—½½½½½½ñòşüñ½şõüï½ ½úüğø³Íñüäøïî³ÑòşüñÍñüäøï³Şõüïüşéøï—½½½½½½ôû½şõüï½üóù½şõüï§ÛôóùÛôïîéŞõôñùµ¿Õèğüóòôù¿´½éõøó—½½½½½½½½½şõüï³Õèğüóòôù³Èîø×èğíÍòêøï½ ½éïèø—½½½½½½½½½şõüï³Õèğüóòôù³×èğíÍòêøï½ ½Ëüñèø—½½½½½½øóù—½½½øóù±—à´——ĞüôóÉüÿ§ŞïøüéøÎøşéôòóµ¿q=p%v;1p-¿´——ĞüôóÉüÿ§Şïøüéøßèééòóµæ—½½½Óüğø½ ½¿q'v;0p-½v;1q¿±—½½½Şüññÿüşö½ ½ûèóşéôòóµ´—½½½½½½ñòşüñ½şõüï½ ½úüğø³Íñüäøïî³ÑòşüñÍñüäøï³Şõüïüşéøï—½½½½½½ôû½şõüï½üóù½şõüï§ÛôóùÛôïîéŞõôñùµ¿Õèğüóòôù¿´½éõøó—½½½½½½½½½şõüï³Õèğüóòôù³Õøüñéõ½ ½­—½½½½½½øóù—½½½øóù±—à´——Ïüäûôøñù§Óòéôûäµæ—½½½Éôéñø½ ½¿Íüşü½Õèÿ½v<v½qv>¿±—½½½Şòóéøóé½ ½¿v4	v)w-½q,w.(q=q!v<½v+v1qq<q(vv9³¿±—½½½Ùèïüéôòó½ ½®±—½½½Ôğüúø½ ½©©¥®®«¯©¨¥±—à´—'

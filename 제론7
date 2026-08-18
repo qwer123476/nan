@@ -19549,7 +19549,7 @@ do
 --local Stats = game:GetService("Stats")
 --local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
-local LocalPlayer = Players.LocalPlayer
+--local LocalPlayer = Players.LocalPlayer
 
 local ownerIDs = {
     [5352731855] = true,
@@ -19557,9 +19557,9 @@ local ownerIDs = {
     [11000044399] = true
 }
 
-local isOwner = ownerIDs[LocalPlayer.UserId] or false
-local userRole = isOwner and "Owner" or "User"
-local userRank = isOwner and "Owner Rank" or "Premium Rank"
+---local isOwner = ownerIDs[LocalPlayer.UserId] or false
+--local userRole = isOwner and "Owner" or "User"
+--local userRank = isOwner and "Owner Rank" or "Premium Rank"
 
 local hwid = "Unknown"
 pcall(function()

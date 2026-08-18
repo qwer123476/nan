@@ -19114,7 +19114,7 @@ if not getgenv()._AntiLagScript then
         loopConnection = nil
     }
 end
-
+do
 local AL = getgenv()._AntiLagScript
 AL.charBeamMove = plr:WaitForChild("PlayerScripts"):WaitForChild("CharacterAndBeamMove", 5)
 
@@ -19679,7 +19679,7 @@ task.spawn(function()
     task.wait(2)
     LoadAll()
 end)
-
+end
 end
 --=================================
 -------[[한국 이외 ui패널]]

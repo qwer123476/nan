@@ -19460,8 +19460,8 @@ SettingsSection:AddButton({
 })
 ]]
 
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
+--local Players = game:GetService("Players")
+--local UserInputService = game:GetService("UserInputService")
 
 local plr = Players.LocalPlayer
 local mouse = plr:GetMouse()
@@ -19520,7 +19520,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-local Stats = game:GetService("Stats")
+--local Stats = game:GetService("Stats")
 
 spawn(function()
     while task.wait(1) do

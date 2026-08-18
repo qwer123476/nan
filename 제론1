@@ -19234,7 +19234,7 @@ AL.loopConnection = task.spawn(function()
     frameCounter:Disconnect()
 end)
 
-local function AntiLagF()
+function AntiLagF()
     if AL.connection then
         AL.connection:Disconnect()
         AL.connection = nil

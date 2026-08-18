@@ -19122,7 +19122,7 @@ do
 --local AL = getgenv()._AntiLagScript
 AL.charBeamMove = plr:WaitForChild("PlayerScripts"):WaitForChild("CharacterAndBeamMove", 5)
 
-local function UpdateCharBeamState()
+function UpdateCharBeamState()
     if not AL.charBeamMove then return end
 
     if not AL.antiLagEnabled then
@@ -19142,7 +19142,7 @@ local function UpdateCharBeamState()
     end
 end
 
-local function FlagPlayer(fromPlr)
+ function FlagPlayer(fromPlr)
     local data = AL.fireCount[fromPlr]
     if not data then return end
     if data.isFlagged then return end

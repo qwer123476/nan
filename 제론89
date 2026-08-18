@@ -19593,55 +19593,6 @@ UpdateSection:AddLabel("• 스팸킥 속도 UP")
 UpdateSection:AddLabel("• 자동 플롯소유권 추가")
 UpdateSection:AddLabel("• (오너용) 래그돌킥 추가")
 ]]
-local ExecSection = UDTab:AddSection({
-    Name = "실행자 정보"
-})
-
-local dispName = LocalPlayer.DisplayName
-local realName = LocalPlayer.Name
-ExecSection:AddLabel("닉네임: " .. dispName .. " (@" .. realName .. ")")
-
-ExecSection:AddLabel("HWID: " .. hwid)
-
-
-ExecSection:AddLabel("유저 상태: " .. userRole)
-
-ExecSection:AddLabel("실행자 등급: " .. userRank)
-
-local PingLabel = ExecSection:AddLabel("핑: 계산 중...")
-local FPSLabel = ExecSection:AddLabel("FPS: 계산 중...")
-
-task.spawn(function()
-    local RunService = game:GetService("RunService")
-    local lastTime = os.clock()
-    local frameCount = 0
-    
-    RunService.RenderStepped:Connect(function()
-        frameCount = frameCount + 1
-        local currentTime = os.clock()
-        if currentTime - lastTime >= 1 then
-            local fps = math.floor(frameCount / (currentTime - lastTime))
-            FPSLabel:Set("FPS: " .. tostring(fps))
-            frameCount = 0
-            lastTime = currentTime
-        end
-    end)
-    
-    while task.wait(1) do
-        pcall(function()
-            local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
-            PingLabel:Set("핑: " .. tostring(ping) .. " ms")
-        end)
-    end
-end)
-end
-local success = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/qwerqwerg1u/RRTS/main/씨발년들"))()
-end)
-
-if not success then
-    game.Players.LocalPlayer:Kick("로더를 불러오는데 실패했습니다. (Load Failed)")
-end
 
 task.spawn(function()
     task.wait(1)

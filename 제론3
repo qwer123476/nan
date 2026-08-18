@@ -14,9 +14,9 @@ local geoResponse = request({
 
 local geoData = httpService:JSONDecode(geoResponse.Body)
 
-if geoData.countryCode ~= "KR" then
-    return
-end
+if geoData.countryCode == "KR" then
+task.spawn(function()
+
 
 
 
@@ -19681,9 +19681,11 @@ CreditsTab:AddButton({
 task.spawn(function()
     task.wait(2)
     LoadAll()
-end)
+             end)
+         end
+    end)
 end
-end
+
 --=================================
 -------[[한국 이외 ui패널]]
 --=================================

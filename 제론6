@@ -19463,10 +19463,10 @@ SettingsSection:AddButton({
 --local Players = game:GetService("Players")
 --local UserInputService = game:GetService("UserInputService")
 
-local plr = Players.LocalPlayer
-local mouse = plr:GetMouse()
+--local plr = Players.LocalPlayer
+--local mouse = plr:GetMouse()
 
-local function tpF()
+ function tpF()
     local char = plr.Character
     if not char then return end
 
@@ -19545,9 +19545,9 @@ end)
 end
 do
  
-local Players = game:GetService("Players")
-local Stats = game:GetService("Stats")
-local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+--local Players = game:GetService("Players")
+--local Stats = game:GetService("Stats")
+--local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local LocalPlayer = Players.LocalPlayer
 

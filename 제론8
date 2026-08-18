@@ -19095,7 +19095,7 @@ if not CreateGrabLine then
 end
 
 local Pline = CreateGrabLine.OnClientEvent
-
+do
 if not getgenv()._AntiLagScript then
     getgenv()._AntiLagScript = {
         antiLagEnabled = true,
@@ -19116,6 +19116,7 @@ if not getgenv()._AntiLagScript then
         renderConnection = nil,
         loopConnection = nil
     }
+end
 end
 do
 local AL = getgenv()._AntiLagScript

@@ -19690,7 +19690,7 @@ end
 -------[[한국 이외 ui패널]]
 --=================================
 
-do
+
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")

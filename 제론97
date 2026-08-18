@@ -18995,7 +18995,7 @@ refreshPlayerList(PlayerToTarget)
 
 
 
-
+do
 local character = plr.Character or plr.CharacterAdded:Wait()
 local rootPart = character:WaitForChild("HumanoidRootPart", 5)
 
@@ -21793,7 +21793,7 @@ if D then
         end
     end)
 else
-    warn("Player 객체(D)를 찾을 수 없어 CharacterAdded를 연결하지 못했습니다.")
+    warn("ff")
 end
 
         repeat
@@ -21804,7 +21804,7 @@ end
             StartMonitoring()
         end
     
-
+end
 
 plotItemsFolder = workspace:WaitForChild("PlotItems")
 playersInPlotsFolder = plotItemsFolder:WaitForChild("PlayersInPlots")
@@ -22404,7 +22404,7 @@ OnlyOwner = false
 SkipOL = false
 OLTPValue = Vector3.new(0, 20, 0)
 
-
+do
 function loopPlayerBlobF4()
     UpdateCurrentBlobman()
 
@@ -24940,7 +24940,7 @@ function NoClipGrabF()
         end
     end
 end
-
+end
 function ViewToolF()
     local Tools = {
         "NinjaKunai",

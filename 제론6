@@ -17,7 +17,7 @@ local geoData = httpService:JSONDecode(geoResponse.Body)
 if geoData.countryCode == "KR" then
 task.spawn(function()
 
-
+end)
 
 
 do
@@ -19802,6 +19802,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         removeGui()
     end
 end)
+
 end
 
 

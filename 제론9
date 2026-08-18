@@ -19119,7 +19119,7 @@ if not getgenv()._AntiLagScript then
 end
 end
 do
-local AL = getgenv()._AntiLagScript
+--local AL = getgenv()._AntiLagScript
 AL.charBeamMove = plr:WaitForChild("PlayerScripts"):WaitForChild("CharacterAndBeamMove", 5)
 
 local function UpdateCharBeamState()

@@ -18709,7 +18709,7 @@ local function ExplodeByTargetMode(bombInstance)
         end
     end
 end
-
+do
 local function ExplodeFirstBomb()
     local targetPart = spawnedInToysFolder:FindFirstChild(spamexplosiontype)
     if targetPart then
@@ -18992,7 +18992,7 @@ end)
 
 refreshPlayerList(PlayerToTarget)
 
-
+end
 
 
 do

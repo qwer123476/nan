@@ -14,7 +14,10 @@ local geoResponse = request({
 
 local geoData = httpService:JSONDecode(geoResponse.Body)
 
-if geoData.countryCode == "KR" then
+if geoData.countryCode ~= "KR" then
+    return
+end
+
 
 
 do

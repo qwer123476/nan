@@ -18961,7 +18961,7 @@ firework_section:AddDropdown({
     end
 })
 
-local PlayerToTarget = firework_section:AddDropdown({
+firework_section:AddDropdown({
     Name = "플레이어 고르기",
     Default = "",
     Options = {""},

@@ -19551,17 +19551,13 @@ do
 
 --local LocalPlayer = Players.LocalPlayer
 
-local ownerIDs = {
-    [5352731855] = true,
-    [2932138780] = true,
-    [11000044399] = true
-}
+
 
 ---local isOwner = ownerIDs[LocalPlayer.UserId] or false
 --local userRole = isOwner and "Owner" or "User"
 --local userRank = isOwner and "Owner Rank" or "Premium Rank"
 
-local hwid = "Unknown"
+
 pcall(function()
     hwid = RbxAnalyticsService:GetClientId()
 end)

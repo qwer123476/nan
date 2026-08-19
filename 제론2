@@ -19529,6 +19529,7 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local SpawnRemote = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
 local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+local DestroyRemote = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("DestroyToy")
 
 local pallets = {}
 local wingConnection = nil
@@ -19598,6 +19599,16 @@ local function spawnPallet()
 	return nil
 end
 
+local function destroyPallet(pallet)
+	if not pallet then return end
+	pcall(function()
+		DestroyRemote:FireServer(pallet)
+	end)
+	if pallet and pallet.Parent then
+		pallet:Destroy()
+	end
+end
+
 local function stopWings()
 	if wingConnection then
 		wingConnection:Disconnect()
@@ -19605,9 +19616,7 @@ local function stopWings()
 	end
 
 	for _, pallet in ipairs(pallets) do
-		if pallet and pallet.Parent then
-			pallet:Destroy()
-		end
+		destroyPallet(pallet)
 	end
 	pallets = {}
 end

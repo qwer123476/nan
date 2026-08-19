@@ -19796,9 +19796,6 @@ WTab:AddToggle({
 				local plr = Players.LocalPlayer
 				local character = plr.Character or plr.CharacterAdded:Wait()
 				local hrp = character:WaitForChild("HumanoidRootPart")
-				local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
-				
-				if not torso then return end
 
 				local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
 				local SpawnToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
@@ -19847,25 +19844,11 @@ WTab:AddToggle({
 					return workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
 				end
 
-				local function GetTargetPartFromGrabParts()
-					local grabPartsModel = workspace:FindFirstChild("GrabParts")
-					if not grabPartsModel then return nil end
-					local grabPart = grabPartsModel:FindFirstChild("GrabPart")
-					if not grabPart then return nil end
-					local weldConstraint = grabPart:FindFirstChild("WeldConstraint")
-					if not weldConstraint or not weldConstraint:IsA("WeldConstraint") then return nil end
-					return weldConstraint.Part1
-				end
-
-				local originalGrabTarget = GetTargetPartFromGrabParts()
-				if not originalGrabTarget then return end
+				local originalCF = hrp.CFrame
 
 				for i = 1, 10 do
 					if not isToggled then return end
-					while not plr.CanSpawnToy.Value do task.wait(0.1) end
-					task.spawn(function()
-						SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 5, 15), Vector3.new(0, 0, 0))
-					end)
+					SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 5, 15), Vector3.new(0, 0, 0))
 					task.wait(0.2)
 				end
 
@@ -19892,30 +19875,30 @@ WTab:AddToggle({
 				task.wait(0.1)
 
 				for _, kunai in ipairs(spawnedKunais) do
-					if not isToggled then return end
-					local stickyPart = kunai:WaitForChild("StickyPart")
-					local soundPart = kunai:WaitForChild("SoundPart")
+					if not isToggled then break end
+					local stickyPart = kunai:WaitForChild("StickyPart", 2)
+					local soundPart = kunai:WaitForChild("SoundPart", 2)
 
 					if stickyPart and soundPart then
 						pcall(function()
 							SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
 							SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
 						end)
-					end
 
-					if stickyPart then
-						local relativeCF = originalGrabTarget.CFrame:ToObjectSpace(originalGrabTarget.CFrame)
+						local relativeCF = targetPart.CFrame:ToObjectSpace(targetPart.CFrame)
 						pcall(function()
-							StickyPartEvent:FireServer(stickyPart, originalGrabTarget, relativeCF)
+							StickyPartEvent:FireServer(stickyPart, targetPart, relativeCF)
 						end)
 					end
 					task.wait(0.05)
 				end
+
+				task.wait(0.2)
+				hrp.CFrame = originalCF
 			end)
 		end
 	end
 })
-
 
 end
 do
@@ -19941,36 +19924,6 @@ pcall(function()
     hwid = RbxAnalyticsService:GetClientId()
 end)
 
-local InfoSection = UDTab:AddSection({
-    Name = "정보"
-})
-
-InfoSection:AddLabel("타이틀: 정보")
-InfoSection:AddLabel("버전: V4.14")
-InfoSection:AddLabel("난독화 타입: Luraph V15")
-InfoSection:AddLabel("관리자: 파카")
-
-local UpdateSection = UDTab:AddSection({
-    Name = "8.14 업데이트 내역"
-})
-
-UpdateSection:AddLabel("• 안티렉V3업그레이드")
-UpdateSection:AddLabel("• 안티오너쉽스팸 F1버그픽스")
-UpdateSection:AddLabel("• 안티PCLD버그픽스")
-UpdateSection:AddLabel("• 스팸 픽스")
-UpdateSection:AddLabel("• 기차구찌개선")
-UpdateSection:AddLabel("• 킥그랩 앵커 추가")
-UpdateSection:AddLabel("• 킥그랩 개선")
-UpdateSection:AddLabel("• 킬그랩 공허 추가")
-UpdateSection:AddLabel("• 킬그랩개선")
-UpdateSection:AddLabel("• 바이패스 개선")
-UpdateSection:AddLabel("• 안티렉V2 강도 개선")
-UpdateSection:AddLabel("• 안티킬 개선")
-UpdateSection:AddLabel("• 오너쉽킥 V2추가")
-UpdateSection:AddLabel("• 바다 걷기 렉 개선")
-UpdateSection:AddLabel("• 스팸킥 속도 UP")
-UpdateSection:AddLabel("• 자동 플롯소유권 추가")
-UpdateSection:AddLabel("• (오너용) 래그돌킥 추가")
 
 local ExecSection = UDTab:AddSection({
     Name = "실행자 정보"
@@ -19982,7 +19935,7 @@ ExecSection:AddLabel("닉네임: " .. dispName .. " (@" .. realName .. ")")
 
 ExecSection:AddLabel("HWID: " .. hwid)
 
-ExecSection:AddLabel("IP: 기밀")
+--ExecSection:AddLabel("IP: 기밀")
 
 ExecSection:AddLabel("유저 상태: " .. userRole)
 

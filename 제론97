@@ -19733,7 +19733,7 @@ local function createWings()
 	end)
 end
 
-WTab:CreateToggle({
+WTab:AddToggle({
 	Name="날개 만들기",
 	CurrentValue=false,
 	Callback=function(Value)
@@ -19748,7 +19748,7 @@ WTab:CreateToggle({
 	end
 })
 
-WTab:CreateSlider({
+WTab:AddSlider({
 	Name="날개 펄럭임 속도",
 	Range={1,15},
 	Increment=1,
@@ -19758,7 +19758,7 @@ WTab:CreateSlider({
 	end
 })
 
-WTab:CreateSlider({
+WTab:AddSlider({
 	Name="날개 각도",
 	Range={0,90},
 	Increment=1,
@@ -19768,7 +19768,7 @@ WTab:CreateSlider({
 	end
 })
 
-WTab:CreateSlider({
+WTab:AddSlider({
 	Name=" 판자 개수",
 	Range={2,20},
 	Increment=1,

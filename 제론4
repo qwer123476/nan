@@ -14326,7 +14326,7 @@ funTab:AddButton({
 })
 do
 WTab:AddSection({
-    Name = "무력화"
+    Name = "날개"
 })
 local SelectedTarget = "UFO 1"
 
@@ -14345,6 +14345,10 @@ local Targets = {
 	}
 }
 
+WTab:AddSection({
+	Name = "무력화"
+})
+
 WTab:AddDropdown({
 	Name = "무력화 대상 선택",
 	Default = "UFO 1",
@@ -14354,137 +14358,144 @@ WTab:AddDropdown({
 	end    
 })
 
+local isToggled = false
+
 WTab:AddToggle({
 	Name = "무력화 실행",
-	Callback = function()
-		local ReplicatedStorage = game:GetService("ReplicatedStorage")
-		local Players = game:GetService("Players")
-		local plr = Players.LocalPlayer
-		local character = plr.Character or plr.CharacterAdded:Wait()
-		local hrp = character:WaitForChild("HumanoidRootPart")
+	Default = false,
+	Callback = function(Value)
+		isToggled = Value
+		
+		if isToggled then
+			task.spawn(function()
+				local ReplicatedStorage = game:GetService("ReplicatedStorage")
+				local Players = game:GetService("Players")
+				local plr = Players.LocalPlayer
+				local character = plr.Character or plr.CharacterAdded:Wait()
+				local hrp = character:WaitForChild("HumanoidRootPart")
 
-		local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
-		local SpawnToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
-		local SetNetworkOwner = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+				local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
+				local SpawnToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
+				local SetNetworkOwner = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
 
-		local targetInfo = Targets[SelectedTarget]
-		local targetPart = targetInfo.GetPart()
-		local targetCF = targetInfo.CF
+				local targetInfo = Targets[SelectedTarget]
+				local targetPart = targetInfo.GetPart()
+				local targetCF = targetInfo.CF
 
-		if not targetPart then return end
+				if not targetPart then return end
 
-		local function GetPlotNumber()
-			local char = plr.Character
-			if not char then return nil end
+				local function GetPlotNumber()
+					local char = plr.Character
+					if not char then return nil end
 
-			if char.Parent == workspace then 
-				return nil
-			elseif char.Parent.Name == "PlayersInPlots" then
-				for _, plot in workspace.Plots:GetChildren() do
-					local plotSign = plot:FindFirstChild("PlotSign")
-					if plotSign and plotSign:FindFirstChild("ThisPlotsOwners") then
-						for _, owner in plotSign.ThisPlotsOwners:GetChildren() do
-							if owner.Value == plr.Name then
-								return tonumber(plot.Name:match("%d+"))
+					if char.Parent == workspace then 
+						return nil
+					elseif char.Parent.Name == "PlayersInPlots" then
+						for _, plot in workspace.Plots:GetChildren() do
+							local plotSign = plot:FindFirstChild("PlotSign")
+							if plotSign and plotSign:FindFirstChild("ThisPlotsOwners") then
+								for _, owner in plotSign.ThisPlotsOwners:GetChildren() do
+									if owner.Value == plr.Name then
+										return tonumber(plot.Name:match("%d+"))
+									end
+								end
 							end
 						end
 					end
+					return nil
 				end
-			end
-			return nil
-		end
 
-		local function GetInventory()
-			local plotNumber = GetPlotNumber()
+				local function GetInventory()
+					local plotNumber = GetPlotNumber()
 
-			if plotNumber then
-				local plotItems = workspace:FindFirstChild("PlotItems")
-				if plotItems then
-					local plotFolder = plotItems:FindFirstChild("Plot" .. plotNumber)
-					if plotFolder then
-						return plotFolder
+					if plotNumber then
+						local plotItems = workspace:FindFirstChild("PlotItems")
+						if plotItems then
+							local plotFolder = plotItems:FindFirstChild("Plot" .. plotNumber)
+							if plotFolder then
+								return plotFolder
+							end
+						end
 					end
+					
+					return workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
 				end
-			end
-			
-			return workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
-		end
 
-		local spawnedKunais = {}
-		local spawnPos = CFrame.new(hrp.Position.X, 9999, hrp.Position.Z)
+				hrp.CFrame = targetPart.CFrame
+				task.wait(0.3)
 
-		for i = 1, 10 do
-			while not plr.CanSpawnToy.Value do task.wait(0.1) end
-			task.spawn(function()
-				SpawnToy:InvokeServer("NinjaKunai", spawnPos, Vector3.new(0, 0, 0))
-			end)
-			task.wait(0.2)
-		end
+				local spawnedKunais = {}
 
-		task.wait(0.5)
-
-		local inv = GetInventory()
-		if inv then
-			for i = #inv:GetChildren(), 1, -1 do
-				local obj = inv:GetChildren()[i]
-				if obj.Name == "NinjaKunai" then
-					table.insert(spawnedKunais, obj)
-					if #spawnedKunais == 10 then break end
-				end
-			end
-		end
-
-		hrp.CFrame = targetPart.CFrame
-		task.wait(0.3)
-
-		task.spawn(function()
-			local networkBroken = false
-			local attempts = 0
-
-			while not networkBroken and attempts < 10 do
-				attempts = attempts + 1
-				
-				SetNetworkOwner:FireServer(targetPart, targetCF)
-				task.wait(0.1)
-
-				for _, kunai in ipairs(spawnedKunais) do
-					local stickyPart = kunai:WaitForChild("StickyPart", 2)
-					local soundPart = kunai:WaitForChild("SoundPart", 2)
-
-					if stickyPart and soundPart then
-						pcall(function()
-							SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
-							SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
-						end)
-
-						local relativeCF = targetPart.CFrame:ToObjectSpace(targetPart.CFrame)
-						pcall(function()
-							StickyPartEvent:FireServer(stickyPart, targetPart, relativeCF)
-						end)
-					end
-				end
-				
-				task.wait(0.5)
-				
-				if targetPart.ReceiveAge == 0 or attempts >= 3 then
-					networkBroken = true
-				end
-			end
-
-			if networkBroken and #spawnedKunais > 0 then
-				local mainKunai = spawnedKunais[1]
-				local stickyPart = mainKunai:FindFirstChild("StickyPart")
-				
-				if stickyPart then
-					local relativeCF = targetPart.CFrame:ToObjectSpace(targetPart.CFrame)
-					pcall(function()
-						StickyPartEvent:FireServer(stickyPart, targetPart, relativeCF)
+				for i = 1, 10 do
+					if not isToggled then return end
+					while not plr.CanSpawnToy.Value do task.wait(0.1) end
+					task.spawn(function()
+						SpawnToy:InvokeServer("NinjaKunai", targetPart.CFrame * CFrame.new(0, 5, 0), Vector3.new(0, 0, 0))
 					end)
+					task.wait(0.2)
 				end
-			end
-		end)
+
+				task.wait(0.5)
+
+				local inv = GetInventory()
+				if inv then
+					for i = #inv:GetChildren(), 1, -1 do
+						local obj = inv:GetChildren()[i]
+						if obj.Name == "NinjaKunai" then
+							table.insert(spawnedKunais, obj)
+							if #spawnedKunais == 10 then break end
+						end
+					end
+				end
+
+				local networkBroken = false
+				local attempts = 0
+
+				while isToggled and not networkBroken and attempts < 10 do
+					attempts = attempts + 1
+					
+					SetNetworkOwner:FireServer(targetPart, targetCF)
+					task.wait(0.1)
+
+					for _, kunai in ipairs(spawnedKunais) do
+						local stickyPart = kunai:WaitForChild("StickyPart", 2)
+						local soundPart = kunai:WaitForChild("SoundPart", 2)
+
+						if stickyPart and soundPart then
+							pcall(function()
+								SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
+								SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
+							end)
+
+							pcall(function()
+								StickyPartEvent:FireServer(stickyPart, targetPart, CFrame.new())
+							end)
+						end
+					end
+					
+					task.wait(0.5)
+					
+					local ageCheck = pcall(function() return targetPart.ReceiveAge end)
+					if (ageCheck and targetPart.ReceiveAge == 0) or attempts >= 3 then
+						networkBroken = true
+					end
+				end
+
+				if isToggled and networkBroken and #spawnedKunais > 0 then
+					local mainKunai = spawnedKunais[1]
+					local stickyPart = mainKunai:FindFirstChild("StickyPart")
+					
+					if stickyPart then
+						pcall(function()
+							StickyPartEvent:FireServer(stickyPart, targetPart, CFrame.new())
+						end)
+					end
+				end
+			end)
+		end
 	end
 })
+
 end
 local UserInputService = game:GetService("UserInputService")
 local coreGui = game:GetService("CoreGui")

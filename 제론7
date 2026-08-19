@@ -19796,6 +19796,9 @@ WTab:AddToggle({
 				local plr = Players.LocalPlayer
 				local character = plr.Character or plr.CharacterAdded:Wait()
 				local hrp = character:WaitForChild("HumanoidRootPart")
+				local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+				
+				if not torso then return end
 
 				local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
 				local SpawnToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
@@ -19844,8 +19847,18 @@ WTab:AddToggle({
 					return workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
 				end
 
-				
-				local spawnedKunais = {}
+				local function GetTargetPartFromGrabParts()
+					local grabPartsModel = workspace:FindFirstChild("GrabParts")
+					if not grabPartsModel then return nil end
+					local grabPart = grabPartsModel:FindFirstChild("GrabPart")
+					if not grabPart then return nil end
+					local weldConstraint = grabPart:FindFirstChild("WeldConstraint")
+					if not weldConstraint or not weldConstraint:IsA("WeldConstraint") then return nil end
+					return weldConstraint.Part1
+				end
+
+				local originalGrabTarget = GetTargetPartFromGrabParts()
+				if not originalGrabTarget then return end
 
 				for i = 1, 10 do
 					if not isToggled then return end
@@ -19858,72 +19871,51 @@ WTab:AddToggle({
 
 				task.wait(0.5)
 
-				
 				local inv = GetInventory()
-				if inv then
-					for i = #inv:GetChildren(), 1, -1 do
-						local obj = inv:GetChildren()[i]
-						if obj.Name == "NinjaKunai" then
-							table.insert(spawnedKunais, obj)
-							if #spawnedKunais == 10 then break end
-						end
+				if not inv then return end
+
+				local spawnedKunais = {}
+				for i = #inv:GetChildren(), 1, -1 do
+					local obj = inv:GetChildren()[i]
+					if obj.Name == "NinjaKunai" then
+						table.insert(spawnedKunais, obj)
+						if #spawnedKunais == 10 then break end
 					end
 				end
 
 				if #spawnedKunais == 0 then return end
 
-				
 				hrp.CFrame = targetCF
 				task.wait(0.3)
 
-				local networkBroken = false
-				local attempts = 0
+				SetNetworkOwner:FireServer(targetPart, targetCF)
+				task.wait(0.1)
 
-				while isToggled and not networkBroken and attempts < 10 do
-					attempts = attempts + 1
-					
-					SetNetworkOwner:FireServer(targetPart, targetCF)
-					task.wait(0.1)
+				for _, kunai in ipairs(spawnedKunais) do
+					if not isToggled then return end
+					local stickyPart = kunai:WaitForChild("StickyPart")
+					local soundPart = kunai:WaitForChild("SoundPart")
 
-					for _, kunai in ipairs(spawnedKunais) do
-						local stickyPart = kunai:WaitForChild("StickyPart", 2)
-						local soundPart = kunai:WaitForChild("SoundPart", 2)
-
-						if stickyPart and soundPart then
-							pcall(function()
-								SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
-								SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
-							end)
-
-							pcall(function()
-								StickyPartEvent:FireServer(stickyPart, targetPart, CFrame.new())
-							end)
-						end
-					end
-					
-					task.wait(0.5)
-					
-					local ageCheck = pcall(function() return targetPart.ReceiveAge end)
-					if (ageCheck and targetPart.ReceiveAge == 0) or attempts >= 3 then
-						networkBroken = true
-					end
-				end
-
-				
-				if isToggled and #spawnedKunais > 0 then
-					local mainKunai = spawnedKunais[1]
-					local stickyPart = mainKunai:FindFirstChild("StickyPart")
-					
-					if stickyPart then
+					if stickyPart and soundPart then
 						pcall(function()
-							StickyPartEvent:FireServer(stickyPart, targetPart, CFrame.new())
+							SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
+							SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
 						end)
 					end
+
+					if stickyPart then
+						local relativeCF = originalGrabTarget.CFrame:ToObjectSpace(originalGrabTarget.CFrame)
+						pcall(function()
+							StickyPartEvent:FireServer(stickyPart, originalGrabTarget, relativeCF)
+						end)
+					end
+					task.wait(0.05)
 				end
 			end)
 		end
 	end
 })
+
 
 end
 do

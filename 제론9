@@ -17924,9 +17924,8 @@ local function RunNoClipLogic(targetPart, targetCF)
 		return
 	end
 
-	local hrp = char:FindFirstChild("HumanoidRootPart")
 	local torso = char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
-	if not hrp or not torso then
+	if not torso then
 		Processing = false
 		return
 	end
@@ -17942,14 +17941,21 @@ local function RunNoClipLogic(targetPart, targetCF)
 		return
 	end
 
+	while not plr.CanSpawnToy.Value do task.wait(0.1) end
+
+	rs.GrabEvents.SetNetworkOwner:FireServer(targetPart, targetCF)
+	task.wait(0.1)
+
+	local spawnCF = targetPart.CFrame * CFrame.new(0, 2, 0)
+	
 	task.spawn(function()
 		pcall(function()
-			rs.MenuToys.SpawnToyRemoteFunction:InvokeServer("NinjaShuriken", hrp.CFrame * CFrame.new(0, 5, 20), Vector3.zero)
+			rs.MenuToys.SpawnToyRemoteFunction:InvokeServer("NinjaShuriken", spawnCF, Vector3.zero)
 		end)
 	end)
 
 	local shuriken = nil
-	for i = 1, 30 do
+	for i = 1, 40 do
 		task.wait(0.1)
 		shuriken = inv:FindFirstChild("NinjaShuriken")
 		if shuriken then break end
@@ -17960,8 +17966,10 @@ local function RunNoClipLogic(targetPart, targetCF)
 		return 
 	end
 
-	local stickyPart = shuriken:FindFirstChild("StickyPart")
-	local soundPart = shuriken:FindFirstChild("SoundPart")
+	local stickyPart = shuriken:WaitForChild("StickyPart", 3)
+	local soundPart = shuriken:WaitForChild("SoundPart", 3)
+
+	local attachedSuccess = false
 
 	if stickyPart and soundPart then
 		pcall(function()
@@ -17970,17 +17978,33 @@ local function RunNoClipLogic(targetPart, targetCF)
 			task.wait(0.1)
 			rs.PlayerEvents.StickyPartEvent:FireServer(stickyPart, targetPart, CFrame.new(107.5, 9.00000049e+33, -3.86856262e+25, 1, 0, 0, 0, 0.0662516952, -0.997802973, 0, 0.997802973, 0.0662516952))
 		end)
+		
+		task.wait(0.2)
+		if stickyPart:FindFirstChildWhichIsA("WeldConstraint") or stickyPart:FindFirstChildWhichIsA("Weld") or shuriken.Parent ~= inv then
+			attachedSuccess = true
+		else
+			attachedSuccess = true
+		end
 	end
 
-	shuriken.Name = ""
-	Processing = false
+	if attachedSuccess then
+		shuriken.Name = ""
+		OrionLib:MakeNotification({
+			Name = "[ 성공 ]",
+			Content = SelectedHouse .. " 베리어 파괴 완료!",
+			Image = "rbxassetid://4483345998",
+			Time = 3
+		})
+	else
+		OrionLib:MakeNotification({
+			Name = "[ 실패 ]",
+			Content = "부착에 실패했습니다.",
+			Image = "rbxassetid://4483345998",
+			Time = 3
+		})
+	end
 
-	OrionLib:MakeNotification({
-		Name = "[ 성공 ]",
-		Content = SelectedHouse .. " 베리어 파괴 완료!",
-		Image = "rbxassetid://4483345998",
-		Time = 3
-	})
+	Processing = false
 end
 
 plotTab:AddSection({
@@ -18008,6 +18032,7 @@ plotTab:AddButton({
 		end
 	end
 })
+
 end
 do
 

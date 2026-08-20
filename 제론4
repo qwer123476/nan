@@ -19931,8 +19931,11 @@ WTab:AddToggle({
 				local Players = game:GetService("Players")
 				local RunService = game:GetService("RunService")
 				local plr = Players.LocalPlayer
+				
 				local character = plr.Character or plr.CharacterAdded:Wait()
 				local hrp = character:WaitForChild("HumanoidRootPart")
+				local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+				if not torso then return end
 
 				local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
 				local SpawnToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
@@ -19983,63 +19986,71 @@ WTab:AddToggle({
 
 				local originalCF = hrp.CFrame
 
-				for i = 1, 12 do
-					if not isToggled then return end
-					SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 20, 15), Vector3.new(0, 0, 0))
-					task.wait()
-				end
-
-				local inv = GetInventory()
-				if not inv then return end
-
-				local spawnedKunais = {}
-				for i = #inv:GetChildren(), 1, -1 do
-					local obj = inv:GetChildren()[i]
-					if obj.Name == "NinjaKunai" then
-						table.insert(spawnedKunais, obj)
-						if #spawnedKunais == 12 then break end
-					end
-				end
-
-				if #spawnedKunais == 0 then return end
-
-				local tpConnection
-				tpConnection = RunService.Heartbeat:Connect(function()
+				
+				local tpConnection = RunService.Heartbeat:Connect(function()
 					if isToggled and hrp and targetPart and targetPart.Parent then
-						hrp.CFrame = targetPart.CFrame * CFrame.new(0, 2, 0)
+						hrp.CFrame = targetPart.CFrame * CFrame.new(0, 5, 0)
 					end
 				end)
 
-				task.wait(0.15)
+				local function createAndAttachKunai()
+					if not isToggled then return end
 
-				SetNetworkOwner:FireServer(targetPart, targetPart.CFrame)
+					
+					while plr:FindFirstChild("CanSpawnToy") and not plr.CanSpawnToy.Value do 
+						if not isToggled then return end
+						task.wait(0.1) 
+					end
 
-				for _, kunai in ipairs(spawnedKunais) do
-					local stickyPart = kunai:FindFirstChild("StickyPart")
-					local soundPart = kunai:FindFirstChild("SoundPart")
+					task.spawn(function()
+						SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 5, 15), Vector3.new(0, 0, 0))
+					end)
 
-					if stickyPart then
+					task.wait(0.2)
+
+					local inv = GetInventory()
+					if not inv then return end
+
+					local kunai
+					for i = #inv:GetChildren(), 1, -1 do
+						local obj = inv:GetChildren()[i]
+						if obj.Name == "NinjaKunai" then
+							kunai = obj
+							break
+						end
+					end
+
+					if not kunai then return end
+
+					local stickyPart = kunai:WaitForChild("StickyPart", 1)
+					local soundPart = kunai:WaitForChild("SoundPart", 1)
+
+										if stickyPart and soundPart then
 						pcall(function()
-							if soundPart then SetNetworkOwner:FireServer(soundPart, targetPart.CFrame) end
-							SetNetworkOwner:FireServer(stickyPart, stickyPart.CFrame)
-							StickyPartEvent:FireServer(stickyPart, targetPart, targetPart.CFrame:ToObjectSpace(stickyPart.CFrame))
+							SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
+							SetNetworkOwner:FireServer(soundPart, torso.CFrame)
 						end)
 					end
-				end
 
-				for _, kunai in ipairs(spawnedKunais) do
-					local stickyPart = kunai:FindFirstChild("StickyPart")
-					if stickyPart then
+										if stickyPart then
+						local relativeCF = targetPart.CFrame:ToObjectSpace(targetPart.CFrame)
 						pcall(function()
-							StickyPartEvent:FireServer(stickyPart, targetPart, targetPart.CFrame:ToObjectSpace(stickyPart.CFrame))
+							StickyPartEvent:FireServer(stickyPart, targetPart, relativeCF)
 						end)
 					end
+
+					task.wait(0.1)
 				end
 
-				task.wait(0.1)
+			
+				for i = 1, 12 do
+					if not isToggled then break end
+					createAndAttachKunai()
+				end
 
+			
 				if tpConnection then tpConnection:Disconnect() end
-				task.wait(0.05)
+				task.wait(0.1)
 				hrp.CFrame = originalCF
 			end)
 		end

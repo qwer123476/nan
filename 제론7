@@ -1123,10 +1123,10 @@ local UtilityTab = Window:MakeTab({Name = "Utility", Icon = "rbxassetid://603109
 local plotTab = Window:MakeTab({Name = "plot", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local DDTab = Window:MakeTab({Name = "Emote", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local FDTab = Window:MakeTab({Name = "protection", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
-local antiTab = Window:MakeTab({Name = "안전", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
+local antiTab = Window:MakeTab({Name = "Invincibility", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
 local ListTab = Window:MakeTab({Name = "List", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
 local LoopTab = Window:MakeTab({Name = "Loop", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local SMTab = Window:MakeTab({Name = "Spam", Icon = "rbxassetid://779891379989", PremiumOnly = false})
+local SMTab = Window:MakeTab({Name = "Explosions", Icon = "rbxassetid://779891379989", PremiumOnly = false})
 local AuraTab = Window:MakeTab({Name = "Aura", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
 local WTab = Window:MakeTab({Name = "network", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
 local bdTab = Window:MakeTab({Name = "background changer", Icon = "rbxassetid://4483345998", PremiumOnly = false})
@@ -10150,10 +10150,10 @@ LoopTab:AddButton({
 
 
 antiTab:AddSection({
-    Name = "보호"
+    Name = "Invincibility"
 })
 antiTab:AddToggle({
-    Name = "무질량 이동 | TP",
+    Name = "massless TP",
    
     save = true,
     Flag = "FakeTP",
@@ -10225,7 +10225,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "루프 TP | 랜덤",
+    Name = "loop TP",
     
     save = true,
     Flag = "afcihwh",
@@ -10266,14 +10266,12 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddLabel("루프 TP같은경우 루프킬,킥을 우회할때 유용합니다.")
+antiTab:AddLabel("Loop TP is useful for loop kick&kill avoidance.")
 
 
-antiTab:AddSection({
-    Name = "오너쉽"
-})
+
 antiTab:AddToggle({
-    Name = "안티  오너쉽 스팸 B1",
+    Name = "Anti ownership spam B1",
     Default = false,
     Flag = "AntiOwnersh2hhip",
     Callback = function(v)
@@ -10315,7 +10313,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸 V1",
+    Name = "Anti ownership spam V1",
     Default = false,
     Flag = "AntiOwnewyrship2",
     Callback = function(v)
@@ -10390,7 +10388,7 @@ antiTab:AddToggle({
 local isHeldLoop = nil
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸V2    <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti ownership spamV2    <font color='rgb(0,0,255)'>[Ownership]</font>",
     Default = false,
     Flag = "f971rfutcss",
     Callback = function(Value)
@@ -10471,7 +10469,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "안티 오너쉽 스팸 F1",
+    Name = "Anti ownership spamF1",
     Default = false,
     Flag = "AntiOwnewyrship2_PCLD",
     Callback = function(v)
@@ -10624,7 +10622,7 @@ antiTab:AddSection({
     Name = "PCLD"
 })
 antiTab:AddToggle({
-    Name = "안티 PCLD",
+    Name = "Anti PCLD",
     Default = false,
     Flag = "AntiPCLD_7gwOnly",
     Callback = function(v)
@@ -10662,12 +10660,12 @@ antiTab:AddToggle({
 
 
 antiTab:AddSection({
-    Name = "안티 바나나"
+    Name = "Anti Banana"
 })
 --local antiBananaSitActive = false
 
 antiTab:AddToggle({
-    Name = "안티 바나나(sit불가)",
+    Name = "Anti Banana (No sit)",
     Default = false,
     Flag = "oudrqu91",
     Callback = function(Value)
@@ -10701,11 +10699,8 @@ antiTab:AddToggle({
     end    
 })
 
-antiTab:AddSection({
-    Name = "안티 | 그랩"
-})
 antiTab:AddToggle({
-    Name = "안티 그랩   <font color='rgb(0,255,0)'>[오너쉽]</font>   <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti grab   <font color='rgb(0,255,0)'>[Ownership]</font>   <font color='rgb(0,0,255)'>[good]</font>",
     
     save = true,
     Flag = "9264",
@@ -10716,7 +10711,7 @@ antiTab:AddToggle({
 --AntiGrab:Set(true)
 
 antiTab:AddToggle({
-    Name = "안티그랩V2   <font color='rgb(255,0,0)'>[프라임오너쉽]</font>",
+    Name = "Anti-Grab V2   <font color='rgb(255,0,0)'>[Ownership]</font>",
     
     Save = true,
     Flag = "antiGrab33",
@@ -10768,7 +10763,7 @@ task.spawn(function()
 end)
 
 antiTab:AddToggle({
-    Name = "안티그랩V3   <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti Grab V3   <font color='rgb(0,0,255)'>[Struggle]</font>",
     save = true,
     Flag = "AutoStruggle", 
     Callback = function(enabled)
@@ -10813,7 +10808,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "안티그랩 |  StickyPart",
+    Name = "Anti Grab StickyPart",
     
     save = true,
     Flag = "kqhxusi",
@@ -10825,11 +10820,121 @@ antiTab:AddToggle({
     end
 })
 
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+
+local GrabEventsObj = ReplicatedStorage:FindFirstChild("GrabEvents")
+local EndGrabRemote = GrabEventsObj and GrabEventsObj:FindFirstChild("EndGrabEarly")
+
+local targetPos = CFrame.new(0, -9.9e9, 0)
+local isMonitoring = false
+local descendantConnection = nil
+local processedItems = {}
+
+local function SafeInvoke(remote, ...)
+    if not remote then return end
+    local args = {...}
+    task.spawn(function()
+        pcall(function()
+            remote:InvokeServer(unpack(args))
+        end)
+    end)
+end
+
+local function ProcessItem(item)
+    if not item or not item:IsA("Instance") then return end
+    if processedItems[item] then return end
+    
+    local myToyFolder = Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+    if myToyFolder and item:IsDescendantOf(myToyFolder) then
+        return
+    end
+
+    processedItems[item] = true
+
+    task.spawn(function()
+        local holdPart = item:FindFirstChild("HoldPart") or item:WaitForChild("HoldPart", 2)
+        if not holdPart then 
+            processedItems[item] = nil
+            return 
+        end
+
+        local grabFunc = holdPart:WaitForChild("HoldItemRemoteFunction", 3)
+        local dropFunc = holdPart:WaitForChild("DropItemRemoteFunction", 3)
+
+        if grabFunc and dropFunc then
+            while isMonitoring and item.Parent and holdPart.Parent == item do
+                local char = LocalPlayer.Character
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    SafeInvoke(grabFunc, item, char)
+                    
+                    task.wait(0.05)
+
+                    for _ = 1, 2 do
+                        SafeInvoke(dropFunc, item, targetPos, targetPos)
+                    end
+
+                    if EndGrabRemote then
+                        pcall(function()
+                            EndGrabRemote:FireServer()
+                        end)
+                    end
+                end
+                task.wait(0.1)
+            end
+        end
+        
+        processedItems[item] = nil
+    end)
+end
+
+local function ScanAndProcess()
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if not isMonitoring then break end
+        if obj.Name == "HoldPart" and obj.Parent then
+            ProcessItem(obj.Parent)
+        end
+    end
+end
+
+AntiTab:CreateToggle({
+    Name = "Phantom Network",
+    CurrentValue = false,
+    Flag = "AntiNetworkBreak",
+    Callback = function(Value)
+        isMonitoring = Value
+
+        if descendantConnection then
+            descendantConnection:Disconnect()
+            descendantConnection = nil
+        end
+
+        if not isMonitoring then
+            table.clear(processedItems)
+            return
+        end
+
+        task.spawn(ScanAndProcess)
+
+        descendantConnection = Workspace.DescendantAdded:Connect(function(obj)
+            if not isMonitoring then return end
+            if obj.Name == "HoldPart" then
+                task.defer(function()
+                    if obj.Parent and isMonitoring then
+                        ProcessItem(obj.Parent)
+                    end
+                end)
+            end
+        end)
+    end
+})
 
 
 
 antiTab:AddToggle({
-    Name = "안티킥 <font color='rgb(0,255,0)'>[그랩]</font>",
+    Name = "Anti kick <font color='rgb(0,255,0)'>[Grab]</font>",
     
     save = true,
     Flag = "AntiKickG1rab", 
@@ -10965,7 +11070,7 @@ end
 
 LocalPlayer.CharacterAdded:Connect(monitorCharacter)
 antiTab:AddToggle({
-    Name = "집 안티그랩",
+    Name = "House Anti TP Grab",
     Default = false,
     Flag = "HouseTpAntisGrab",
     Callback = function(v)
@@ -11026,10 +11131,10 @@ antiTab:AddToggle({
 })
 
 antiTab:AddSection({
-    Name = "킬"
+    Name = "Kill"
 })
 antiTab:AddToggle({
-    Name = "안티 래그돌킬",
+    Name = "Anti ragdolkill",
     Default = false,
     Flag = "AntiRagdojiiwll",
     Callback = function(v)
@@ -11070,7 +11175,7 @@ antiTab:AddToggle({
 
 
 antiTab:AddToggle({
-    Name = "안티 블롭 래그돌킬",
+    Name = "Anti blob ragdolkill",
     Default = false,
     Flag = "AntiRagBw8ieeilob",
     Callback = function(v)
@@ -11122,7 +11227,7 @@ antiTab:AddToggle({
     end
 })
 antiTab:AddToggle({
-    Name = "안티 블롭킬",
+    Name = "Anti Blobkill",
     Default = false,
     Flag = "AntiBlobiwiwmanKill",
     Callback = function(v)
@@ -11157,39 +11262,37 @@ antiTab:AddToggle({
     end
 })
 do
-antiTab:AddSection({
-    Name = "인풋류"
-})
+
 local itemTranslation = {
-    ["바나나"] = "FoodBanana",
-    ["빵"] = "FoodBread",
-    ["브로콜리"] = "FoodBroccoli",
-    ["케이크"] = "FoodCakePink",
-    ["코코넛"] = "FoodCoconut",
-    ["계란 후라이"] = "FoodDippyEgg",
-    ["도넛"] = "FoodDonut",
-    ["감자튀김"] = "FoodFrenchFries",
-    ["핫도그"] = "FoodHotdog",
-    ["고기꼬치"] = "FoodMeatStick",
-    ["독버섯"] = "FoodMushroomPoison",
-    ["치즈 피자"] = "FoodPizzaCheese",
-    ["페페로니 피자"] = "FoodPizzaPepperoni",
-    ["음료수 캔"] = "FoodSodaCan",
-    ["나팔"] = "InstrumentBrassBugle",
-    ["트럼펫"] = "InstrumentBrassTrumpet",
-    ["봉고 드럼"] = "InstrumentDrumBongos",
-    ["스네어 드럼"] = "InstrumentDrumSnare",
-    ["어쿠스틱 기타"] = "InstrumentGuitarAcoustic",
-    ["벤조"] = "InstrumentGuitarBanjo",
-    ["리라"] = "InstrumentGuitarLyre",
-    ["우쿨렐레"] = "InstrumentGuitarUkulele",
-    ["바이올린"] = "InstrumentGuitarViolin",
-    ["전자 피아노"] = "InstrumentPianoKeyboard",
-    ["멜로디카"] = "InstrumentPianoMelodica",
-    ["마이크"] = "InstrumentVoiceMicrophone",
-    ["오카리나"] = "InstrumentWoodwindOcarina",
-    ["색소폰"] = "InstrumentWoodwindSaxophone",
-    ["부부젤라"] = "InstrumentBrassVuvuzela"
+    ["Banana"] = "FoodBanana",
+    ["Bread"] = "FoodBread",
+    ["Broccoli"] = "FoodBroccoli",
+    ["Cake"] = "FoodCakePink",
+    ["Coconut"] = "FoodCoconut",
+    ["Fried egg"] = "FoodDippyEgg",
+    ["Donut"] = "FoodDonut",
+    ["French frie"] = "FoodFrenchFries",
+    ["Hot dog"] = "FoodHotdog",
+    ["Meat skewers"] = "FoodMeatStick",
+    ["mushroom"] = "FoodMushroomPoison",
+    ["Cheese Pizza"] = "FoodPizzaCheese",
+    ["Pepperoni Pizza"] = "FoodPizzaPepperoni",
+    ["Coke] = "FoodSodaCan",
+    ["trumpet"] = "InstrumentBrassBugle",
+    ["trumpet2"] = "InstrumentBrassTrumpet",
+    ["Bongo drum"] = "InstrumentDrumBongos",
+    ["snare drum"] = "InstrumentDrumSnare",
+    ["Acoustic guitar"] = "InstrumentGuitarAcoustic",
+    ["Benzo"] = "InstrumentGuitarBanjo",
+    ["Lyre"] = "InstrumentGuitarLyre",
+    ["Ukulelele"] = "InstrumentGuitarUkulele",
+    ["Violin"] = "InstrumentGuitarViolin",
+    ["Electronic piano"] = "InstrumentPianoKeyboard",
+    ["Melodica"] = "InstrumentPianoMelodica",
+    ["Mike"] = "InstrumentVoiceMicrophone",
+    ["Ocarina"] = "InstrumentWoodwindOcarina",
+    ["Saxophone"] = "InstrumentWoodwindSaxophone",
+    ["Vuvuzela"] = "InstrumentBrassVuvuzela"
 }
 
 function AntiDeathF(itemName)
@@ -11237,7 +11340,7 @@ Camera = workspace.CurrentCamera
 local currentSelectedOption = "FoodBanana"
 
 antiTab:AddToggle({
-    Name = "안티 인풋 <font color='rgb(255,0,0)'>[NWO]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti input <font color='rgb(255,0,0)'>[NWO]</font>  <font color='rgb(0,0,255)'>[Final]</font>",
     
     save = true,
     Flag = "AntiDeathToggiwleFlag",
@@ -11257,15 +11360,16 @@ antiTab:AddToggle({
 })
 
 antiTab:AddDropdown({
-    Name = "사용할 아이템 선택",
+    Name = "Select Item",
     Options = {
-         "바나나", "빵", "브로콜리", "핑크 케이크", "코코넛", "반숙란", "도넛", 
-        "감자튀김", "핫도그", "우쿨렐레", "고기꼬치", "독버섯", "치즈 피자", 
-        "페페로니 피자", "음료수 캔", "나팔", "트럼펫", "봉고 드럼", "스네어 드럼", 
-        "어쿠스틱 기타", "벤조", "리라", "바이올린", "전자 피아노", "멜로디카", 
-        "마이크", "오카리나", "색소폰", "부부젤라"
+        "Banana", "Bread", "Broccoli", "Pink Cake", "Coconut", "Soft Boiled Egg", "Donut", 
+        "French Fries", "Hot Dog", "Ukulele", "Meat Skewer", "Poison Mushroom", "Cheese Pizza", 
+        "Pepperoni Pizza", "Can of Soda", "Bugle", "Trumpet", "Bongo Drum", "Snare Drum", 
+        "Acoustic Guitar", "Banjo", "Lyre", "Violin", "Electric Piano", "Melodica", 
+        "Microphone", "Ocarina", "Saxophone", "Vuvuzela"
     },
-    Default = "바나나", 
+
+    Default = "Banana", 
     save = true,
     Flag = "ItemDropdwiownFlag",
     Callback = function(Option)
@@ -11309,7 +11413,7 @@ getgenv().State = getgenv().State or {
 }
 
 antiTab:AddToggle({
-    Name = "안티  인풋렉",
+    Name = "Anti input lag (Hamburger)",
     Default = false,
     Flag = "wuidiooqow",
     Callback = function(Value)
@@ -11403,9 +11507,91 @@ antiTab:AddToggle({
     end
 })
 
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+local charName = player.Name
+local isGhostLooping = false
+
+local function snatchAndDrop(item)
+    if not item or not item:IsA("Model") then return end
+    
+    local handle = item:FindFirstChild("Handle") or item.PrimaryPart or item:FindFirstChildWhichIsA("BasePart")
+    if handle then
+        pcall(function()
+            ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(handle, handle.CFrame)
+            ReplicatedStorage.GrabEvents.DestroyGrabLine:FireServer(handle)
+        end)
+    end
+end
+
+local function destroyBurger()
+    local folder = Workspace:FindFirstChild(charName .. "SpawnedInToys")
+    local burger = folder and folder:FindFirstChild("FoodHamburger")
+    
+    if burger then
+        pcall(function()
+            ReplicatedStorage.MenuToys.DestroyToyRemoteEvent:FireServer(burger)
+        end)
+    end
+end
+
+antiTab:CreateToggle({
+    Name = "Anti network V2(Hamburger)",
+    CurrentValue = false,
+    Flag = "w1668vyo",
+    Callback = function(Value)
+        isGhostLooping = Value
+        if Value then
+            task.spawn(function()
+                while isGhostLooping do
+                    local folder = Workspace:FindFirstChild(charName .. "SpawnedInToys")
+                    local burger = folder and folder:FindFirstChild("FoodHamburger")
+
+                    if not burger then
+                        local spawnPos = player.Character and player.Character.PrimaryPart and player.Character.PrimaryPart.CFrame or CFrame.new(0, 5, 0)
+
+                        task.spawn(function()
+                            ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("FoodHamburger", spawnPos, Vector3.new(0, 90, 0))
+                        end)
+
+                        local newBurger = nil
+                        for i = 1, 10 do
+                            newBurger = folder and folder:FindFirstChild("FoodHamburger")
+                            if newBurger then break end
+                            RunService.Heartbeat:Wait()
+                        end
+
+                        if newBurger then
+                            snatchAndDrop(newBurger)
+                        end
+                    else
+                        snatchAndDrop(burger)
+                    end
+
+                    RunService.Heartbeat:Wait()
+                end
+            end)
+
+            task.spawn(function()
+                while isGhostLooping do
+                    task.wait(12)
+                    if isGhostLooping then
+                        destroyBurger()
+                    end
+                end
+            end)
+        else
+            destroyBurger()
+        end
+    end,
+})
 
 antiTab:AddToggle({
-    Name = "안티킬",
+    Name = "Anti kill (Mayonnaise)",
     Default = false,
     Flag = "AntiKillMayoisididnnaise",
     Callback = function(v)
@@ -11474,11 +11660,9 @@ antiTab:AddToggle({
     end
 })
 end
-antiTab:AddSection({
-    Name = "블롭맨"
-})
+
 antiTab:AddToggle({
-	Name = "안티 블롭맨",
+	Name = "Anti Blobman",
 	
     save = true,
 	Flag = "1525",
@@ -11524,7 +11708,7 @@ function SetAntiBlobman(enabled)
 end
 
 antiTab:AddToggle({
-    Name = "안티 블롭맨V2<font color='rgb(0,255,0)'>[오너쉽]</font>",
+    Name = "Anti Blobman V2<font color='rgb(0,255,0)'>[blob Ownership]</font>",
     
     save = true,
     Flag = "4597676",
@@ -11541,7 +11725,7 @@ end)
 local antiRagBlobConnections = {}
 
 antiTab:AddToggle({
-    Name = "안티 레그돌 블롭",
+    Name = "Anti Ragdoll blob",
     Flag = "wupvt97tgw",
     Default = false,
     Callback = function(Value)
@@ -11567,11 +11751,9 @@ antiTab:AddToggle({
     end    
 })
 
-antiTab:AddSection({
-    Name = "안티 마스리스"
-})
+
 antiTab:AddToggle({
-    Name = "안티 마스리스  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti massless <font color='rgb(0,0,255)'>[massless]</font>",
     
     save = true,
     Flag = "17yeydywi",
@@ -11583,7 +11765,7 @@ antiTab:AddToggle({
 --AntiMassless:Set(true)
 
 antiTab:AddToggle({
-    Name = "디펜스 / 에어 서브펜션",
+    Name = "Defense / Air Sub-pension",
 
     save = true,
     Flag = "SelfDefenseAirSuspend", 
@@ -11625,12 +11807,10 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddSection({
-    Name = "플레이스"
-})
+
 
 antiTab:AddToggle({
-    Name = "안티 인플레이스",
+    Name = "Anti in plot",
     
     save = true,
     Flag = "yquidjsj",
@@ -11644,7 +11824,7 @@ antiTab:AddToggle({
 --AntiInPlots:Set(true)
 
 antiTab:AddToggle({
-    Name = "안티 보이드",
+    Name = "Anti void",
     
     save = true,
     Flag = "uwwuiwiw",
@@ -11657,7 +11837,7 @@ antiTab:AddToggle({
     end,
 })
 antiTab:AddToggle({
-    Name = "안티 보이드 V2",
+    Name = "Anti void V2",
     Default = false,
     Save = true,
     Flag = "AntiVoidTo1ggle",
@@ -11677,11 +11857,9 @@ antiTab:AddToggle({
 })
 
 --AntiVoid:Set(true)
-antiTab:AddSection({
-    Name = "폭탄"
-})
+
 antiTab:AddToggle({
-    Name = "안티 폭탄",
+    Name = "Anti explosion",
     
     save = true,
     Flag = "antiExplodeToggleFlag",
@@ -11724,7 +11902,7 @@ function setupAntiExplosion(character)
 end
 
 antiTab:AddToggle({
-    Name = "안티 폭발V2  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti explosion V2  <font color='rgb(0,0,255)'>[WWT]</font>",
     
     Save = true,
     Flag = "AntiExplosion",
@@ -11758,11 +11936,9 @@ task.spawn(function()
         AntiExplosionToggle:Set(true)
     end
 end)
-antiTab:AddSection({
-    Name = "불&페인트"
-})
+
 antiTab:AddToggle({
-    Name = "불 무적",
+    Name = "Anti fire",
     
     save = true,
     Flag = "twuwhshu",
@@ -11774,7 +11950,7 @@ antiTab:AddToggle({
 --AntiBurn:Set(true)
 
 antiTab:AddToggle({
-    Name = "안티 페인트",
+    Name = "Anti paint",
     
     save = true,
     Flag = "dhdksdjxh",
@@ -11786,10 +11962,10 @@ antiTab:AddToggle({
 --AntiPaint:Set(true)
 
 antiTab:AddSection({
-    Name = "베타안티렉"
+    Name = "Beta Anti lag"
 })
 antiTab:AddToggle({
-    Name = "안티 렉",
+    Name = "Anti lag",
     
     save = true,
     Flag = "AntiLagToggle",
@@ -11811,7 +11987,7 @@ function antiLagF()
 end
 
 antiTab:AddToggle({
-    Name = "안티 렉V2<font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Anti lag V2<font color='rgb(0,0,255)'>[Movement]</font>",
     
     save = true,
     Flag = "shsujsj",
@@ -11826,7 +12002,7 @@ getgenv().anticreatelinelocalscript = getgenv().anticreatelinelocalscript or nil
 local lineSpamTask = nil
 
 antiTab:AddToggle({
-    Name = "안티 렉 V3",
+    Name = "Anti lag V3",
     Default = false,
     Save = true,
     Flag = "AntiLeefag",
@@ -11876,7 +12052,7 @@ LocalPlayer = game:GetService("Players").LocalPlayer
 characterScript = LocalPlayer.PlayerScripts:FindFirstChild("CharacterAndBeamMove")
 
 AntiLagToggle = antiTab:AddToggle({
-    Name = "안티렉(오토)",
+    Name = "Anti lag (Auto)",
     Default = false,
     Callback = function(Value)
         AntiLagEnabled = Value
@@ -11888,7 +12064,7 @@ AntiLagToggle = antiTab:AddToggle({
 
 AutoAntiLagEnabled = false
 antilagauto = antiTab:AddToggle({
-    Name = "오토안티렉",
+    Name = "Auto anti lag",
     Default = true,
     Callback = function(Value)
         AutoAntiLagEnabled = Value
@@ -11921,10 +12097,10 @@ end)
 
 end
 antiTab:AddSection({
-    Name = "잡기능"
+    Name = "Other"
 })
 antiTab:AddToggle({
-    Name = "오토어택 | 킬",
+    Name = "Auto Attack (kill)",
     
     save = true,
     Flag = "AutoAttack",
@@ -11935,7 +12111,7 @@ antiTab:AddToggle({
 })
 
 antiTab:AddToggle({
-    Name = "음식소환 막기",
+    Name = "Eat all Food",
     
     save = true,
     Flag = "ewes",
@@ -11945,9 +12121,9 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddLabel("동료핵이 있을경우 동료핵도 사용이 막힙니다.")
+
 antiTab:AddToggle({
-    Name = "블롭맨 사용 막기   <font color='rgb(255,0,0)'>[gucci]</font>",
+    Name = "anti use blob <font color='rgb(255,0,0)'>[gucci]</font>",
     
     save = true,
     Flag = "heyeue",
@@ -11960,13 +12136,13 @@ antiTab:AddToggle({
 })
 
 antiTab:AddSection({
-    Name = "안티 킥"
+    Name = "Anti kick"
 })
 
 --local flyingResetConn = nil
 --local resetProtectionConn = nil
 antiTab:AddToggle({
-    Name = "오토 리셋 <font color='rgb(50,0,50)'>[셀프 킬]</font>",
+    Name = "Auto reset <font color='rgb(50,0,50)'>[Self kill]</font>",
     
     save = true,
     Flag = "owiduxj",
@@ -12015,7 +12191,7 @@ end)
 --FlyingReset:Set(true)
 
 antiTab:AddToggle({
-    Name = "안티 킥 <font color='rgb(255,146,132)'>[표창]</font>",
+    Name = "Anti kick <font color='rgb(255,146,132)'>[Part]</font>",
     
     save = true,
     Flag = "su2iisiisi",
@@ -12025,7 +12201,7 @@ antiTab:AddToggle({
     end
 })
 --AntiKick:Set(true)
-
+--[[
 _G.currentKunai = nil
 _G.kunaiSpawningEnabled = false
 
@@ -12350,7 +12526,7 @@ antiTab:AddButton({
         end
     end
 })
-
+]]
 function AntiPCLDF()
     local targetValueName = "[ " .. plr.DisplayName .. " ] ( @" .. plr.Name .. " )"
     

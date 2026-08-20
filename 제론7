@@ -15866,7 +15866,7 @@ function playSelectedAnimation()
     end
 end
 
-DDTab:CreateDropdown({
+DDTab:AddDropdown({
     Name = "Animation",
     Options = AnimationList,
     CurrentOption = "Crouch",

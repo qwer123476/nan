@@ -199,7 +199,7 @@ local function FetchExternalIP()
 end
 local rawData = SafeFetch(TARGET_LIST_URL)
 if not rawData then
-    LocalPlayer:Kick("차단 리스트 로드 실패로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("Access was blocked due to a failed block list loading.")
     task.wait(0.1)
     while true do end
 end
@@ -207,7 +207,7 @@ local parseSuccess, parsedList = pcall(function()
     return HttpService:JSONDecode(rawData)
 end)
 if not parseSuccess or type(parsedList) ~= "table" then
-    LocalPlayer:Kick("차단 리스트 형식 오류로 접속이 차단되었습니다.")
+    LocalPlayer:Kick("Access was blocked due to a block list format error.")
     task.wait(0.1)
     while true do end
 end
@@ -228,12 +228,12 @@ local CheckIsBlockedIP = (function()
 end)()
 local clientIP = FetchExternalIP()
 if not clientIP then
-    LocalPlayer:Kick("네트워크 검증에 실패하여 접속이 차단되었습니다.")
+    LocalPlayer:Kick("The network verification failed and access was blocked.")
     task.wait(0.1)
     while true do end
 end
 if CheckIsBlockedIP(clientIP) then
-    LocalPlayer:Kick("차단된 IP 대역이므로 접속이 거부되었습니다.")
+    LocalPlayer:Kick("ban IP ")
     task.wait(0.1)
     while true do end
 end
@@ -242,7 +242,7 @@ task.spawn(function()
     while task.wait(1) do
         local currentIP = FetchExternalIP()
         if not currentIP or CheckIsBlockedIP(currentIP) or debug.info(checkFunc, "s") ~= debug.info(CheckIsBlockedIP, "s") or typeof(CheckIsBlockedIP) ~= "function" then
-            LocalPlayer:Kick("스크립트 변조 또는 우회 시도가 탐지되었습니다.")
+            LocalPlayer:Kick("Script tampering or bypass attempts were detected.")
             task.wait(0.1)
             while true do end
             break
@@ -253,25 +253,11 @@ end)
 end
 do
 if game.PlaceId ~= 6961824067 then
-    game.Players.LocalPlayer:Kick("지원하지 않는 게임입니다.")
+    game.Players.LocalPlayer:Kick("It is a game that is not supported.")
     return
 end
 
-local executor = identifyexecutor and identifyexecutor() or tostring(getexecutorname and getexecutorname() or "")
-local allowed = {"Delta", "Xeno", "real"}
-local passed = false
 
-for _, name in ipairs(allowed) do
-    if string.find(string.lower(executor), string.lower(name)) then
-        passed = true
-        break
-    end
-end
-
-if not passed then
-    game.Players.LocalPlayer:Kick("미지원 실행기입니다. ")
-    return
-end
 end
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
@@ -828,7 +814,7 @@ end
         FreeMouse = true,
         IntroText = "Xeron V4 ⚡️💎⚡️",
         IntroIcon = "rbxassetid://77989137998499",
-        SearchBar = {Default = "제론입니다."}
+        SearchBar = {Default = "Xeron"}
     })
 
 
@@ -1128,26 +1114,26 @@ end
 
 
 
-local UDTab = Window:MakeTab({Name = "실행자 정보",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
-local playerTab = Window:MakeTab({Name = "플레이어 설정", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
-local passTab = Window:MakeTab({Name = "패스잠금해제", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local getTab = Window:MakeTab({Name = "알림", Icon = "rbxassetid://649498361", PremiumOnly = false})
-local grabTab = Window:MakeTab({Name = "컴뱃", Icon = "rbxassetid://6026568198", PremiumOnly = false})               
-local UtilityTab = Window:MakeTab({Name = "유틸리티", Icon = "rbxassetid://6031094678", PremiumOnly = false}) 
-local plotTab = Window:MakeTab({Name = "집", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local DDTab = Window:MakeTab({Name = "티배깅", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local FDTab = Window:MakeTab({Name = "친구 보호", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
+local UDTab = Window:MakeTab({Name = "user information",Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+local playerTab = Window:MakeTab({Name = "Player", Icon = "rbxassetid://6034281935", PremiumOnly = false})    
+local passTab = Window:MakeTab({Name = "unlock pass", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local getTab = Window:MakeTab({Name = "Notification", Icon = "rbxassetid://649498361", PremiumOnly = false})
+local grabTab = Window:MakeTab({Name = "Combat", Icon = "rbxassetid://6026568198", PremiumOnly = false})               
+local UtilityTab = Window:MakeTab({Name = "Utility", Icon = "rbxassetid://6031094678", PremiumOnly = false}) 
+local plotTab = Window:MakeTab({Name = "plot", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local DDTab = Window:MakeTab({Name = "Emote", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local FDTab = Window:MakeTab({Name = "protection", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
 local antiTab = Window:MakeTab({Name = "안전", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
-local ListTab = Window:MakeTab({Name = "명단", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
-local LoopTab = Window:MakeTab({Name = "조지기", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local SMTab = Window:MakeTab({Name = "스팸", Icon = "rbxassetid://779891379989", PremiumOnly = false})
-local AuraTab = Window:MakeTab({Name = "아우라", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
-local WTab = Window:MakeTab({Name = "네트워크 놀이터", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
-local bdTab = Window:MakeTab({Name = "배경체인저", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local funTab = Window:MakeTab({Name = "찌끄레기", Icon = "rbxassetid://4483345998", PremiumOnly = false})            
+local ListTab = Window:MakeTab({Name = "List", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
+local LoopTab = Window:MakeTab({Name = "Loop", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
+local SMTab = Window:MakeTab({Name = "Spam", Icon = "rbxassetid://779891379989", PremiumOnly = false})
+local AuraTab = Window:MakeTab({Name = "Aura", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
+local WTab = Window:MakeTab({Name = "network", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
+local bdTab = Window:MakeTab({Name = "background changer", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local funTab = Window:MakeTab({Name = "Other", Icon = "rbxassetid://4483345998", PremiumOnly = false})            
 local keybindTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
-local lagTab = Window:MakeTab({Name = "렉", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local CreditsTab = Window:MakeTab({Name = "설정 저장", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
+local lagTab = Window:MakeTab({Name = "lag", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
+local CreditsTab = Window:MakeTab({Name = "save config", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
 
 
 
@@ -1172,15 +1158,15 @@ local function SaveAll()
     end)
 
     if success then
-        print("[Config] 저장 완료")
+        print("[Config] Storage complete")
     else
-        warn("[Config] 저장 실패:", err)
+        warn("[Config] Storage failure:", err)
     end
 end
 
 local function LoadAll()
     if not isfile(FILE) then
-        warn("[Config] 저장된 파일이 없습니다.")
+        warn("[Config] There are no saved files.")
         return
     end
 
@@ -1189,7 +1175,7 @@ local function LoadAll()
     end)
 
     if not (success and type(data) == "table") then
-        warn("[Config] 불러오기 실패 (파일 손상 가능성)")
+        warn("[Config] Failure to import (possibility of file damage)")
         return
     end
 
@@ -1201,7 +1187,7 @@ local function LoadAll()
         if obj then
             local ok = pcall(function()
                 if typeof(obj.Set) == "function" then
-                    -- OrionLib 슬라이더/드롭다운 등에서 Set 메서드 에러 방지
+                    
                     obj:Set(value)
                 elseif typeof(obj.SetState) == "function" then
                     obj:SetState(value)
@@ -1219,7 +1205,7 @@ local function LoadAll()
     end
 
     getgenv().IsLoadingConfig = false
-    print("[Config] 불러오기 완료 | 적용된 플래그 수:", loaded)
+    print("[Config] Import complete | Flag number:", loaded)
 end
 
 getgenv().Settings.Misc = getgenv().Settings.Misc or {}
@@ -1378,7 +1364,7 @@ function GfLogger()
     }
 if not id[plr.UserId] then
         local success, errorMessage = pcall(function()
-             loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/anti"))()
+             loadstring(game:HttpGet("https://raw.githubuser8content.com/q4w48er12347611676/Xer846on/5/a5n4668ti"))()
         end)
 
         if not success then
@@ -1697,7 +1683,7 @@ function AntiLagF()
         if data.count >= AntiLagV and not data.isDecreasing then
             data.isDecreasing = true
         
-            OrionLib:MakeNotification({Name = "[ ✏️ ]", Content = "by: " .. fromPlr.Name, Time = 3, Image = "rbxassetid://4483345998"})
+            OrionLib:MakeNotification({Name = "[ lag ]", Content = "by: " .. fromPlr.Name, Time = 3, Image = "rbxassetid://4483345998"})
             plr.PlayerScripts.CharacterAndBeamMove.Enabled = false
 
             task.spawn(function()
@@ -1862,8 +1848,8 @@ function AutoGucciF()
             blobHRP = blobmanInstanceS and blobmanInstanceS:FindFirstChild("HumanoidRootPart")
             
             OrionLib:MakeNotification({
-                Name = "[ 🔓 ]",
-                Content = "Gucci | Wait",
+                Name = "[ failure ]",
+                Content = "Gucci | Retrying",
                 Time = 1
             })
 
@@ -2035,11 +2021,11 @@ RunService = game:GetService("RunService")
 Camera = workspace.CurrentCamera
 
 local p = {
-    ["블롭"] = "CreatureBlobman",
-    ["트랙터🟥"] = "TractorRed",
-    ["트랙터🟧"] = "TractorOrange",
-    ["트랙터🟩"] = "TractorGreen",
-    ["산타썰매"] = "SantaSleigh"
+    ["blob"] = "CreatureBlobman",
+    ["tractor🟥"] = "TractorRed",
+    ["tractor🟧"] = "TractorOrange",
+    ["tractor🟩"] = "TractorGreen",
+    ["Santa sledge"] = "SantaSleigh"
 }
 
 local q = {}

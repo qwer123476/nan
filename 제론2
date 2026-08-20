@@ -15416,7 +15416,7 @@ bdTab:AddButton({
         cc.Saturation = 0.35
         cc.TintColor = Color3.fromRGB(230, 250, 255)
     end
-})
+
 
 
 game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function()

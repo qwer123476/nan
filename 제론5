@@ -17635,8 +17635,7 @@ WTab:AddDropdown({
 	Callback = function(Value)
 		waveFunctionStr = Value
 		if Value == "Sin" then
-			WaveShapeLabel:Set("shape: 〰〰〰 
-)")
+			WaveShapeLabel:Set("shape: 〰〰〰 ")
 		elseif Value == "Cos" then
 			WaveShapeLabel:Set("shape: ∿∿∿")
 		elseif Value == "Tan" then

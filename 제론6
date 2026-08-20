@@ -20148,6 +20148,166 @@ WTab:AddToggle({
 	end
 })
 
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+local GrabRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+
+local TerrorConfig = {
+	TargetPlayer = nil,
+	SelectedToy = "곰",
+	IsTerrorOn = false,
+	KeepOwnership = false
+}
+
+local ToyMap = {
+	["곰"] = "Bear",
+	["오리"] = "Duck",
+	["개구리"] = "Frog",
+	["호랑이"] = "Tiger"
+}
+
+local activeTerrorCoroutine = nil
+
+local function getPlayerList()
+	local list = {}
+	for _, p in ipairs(Players:GetPlayers()) do
+		table.insert(list, p.DisplayName .. " (@" .. p.Name .. ")")
+	end
+	return list
+end
+
+local function getPlayerFromString(str)
+	if not str then return nil end
+	for _, p in ipairs(Players:GetPlayers()) do
+		if str == p.DisplayName .. " (@" .. p.Name .. ")" then
+			return p
+		end
+	end
+	return nil
+end
+
+local function stopTerror()
+	TerrorConfig.IsTerrorOn = false
+	if activeTerrorCoroutine then
+		task.cancel(activeTerrorCoroutine)
+		activeTerrorCoroutine = nil
+	end
+end
+
+local function startTerror()
+	if not TerrorConfig.IsTerrorOn then return end
+
+	local targetPlayer = getPlayerFromString(TerrorConfig.TargetPlayer)
+	if not targetPlayer or not targetPlayer.Character then return end
+
+	local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+	if not targetHRP then return end
+
+	local toyName = ToyMap[TerrorConfig.SelectedToy]
+	local animalsFolder = workspace:FindFirstChild("Large Animals")
+	if not animalsFolder then return end
+
+	local animal = animalsFolder:FindFirstChild(toyName)
+	if not animal then return end
+
+	local soundPart = animal:FindFirstChild("SoundPart")
+	if not soundPart then return end
+
+	local myChar = LocalPlayer.Character
+	local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+	if myHRP then
+		myHRP.CFrame = soundPart.CFrame
+		task.wait(0.2)
+	end
+
+	for i = 1, 5 do
+		pcall(function()
+			GrabRemote:FireServer(soundPart, soundPart.CFrame)
+			NetOwnerRemote:FireServer(soundPart, soundPart.CFrame)
+		end)
+		task.wait(0.02)
+	end
+
+	animal:PivotTo(targetHRP.CFrame)
+
+	if activeTerrorCoroutine then
+		task.cancel(activeTerrorCoroutine)
+	end
+
+	activeTerrorCoroutine = task.spawn(function()
+		while TerrorConfig.IsTerrorOn do
+			if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				local currentTargetHRP = targetPlayer.Character.HumanoidRootPart
+				
+				soundPart.CanCollide = false
+				soundPart.Velocity = Vector3.zero
+				soundPart.RotVelocity = Vector3.zero
+				animal:PivotTo(currentTargetHRP.CFrame)
+
+				if TerrorConfig.KeepOwnership then
+					pcall(function()
+						GrabRemote:FireServer(soundPart, soundPart.CFrame)
+						NetOwnerRemote:FireServer(soundPart, soundPart.CFrame)
+					end)
+				end
+			end
+			task.wait(0.5)
+		end
+	end)
+end
+
+local Section = WTab:AddSection({
+	Name = "장난감 테러"
+})
+
+local PlayerDropdown = WTab:AddDropdown({
+	Name = "타겟고르기",
+	Default = "",
+	Options = getPlayerList(),
+	Callback = function(Value)
+		TerrorConfig.TargetPlayer = Value
+	end    
+})
+
+WTab:AddButton({
+	Name = "플레이어 목록 새로고침",
+	Callback = function()
+		PlayerDropdown:Refresh(getPlayerList(), true)
+	end    
+})
+
+WTab:AddDropdown({
+	Name = "테러 물건",
+	Default = "곰",
+	Options = {"개구리", "호랑이", "곰", "오리"},
+	Callback = function(Value)
+		TerrorConfig.SelectedToy = Value
+	end    
+})
+
+WTab:AddToggle({
+	Name = "오토 네트워크 오너쉽",
+	Default = false,
+	Callback = function(Value)
+		TerrorConfig.KeepOwnership = Value
+	end    
+})
+
+WTab:AddToggle({
+	Name = "테러",
+	Default = false,
+	Callback = function(Value)
+		TerrorConfig.IsTerrorOn = Value
+		if Value then
+			startTerror()
+		else
+			stopTerror()
+		end
+	end    
+})
 end
 do
  

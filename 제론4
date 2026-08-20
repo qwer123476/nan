@@ -16710,7 +16710,7 @@ Firework_section:AddDropdown({
 
 firework_section:AddDropdown({
     Name = "trigger mode",
-    Default = 자auto",
+    Default = "auto",
     Options = {
         "Key",
         "auto"

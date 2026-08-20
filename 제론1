@@ -20151,6 +20151,8 @@ WTab:AddToggle({
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
 local LocalPlayer = Players.LocalPlayer
 local GrabRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
 local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
@@ -20169,7 +20171,8 @@ local ToyMap = {
 	["호랑이"] = "Tiger"
 }
 
-local activeTerrorCoroutine = nil
+local terrorConnection = nil
+local ownerThread = nil
 
 local function getPlayerList()
 	local list = {}
@@ -20191,9 +20194,13 @@ end
 
 local function stopTerror()
 	TerrorConfig.IsTerrorOn = false
-	if activeTerrorCoroutine then
-		task.cancel(activeTerrorCoroutine)
-		activeTerrorCoroutine = nil
+	if terrorConnection then
+		terrorConnection:Disconnect()
+		terrorConnection = nil
+	end
+	if ownerThread then
+		task.cancel(ownerThread)
+		ownerThread = nil
 	end
 end
 
@@ -20201,10 +20208,7 @@ local function startTerror()
 	if not TerrorConfig.IsTerrorOn then return end
 
 	local targetPlayer = getPlayerFromString(TerrorConfig.TargetPlayer)
-	if not targetPlayer or not targetPlayer.Character then return end
-
-	local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-	if not targetHRP then return end
+	if not targetPlayer then return end
 
 	local toyName = ToyMap[TerrorConfig.SelectedToy]
 	local animalsFolder = workspace:FindFirstChild("Large Animals")
@@ -20219,7 +20223,7 @@ local function startTerror()
 	local myChar = LocalPlayer.Character
 	local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
 	if myHRP then
-		myHRP.CFrame = soundPart.CFrame
+		myHRP.CFrame = soundPart.CFrame * CFrame.new(0, 0, 15)
 		task.wait(0.2)
 	end
 
@@ -20231,26 +20235,29 @@ local function startTerror()
 		task.wait(0.02)
 	end
 
-	animal:PivotTo(targetHRP.CFrame)
+	stopTerror()
+	TerrorConfig.IsTerrorOn = true
 
-	if activeTerrorCoroutine then
-		task.cancel(activeTerrorCoroutine)
-	end
+	terrorConnection = RunService.Heartbeat:Connect(function()
+		if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			local currentTargetHRP = targetPlayer.Character.HumanoidRootPart
+			soundPart.CanCollide = false
+			soundPart.Velocity = Vector3.zero
+			soundPart.RotVelocity = Vector3.zero
+			animal:PivotTo(currentTargetHRP.CFrame)
+		else
+			stopTerror()
+		end
+	end)
 
-	activeTerrorCoroutine = task.spawn(function()
+	ownerThread = task.spawn(function()
 		while TerrorConfig.IsTerrorOn do
-			if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-				local currentTargetHRP = targetPlayer.Character.HumanoidRootPart
-				
-				soundPart.CanCollide = false
-				soundPart.Velocity = Vector3.zero
-				soundPart.RotVelocity = Vector3.zero
-				animal:PivotTo(currentTargetHRP.CFrame)
-
-				if TerrorConfig.KeepOwnership then
+			if TerrorConfig.KeepOwnership and targetPlayer and targetPlayer.Character then
+				local currentTargetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+				if currentTargetHRP then
 					pcall(function()
-						GrabRemote:FireServer(soundPart, soundPart.CFrame)
-						NetOwnerRemote:FireServer(soundPart, soundPart.CFrame)
+						GrabRemote:FireServer(soundPart, currentTargetHRP.CFrame)
+						NetOwnerRemote:FireServer(soundPart, currentTargetHRP.CFrame)
 					end)
 				end
 			end
@@ -20259,12 +20266,13 @@ local function startTerror()
 	end)
 end
 
+
 local Section = WTab:AddSection({
 	Name = "장난감 테러"
 })
 
 local PlayerDropdown = WTab:AddDropdown({
-	Name = "타겟고르기",
+	Name = "타겟 플레이어",
 	Default = "",
 	Options = getPlayerList(),
 	Callback = function(Value)
@@ -20280,7 +20288,7 @@ WTab:AddButton({
 })
 
 WTab:AddDropdown({
-	Name = "테러 물건",
+	Name = "테러 용품",
 	Default = "곰",
 	Options = {"개구리", "호랑이", "곰", "오리"},
 	Callback = function(Value)
@@ -20289,7 +20297,7 @@ WTab:AddDropdown({
 })
 
 WTab:AddToggle({
-	Name = "오토 네트워크 오너쉽",
+	Name = "오토  네트워크",
 	Default = false,
 	Callback = function(Value)
 		TerrorConfig.KeepOwnership = Value
@@ -20308,9 +20316,7 @@ WTab:AddToggle({
 		end
 	end    
 })
-end
-do
- 
+
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")

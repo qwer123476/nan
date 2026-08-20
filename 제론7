@@ -16063,15 +16063,15 @@ keybindTab:AddSection({
 })
 
 do
-local Players = game:GetService("Players")
-local ReplicatedFirst = game:GetService("ReplicatedFirst")
-local LocalPlayer = Players.LocalPlayer
+--local Players = game:GetService("Players")
+--local ReplicatedFirst = game:GetService("ReplicatedFirst")
+--local LocalPlayer = Players.LocalPlayer
 
 
 
 local SelectedAnimation = "Crouch"
 local AnimationToggle = false
-local CurrentAnimTrack = nil
+--local CurrentAnimTrack = nil
 
 local AnimPaths = {
     ["Crouch"] = ReplicatedFirst.Animations.Crouch,
@@ -16154,8 +16154,8 @@ LocalPlayer.CharacterAdded:Connect(function(character)
         end
     end
 end)
-local LineLagT = false
-local LineLagV = 50
+--local LineLagT = false
+--local LineLagV = 50
 
 function LineLagF()
     task.spawn(function()
@@ -16204,12 +16204,12 @@ lagTab:AddSection({
 })
 
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local LocalPlayer = Players.LocalPlayer
+--local Players = game:GetService("Players")
+--local RunService = game:GetService("RunService")
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
+--local LocalPlayer = Players.LocalPlayer
 
-local lagSpeed = 0.1
+--local lagSpeed = 0.1
 
 local function disconnectConnection(connection)
     if connection then

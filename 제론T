@@ -20265,7 +20265,7 @@ local function startTerror()
 		end
 	end)
 end
-
+do
 
 local Section = WTab:AddSection({
 	Name = "장난감 테러"
@@ -20424,7 +20424,7 @@ WTab:AddToggle({
 		end
 	end    
 })
-
+end
 end
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")

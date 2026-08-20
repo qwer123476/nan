@@ -15885,7 +15885,7 @@ DDTab:AddDropdown({
     end
 })
 
-DDTab:CreateToggle({
+DDTab:AddToggle({
     Name = "Play Animation",
     CurrentValue = false,
     Flag = "AnimToggle",

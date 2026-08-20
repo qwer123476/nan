@@ -20213,7 +20213,8 @@ local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild
 
 local LockConfig = {
 	TargetPlayer = nil,
-	IsLockOn = false
+	IsLockOn = false,
+	SendInterval = 0.06 
 }
 
 local activeLockCoroutine = nil
@@ -20246,28 +20247,21 @@ end
 
 local function startLock()
 	if not LockConfig.IsLockOn then return end
-
-	if activeLockCoroutine then
-		task.cancel(activeLockCoroutine)
-	end
+	if activeLockCoroutine then task.cancel(activeLockCoroutine) end
 
 	activeLockCoroutine = task.spawn(function()
 		while LockConfig.IsLockOn do
 			local targetPlayer = getPlayerFromString(LockConfig.TargetPlayer)
 			if targetPlayer and targetPlayer.Character then
 				local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-				local myChar = LocalPlayer.Character
-				local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
 
-				if targetHRP and myHRP then
+				if targetHRP then
+					
 					local targetCF = targetHRP.CFrame + Vector3.new(0, 25, 0)
-					myHRP.CFrame = targetCF
 
-					for _, part in ipairs(myChar:GetDescendants()) do
+				
+					for _, part in ipairs(targetPlayer.Character:GetDescendants()) do
 						if part:IsA("BasePart") then
-							part.Massless = true
-							part.Velocity = Vector3.zero
-							part.RotVelocity = Vector3.zero
 							pcall(function()
 								NetOwnerRemote:FireServer(part, targetCF)
 							end)
@@ -20275,16 +20269,17 @@ local function startLock()
 					end
 				end
 			end
-			RunService.Heartbeat:Wait()
+			task.wait(LockConfig.SendInterval)
 		end
 	end)
 end
+
 WTab:AddSection({
 	Name = "네트워크 킥"
 })
 
-local LockPlayerDropdown = WTab:AddDropdown({
-	Name = "타겟 플레이어",
+WTab:AddDropdown({
+	Name = "타겟 고르기",
 	Default = "",
 	Options = getPlayerList(),
 	Callback = function(Value)
@@ -20300,7 +20295,7 @@ WTab:AddButton({
 })
 
 WTab:AddToggle({
-	Name = "네트워크 킥(베타버전)",
+	Name = "네트워크 킥 (베타)",
 	Default = false,
 	Callback = function(Value)
 		LockConfig.IsLockOn = Value
@@ -20311,6 +20306,7 @@ WTab:AddToggle({
 		end
 	end    
 })
+
 end
 end
 local Players = game:GetService("Players")

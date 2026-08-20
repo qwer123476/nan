@@ -19977,7 +19977,7 @@ WTab:AddSlider({
 		waveIntensity = Value / 20
 	end    
 })
-
+do
 local SelectedTarget = "UFO 1"
 
 local Targets = {
@@ -20316,7 +20316,7 @@ WTab:AddToggle({
 		end
 	end    
 })
-
+end
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")

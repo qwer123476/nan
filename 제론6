@@ -19677,13 +19677,14 @@ local wingSpeed = 4
 local wingAngle = 15
 
 local isWaveActive = false
-local waveFunctionStr = "사인 (𝑠𝑖𝑛)"
+local isWaveV2Active = false
+local waveFunctionStr = "Sin"
 local waveIntensity = 1
 
 local waveFuncs = {
-	["사인 (𝑠𝑖𝑛)"] = math.sin,
-	["코사인 (𝑐𝑜𝑠)"] = math.cos,
-	["탄젠트 (𝑡𝑎𝑛)"] = math.tan
+	["Sin"] = math.sin,
+	["Cos"] = math.cos,
+	["Tan"] = math.tan
 }
 
 local function getTargetPart(obj)
@@ -19787,6 +19788,7 @@ local function startWings()
 		end
 
 		local halfCount = math.ceil(#pallets / 2)
+		local leftChainCF, rightChainCF
 
 		for idx, pallet in ipairs(pallets) do
 			local part = getTargetPart(pallet)
@@ -19797,11 +19799,11 @@ local function startWings()
 				local wingIdx = isRight and (idx - halfCount) or idx
 
 				local currentWave
-				if isWaveActive then
+				if isWaveActive or isWaveV2Active then
 					local wFn = waveFuncs[waveFunctionStr] or math.sin
 					local phase = (t * wingSpeed) + (wingIdx * waveIntensity)
 					currentWave = wFn(phase)
-					if waveFunctionStr == "탄젠트 (𝑡𝑎𝑛)" then
+					if waveFunctionStr == "Tan" then
 						currentWave = math.clamp(currentWave, -1.5, 1.5)
 					end
 				else
@@ -19809,10 +19811,31 @@ local function startWings()
 				end
 
 				local roll = math.rad((isRight and wingAngle or -wingAngle) * currentWave)
-				local pivot = hrp.CFrame * CFrame.new(0, 1, 0) * CFrame.Angles(0, 0, roll)
+				local targetCFrame
 
-				local xOffset = side * (15 + (wingIdx - 1) * 11.4)
-				local targetCFrame = pivot * CFrame.new(xOffset, 1, 0)
+				if isWaveV2Active then
+					if isRight then
+						if wingIdx == 1 then
+							rightChainCF = hrp.CFrame * CFrame.new(15, 1, 0) * CFrame.Angles(0, 0, roll)
+							targetCFrame = rightChainCF
+						else
+							rightChainCF = rightChainCF * CFrame.new(11.4, 0, 0) * CFrame.Angles(0, 0, roll)
+							targetCFrame = rightChainCF
+						end
+					else
+						if wingIdx == 1 then
+							leftChainCF = hrp.CFrame * CFrame.new(-15, 1, 0) * CFrame.Angles(0, 0, roll)
+							targetCFrame = leftChainCF
+						else
+							leftChainCF = leftChainCF * CFrame.new(-11.4, 0, 0) * CFrame.Angles(0, 0, roll)
+							targetCFrame = leftChainCF
+						end
+					end
+				else
+					local pivot = hrp.CFrame * CFrame.new(0, 1, 0) * CFrame.Angles(0, 0, roll)
+					local xOffset = side * (15 + (wingIdx - 1) * 11.4)
+					targetCFrame = pivot * CFrame.new(xOffset, 1, 0)
+				end
 
 				part.CanCollide = false
 				part.Velocity = Vector3.zero
@@ -19903,10 +19926,24 @@ WTab:AddSlider({
 })
 
 WTab:AddToggle({
-	Name = "파동 모드 활성화",
+	Name = "파동 모드 활성화 (V1: 독립형)",
 	Default = false,
 	Callback = function(Value)
 		isWaveActive = Value
+		if Value and isWaveV2Active then
+			isWaveV2Active = false
+		end
+	end    
+})
+
+WTab:AddToggle({
+	Name = "파동 V2 활성화 (연결형)",
+	Default = false,
+	Callback = function(Value)
+		isWaveV2Active = Value
+		if Value and isWaveActive then
+			isWaveActive = false
+		end
 	end    
 })
 
@@ -19914,15 +19951,15 @@ local WaveShapeLabel = WTab:AddLabel("형태: 〰〰〰 (부드러운 물결)")
 
 WTab:AddDropdown({
 	Name = "파동 함수 선택",
-	Default = "사인 (𝑠𝑖𝑛)",
-	Options = {"사인 (𝑠𝑖𝑛)", "코사인 (𝑐𝑜𝑠)", "탄젠트 (𝑡𝑎𝑛)"},
+	Default = "사인 (Sin)",
+	Options = {"사인 (Sin)", "코사인 (Cos)", "탄젠트 (Tan)"},
 	Callback = function(Value)
 		waveFunctionStr = Value
-		if Value == "사인 (𝑠𝑖𝑛)" then
-			WaveShapeLabel:Set("형태: 〰〰〰 (디폴폴트값 예쁜 파동")
-		elseif Value == "코사인 (𝑐𝑜𝑠)" then
-			WaveShapeLabel:Set("형태: ∿∿∿ (엇갈린파동)")
-		elseif Value == "탄젠트 (𝑡𝑎𝑛)" then
+		if Value == "Sin" then
+			WaveShapeLabel:Set("형태: 〰〰〰 (부드러운 물결)")
+		elseif Value == "Cos" then
+			WaveShapeLabel:Set("형태: ∿∿∿ (엇갈린 물결)")
+		elseif Value == "Tan" then
 			WaveShapeLabel:Set("형태: ⭡⭣⭡⭣ (급격하게 꺾이는 파동)")
 		end
 	end    

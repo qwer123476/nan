@@ -20316,6 +20316,115 @@ WTab:AddToggle({
 		end
 	end    
 })
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+
+local LockConfig = {
+	TargetPlayer = nil,
+	IsLockOn = false
+}
+
+local activeLockCoroutine = nil
+
+local function getPlayerList()
+	local list = {}
+	for _, p in ipairs(Players:GetPlayers()) do
+		table.insert(list, p.DisplayName .. " (@" .. p.Name .. ")")
+	end
+	return list
+end
+
+local function getPlayerFromString(str)
+	if not str then return nil end
+	for _, p in ipairs(Players:GetPlayers()) do
+		if str == p.DisplayName .. " (@" .. p.Name .. ")" then
+			return p
+		end
+	end
+	return nil
+end
+
+local function stopLock()
+	LockConfig.IsLockOn = false
+	if activeLockCoroutine then
+		task.cancel(activeLockCoroutine)
+		activeLockCoroutine = nil
+	end
+end
+
+local function startLock()
+	if not LockConfig.IsLockOn then return end
+
+	if activeLockCoroutine then
+		task.cancel(activeLockCoroutine)
+	end
+
+	activeLockCoroutine = task.spawn(function()
+		while LockConfig.IsLockOn do
+			local targetPlayer = getPlayerFromString(LockConfig.TargetPlayer)
+			if targetPlayer and targetPlayer.Character then
+				local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local myChar = LocalPlayer.Character
+				local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+				if targetHRP and myHRP then
+					local targetCF = targetHRP.CFrame + Vector3.new(0, 25, 0)
+					myHRP.CFrame = targetCF
+
+					for _, part in ipairs(myChar:GetDescendants()) do
+						if part:IsA("BasePart") then
+							part.Massless = true
+							part.Velocity = Vector3.zero
+							part.RotVelocity = Vector3.zero
+							pcall(function()
+								NetOwnerRemote:FireServer(part, targetCF)
+							end)
+						end
+					end
+				end
+			end
+			RunService.Heartbeat:Wait()
+		end
+	end)
+end
+
+local Section2 = WTab:AddSection({
+	Name = "네트워크 킥"
+})
+
+local LockPlayerDropdown = WTab:AddDropdown({
+	Name = "타겟 플레이어",
+	Default = "",
+	Options = getPlayerList(),
+	Callback = function(Value)
+		LockConfig.TargetPlayer = Value
+	end    
+})
+
+WTab:AddButton({
+	Name = "타겟 목록 새로고침",
+	Callback = function()
+		LockPlayerDropdown:Refresh(getPlayerList(), true)
+	end    
+})
+
+WTab:AddToggle({
+	Name = "네트워크 킥(베타버전)",
+	Default = false,
+	Callback = function(Value)
+		LockConfig.IsLockOn = Value
+		if Value then
+			startLock()
+		else
+			stopLock()
+		end
+	end    
+})
+
 end
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")

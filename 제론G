@@ -15607,7 +15607,7 @@ do
 })
 
 
-ESPSection:AddToggle({
+keybindTab:AddToggle({
     Name = "Highlights ESP <font color='rgb(255, 170, 0)'>[ESP]</font>",
     Default = false,
     save = true,
@@ -15644,7 +15644,7 @@ ESPSection:AddToggle({
     end
 })
 
-ESPSection:AddToggle({
+keybindTab:AddToggle({
     Name = "general ESP <font color='rgb(0, 255, 127)'>[ESP]</font>",
     Default = false,
     save = true,
@@ -15689,7 +15689,7 @@ ESPSection:AddToggle({
     end
 })
 
-ESPSection:AddToggle({
+keybindTab:AddToggle({
     Name = "Box ESP <font color='rgb(170, 85, 255)'>[ESP]</font>",
     Default = false,
     save = true,
@@ -15725,7 +15725,7 @@ ESPSection:AddToggle({
     end
 })
 
-ESPSection:AddToggle({
+keybindTab:AddToggle({
     Name = "border ESP <font color='rgb(255, 50, 50)'>[ESP]</font>",
     Default = false,
     save = true,

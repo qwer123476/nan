@@ -15821,15 +15821,15 @@ keybindTab:AddSection({
 })
 
 do
---local Players = game:GetService("Players")
---local ReplicatedFirst = game:GetService("ReplicatedFirst")
---local LocalPlayer = Players.LocalPlayer
+local Players = game:GetService("Players")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+local LocalPlayer = Players.LocalPlayer
 
 
 
 local SelectedAnimation = "Crouch"
 local AnimationToggle = false
---local CurrentAnimTrack = nil
+local CurrentAnimTrack = nil
 
 local AnimPaths = {
     ["Crouch"] = ReplicatedFirst.Animations.Crouch,

@@ -16397,7 +16397,7 @@ end
         end
     end
     table.sort(playerNamesList, function(a, b) return a:lower() < b:lower() end)
-    uiElement:Refresh(playerNamesList, true)
+    --uiElement:Refresh(playerNamesList, true)
 end
 
 SMTab:AddSection({

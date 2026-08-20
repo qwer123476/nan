@@ -15761,70 +15761,6 @@ ESPSection:AddToggle({
     end
 })
 
-ESPSection:AddToggle({
-    Name = "border + regular ESP <font color='rgb(0, 170, 255)'>[ESP]</font>",
-    Default = false,
-    save = true,
-    Flag = "ESPOutlineNormalToggle",
-    Callback = function(enabled)
-        ESP_OutlineNormal_Enabled = enabled
-        task.spawn(function()
-            while ESP_OutlineNormal_Enabled do
-                for _, player in pairs(game.Players:GetPlayers()) do
-                    if player ~= game.Players.LocalPlayer and player.Character then
-                        local char = player.Character
-                        
-                        local hl = char:FindFirstChild("ESPComboHL")
-                        if not hl then
-                            hl = Instance.new("Highlight")
-                            hl.Name = "ESPComboHL"
-                            hl.Parent = char
-                        end
-                        hl.FillTransparency = 1
-                        hl.OutlineColor = ESP_Color
-                        hl.OutlineTransparency = 0
-
-                        if char:FindFirstChild("Head") then
-                            local head = char.Head
-                            local gui = head:FindFirstChild("ESPComboGui")
-                            if not gui then
-                                gui = Instance.new("BillboardGui")
-                                gui.Name = "ESPComboGui"
-                                gui.Size = UDim2.new(0, 100, 0, 40)
-                                gui.StudsOffset = Vector3.new(0, 2, 0)
-                                gui.AlwaysOnTop = true
-                                gui.Parent = head
-
-                                local label = Instance.new("TextLabel")
-                                label.Name = "NameLabel"
-                                label.Size = UDim2.new(1, 0, 1, 0)
-                                label.BackgroundTransparency = 1
-                                label.TextScaled = true
-                                label.Parent = gui
-                            end
-                            gui.NameLabel.TextColor3 = ESP_Color
-                            gui.NameLabel.Text = player.Name
-                        end
-                    end
-                end
-                task.wait(1)
-            end
-            if not ESP_OutlineNormal_Enabled then
-                for _, player in pairs(game.Players:GetPlayers()) do
-                    if player.Character then
-                        if player.Character:FindFirstChild("ESPComboHL") then
-                            player.Character.ESPComboHL:Destroy()
-                        end
-                        if player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("ESPComboGui") then
-                            player.Character.Head.ESPComboGui:Destroy()
-                        end
-                    end
-                end
-            end
-        end)
-    end
-})
-
 
 
 
@@ -16156,8 +16092,8 @@ ChaosGrabToggle = lagTab:AddToggle({
 
 
 do
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
+--local Players = game:GetService("Players")
+--local localPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -16230,7 +16166,7 @@ local cleanupTypes = {
     "PresentBig"
 }
 
-local function DeleteAllBombs()
+ function DeleteAllBombs()
     for _, bomb in pairs(spawnedInToysFolder:GetChildren()) do
         for _, bombType in pairs(cleanupTypes) do
             if bomb.Name == bombType then
@@ -16243,7 +16179,7 @@ local function DeleteAllBombs()
     end
 end
 
-local function CleanupCurrentType()
+function CleanupCurrentType()
     local currentBombType = spamexplosiontype
     for _, bomb in pairs(spawnedInToysFolder:GetChildren()) do
         if bomb.Name == currentBombType then
@@ -16254,7 +16190,7 @@ local function CleanupCurrentType()
     end
 end
 
-local function GetPlayerCFrame()
+function GetPlayerCFrame()
     if localPlayer and localPlayer.Character then
         local hrp = localPlayer.Character:FindFirstChild("HumanoidRootPart")
         if hrp then
@@ -16264,14 +16200,14 @@ local function GetPlayerCFrame()
     return CFrame.new()
 end
 
-local function CheckNetworkOwnerShipOnPart(potentialPart)
+function CheckNetworkOwnerShipOnPart(potentialPart)
     if potentialPart and potentialPart:FindFirstChild("PartOwner") then
         return potentialPart.PartOwner.Value == localPlayer.Name
     end
     return false
 end
 
-local function SNOWshipOnce(targetPart)
+function SNOWshipOnce(targetPart)
     if not targetPart then return false end
     local distanceFromCharacter = localPlayer:DistanceFromCharacter(targetPart.Position)
     if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -16285,11 +16221,11 @@ local function SNOWshipOnce(targetPart)
     return false
 end
 
-local function CheckToyLimit()
+function CheckToyLimit()
     return (usedToyPointsValue.Value + 10) / toysLimitCapValue.Value > 1
 end
 
-local function countToys(toyName)
+ function countToys(toyName)
     local toyCount = 0
     for _, child in pairs(spawnedInToysFolder:GetChildren()) do
         if child.Name == toyName then
@@ -16299,7 +16235,7 @@ local function countToys(toyName)
     return toyCount
 end
 
-local function ExplodeBomb(bombInstance, positionPart, otherData)
+function ExplodeBomb(bombInstance, positionPart, otherData)
     local hitboxName = bombHitboxMap[bombInstance.Name] or "Hitbox"
     local hitbox = bombInstance:FindFirstChild(hitboxName)
     if hitbox then
@@ -16330,14 +16266,14 @@ local function ExplodeByTargetMode(bombInstance)
     end
 end
 
-local function ExplodeFirstBomb()
+function ExplodeFirstBomb()
     local targetPart = spawnedInToysFolder:FindFirstChild(spamexplosiontype)
     if targetPart then
         ExplodeByTargetMode(targetPart)
     end
 end
 
-local function ExplodeAllAtOnce()
+function ExplodeAllAtOnce()
     if ExplodingBombs then return end
     ExplodingBombs = true
     
@@ -16369,7 +16305,7 @@ local function ExplodeAllAtOnce()
     ExplodingBombs = false
 end
 
-local function HandleSpamLogic()
+function HandleSpamLogic()
     if not FireworkEffectSpam or spamCooldown then return end
     
     local playerCFrame = GetPlayerCFrame()
@@ -16391,7 +16327,7 @@ local function HandleSpamLogic()
     end
 end
 
-local function HandleCleanupLogic()
+function HandleCleanupLogic()
     if not FireworkEffectSpam then return end
     
     for _, child in pairs(spawnedInToysFolder:GetChildren()) do
@@ -16432,8 +16368,7 @@ local function HandleCleanupLogic()
         end
     end
 end
-
-local function HandleExplosionLogic()
+function HandleExplosionLogic()
     if not FireworkEffectSpam then return end
     
     if TriggerMode == 0 and FireBomb then
@@ -16454,8 +16389,7 @@ local function SetupHeartbeat()
         HandleExplosionLogic()
     end)
 end
-
-local function refreshPlayerList(uiElement)
+ function refreshPlayerList(uiElement)
     local playerNamesList = {}
     for _, player in pairs(Players:GetPlayers()) do
         if player.UserId ~= localPlayer.UserId then
@@ -16466,11 +16400,11 @@ local function refreshPlayerList(uiElement)
     uiElement:Refresh(playerNamesList, true)
 end
 
-local firework_section = SMTab:AddSection({
+SMTab:AddSection({
     Name = "Explosive spam"
 })
 
-firework_section:AddToggle({
+SMTab:AddToggle({
     Name = "Explosive ",
     Default = false,
     Callback = function(fireworkEffectSpamToggle)
@@ -16495,7 +16429,7 @@ firework_section:AddToggle({
     end
 })
 
-Firework_section:AddDropdown({
+SMTab:AddDropdown({
     Name = "Explosion Type",
     Default = "Firework",
     Options = {
@@ -16517,7 +16451,7 @@ Firework_section:AddDropdown({
     end
 })
 
-Firework_section:AddDropdown({
+SMTab:AddDropdown({
     Name = "On Toggle Off",
     Default = "Destroy",
     Options = {
@@ -16532,7 +16466,7 @@ Firework_section:AddDropdown({
 
 
 
-firework_section:AddDropdown({
+SMTab:AddDropdown({
     Name = "trigger mode",
     Default = "auto",
     Options = {
@@ -16545,7 +16479,7 @@ firework_section:AddDropdown({
     end
 })
 
-firework_section:AddSlider({
+SMTab:AddSlider({
     Name = "Delay (trigger)",
     Min = 0,
     Max = 0.5,
@@ -16558,7 +16492,7 @@ firework_section:AddSlider({
     end
 })
 
-firework_section:AddSlider({
+SMTab:AddSlider({
     Name = "explosion amount",
     Min = 1,
     Max = 20,
@@ -16571,7 +16505,7 @@ firework_section:AddSlider({
     end
 })
 
-firework_section:AddDropdown({
+SMTab:AddDropdown({
     Name = "Target",
     Default = "spawn point",
     Options = {
@@ -16583,7 +16517,7 @@ firework_section:AddDropdown({
     end
 })
 
-local PlayerToTarget = firework_section:AddDropdown({
+SMTab:AddDropdown({
     Name = "Player select",
     Default = "",
     Options = {""},
@@ -16596,7 +16530,7 @@ local PlayerToTarget = firework_section:AddDropdown({
     end
 })
 
-firework_section:AddToggle({
+SMTab:AddToggle({
     Name = "movement prediction",
     Default = false,
     Callback = function(predictPlayer)

@@ -19920,7 +19920,7 @@ WTab:AddDropdown({
 local isToggled = false
 
 WTab:AddToggle({
-	Name = "무력화 실행",
+	Name = "무력화",
 	Default = false,
 	Callback = function(Value)
 		isToggled = Value
@@ -19929,6 +19929,7 @@ WTab:AddToggle({
 			task.spawn(function()
 				local ReplicatedStorage = game:GetService("ReplicatedStorage")
 				local Players = game:GetService("Players")
+				local RunService = game:GetService("RunService")
 				local plr = Players.LocalPlayer
 				local character = plr.Character or plr.CharacterAdded:Wait()
 				local hrp = character:WaitForChild("HumanoidRootPart")
@@ -19938,8 +19939,8 @@ WTab:AddToggle({
 				local SetNetworkOwner = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
 
 				local targetInfo = Targets[SelectedTarget]
+				if not targetInfo then return end
 				local targetPart = targetInfo.GetPart()
-				local targetCF = targetInfo.CF
 
 				if not targetPart then return end
 
@@ -19988,8 +19989,6 @@ WTab:AddToggle({
 					task.wait()
 				end
 
-				task.wait()
-
 				local inv = GetInventory()
 				if not inv then return end
 
@@ -20004,32 +20003,43 @@ WTab:AddToggle({
 
 				if #spawnedKunais == 0 then return end
 
-				hrp.CFrame = targetCF
-				task.wait(0.3)
+				local tpConnection
+				tpConnection = RunService.Heartbeat:Connect(function()
+					if isToggled and hrp and targetPart and targetPart.Parent then
+						hrp.CFrame = targetPart.CFrame * CFrame.new(0, 2, 0)
+					end
+				end)
 
-				SetNetworkOwner:FireServer(targetPart, targetCF)
-				task.wait(0.1)
+				task.wait(0.15)
+
+				SetNetworkOwner:FireServer(targetPart, targetPart.CFrame)
 
 				for _, kunai in ipairs(spawnedKunais) do
-					if not isToggled then break end
-					local stickyPart = kunai:WaitForChild("StickyPart", 2)
-					local soundPart = kunai:WaitForChild("SoundPart", 2)
+					local stickyPart = kunai:FindFirstChild("StickyPart")
+					local soundPart = kunai:FindFirstChild("SoundPart")
 
-					if stickyPart and soundPart then
+					if stickyPart then
 						pcall(function()
-							SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
-							SetNetworkOwner:FireServer(soundPart, targetPart.CFrame)
-						end)
-
-						local relativeCF = targetPart.CFrame:ToObjectSpace(targetPart.CFrame)
-						pcall(function()
-							StickyPartEvent:FireServer(stickyPart, targetPart, relativeCF)
+							if soundPart then SetNetworkOwner:FireServer(soundPart, targetPart.CFrame) end
+							SetNetworkOwner:FireServer(stickyPart, stickyPart.CFrame)
+							StickyPartEvent:FireServer(stickyPart, targetPart, targetPart.CFrame:ToObjectSpace(stickyPart.CFrame))
 						end)
 					end
-					task.wait(0.05)
 				end
 
-				task.wait(0.2)
+				for _, kunai in ipairs(spawnedKunais) do
+					local stickyPart = kunai:FindFirstChild("StickyPart")
+					if stickyPart then
+						pcall(function()
+							StickyPartEvent:FireServer(stickyPart, targetPart, targetPart.CFrame:ToObjectSpace(stickyPart.CFrame))
+						end)
+					end
+				end
+
+				task.wait(0.1)
+
+				if tpConnection then tpConnection:Disconnect() end
+				task.wait(0.05)
 				hrp.CFrame = originalCF
 			end)
 		end

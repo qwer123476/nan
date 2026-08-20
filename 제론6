@@ -16061,6 +16061,8 @@ keybindTab:AddSection({
         end
     end
 })
+
+do
 local Players = game:GetService("Players")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local LocalPlayer = Players.LocalPlayer
@@ -18212,4 +18214,4 @@ task.spawn(function()
     LoadAll()
 end)
 
-
+end

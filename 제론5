@@ -19676,6 +19676,16 @@ local palletCount = 12
 local wingSpeed = 4
 local wingAngle = 15
 
+local isWaveActive = false
+local waveFunctionStr = "사인 (𝑠𝑖𝑛)"
+local waveIntensity = 1
+
+local waveFuncs = {
+	["사인 (𝑠𝑖𝑛)"] = math.sin,
+	["코사인 (𝑐𝑜𝑠)"] = math.cos,
+	["탄젠트 (𝑡𝑎𝑛)"] = math.tan
+}
+
 local function getTargetPart(obj)
 	if not obj or typeof(obj) ~= "Instance" then return nil end
 	if obj:IsA("BasePart") then return obj end
@@ -19689,7 +19699,7 @@ local function claimOwnership(target)
 	if part then
 		for _ = 1, 3 do
 			pcall(function() NetOwnerRemote:FireServer(part, part.CFrame) end)
-			task.wait(0.05)
+			task.wait()
 		end
 	end
 end
@@ -19704,7 +19714,7 @@ local function spawnPallet()
 	local conn = workspace.DescendantAdded:Connect(function(desc) table.insert(newlyAdded, desc) end)
 
 	local result = SpawnRemote:InvokeServer("PalletLightBrown", spawnCF, Vector3.new(0, 90, 0))
-	task.wait(0.2)
+	task.wait(0.05)
 	conn:Disconnect()
 
 	local spawnedObj = nil
@@ -19776,13 +19786,6 @@ local function startWings()
 			lastNetUpdate = t
 		end
 
-		local wave = math.sin(t * wingSpeed) 
-		local rightRoll = math.rad(wingAngle * wave)
-		local leftRoll = math.rad(-wingAngle * wave)
-
-		local rightWingPivot = hrp.CFrame * CFrame.new(0, 1, 0) * CFrame.Angles(0, 0, rightRoll)
-		local leftWingPivot = hrp.CFrame * CFrame.new(0, 1, 0) * CFrame.Angles(0, 0, leftRoll)
-
 		local halfCount = math.ceil(#pallets / 2)
 
 		for idx, pallet in ipairs(pallets) do
@@ -19793,13 +19796,23 @@ local function startWings()
 				local side = isRight and 1 or -1
 				local wingIdx = isRight and (idx - halfCount) or idx
 
-				local pivot = isRight and rightWingPivot or leftWingPivot
+				local currentWave
+				if isWaveActive then
+					local wFn = waveFuncs[waveFunctionStr] or math.sin
+					local phase = (t * wingSpeed) + (wingIdx * waveIntensity)
+					currentWave = wFn(phase)
+					if waveFunctionStr == "탄젠트 (𝑡𝑎𝑛)" then
+						currentWave = math.clamp(currentWave, -1.5, 1.5)
+					end
+				else
+					currentWave = math.sin(t * wingSpeed)
+				end
+
+				local roll = math.rad((isRight and wingAngle or -wingAngle) * currentWave)
+				local pivot = hrp.CFrame * CFrame.new(0, 1, 0) * CFrame.Angles(0, 0, roll)
 
 				local xOffset = side * (15 + (wingIdx - 1) * 11.4)
-				local yOffset = 1
-				local zOffset = 0
-
-				local targetCFrame = pivot * CFrame.new(xOffset, yOffset, zOffset)
+				local targetCFrame = pivot * CFrame.new(xOffset, 1, 0)
 
 				part.CanCollide = false
 				part.Velocity = Vector3.zero
@@ -19825,7 +19838,7 @@ local function startWings()
 			if pallet then 
 				table.insert(pallets, pallet) 
 			end
-			task.wait(0.1)
+			task.wait()
 		end
 	end)
 end
@@ -19833,6 +19846,7 @@ end
 WTab:AddSection({
 	Name = "판자 날개"
 })
+
 WTab:AddToggle({
 	Name = "판자 날개 활성화",
 	Default = false,
@@ -19887,6 +19901,46 @@ WTab:AddSlider({
 		wingAngle = Value
 	end    
 })
+
+WTab:AddToggle({
+	Name = "파동 모드 활성화",
+	Default = false,
+	Callback = function(Value)
+		isWaveActive = Value
+	end    
+})
+
+local WaveShapeLabel = WTab:AddLabel("형태: 〰〰〰 (부드러운 물결)")
+
+WTab:AddDropdown({
+	Name = "파동 함수 선택",
+	Default = "사인 (𝑠𝑖𝑛)",
+	Options = {"사인 (𝑠𝑖𝑛)", "코사인 (𝑐𝑜𝑠)", "탄젠트 (𝑡𝑎𝑛)"},
+	Callback = function(Value)
+		waveFunctionStr = Value
+		if Value == "사인 (𝑠𝑖𝑛)" then
+			WaveShapeLabel:Set("형태: 〰〰〰 (디폴폴트값 예쁜 파동")
+		elseif Value == "코사인 (𝑐𝑜𝑠)" then
+			WaveShapeLabel:Set("형태: ∿∿∿ (엇갈린파동)")
+		elseif Value == "탄젠트 (𝑡𝑎𝑛)" then
+			WaveShapeLabel:Set("형태: ⭡⭣⭡⭣ (급격하게 꺾이는 파동)")
+		end
+	end    
+})
+
+WTab:AddSlider({
+	Name = "파동의 세기",
+	Min = 1,
+	Max = 100,
+	Default = 20,
+	Color = Color3.fromRGB(255, 255, 255),
+	Increment = 1,
+	ValueName = "세기",
+	Callback = function(Value)
+		waveIntensity = Value / 20
+	end    
+})
+
 local SelectedTarget = "UFO 1"
 
 local Targets = {

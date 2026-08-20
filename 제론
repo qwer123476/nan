@@ -15134,7 +15134,7 @@ funTab:AddButton({
 end
 
 
-
+do
 bdTab:AddSection({
     Name = "Background"
 })
@@ -18213,5 +18213,5 @@ task.spawn(function()
     task.wait(2)
     LoadAll()
 end)
-
+end
 end

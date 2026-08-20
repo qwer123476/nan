@@ -15484,7 +15484,7 @@ plotTab:AddButton({
 end
 do
 
-local Players = game:GetService("Players")
+--local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 local RunService = game:GetService("RunService")
@@ -15600,14 +15600,9 @@ end
 
 do
 
-local ESP_Color = Color3.fromRGB(255, 0, 0)
-local ESP_Highlight_Enabled = false
-local ESP_Normal_Enabled = false
-local ESP_Box_Enabled = false
-local ESP_Outline_Enabled = false
-local ESP_OutlineNormal_Enabled = false
 
-local ESPSection = keybindTab:AddSection({
+
+ keybindTab:AddSection({
     Name = "Player ESP"
 })
 
@@ -15909,7 +15904,7 @@ local AnimPaths = {
 
 local AnimationList = {"Crouch", "FireFlailAnimation", "Flail", "Type"}
 
-local function stopAllTracks()
+ function stopAllTracks()
     local character = LocalPlayer.Character
     local humanoid = character and character:FindFirstChildOfClass("Humanoid")
     if humanoid then
@@ -15919,7 +15914,7 @@ local function stopAllTracks()
     end
 end
 
-local function playSelectedAnimation()
+function playSelectedAnimation()
     if not AnimationToggle then return end
 
     local character = LocalPlayer.Character

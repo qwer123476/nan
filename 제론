@@ -15425,97 +15425,7 @@ game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function()
 end)
 
 
-local Players = game:GetService("Players")
-local ReplicatedFirst = game:GetService("ReplicatedFirst")
-local LocalPlayer = Players.LocalPlayer
 
-MiscTab:CreateSection("Animation")
-
-local SelectedAnimation = "Crouch"
-local AnimationToggle = false
-local CurrentAnimTrack = nil
-
-local AnimPaths = {
-    ["Crouch"] = ReplicatedFirst.Animations.Crouch,
-    ["FireFlailAnimation"] = ReplicatedFirst.CatchFire.FireFlailAnimation,
-    ["Flail"] = ReplicatedFirst.ThrowPlayers.Flail,
-    ["Type"] = ReplicatedFirst.Typing.Type
-}
-
-local AnimationList = {"Crouch", "FireFlailAnimation", "Flail", "Type"}
-
-local function stopAllTracks()
-    local character = LocalPlayer.Character
-    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
-            track:Stop()
-        end
-    end
-end
-
-local function playSelectedAnimation()
-    if not AnimationToggle then return end
-
-    local character = LocalPlayer.Character
-    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-
-    local animObject = AnimPaths[SelectedAnimation]
-    if animObject and animObject:IsA("Animation") then
-        stopAllTracks()
-        CurrentAnimTrack = humanoid:LoadAnimation(animObject)
-        CurrentAnimTrack.Looped = true
-        CurrentAnimTrack:Play()
-    end
-end
-
-DDTab:CreateDropdown({
-    Name = "Animation",
-    Options = AnimationList,
-    CurrentOption = "Crouch",
-    MultipleOptions = false,
-    Flag = "SelectedAnim",
-    Callback = function(Option)
-        if typeof(Option) == "table" then
-            SelectedAnimation = Option[1] or "Crouch"
-        else
-            SelectedAnimation = Option
-        end
-
-        if AnimationToggle then
-            playSelectedAnimation()
-        end
-    end
-})
-
-DDTab:CreateToggle({
-    Name = "Play Animation",
-    CurrentValue = false,
-    Flag = "AnimToggle",
-    Callback = function(Value)
-        AnimationToggle = Value
-        if Value then
-            playSelectedAnimation()
-        else
-            stopAllTracks()
-            if CurrentAnimTrack then
-                CurrentAnimTrack:Stop()
-                CurrentAnimTrack = nil
-            end
-        end
-    end
-})
-
-LocalPlayer.CharacterAdded:Connect(function(character)
-    if AnimationToggle then
-        local humanoid = character:WaitForChild("Humanoid", 10)
-        if humanoid then
-            task.wait(1)
-            playSelectedAnimation()
-        end
-    end
-end)
 
 plotTab:AddSection({
     Name = "plot"
@@ -16151,6 +16061,97 @@ keybindTab:AddSection({
         end
     end
 })
+local Players = game:GetService("Players")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+local LocalPlayer = Players.LocalPlayer
+
+
+
+local SelectedAnimation = "Crouch"
+local AnimationToggle = false
+local CurrentAnimTrack = nil
+
+local AnimPaths = {
+    ["Crouch"] = ReplicatedFirst.Animations.Crouch,
+    ["FireFlailAnimation"] = ReplicatedFirst.CatchFire.FireFlailAnimation,
+    ["Flail"] = ReplicatedFirst.ThrowPlayers.Flail,
+    ["Type"] = ReplicatedFirst.Typing.Type
+}
+
+local AnimationList = {"Crouch", "FireFlailAnimation", "Flail", "Type"}
+
+local function stopAllTracks()
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+            track:Stop()
+        end
+    end
+end
+
+local function playSelectedAnimation()
+    if not AnimationToggle then return end
+
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    local animObject = AnimPaths[SelectedAnimation]
+    if animObject and animObject:IsA("Animation") then
+        stopAllTracks()
+        CurrentAnimTrack = humanoid:LoadAnimation(animObject)
+        CurrentAnimTrack.Looped = true
+        CurrentAnimTrack:Play()
+    end
+end
+
+DDTab:CreateDropdown({
+    Name = "Animation",
+    Options = AnimationList,
+    CurrentOption = "Crouch",
+    MultipleOptions = false,
+    Flag = "SelectedAnim",
+    Callback = function(Option)
+        if typeof(Option) == "table" then
+            SelectedAnimation = Option[1] or "Crouch"
+        else
+            SelectedAnimation = Option
+        end
+
+        if AnimationToggle then
+            playSelectedAnimation()
+        end
+    end
+})
+
+DDTab:CreateToggle({
+    Name = "Play Animation",
+    CurrentValue = false,
+    Flag = "AnimToggle",
+    Callback = function(Value)
+        AnimationToggle = Value
+        if Value then
+            playSelectedAnimation()
+        else
+            stopAllTracks()
+            if CurrentAnimTrack then
+                CurrentAnimTrack:Stop()
+                CurrentAnimTrack = nil
+            end
+        end
+    end
+})
+
+LocalPlayer.CharacterAdded:Connect(function(character)
+    if AnimationToggle then
+        local humanoid = character:WaitForChild("Humanoid", 10)
+        if humanoid then
+            task.wait(1)
+            playSelectedAnimation()
+        end
+    end
+end)
 local LineLagT = false
 local LineLagV = 50
 
@@ -16173,11 +16174,11 @@ end
 
 
 lagTab:AddSection({
-	Name = "렉"
+	Name = "lag"
 })
 
 lagTab:AddToggle({
-	Name = "렉   <font color='rgb(255,0,0)'>[라인]</font>     <font color='rgb(0,0,255)'>[프리미엄]</font>",
+	Name = "lag  <font color='rgb(0,0,255)'>[Line]</font>",
 	Default = false,
     save = true,
 	Callback = function(Value)
@@ -16187,7 +16188,7 @@ lagTab:AddToggle({
 })
 
 lagTab:AddTextbox({
-	Name = "강도",
+	Name = "strength",
 	Default = "",
     save = true,
     Flag = "6464383",
@@ -16197,7 +16198,7 @@ lagTab:AddTextbox({
 	end
 })
 lagTab:AddSection({
-	Name = "다른 렉들"
+	Name = "Different lag"
 })
 
 
@@ -16219,7 +16220,7 @@ local function disconnectConnection(connection)
 end
 
 lagTab:AddToggle({
-    Name = "크레이지 라인 (소프트 렉)",
+    Name = "Crazy Line (soft lag)",
     Default = false,
     Callback = function(Value)
         if Value then
@@ -16250,7 +16251,7 @@ lagTab:AddToggle({
 
 
 lagTab:AddToggle({
-    Name = "서버 에러 내기(렉)",
+    Name = "Server error",
     Default = false,
     Callback = function(Value)
         local RunService = game:GetService("RunService")
@@ -16288,7 +16289,7 @@ lagTab:AddToggle({
 
 --local ChaosGrabEnabled = false
 ChaosGrabToggle = lagTab:AddToggle({
-    Name = "사일런트 렉서버",
+    Name = "Silent Lag server",
     Default = false,
     Callback = function(Value)
         ChaosGrabEnabled = Value
@@ -16327,60 +16328,7 @@ ChaosGrabToggle = lagTab:AddToggle({
     end
 })
 
-lagTab:AddToggle({
-Name = "킬 서버 (모바일 이용 불가)",
-Default = false,
-Callback = function(Value)
-local Stats = game:GetService("Stats")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-
-    if Value then
-        getgenv().killServerRunning = true
-
-        task.spawn(function()
-            local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
-            local createGrabLine = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
-            if not createGrabLine then return end
-
-            local rate = 50
-
-            while getgenv().killServerRunning do
-                local success, ping = pcall(function()
-                    return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-                end)
-
-                if success and ping then
-                    if ping > 300 then
-                        rate = 20
-                    elseif ping < 150 then
-                        rate = 80
-                    end
-                end
-
-                local randomPart = workspace:FindFirstChildOfClass("Part")
-                if randomPart then
-                    for i = 1, rate do
-                        pcall(function()
-                            createGrabLine:FireServer(
-                                randomPart,
-                                randomPart.CFrame
-                            )
-                        end)
-                    end
-                end
-
-                task.wait(1)
-            end
-        end)
-    else
-        getgenv().killServerRunning = false
-    end
-end
-
-
-
-})
 
 
 do
@@ -16425,19 +16373,19 @@ local ExplodingBombs = false
 local PredictPlayer = false
 local TargetToBombPlayer = ""
 local FireBomb = false
-local OnDisableAction = "파괴"
+local OnDisableAction = "destroy"
 
 local heartbeatConnection = nil
 local spamCooldown = false
 local lastExplosionTime = 0
 
 local explosionTypeMap = {
-    ["폭죽"] = "FireworkMissile",
-    ["미사일"] = "BombMissile",
-    ["블랙홀"] = "BombDarkMatter",
-    ["풍선"] = "BombBalloon",
-    ["작은 선물"] = "PresentSmall",
-    ["큰 선물"] = "PresentBig"
+    ["Firecracker"] = "FireworkMissile",
+    ["Missile"] = "BombMissile",
+    ["Black hole"] = "BombDarkMatter",
+    ["balloon"] = "BombBalloon",
+    ["small gift"] = "PresentSmall",
+    ["big gift"] = "PresentBig"
 }
 
 local bombHitboxMap = {
@@ -16695,11 +16643,11 @@ local function refreshPlayerList(uiElement)
 end
 
 local firework_section = SMTab:AddSection({
-    Name = "폭발 스팸"
+    Name = "Explosive spam"
 })
 
 firework_section:AddToggle({
-    Name = "폭발켜기",
+    Name = "Explosive ",
     Default = false,
     Callback = function(fireworkEffectSpamToggle)
         FireworkEffectSpam = fireworkEffectSpamToggle
@@ -16723,17 +16671,18 @@ firework_section:AddToggle({
     end
 })
 
-firework_section:AddDropdown({
-    Name = "폭발 타입",
-    Default = "폭죽",
+Firework_section:AddDropdown({
+    Name = "Explosion Type",
+    Default = "Firework",
     Options = {
-        "폭죽",
-        "미사일",
-        "블랙홀",
-        "풍선",
-        "작은 선물",
-        "큰 선물"
+        "Firework",
+        "Missile",
+        "Blackhole",
+        "Balloon",
+        "Small Gift",
+        "Big Gift"
     },
+
     Callback = function(explosionType)
         local oldType = spamexplosiontype
         spamexplosiontype = explosionTypeMap[explosionType] or "FireworkMissile"
@@ -16744,13 +16693,14 @@ firework_section:AddDropdown({
     end
 })
 
-firework_section:AddDropdown({
-    Name = "토클끈후 물건상태",
-    Default = "파괴",
+Firework_section:AddDropdown({
+    Name = "On Toggle Off",
+    Default = "Destroy",
     Options = {
-        "파괴",
-        "보존"
+        "Destroy",
+        "Keep"
     },
+
     Callback = function(action)
         OnDisableAction = action
     end
@@ -16759,20 +16709,20 @@ firework_section:AddDropdown({
 
 
 firework_section:AddDropdown({
-    Name = "트리거 모드",
-    Default = "자동",
+    Name = "trigger mode",
+    Default = 자auto",
     Options = {
-        "키",
-        "자동"
+        "Key",
+        "auto"
     },
     Callback = function(triggerMode)
-        TriggerMode = (triggerMode == "키") and 0 or 1
+        TriggerMode = (triggerMode == "Key") and 0 or 1
         FireBomb = false
     end
 })
 
 firework_section:AddSlider({
-    Name = "딜레이(트리거)",
+    Name = "Delay (trigger)",
     Min = 0,
     Max = 0.5,
     Default = 0,
@@ -16785,7 +16735,7 @@ firework_section:AddSlider({
 })
 
 firework_section:AddSlider({
-    Name = "폭발 양",
+    Name = "explosion amount",
     Min = 1,
     Max = 20,
     Default = 1,
@@ -16798,11 +16748,11 @@ firework_section:AddSlider({
 })
 
 firework_section:AddDropdown({
-    Name = "타겟",
-    Default = "스폰지점",
+    Name = "Target",
+    Default = "spawn point",
     Options = {
-        "스폰지점",
-        "플레이어"
+        "spawn point",
+        "Player"
     },
     Callback = function(explosionTarget)
         spamexplosiontarget = (explosionTarget == "스폰지점") and 0 or 1
@@ -16810,7 +16760,7 @@ firework_section:AddDropdown({
 })
 
 local PlayerToTarget = firework_section:AddDropdown({
-    Name = "플레이어 고르기",
+    Name = "Player select",
     Default = "",
     Options = {""},
     Callback = function(targetPlayerNameString)
@@ -16823,7 +16773,7 @@ local PlayerToTarget = firework_section:AddDropdown({
 })
 
 firework_section:AddToggle({
-    Name = "플레이어 이동 예측",
+    Name = "movement prediction",
     Default = false,
     Callback = function(predictPlayer)
         PredictPlayer = predictPlayer
@@ -16929,13 +16879,13 @@ local plr = Players.LocalPlayer
 
 local GrabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
 if not GrabEvents then
-    warn("GrabEvents를 찾을 수 없습니다. 해당 게임이 아닐 수 있습니다.")
+    warn("GrabEvents")
     return
 end
 
 local CreateGrabLine = GrabEvents:WaitForChild("CreateGrabLine", 5)
 if not CreateGrabLine then
-    warn("CreateGrabLine 이벤트를 찾을 수 없습니다.")
+    warn("CreateGrabLine")
     return
 end
 
@@ -17001,7 +16951,7 @@ local function FlagPlayer(fromPlr)
 
         pcall(function()
             StarterGui:SetCore("SendNotification", {
-                Title = "[ 렉 감지됨 ]",
+                Title = "[ lag ]",
                 Text = fromPlr.Name .. " [ " .. fromPlr.DisplayName .. " ]",
                 Duration = 5
             })
@@ -17009,7 +16959,7 @@ local function FlagPlayer(fromPlr)
     else
         pcall(function()
             StarterGui:SetCore("SendNotification", {
-                Title = "[ 렉 감지됨 ]",
+                Title = "[ lag ]",
                 Text = fromPlr.Name .. " [ " .. fromPlr.DisplayName .. " ]",
                 Duration = 3
             })
@@ -17372,14 +17322,14 @@ spawn(function()
 
         if ping >= 1000 then
             OrionLib:MakeNotification({
-                Name = "핑 경고",
-                Content = "핑이 매우높습니다! ("..ping..")",
+                Name = "Ping warning",
+                Content = "The ping is very high! ("..ping..")",
                 Time = 3
             })
         elseif ping >= 610 then
             OrionLib:MakeNotification({
-                Name = "핑 경고",
-                Content = "핑이높습니다! ("..ping..")",
+                Name = "Ping warning",
+                Content = "The ping is high! ("..ping..")",
                 Time = 3
             })
         end
@@ -17596,11 +17546,11 @@ local function startWings()
 end
 
 WTab:AddSection({
-	Name = "판자 날개"
+	Name = "Wing"
 })
 
 WTab:AddToggle({
-	Name = "판자 날개 활성화",
+	Name = "wing",
 	Default = false,
 	Callback = function(Value)
 		isWingsActive = Value
@@ -17613,13 +17563,13 @@ WTab:AddToggle({
 })
 
 WTab:AddSlider({
-	Name = "판자 개수",
+	Name = "number",
 	Min = 2,
 	Max = 20,
 	Default = 12,
 	Color = Color3.fromRGB(255, 255, 255),
 	Increment = 2,
-	ValueName = "개",
+	ValueName = "Number",
 	Callback = function(Value)
 		palletCount = Value
 		if isWingsActive then
@@ -17629,33 +17579,33 @@ WTab:AddSlider({
 })
 
 WTab:AddSlider({
-	Name = "날개 속도",
+	Name = "Wing speed",
 	Min = 1,
 	Max = 20,
 	Default = 4,
 	Color = Color3.fromRGB(255, 255, 255),
 	Increment = 1,
-	ValueName = "속도",
+	ValueName = "Speed",
 	Callback = function(Value)
 		wingSpeed = Value
 	end    
 })
 
 WTab:AddSlider({
-	Name = "날개 각도",
+	Name = "wing angle",
 	Min = 5,
 	Max = 90,
 	Default = 15,
 	Color = Color3.fromRGB(255, 255, 255),
 	Increment = 1,
-	ValueName = "도",
+	ValueName = "angle",
 	Callback = function(Value)
 		wingAngle = Value
 	end    
 })
 
 WTab:AddToggle({
-	Name = "파동 모드 활성화 (V1: 독립형)",
+	Name = "wave mode (V1: standalone type)",
 	Default = false,
 	Callback = function(Value)
 		isWaveActive = Value
@@ -17666,7 +17616,7 @@ WTab:AddToggle({
 })
 
 WTab:AddToggle({
-	Name = "파동 V2 활성화 (연결형)",
+	Name = "Wave V2 (connected type)",
 	Default = false,
 	Callback = function(Value)
 		isWaveV2Active = Value
@@ -17676,32 +17626,33 @@ WTab:AddToggle({
 	end    
 })
 
-local WaveShapeLabel = WTab:AddLabel("형태: 〰〰〰 (부드러운 물결)")
+local WaveShapeLabel = WTab:AddLabel("shape: 〰〰〰 (Soft waves)")
 
 WTab:AddDropdown({
-	Name = "파동 함수 선택",
-	Default = "사인 (Sin)",
-	Options = {"사인 (Sin)", "코사인 (Cos)", "탄젠트 (Tan)"},
+	Name = "Wave function select",
+	Default = "Sin",
+	Options = {"Sin", "Cos", "Tan"},
 	Callback = function(Value)
 		waveFunctionStr = Value
 		if Value == "Sin" then
-			WaveShapeLabel:Set("형태: 〰〰〰 (부드러운 물결)")
+			WaveShapeLabel:Set("shape: 〰〰〰 
+)")
 		elseif Value == "Cos" then
-			WaveShapeLabel:Set("형태: ∿∿∿ (엇갈린 물결)")
+			WaveShapeLabel:Set("shape: ∿∿∿")
 		elseif Value == "Tan" then
-			WaveShapeLabel:Set("형태: ⭡⭣⭡⭣ (급격하게 꺾이는 파동)")
+			WaveShapeLabel:Set("shape: ⭡⭣⭡⭣ ")
 		end
 	end    
 })
 
 WTab:AddSlider({
-	Name = "파동의 세기",
+	Name = "Wave strength",
 	Min = 1,
 	Max = 100,
 	Default = 20,
 	Color = Color3.fromRGB(255, 255, 255),
 	Increment = 1,
-	ValueName = "세기",
+	ValueName = "strength",
 	Callback = function(Value)
 		waveIntensity = Value / 20
 	end    
@@ -17718,20 +17669,20 @@ local Targets = {
 		GetPart = function() return workspace:WaitForChild("Map"):WaitForChild("AlwaysHereTweenedObjects"):WaitForChild("InnerUFO"):WaitForChild("Object"):WaitForChild("ObjectModel"):WaitForChild("Hitbox") end,
 		CF = CFrame.new(-36.81888961791992, 154.18447875976562, -413.32855224609375, 0.4542329013347626, -0.8296791911125183, 0.32450729608535767, 0, 0.36425355076789856, 0.9312998652458191, -0.8908829689025879, -0.42302703857421875, 0.16545595228672028)
 	},
-	["광산열차"] = {
+	["mine train"] = {
 		GetPart = function() return workspace:WaitForChild("Map"):WaitForChild("AlwaysHereTweenedObjects"):WaitForChild("CaveCart"):WaitForChild("Object"):WaitForChild("ObjectModel"):WaitForChild("Part") end,
 		CF = CFrame.new(-350.8216552734375, -2.2597317695617676, 437.3183898925781, -0.6960304379463196, 0.6988924741744995, -0.16459305584430695, 0, 0.22923432290554047, 0.9733712673187256, 0.7180122137069702, 0.6774960160255432, -0.15955407917499542)
 	}
 }
 
 WTab:AddSection({
-	Name = "무력화"
+	Name = "neutralization"
 })
 
 WTab:AddDropdown({
-	Name = "무력화 대상 선택",
+	Name = "Target select",
 	Default = "UFO 1",
-	Options = {"UFO 1", "UFO 2", "광산열차"},
+	Options = {"UFO 1", "UFO 2", "mine train"},
 	Callback = function(Value)
 		SelectedTarget = Value
 	end    
@@ -17740,7 +17691,7 @@ WTab:AddDropdown({
 local isToggled = false
 
 WTab:AddToggle({
-	Name = "무력화",
+	Name = "neutralization",
 	Default = false,
 	Callback = function(Value)
 		isToggled = Value
@@ -17888,16 +17839,16 @@ local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild
 
 local TerrorConfig = {
 	TargetPlayer = nil,
-	SelectedToy = "곰",
+	SelectedToy = "Bear",
 	IsTerrorOn = false,
 	KeepOwnership = false
 }
 
 local ToyMap = {
-	["곰"] = "Bear",
-	["오리"] = "Duck",
-	["개구리"] = "Frog",
-	["호랑이"] = "Tiger"
+	["Bear"] = "Bear",
+	["Duck"] = "Duck",
+	["Frog"] = "Frog",
+	["Tiger"] = "Tiger"
 }
 
 local terrorConnection = nil
@@ -17997,11 +17948,11 @@ end
 do
 
 WTab:AddSection({
-	Name = "장난감 테러"
+	Name = "Terrorism"
 })
 
 WTab:AddDropdown({
-	Name = "타겟 플레이어",
+	Name = "Target player",
 	Default = "",
 	Options = getPlayerList(),
 	Callback = function(Value)
@@ -18010,23 +17961,24 @@ WTab:AddDropdown({
 })
 
 WTab:AddButton({
-	Name = "플레이어 목록 새로고침",
+	Name = "remove",
 	Callback = function()
 		PlayerDropdown:Refresh(getPlayerList(), true)
 	end    
 })
 
+
 WTab:AddDropdown({
-	Name = "테러 용품",
-	Default = "곰",
-	Options = {"개구리", "호랑이", "곰", "오리"},
+	Name = "Terror Items",
+	Default = "Bear",
+	Options = {"Frog", "Tiger", "Bear", "Duck"},
 	Callback = function(Value)
 		TerrorConfig.SelectedToy = Value
 	end    
 })
 
 WTab:AddToggle({
-	Name = "오토  네트워크",
+	Name = "Auto Network",
 	Default = false,
 	Callback = function(Value)
 		TerrorConfig.KeepOwnership = Value
@@ -18034,7 +17986,7 @@ WTab:AddToggle({
 })
 
 WTab:AddToggle({
-	Name = "테러",
+	Name = "Terrorism",
 	Default = false,
 	Callback = function(Value)
 		TerrorConfig.IsTerrorOn = Value
@@ -18045,6 +17997,7 @@ WTab:AddToggle({
 		end
 	end    
 })
+--[[
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -18147,7 +18100,7 @@ WTab:AddToggle({
 		end
 	end    
 })
-
+]]
 end
 end
 local Players = game:GetService("Players")
@@ -18173,22 +18126,22 @@ end)
 
 
 local ExecSection = UDTab:AddSection({
-    Name = "실행자 정보"
+    Name = "user information"
 })
 
 local dispName = LocalPlayer.DisplayName
 local realName = LocalPlayer.Name
-ExecSection:AddLabel("닉네임: " .. dispName .. " (@" .. realName .. ")")
+ExecSection:AddLabel("name: " .. dispName .. " (@" .. realName .. ")")
 
 ExecSection:AddLabel("HWID: " .. hwid)
 
 --ExecSection:AddLabel("IP: 기밀")
 
-ExecSection:AddLabel("유저 상태: " .. userRole)
+ExecSection:AddLabel("User status: " .. userRole)
 
-ExecSection:AddLabel("실행자 등급: " .. userRank)
+ExecSection:AddLabel("executor rating: " .. userRank)
 
-local PingLabel = ExecSection:AddLabel("핑: 계산 중...")
+local PingLabel = ExecSection:AddLabel("Ping: 계산 중...")
 local FPSLabel = ExecSection:AddLabel("FPS: 계산 중...")
 
 task.spawn(function()
@@ -18220,14 +18173,14 @@ local success = pcall(function()
 end)
 
 if not success then
-    game.Players.LocalPlayer:Kick("로더를 불러오는데 실패했습니다. (Load Failed)")
+    game.Players.LocalPlayer:Kick("failed to load the loader.(Load Failed)")
 end
 
 task.spawn(function()
     task.wait(1)
     OrionLib:MakeNotification({
         Name = "Xeron V4",
-        Content = "컨트롤을 이용하여 여닫기",
+        Content = "Open and close using a cntrl",
         Image = "rbxassetid://4483345998",
         Time = 3
     })
@@ -18235,21 +18188,21 @@ task.spawn(function()
     task.wait(1)
     OrionLib:MakeNotification({
         Name = "Xeron V4",
-        Content = "Z키를 이용하여 텔포",
+        Content = "TP using the Z key.",
         Image = "rbxassetid://4483345998",
         Time = 3
     })
 end)
 
 CreditsTab:AddButton({
-    Name = "저장",
+    Name = "Save",
     Callback = function()
         SaveAll()
     end
 })
 
 CreditsTab:AddButton({
-    Name = "불러오기",
+    Name = "Import",
     Callback = function()
         LoadAll()
     end

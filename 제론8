@@ -7191,8 +7191,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddTextbox({
-    Name = "line length
- <font color='rgb(0,255,0)'>[Desktop]</font>",
+    Name = "line length <font color='rgb(0,255,0)'>[Desktop]</font>",
     
     save = true,
     PlaceholderText = "Value",

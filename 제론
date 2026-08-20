@@ -419,7 +419,7 @@ do
 	local function PlaySound(id)
 	local sound = Instance.new("Sound")
 	sound.SoundId = "rbxassetid://" .. id
-	sound.Volume = 2
+	sound.Volume = 6
 	sound.Parent = game:GetService("SoundService")
 	sound:Play()
 
@@ -435,7 +435,7 @@ local function safeNotify(title, content, time)
 		})
 
 		
-		PlaySound(6026984224)
+		PlaySound(139452805868562)
 	end)
 end
 
@@ -450,7 +450,7 @@ end
 		if tabProxy._currentGroup then
 			return tabProxy._currentGroup
 		end
-		-- alternate sides to mimic left/right distribution
+		
 		local side = tabProxy._side or 1
 		local groupName = (tabProxy._name or "Tab") .. " Main"
 		local grp = (side == 1) and tabProxy._tab:AddLeftGroupbox(groupName) or tabProxy._tab:AddRightGroupbox(groupName)

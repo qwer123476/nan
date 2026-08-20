@@ -19982,13 +19982,13 @@ WTab:AddToggle({
 
 				local originalCF = hrp.CFrame
 
-				for i = 1, 10 do
+				for i = 1, 12 do
 					if not isToggled then return end
-					SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 5, 15), Vector3.new(0, 0, 0))
-					task.wait(0.2)
+					SpawnToy:InvokeServer("NinjaKunai", hrp.CFrame * CFrame.new(0, 20, 15), Vector3.new(0, 0, 0))
+					task.wait()
 				end
 
-				task.wait(0.5)
+				task.wait()
 
 				local inv = GetInventory()
 				if not inv then return end
@@ -19998,7 +19998,7 @@ WTab:AddToggle({
 					local obj = inv:GetChildren()[i]
 					if obj.Name == "NinjaKunai" then
 						table.insert(spawnedKunais, obj)
-						if #spawnedKunais == 10 then break end
+						if #spawnedKunais == 12 then break end
 					end
 				end
 

@@ -11126,9 +11126,7 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddSection({
-    Name = "Kill"
-})
+
 antiTab:AddToggle({
     Name = "Anti ragdolkill",
     Default = false,
@@ -17890,8 +17888,8 @@ ExecSection:AddLabel("User status: " .. userRole)
 
 ExecSection:AddLabel("executor rating: " .. userRank)
 
-local PingLabel = ExecSection:AddLabel("Ping: 계산 중...")
-local FPSLabel = ExecSection:AddLabel("FPS: 계산 중...")
+local PingLabel = ExecSection:AddLabel("Ping: ...")
+local FPSLabel = ExecSection:AddLabel("FPS: ...")
 
 task.spawn(function()
     local RunService = game:GetService("RunService")

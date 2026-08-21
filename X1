@@ -666,5 +666,10 @@ Tab:AddButton({
 })
 
 
-
+Tab:AddButton({
+    Name = "Key Link",
+    Callback = function()
+        setclipboard("https://discord.gg/4AEkcXGcE")
+    end
+})
 

@@ -9198,12 +9198,12 @@ LoopTab:AddToggle({
         end)
     end
 })
-
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+do
+--local Players = game:GetService("Players")
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
 
-local function KillPlayer(targetPlayer)
+ function KillPlayer(targetPlayer)
     if not targetPlayer or not targetPlayer.Character then return end
     local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
     if humanoid then
@@ -9292,7 +9292,7 @@ LoopTab:AddToggle({
     Name = "Blob loopkill V2  <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     Callback = function(Value)
-        --blobLoopT3 = Value
+        blobLoopT3 = Value
         
         if not Value then
             table.clear(playersInLoop2V)
@@ -9322,7 +9322,7 @@ LoopTab:AddToggle({
         end)
     end
 })
-
+end
 
 LoopTab:AddToggle({
     Name = "Loop grab   <font color='rgb(255,154,123)'>[Blobman]</font>",
@@ -13709,8 +13709,8 @@ local pos = teleportLocations[selectedLocation]
 end,
 
 })
-        local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+       -- local Players = game:GetService("Players")
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local player = Players.LocalPlayer
@@ -13789,9 +13789,9 @@ plotTab:AddSection({
     Name = "get plot"
 })
 
-local Players = game:GetService("Players")
+--local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local repStorage = game:GetService("ReplicatedStorage")
+--local repStorage = game:GetService("ReplicatedStorage")
 
 local plotCFrames = {
     [1] = CFrame.new(-532.0158081054688, -5.591518878936768, 95.6521987915039, -0.865190327167511, -0.2596333920955658, 0.42899444699287415, 0, 0.8555188179016113, 0.51777184009552, -0.50144362449646, 0.4479711949825287, -0.7401865720748901),
@@ -16413,7 +16413,7 @@ function HandleExplosionLogic()
     end
 end
 
-local function SetupHeartbeat()
+ function SetupHeartbeat()
     if heartbeatConnection then
         heartbeatConnection:Disconnect()
         heartbeatConnection = nil
@@ -16730,7 +16730,7 @@ local function UpdateCharBeamState()
     end
 end
 
-local function FlagPlayer(fromPlr)
+function FlagPlayer(fromPlr)
     local data = AL.fireCount[fromPlr]
     if not data then return end
     if data.isFlagged then return end
@@ -16822,7 +16822,7 @@ AL.loopConnection = task.spawn(function()
     frameCounter:Disconnect()
 end)
 
-local function AntiLagF()
+function AntiLagF()
     if AL.connection then
         AL.connection:Disconnect()
         AL.connection = nil
@@ -17804,9 +17804,9 @@ local LockConfig = {
 	SendInterval = 0.06 
 }
 
-local activeLockCoroutine = nil
+--local activeLockCoroutine = nil
 
-local function getPlayerList()
+function getPlayerList()
 	local list = {}
 	for _, p in ipairs(Players:GetPlayers()) do
 		table.insert(list, p.DisplayName .. " (@" .. p.Name .. ")")

@@ -9263,12 +9263,14 @@ local function ProcessPlayer(targetPlayer)
             KillPlayer(targetPlayer)
 
             for i = 1, 10 do
+                
+                if not targetPlayer or not targetPlayer:IsDescendantOf(Players) then break end
+                
                 local tChar = targetPlayer.Character
                 local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
                 
-                if not targetPlayer:IsDescendantOf(Players) then break end
-                if not tChar or not tChar:IsDescendantOf(workspace) then break end
-                if not tHum or tHum.Health <= 0 then break end
+            
+                if not tChar or not tHum or tHum.Health <= 0 then break end
 
                 GrabRelease(blobmanInstance, targetRoot)
                 task.wait(0.02)
@@ -9323,6 +9325,7 @@ LoopTab:AddToggle({
                     if player and player ~= LocalPlayer then
                         local tChar = player.Character
                         local tHum = tChar and tChar:FindFirstChildOfClass("Humanoid")
+                        
                         if tHum and tHum.Health > 0 then
                             ProcessPlayer(player)
                         end
@@ -9333,6 +9336,7 @@ LoopTab:AddToggle({
         end)
     end
 })
+
 
 
 end

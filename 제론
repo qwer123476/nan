@@ -10618,9 +10618,7 @@ antiTab:AddToggle({
 })
 
 
-antiTab:AddSection({
-    Name = "PCLD"
-})
+
 antiTab:AddToggle({
     Name = "Anti PCLD",
     Default = false,
@@ -10659,9 +10657,7 @@ antiTab:AddToggle({
 })
 
 
-antiTab:AddSection({
-    Name = "Anti Banana"
-})
+
 --local antiBananaSitActive = false
 
 antiTab:AddToggle({
@@ -11961,9 +11957,7 @@ antiTab:AddToggle({
 })
 --AntiPaint:Set(true)
 
-antiTab:AddSection({
-    Name = "Beta Anti lag"
-})
+
 antiTab:AddToggle({
     Name = "Anti lag",
     
@@ -12094,7 +12088,131 @@ RunService.RenderStepped:Connect(function(dt)
         end
     end
 end)
+antiTab:AddToggle({
+    Name = "AUTO Gucci <font color='rgb(255,146,123)'>[Blobman]</font>",
+    
+    save = true,
+    Flag = "autoGucciToglocal2ag",
+    Callback = function(Value)
+        AutoGucciT = Value
+        if AutoGucciT then
+            task.spawn(AutoGucciF)
+        else
+            if plr.Character.Humanoid then
+                    plr.Character.Humanoid.Sit = true
+                    task.wait(0.1)
+                    plr.Character.Humanoid.Sit = false
+                end
+            end
 
+            sitJumpT = false
+
+            if blobmanInstanceS then
+            RepStorage.MenuToys.DestroyToy:FireServer(blobmanInstanceS)
+            blobmanInstanceS = nil
+        end
+    end
+})
+
+antiTab:AddToggle({
+    Name = "Gucci Train",
+    
+    save = true,
+    Flag = "autoGucciToggleFyquxla1g",
+    Callback = function(Value)
+        AutoGucciTV2 = Value
+        if AutoGucciTV2 then
+            task.spawn(AutoGucciFV2)
+        else
+            local char = plr.Character
+            if char then
+                local hum = char:FindFirstChild("Humanoid")
+                if hum then
+                    hum.Sit = true
+                    task.wait(0.1)
+                    hum.Sit = false
+                 end
+	    end
+    	 sitJumpT = false
+     end
+end
+})
+
+
+
+do
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
+
+    local localPlayer = Players.LocalPlayer
+
+    local invisibleAntiGrabEnabled = false
+    local invisibleAntiGrabConnection = nil
+    local characterAddedConnection = nil
+
+    local function executeAntiGrab()
+        local char = localPlayer.Character
+        if not char then return end
+
+        for _,v in ipairs(char:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.CanCollide = false
+                v.Massless = true
+            end
+        end
+    end
+
+    local function resetCharacter()
+        local char = localPlayer.Character
+        if not char then return end
+
+        for _,v in ipairs(char:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.CanCollide = true
+                v.Massless = false
+            end
+        end
+    end
+
+    antiTab:AddToggle({
+        Name = " Gucci V2",
+        Default = false,
+        Callback = function(Value)
+            invisibleAntiGrabEnabled = Value
+
+            if Value then
+                if not localPlayer:GetAttribute("AntiGrabActive") then
+                    localPlayer:SetAttribute("AntiGrabActive", true)
+                end
+
+                invisibleAntiGrabConnection = RunService.Heartbeat:Connect(executeAntiGrab)
+
+                characterAddedConnection = localPlayer.CharacterAdded:Connect(function()
+                    if invisibleAntiGrabEnabled then
+                        task.wait(1)
+                        executeAntiGrab()
+                    end
+                end)
+
+            else
+                if invisibleAntiGrabConnection then
+                    invisibleAntiGrabConnection:Disconnect()
+                    invisibleAntiGrabConnection = nil
+                end
+
+                if characterAddedConnection then
+                    characterAddedConnection:Disconnect()
+                    characterAddedConnection = nil
+                end
+
+                if localPlayer:GetAttribute("AntiGrabActive") then
+                    localPlayer:SetAttribute("AntiGrabActive", false)
+                    resetCharacter()
+                end
+            end
+        end
+    })
+end
 end
 antiTab:AddSection({
     Name = "Other"
@@ -12581,135 +12699,9 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddSection({
-    Name = "GUCCI"
-})
-
-antiTab:AddToggle({
-    Name = "AUTO Gucci <font color='rgb(255,146,123)'>[Blobman]</font>",
-    
-    save = true,
-    Flag = "autoGucciToglocal2ag",
-    Callback = function(Value)
-        AutoGucciT = Value
-        if AutoGucciT then
-            task.spawn(AutoGucciF)
-        else
-            if plr.Character.Humanoid then
-                    plr.Character.Humanoid.Sit = true
-                    task.wait(0.1)
-                    plr.Character.Humanoid.Sit = false
-                end
-            end
-
-            sitJumpT = false
-
-            if blobmanInstanceS then
-            RepStorage.MenuToys.DestroyToy:FireServer(blobmanInstanceS)
-            blobmanInstanceS = nil
-        end
-    end
-})
-
-antiTab:AddToggle({
-    Name = "Gucci Train",
-    
-    save = true,
-    Flag = "autoGucciToggleFyquxla1g",
-    Callback = function(Value)
-        AutoGucciTV2 = Value
-        if AutoGucciTV2 then
-            task.spawn(AutoGucciFV2)
-        else
-            local char = plr.Character
-            if char then
-                local hum = char:FindFirstChild("Humanoid")
-                if hum then
-                    hum.Sit = true
-                    task.wait(0.1)
-                    hum.Sit = false
-                 end
-	    end
-    	 sitJumpT = false
-     end
-end
-})
 
 
 
-do
-    local Players = game:GetService("Players")
-    local RunService = game:GetService("RunService")
-
-    local localPlayer = Players.LocalPlayer
-
-    local invisibleAntiGrabEnabled = false
-    local invisibleAntiGrabConnection = nil
-    local characterAddedConnection = nil
-
-    local function executeAntiGrab()
-        local char = localPlayer.Character
-        if not char then return end
-
-        for _,v in ipairs(char:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v.CanCollide = false
-                v.Massless = true
-            end
-        end
-    end
-
-    local function resetCharacter()
-        local char = localPlayer.Character
-        if not char then return end
-
-        for _,v in ipairs(char:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v.CanCollide = true
-                v.Massless = false
-            end
-        end
-    end
-
-    antiTab:AddToggle({
-        Name = " Gucci V2",
-        Default = false,
-        Callback = function(Value)
-            invisibleAntiGrabEnabled = Value
-
-            if Value then
-                if not localPlayer:GetAttribute("AntiGrabActive") then
-                    localPlayer:SetAttribute("AntiGrabActive", true)
-                end
-
-                invisibleAntiGrabConnection = RunService.Heartbeat:Connect(executeAntiGrab)
-
-                characterAddedConnection = localPlayer.CharacterAdded:Connect(function()
-                    if invisibleAntiGrabEnabled then
-                        task.wait(1)
-                        executeAntiGrab()
-                    end
-                end)
-
-            else
-                if invisibleAntiGrabConnection then
-                    invisibleAntiGrabConnection:Disconnect()
-                    invisibleAntiGrabConnection = nil
-                end
-
-                if characterAddedConnection then
-                    characterAddedConnection:Disconnect()
-                    characterAddedConnection = nil
-                end
-
-                if localPlayer:GetAttribute("AntiGrabActive") then
-                    localPlayer:SetAttribute("AntiGrabActive", false)
-                    resetCharacter()
-                end
-            end
-        end
-    })
-end
 
 playerTab:AddSection({
     Name = "Player"
@@ -12805,7 +12797,7 @@ playerTab:AddSlider({
     Default = 80,
     Flag = "furiqffuow",
     Increment = 10,
-    ValueName = "속도",
+    ValueName = "Speed",
     Callback = function(v)
         walkSpeedV = v
         if walkSpeedT then
@@ -12985,7 +12977,7 @@ playerTab:AddButton({
 })
 
 playerTab:AddToggle({
-    Name = "자가 루프 킬(키지마셈ㅋ)",
+    Name = "Self loop kill",
     Default = false,
     Callback = function(Value)
         LoopKill = Value
@@ -15447,8 +15439,8 @@ local function ExecuteOriginalNoClip(tt, overrideCF)
 
 	if isSuccess then
 		OrionLib:MakeNotification({
-			Name = "[ 성공 ]",
-			Content = SelectedHouse .. " 베리어 파괴 완료!",
+			Name = "[ success ]",
+			Content = SelectedHouse .. " destroy barrier",
 			Image = "rbxassetid://4483345998",
 			Time = 3
 		})
@@ -15773,7 +15765,7 @@ end
 
 
 
-keybindTab:AddSection({
+DDTab:AddSection({
     Name = "Emote"
 })
         DDTab:AddToggle({
@@ -16422,7 +16414,7 @@ SMTab:AddToggle({
                 heartbeatConnection = nil
             end
             
-            if OnDisableAction == "파괴" then
+            if OnDisableAction == "destroy" then
                 DeleteAllBombs()
             end
         end
@@ -17080,13 +17072,13 @@ spawn(function()
 
         if ping >= 1000 then
             OrionLib:MakeNotification({
-                Name = "Ping warning",
+                Name = "warning",
                 Content = "The ping is very high! ("..ping..")",
                 Time = 3
             })
         elseif ping >= 610 then
             OrionLib:MakeNotification({
-                Name = "Ping warning",
+                Name = "warning",
                 Content = "The ping is high! ("..ping..")",
                 Time = 3
             })
@@ -17846,7 +17838,7 @@ WTab:AddButton({
 })
 
 WTab:AddToggle({
-	Name = "네트워크 킥 (베타)",
+	Name = "Network kick (beta)",
 	Default = false,
 	Callback = function(Value)
 		LockConfig.IsLockOn = Value
@@ -17920,7 +17912,7 @@ task.spawn(function()
     while task.wait(1) do
         pcall(function()
             local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
-            PingLabel:Set("핑: " .. tostring(ping) .. " ms")
+            PingLabel:Set("ping: " .. tostring(ping) .. " ms")
         end)
     end
 end)
@@ -17936,7 +17928,7 @@ end
 task.spawn(function()
     task.wait(1)
     OrionLib:MakeNotification({
-        Name = "Xeron V4",
+        Name = "Xeron",
         Content = "Open and close using a cntrl",
         Image = "rbxassetid://4483345998",
         Time = 3
@@ -17944,7 +17936,7 @@ task.spawn(function()
 
     task.wait(1)
     OrionLib:MakeNotification({
-        Name = "Xeron V4",
+        Name = "Xeron",
         Content = "TP using the Z key.",
         Image = "rbxassetid://4483345998",
         Time = 3

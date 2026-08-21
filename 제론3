@@ -9199,60 +9199,101 @@ LoopTab:AddToggle({
     end
 })
 
-local function ExecuteLoopKillAttack(TargetPlayer)
-    if not TargetPlayer then return end
-    
-    local TargetChar = TargetPlayer.Character
-    if not TargetChar then return end
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
 
-    local TargetRoot = TargetChar:FindFirstChild("HumanoidRootPart")
-    local TargetHum = TargetChar:FindFirstChildOfClass("Humanoid")
-    local TargetHead = TargetChar:FindFirstChild("Head")
-    local MyChar = LocalPlayer.Character
-    local MyRoot = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
+local function KillPlayer(targetPlayer)
+    if not targetPlayer or not targetPlayer.Character then return end
+    local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        pcall(function()
+            humanoid.BreakJointsOnDeath = false
+            humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+        end)
+    end
+end
 
-    if not (TargetRoot and TargetHum and TargetHead and MyRoot) then return end
-    if TargetHum.Health <= 0 then return end
-
+local function GrabRelease(blobman, targetRoot)
     pcall(function()
-        local rayOrigin = TargetRoot.Position + Vector3.new(0, 5, 0)
-        local rayDirection = Vector3.new(0, -25, 0)
-        local raycastParams = RaycastParams.new()
-        raycastParams.FilterDescendantsInstances = {TargetChar, MyChar, workspace.CurrentCamera}
-        raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+        local detector = blobman:FindFirstChild("LeftDetector")
+        local weld = detector and detector:FindFirstChild("LeftWeld")
+        local remoteScript = blobman:FindFirstChild("BlobmanSeatAndOwnerScript")
 
-        local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
-        local teleportPos = raycastResult and (raycastResult.Position + Vector3.new(0, 3.5, 0)) or (TargetRoot.Position + Vector3.new(0, 2, 0))
+        if remoteScript and detector and weld then
+            remoteScript.CreatureGrab:FireServer(detector, targetRoot, weld)
+            task.wait(0.01)
+            remoteScript.CreatureRelease:FireServer(weld)
+        end
+    end)
+end
 
-        MyRoot.AssemblyLinearVelocity = Vector3.zero
-        TargetRoot.AssemblyLinearVelocity = Vector3.zero
+local function ProcessPlayer(targetPlayer)
+    local char = LocalPlayer.Character
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp or not hum then return end
 
-        MyChar:PivotTo(CFrame.new(teleportPos, TargetRoot.Position))
-        
-        task.wait(0.02)
+    local targetChar = targetPlayer.Character
+    local targetRoot = targetChar and targetChar:FindFirstChild("HumanoidRootPart")
+    if not targetRoot then return end
 
-        local GrabEvents = ReplicatedStorage:FindFirstChild("GrabEvents")
-        if GrabEvents then
-            if GrabEvents:FindFirstChild("SetNetworkOwner") then
-                GrabEvents.SetNetworkOwner:FireServer(TargetRoot, TargetRoot.CFrame)
-            end
-            
-            task.wait(0.03)
-            
-            if GrabEvents:FindFirstChild("DestroyGrabLine") then
-                GrabEvents.DestroyGrabLine:FireServer(TargetRoot)
+    local toyFolder = workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+    local creature = toyFolder and toyFolder:FindFirstChild("CreatureBlobman")
+
+    local function ExecuteGrab(blobmanInstance)
+        local seat = blobmanInstance:WaitForChild("VehicleSeat", 5)
+        if not seat then return end
+
+        if hum.SeatPart ~= seat then
+            hrp.CFrame = seat.CFrame
+            task.wait(0.1)
+            seat:Sit(hum)
+
+            local t = tick()
+            while hum.SeatPart ~= seat and tick() - t < 1.5 do
+                task.wait()
             end
         end
 
-        MyRoot.AssemblyLinearVelocity = Vector3.zero
-        TargetRoot.AssemblyLinearVelocity = Vector3.zero
-    end)
+        if hum.SeatPart == seat then
+            hrp.CFrame = targetRoot.CFrame
+            task.wait(0.05)
+
+            KillPlayer(targetPlayer)
+
+            for i = 1, 10 do
+                GrabRelease(blobmanInstance, targetRoot)
+                task.wait(0.02)
+            end
+        end
+    end
+
+    if not creature then
+        if toyFolder then
+            local connection
+            connection = toyFolder.ChildAdded:Connect(function(child)
+                if child.Name == "CreatureBlobman" then
+                    connection:Disconnect()
+                    ExecuteGrab(child)
+                end
+            end)
+        end
+
+        pcall(function()
+            ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer("CreatureBlobman", hrp.CFrame, Vector3.new(0, 0, 0))
+        end)
+    else
+        ExecuteGrab(creature)
+    end
 end
 
 LoopTab:AddToggle({
     Name = "Blob loopkill V2  <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     Callback = function(Value)
+        --blobLoopT3 = Value
+        
         if not Value then
             table.clear(playersInLoop2V)
             return
@@ -9265,22 +9306,22 @@ LoopTab:AddToggle({
         end
 
         task.spawn(function()
-            for _, name in ipairs(playersInLoop2V) do
-                if table.find(Whitelist, name) or (PPs and PPs:FindFirstChild(name)) then 
-                    continue 
-                end
+            while blobLoopT3 do
+                for _, name in ipairs(playersInLoop2V) do
+                    if not blobLoopT3 then break end
+                    if Whitelist and table.find(Whitelist, name) then continue end
+                    if PPs and PPs:FindFirstChild(name) then continue end
 
-                local player = Players:FindFirstChild(name)
-                if player and player ~= LocalPlayer then
-                    ExecuteLoopKillAttack(player)
+                    local player = Players:FindFirstChild(name)
+                    if player and player ~= LocalPlayer then
+                        ProcessPlayer(player)
+                    end
                 end
+                task.wait(0.05)
             end
         end)
     end
 })
-
-
-
 
 
 LoopTab:AddToggle({

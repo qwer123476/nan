@@ -7324,7 +7324,7 @@ grabTab:AddToggle({
 })
 
 grabTab:AddSection({
-	Name = "킥"
+	Name = "Kick"
 })
 grabTab:AddToggle({
     Name = "Kick grab  <font color='rgb(255,0,0)'>[Ownership]</font>  <font color='rgb(0,0,255)'>[grab]</font>",
@@ -9200,54 +9200,59 @@ LoopTab:AddToggle({
 })
 
 local function ExecuteLoopKillAttack(TargetPlayer)
+    if not TargetPlayer then return end
+    
     local TargetChar = TargetPlayer.Character
-    local TargetRoot = TargetChar and TargetChar:FindFirstChild("HumanoidRootPart")
-    local TargetHum = TargetChar and TargetChar:FindFirstChildOfClass("Humanoid")
-    local TargetHead = TargetChar and TargetChar:FindFirstChild("Head")
+    if not TargetChar then return end
 
-    if TargetRoot and TargetHum and TargetHum.Health > 0 and TargetHead then
-        if TargetHead:FindFirstChild("PartOwner") then
-            local MyChar = LocalPlayer.Character
-            local MyRoot = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
-            if not MyRoot then return end
+    local TargetRoot = TargetChar:FindFirstChild("HumanoidRootPart")
+    local TargetHum = TargetChar:FindFirstChildOfClass("Humanoid")
+    local TargetHead = TargetChar:FindFirstChild("Head")
+    local MyChar = LocalPlayer.Character
+    local MyRoot = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
 
-            pcall(function()
-                local rayOrigin = TargetRoot.Position + Vector3.new(0, 5, 0)
-                local rayDirection = Vector3.new(0, -25, 0)
-                local raycastParams = RaycastParams.new()
-                raycastParams.FilterDescendantsInstances = {TargetChar, MyChar, Workspace.CurrentCamera}
-                raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+    if not (TargetRoot and TargetHum and TargetHead and MyRoot) then return end
+    if TargetHum.Health <= 0 then return end
 
-                local raycastResult = Workspace:Raycast(rayOrigin, rayDirection, raycastParams)
-                local teleportPos
-                if raycastResult then
-                    teleportPos = raycastResult.Position + Vector3.new(0, 3.5, 0)
-                else
-                    teleportPos = TargetRoot.Position + Vector3.new(3, 0, 0)
-                end
+    pcall(function()
+        local rayOrigin = TargetRoot.Position + Vector3.new(0, 5, 0)
+        local rayDirection = Vector3.new(0, -25, 0)
+        local raycastParams = RaycastParams.new()
+        raycastParams.FilterDescendantsInstances = {TargetChar, MyChar, workspace.CurrentCamera}
+        raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
-                MyRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-                TargetRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+        local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+        local teleportPos = raycastResult and (raycastResult.Position + Vector3.new(0, 3.5, 0)) or (TargetRoot.Position + Vector3.new(0, 2, 0))
 
-                MyChar:PivotTo(CFrame.new(teleportPos))
+        MyRoot.AssemblyLinearVelocity = Vector3.zero
+        TargetRoot.AssemblyLinearVelocity = Vector3.zero
 
-                ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(TargetRoot, TargetRoot.CFrame)
-                task.wait(0.05)
-                ReplicatedStorage.GrabEvents.DestroyGrabLine:FireServer(TargetRoot)
+        MyChar:PivotTo(CFrame.new(teleportPos, TargetRoot.Position))
+        
+        task.wait(0.02)
 
-                MyRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-                TargetRoot.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-            end)
+        local GrabEvents = ReplicatedStorage:FindFirstChild("GrabEvents")
+        if GrabEvents then
+            if GrabEvents:FindFirstChild("SetNetworkOwner") then
+                GrabEvents.SetNetworkOwner:FireServer(TargetRoot, TargetRoot.CFrame)
+            end
+            
+            task.wait(0.03)
+            
+            if GrabEvents:FindFirstChild("DestroyGrabLine") then
+                GrabEvents.DestroyGrabLine:FireServer(TargetRoot)
+            end
         end
-    end
+
+        MyRoot.AssemblyLinearVelocity = Vector3.zero
+        TargetRoot.AssemblyLinearVelocity = Vector3.zero
+    end)
 end
 
 LoopTab:AddToggle({
     Name = "Blob loopkill V2  <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,
     Callback = function(Value)
-        blobLoopT3 = Value
-        
         if not Value then
             table.clear(playersInLoop2V)
             return
@@ -9255,25 +9260,25 @@ LoopTab:AddToggle({
 
         table.clear(playersInLoop2V)
         for _, e in ipairs(playersInLoop1V) do
-            table.insert(playersInLoop2V, e:match("^(.-) %(") or e)
+            local cleanName = typeof(e) == "string" and (e:match("^(.-) %(") or e) or e
+            table.insert(playersInLoop2V, cleanName)
         end
 
         task.spawn(function()
-            while blobLoopT3 do
-                for _, name in ipairs(playersInLoop2V) do
-                    if not blobLoopT3 then break end
-                    if table.find(Whitelist, name) or PPs:FindFirstChild(name) then continue end
-
-                    local player = Players:FindFirstChild(name)
-                    if player then
-                        ExecuteLoopKillAttack(player)
-                    end
+            for _, name in ipairs(playersInLoop2V) do
+                if table.find(Whitelist, name) or (PPs and PPs:FindFirstChild(name)) then 
+                    continue 
                 end
-                task.wait(0.05)
+
+                local player = Players:FindFirstChild(name)
+                if player and player ~= LocalPlayer then
+                    ExecuteLoopKillAttack(player)
+                end
             end
         end)
     end
 })
+
 
 
 

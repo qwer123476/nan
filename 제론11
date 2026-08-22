@@ -1132,25 +1132,6 @@ local funTab = Window:MakeTab({Name = "Other", Icon = "rbxassetid://4483345998",
 local keybindTab = Window:MakeTab({Name = "ESP", Icon = "rbxassetid://6031094678", PremiumOnly = false})             
 local lagTab = Window:MakeTab({Name = "lag", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
 local CreditsTab = Window:MakeTab({Name = "save config", Icon = "rbxassetid://77989137998499", PremiumOnly = false})
-local UISettings = Window:MakeTab({
-    Name = "UI Settings",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-ThemeManager:SetLibrary(OrionLib)
-SaveManager:SetLibrary(OrionLib)
-
-SaveManager:IgnoreThemeSettings()
-
-ThemeManager:SetFolder("MyScriptHub")
-SaveManager:SetFolder("MyScriptHub")
-
-ThemeManager:ApplyToTab(UISettings)
-SaveManager:BuildConfigSection(UISettings)
-
-
-
 
 local HttpService = game:GetService("HttpService")
 

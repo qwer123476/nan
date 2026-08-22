@@ -12706,7 +12706,177 @@ antiTab:AddButton({
     end
 })
 ]]
-function AntiPCLDF()
+local AntiKickT = false
+
+local function AntiKickF()
+    local plr = game.Players.LocalPlayer
+    local char = plr.Character
+    if not char then return end
+    
+    local inv = workspace:WaitForChild(plr.Name.."SpawnedInToys")
+    local rs = game:GetService("ReplicatedStorage")
+    local StickyPartEvent = rs.PlayerEvents.StickyPartEvent
+    local SetNetworkOwner = rs.GrabEvents.SetNetworkOwner
+    local SpawnToyRemoteFunction = rs.MenuToys.SpawnToyRemoteFunction 
+    local DestroyToy = rs.MenuToys.DestroyToy
+
+    while AntiKickT and char and char.Parent do
+        task.wait(0.1)
+
+        if not char or not char.Parent then
+            break
+        end
+
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        local leftleg = char:FindFirstChild("Left Leg")
+        local rightleg = char:FindFirstChild("Right Leg")
+        
+        if not hrp then
+            continue
+        end
+
+        local targetPart = nil
+        local targetValue = nil
+        local stickyPartName = nil
+        
+        if leftleg and leftleg:FindFirstChild("RagdollLimbPart") then
+            targetPart = leftleg.RagdollLimbPart
+            targetValue = CFrame.new(-1.26, 0, 0) * CFrame.Angles(1.5708, 0, 0)
+            stickyPartName = "NinjaKunai"
+        elseif rightleg and rightleg:FindFirstChild("RagdollLimbPart") then
+            targetPart = rightleg.RagdollLimbPart
+            targetValue = CFrame.new(-1.26, 0, 0) * CFrame.Angles(1.5708, 0, 0)
+            stickyPartName = "NinjaKunai"
+        elseif hrp:FindFirstChild("RagdollTouchedHitbox") then
+            targetPart = hrp.RagdollTouchedHitbox
+            targetValue = CFrame.new(0, -0.3, 0.3) * CFrame.Angles(190, 0, 0)
+            stickyPartName = "NinjaShuriken"
+        end
+        
+        if not targetPart then
+            continue
+        end
+
+        local stickyPartFolder = inv:FindFirstChild(stickyPartName)
+        local stickyPart = stickyPartFolder and stickyPartFolder:FindFirstChild("StickyPart")
+
+        if not stickyPart then
+            local offset = hrp.CFrame.LookVector * -24
+            local spawnCF = hrp.CFrame + Vector3.new(0, 0, 0) + offset
+
+            local existingFolder = inv:FindFirstChild(stickyPartName)
+            if existingFolder then
+                DestroyToy:FireServer(inv[stickyPartName])
+                task.wait(0.2)
+            end
+
+            task.spawn(function()
+                pcall(function()
+                    SpawnToyRemoteFunction:InvokeServer(stickyPartName, spawnCF, spawnCF.Position)
+                end)
+            end)
+
+            task.wait(0.001)
+            continue
+        end
+
+        if stickyPart then
+            local distance = (hrp.Position - stickyPart.Position).Magnitude
+            if distance > 6 then
+                DestroyToy:FireServer(inv[stickyPartName])
+                task.wait(0.2)
+                continue
+            end
+        end
+
+        if stickyPart then
+            local needsOwner = false
+            local partOwner = stickyPart:FindFirstChild("PartOwner")
+            if not partOwner then
+                needsOwner = true
+            elseif partOwner.Value ~= plr.Name then
+                needsOwner = true
+            end
+
+            if needsOwner then
+                for i = 1, 3 do
+                    pcall(function()
+                        SetNetworkOwner:FireServer(stickyPart, CFrame.new())
+                    end)
+                    task.wait(0.05)
+                end
+            end
+        end
+
+        if stickyPart and targetPart then
+            local stickyWeld = stickyPart:FindFirstChild("StickyWeld")
+            
+            if not stickyWeld or stickyWeld.Part1 ~= targetPart then
+                for i = 1, 3 do
+                    pcall(function()
+                        StickyPartEvent:FireServer(stickyPart, targetPart, targetValue)
+                    end)
+                    task.wait(0.1)
+                    
+                    stickyWeld = stickyPart:FindFirstChild("StickyWeld")
+                    if stickyWeld and stickyWeld.Part1 == targetPart then
+                        break
+                    end
+                end
+            end
+
+            if stickyWeld and stickyWeld.Part1 ~= targetPart then
+                for i = 1, 3 do
+                    pcall(function()
+                        SetNetworkOwner:FireServer(stickyPart, CFrame.new())
+                    end)
+                    task.wait(0.05)
+                end
+                continue
+            end
+
+            if stickyWeld and stickyWeld.Part1 == targetPart then
+                while stickyWeld and stickyWeld.Part1 == targetPart and targetPart.Parent and AntiKickT do
+                    task.wait(0.1)
+
+                    local currentStickyPartFolder = inv:FindFirstChild(stickyPartName)
+                    local currentStickyPart = currentStickyPartFolder and currentStickyPartFolder:FindFirstChild("StickyPart")
+                    
+                    if not currentStickyPart then
+                        break
+                    end
+
+                    if stickyWeld.Part1 ~= targetPart then
+                        break
+                    end
+                end
+            end
+        end
+    end
+end
+
+local plr = game.Players.LocalPlayer
+plr.CharacterAdded:Connect(function(newChar)
+    newChar:WaitForChild("Humanoid")
+    newChar:WaitForChild("HumanoidRootPart")
+    task.wait(0.2)
+    if AntiKickT then
+        task.spawn(AntiKickF)
+    end
+end)
+
+
+antiTab:AddToggle({
+    Name = "Anti Kick (Legacy)",
+    Default = false,
+    Callback = function(Value)
+        AntiKickT = Value
+        if Value then
+            task.spawn(AntiKickF)
+        end
+    end
+})
+function pcldreset()
     targetValueName = "[ " .. plr.DisplayName .. " ] ( @" .. plr.Name .. " )"
         while AntiPCLDT do
             task.wait()
@@ -12736,14 +12906,17 @@ function AntiPCLDF()
         end
     end
 end
+
 antiTab:AddToggle({
     Name = "PCLD reset V2",
     Default = false,
+    Flag = "PCLDResetV2",
     Callback = function(Value)
         AntiPCLDT = Value
-        task.spawn(AntiPCLDF)
+        task.spawn(pcldreset)
     end
 })
+
 
 antiTab:AddToggle({
     Name = "ragdoll",

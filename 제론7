@@ -9086,9 +9086,8 @@ LoopTab:AddSection({
 })
 
 local blobLoopToggle = LoopTab:AddToggle({
-    Name = "Silent kick  <font color='rgb(255,154,123)'>[Blobman]</font>",
+    Name = "Silent kick (blobman)",
     Default = false,
-    --Flag = "21",
     Callback = function(Value)
         blobLoopT = Value
         if blobLoopT then
@@ -9114,15 +9113,6 @@ local blobLoopToggle = LoopTab:AddToggle({
                 end
             end
         end
-    end
-})
-LoopTab:AddToggle({
-    Name = "sit",
-    
-    save = true,
-    Flag = "21gshjb",
-    Callback = function(Value)
-        LoopBringMODED = Value
     end
 })
 

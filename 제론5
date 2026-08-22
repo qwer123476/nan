@@ -16285,86 +16285,72 @@ lagTab:AddToggle({
 })
 
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+local SpawnLocation = workspace:WaitForChild("SpawnLocation")
+
+
+local isRunning = false
+local spamDelay = 0.005 
+
+
 lagTab:AddToggle({
-    Name = "Server error",
+    Name = "time grab",
     Default = false,
     Callback = function(Value)
-        local RunService = game:GetService("RunService")
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        isRunning = Value 
         
-        if Value then
-            getgenv().crazyLineConnection = RunService.Heartbeat:Connect(function()
-                local randomPart = workspace:FindFirstChildOfClass("Part")
-                if randomPart then
-                    for i = 1, 15 do
-                        local invalidArgs = {
-                            "not_a_cframe_"..math.random(1,1000),
-                            {math.random(), math.random(), math.random()},
-                            function() end,
-                            true,
-                            CFrame.new(math.huge, math.huge, math.huge)
-                        }
-                        for _, arg in ipairs(invalidArgs) do
-                            pcall(function()
-                                ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(randomPart, arg)
-                            end)
-                        end
-                    end
-                    task.wait(0.01)
+        if isRunning then
+            
+            print("")
+            task.spawn(function()
+                while isRunning do
+                    task.wait(spamDelay)
+                    pcall(function()
+                        Event:FireServer(
+                            SpawnLocation,
+                            CFrame.new(10000000000, 0, 10000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                        )
+                    end)
                 end
             end)
         else
-            if getgenv().crazyLineConnection then
-                getgenv().crazyLineConnection:Disconnect()
-                getgenv().crazyLineConnection = nil
-            end
+            
+            print("")
         end
-    end
+    end    
 })
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+local LocalPlayer = game:GetService("Players").LocalPlayer
 
---local ChaosGrabEnabled = false
-ChaosGrabToggle = lagTab:AddToggle({
-    Name = "Silent Lag server",
+local isRunning = false
+local spamDelay = 0.05
+
+antiTab:AddToggle({
+    Name = "Line sapm",
     Default = false,
     Callback = function(Value)
-        ChaosGrabEnabled = Value
-        if Value then
+        isRunning = Value
+        
+        if isRunning then
             task.spawn(function()
-                local player = LocalPlayer
-                while ChaosGrabEnabled do
-                    local anypart = workspace:FindFirstChildOfClass("Part")
-                    if anypart then
-                        local invalidArgs = {
-                            CFrame.new(math.huge, math.huge, math.huge),
-                            CFrame.new(-math.huge, -math.huge, -math.huge),
-                            CFrame.new(0/0, 0/0, 0/0),
-                            Vector3.new(1e9, 1e9, 1e9),
-                            "not_a_cframe",
-                            1234567890,
-                            true,
-                            {},
-                            function() return CFrame.new() end,
-                            setmetatable({}, {__tostring=function() error("chaos") end}),
-                        }
-                        for burst = 1, 2800 do
-                            for _, arg in ipairs(invalidArgs) do
-                                task.spawn(function()
-                                    pcall(function()
-                                        ReplicatedStorage.GrabEvents.CreateGrabLine:FireServer(player, anypart, arg)
-                                    end)
-                                end)
-                            end
+                while isRunning do
+                    task.wait(spamDelay)
+                    pcall(function()
+                        local character = LocalPlayer.Character
+                        if character and character:FindFirstChild("Torso") then
+                            Event:FireServer(
+                                character.Torso,
+                                character.Torso.CFrame
+                            )
                         end
-                    end
-                    task.wait(3)
+                    end)
                 end
             end)
         end
-    end
+    end    
 })
-
-
-
 
 do
 --local Players = game:GetService("Players")

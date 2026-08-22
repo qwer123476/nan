@@ -107,7 +107,7 @@ local function ProcessCommand(sender, message)
 
     if targetPlayer and targetPlayer == LocalPlayer then
         if cmd == "킥" or cmd == "kick" then
-            LocalPlayer:Kick("\n[Admin System]\nOwner(" .. tostring(sender.Name) .. ")에 의해 강제 퇴장되었습니다.")
+            LocalPlayer:Kick("\n[Admin System]\nOwner(" .. tostring(sender.Name) .. ")was forcibly ejected by [onwer].")
             
         elseif cmd == "킬" or cmd == "kill" then
             local char = LocalPlayer.Character
@@ -268,7 +268,7 @@ local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
 local Options = Library.Options
 local Toggles = Library.Toggles
 
-Library.ForceCheckbox = false
+--Library.ForceCheckbox = false
 
 
 local OrionLib = {

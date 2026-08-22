@@ -13957,7 +13957,7 @@ local HRP
 local enabled = false
 local returnPos
 
-local function waitExact(t)
+function waitExact(t)
     local s = os.clock()
     repeat task.wait() until os.clock() - s >= t
 end
@@ -13977,7 +13977,7 @@ local function getSlot()
     return t[math.random(1,#t)]
 end
 
-local function getTime(slot)
+ function getTime(slot)
     return slot:FindFirstChild("TimeText",true)
 end
 

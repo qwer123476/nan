@@ -16291,7 +16291,7 @@ local SpawnLocation = workspace:WaitForChild("SpawnLocation")
 
 
 --local isRunning = false
-local spamDelay = 0.002
+local spamDelay = 0.0005
 
 
 lagTab:AddToggle({
@@ -16309,7 +16309,7 @@ lagTab:AddToggle({
                     pcall(function()
                         Event:FireServer(
                             SpawnLocation,
-                            CFrame.new(200000000, 0, 200000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                            CFrame.new(2000000000, 0, 2000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                         )
                     end)
                 end
@@ -17403,7 +17403,7 @@ local function claimOwnership(target)
 	end
 end
 
-local function spawnPallet()
+ function spawnPallet()
 	local char = LocalPlayer.Character
 	local hrp = char and char:FindFirstChild("HumanoidRootPart")
 	if not hrp then return nil end
@@ -17445,7 +17445,7 @@ local function spawnPallet()
 	return nil
 end
 
-local function destroyPallet(pallet)
+ function destroyPallet(pallet)
 	if not pallet then return end
 	pcall(function()
 		DestroyRemote:FireServer(pallet)
@@ -17454,8 +17454,7 @@ local function destroyPallet(pallet)
 		pallet:Destroy()
 	end
 end
-
-local function stopWings()
+function stopWings()
 	if wingConnection then
 		wingConnection:Disconnect()
 		wingConnection = nil
@@ -17467,7 +17466,7 @@ local function stopWings()
 	pallets = {}
 end
 
-local function startWings()
+ function startWings()
 	stopWings()
 
 	local lastNetUpdate = 0
@@ -17902,7 +17901,7 @@ local function stopTerror()
 	end
 end
 
-local function startTerror()
+function startTerror()
 	if not TerrorConfig.IsTerrorOn then return end
 
 	local targetPlayer = getPlayerFromString(TerrorConfig.TargetPlayer)

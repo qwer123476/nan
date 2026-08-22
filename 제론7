@@ -16291,7 +16291,7 @@ local SpawnLocation = workspace:WaitForChild("SpawnLocation")
 
 
 local isRunning = false
-local spamDelay = 0.005 
+local spamDelay = 0.002
 
 
 lagTab:AddToggle({
@@ -16309,7 +16309,7 @@ lagTab:AddToggle({
                     pcall(function()
                         Event:FireServer(
                             SpawnLocation,
-                            CFrame.new(10000000000, 0, 10000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                            CFrame.new(2000000000, 0, 2000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
                         )
                     end)
                 end
@@ -16321,11 +16321,11 @@ lagTab:AddToggle({
     end    
 })
 --local ReplicatedStorage = game:GetService("ReplicatedStorage")
---local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
 --local LocalPlayer = game:GetService("Players").LocalPlayer
 
 local isRunning = false
-local spamDelay = 0.05
+local spamDelay = 0.005
 
 antiTab:AddToggle({
     Name = "Line sapm",

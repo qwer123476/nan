@@ -16320,9 +16320,9 @@ lagTab:AddToggle({
         end
     end    
 })
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
-local LocalPlayer = game:GetService("Players").LocalPlayer
+--local ReplicatedStorage = game:GetService("ReplicatedStorage")
+--local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+--local LocalPlayer = game:GetService("Players").LocalPlayer
 
 local isRunning = false
 local spamDelay = 0.05

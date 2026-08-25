@@ -10024,17 +10024,13 @@ LoopTab:AddToggle({
 })
 
 
-            local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Workspace = game:GetService("Workspace")
-local LocalPlayer = Players.LocalPlayer
+            
 
 getgenv().Settings = getgenv().Settings or {}
 Settings.Loop = Settings.Loop or {}
 
-playersInLoop1V = playersInLoop1V or {}
-playersInLoop2V = playersInLoop2V or {}
+--playersInLoop1V = playersInLoop1V or {}
+--playersInLoop2V = playersInLoop2V or {}
 --[[
 local palletRagdollTask = nil
 

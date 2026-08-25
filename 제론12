@@ -1124,6 +1124,7 @@ local FDTab = Window:MakeTab({Name = "protection", Icon = "rbxassetid://60265681
 local antiTab = Window:MakeTab({Name = "Invincibility", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
 local ListTab = Window:MakeTab({Name = "List", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
 local LoopTab = Window:MakeTab({Name = "Loop", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
+local Loop2Tab = Window:MakeTab({Name = "Loop kick", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
 local SMTab = Window:MakeTab({Name = "Explosions", Icon = "rbxassetid://779891379989", PremiumOnly = false})
 local AuraTab = Window:MakeTab({Name = "Aura", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
 local WTab = Window:MakeTab({Name = "network", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
@@ -9120,106 +9121,153 @@ local blobLoopToggle = LoopTab:AddToggle({
 
 
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+do
+
+local rs = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+local plr = Players.LocalPlayer
 
-local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
-local setNetworkOwnerEvent = grabEvents and grabEvents:WaitForChild("SetNetworkOwner", 5)
-local createGrabLineEvent = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
+local mainLoopState = false
+local lagOptionState = false
+local selectedPlayerName = nil 
 
-local function getTargetPosition(targetPlayer, myHRP)
-    if not targetPlayer or not targetPlayer.Character then return nil, nil end
-    local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-    local targetHead = targetPlayer.Character:FindFirstChild("Head")
-    return targetHRP, targetHead
-end
+local activeTasks = {}
 
-local function runSetNetworkOwnerLoop()
-    task.spawn(function()
-        while loopPlayerT2 do
-            local myChar = LocalPlayer.Character
-            local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+local CreateGrabEvent = rs:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
+local SetNetworkOwnerEvent = rs:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
 
-            if #playersInLoop2V > 0 then
-                for i = 1, #playersInLoop2V do
-                    if not loopPlayerT2 then break end
-                    local targetName = playersInLoop2V[i]
-                    local targetPlayer = Players:FindFirstChild(targetName)
-                    
-                    if targetPlayer then
-                        local targetHRP, targetHead = getTargetPosition(targetPlayer, myHRP)
 
-                        if setNetworkOwnerEvent then
-                            if targetHead and targetHead:IsDescendantOf(workspace) then
-                                setNetworkOwnerEvent:FireServer(targetHead, targetHead.CFrame)
-                            end
-
-                            if targetHRP and targetHRP:IsDescendantOf(workspace) then
-                                if myHRP and myHRP:IsDescendantOf(workspace) then
-                                    setNetworkOwnerEvent:FireServer(targetHRP, CFrame.lookAt(myHRP.Position, targetHRP.Position))
-                                else
-                                    setNetworkOwnerEvent:FireServer(targetHRP, targetHRP.CFrame)
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-
-            if loopPlayerT2 and lagOptionT2 then
-                if createGrabLineEvent then
-                    local spawnLoc = workspace:FindFirstChild("SpawnLocation") or workspace
-                    createGrabLineEvent:FireServer(
-                        spawnLoc,
-                        CFrame.new(2000000000, 0, 2000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-                    )
-                end
-                task.wait()
-            else
-                task.wait(0.05)
-            end
+local function processNetworkLoop(player)
+    if not player then return end
+    while mainLoopState do
+        if not player.Parent then break end
+        local character = player.Character
+        
+        while mainLoopState and (not character or not character:FindFirstChild("Humanoid")) do
+            if not player.Parent then return end
+            task.wait(0.5)
+            character = player.Character
         end
-    end)
+        
+        local charHUM = character and character:FindFirstChild("Humanoid")
+        if not charHUM then
+            task.wait(0.5)
+            continue
+        end
+        
+        while mainLoopState and charHUM and charHUM.Health <= 0 do
+            if not player.Parent then return end
+            task.wait(0.5)
+            character = player.Character
+            charHUM = character and character:FindFirstChild("Humanoid")
+        end
+        
+        local charHRP = character:FindFirstChild("HumanoidRootPart")
+        local head = character:FindFirstChild("Head")
+        if not charHRP or not head then
+            task.wait(0.5)
+            continue
+        end
+        
+        local myChar = plr.Character
+        local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+        
+        while mainLoopState and character.Parent and charHRP.Parent and charHUM and charHUM.Health > 0 do
+            if myHRP then
+                SetNetworkOwnerEvent:FireServer(head, head.CFrame)
+                SetNetworkOwnerEvent:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
+            else
+                SetNetworkOwnerEvent:FireServer(head, head.CFrame)
+                SetNetworkOwnerEvent:FireServer(charHRP, charHRP.CFrame)
+            end
+            
+            if mainLoopState and lagOptionState then
+                CreateGrabEvent:FireServer(
+                    workspace:FindFirstChildOfClass("SpawnLocation") or workspace,
+                    CFrame.new(2000000000, 0, 2000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                )
+            end
+            task.wait()
+        end
+        task.wait(0.35)
+    end
 end
 
-do 
-local LoopSection = LoopTab:AddSection({
-    Name = "No blob kick lag "
-})
 
-LoopSection:AddToggle({
-    Name = "Loop kick   <font color='rgb(0,255,0)'>[Network ownership ]</font>",
-    Default = false,
+local function executeNetworkSpam()
+    for _, taskThread in pairs(activeTasks) do
+        if taskThread then task.cancel(taskThread) end
+    end
+    table.clear(activeTasks)
+    
+    if not mainLoopState or not selectedPlayerName then return end
+    
+    local targetObj = Players:FindFirstChild(selectedPlayerName)
+    if targetObj then
+        activeTasks[targetObj] = task.spawn(function()
+            processNetworkLoop(targetObj)
+        end)
+    end
+end
+
+
+local function getPlayerNames()
+    local names = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= plr then
+            table.insert(names, player.Name)
+        end
+    end
+    return names
+end
+
+
+local PlayerDropdown = Loop2Tab:AddDropdown({
+    Name = "Select Target Player",
+    Default = "",
+    Options = getPlayerNames(),
     Callback = function(Value)
-        loopPlayerT2 = Value
-        if loopPlayerT2 then
-            table.clear(playersInLoop2V)
-            for i = 1, #playersInLoop1V do
-                local entry = playersInLoop1V[i]
-                if entry then
-                    local nameOnly = entry:match("^(.-) %(") or entry
-                    table.insert(playersInLoop2V, nameOnly)
-                end
-            end
-            runSetNetworkOwnerLoop()
-        else
-            loopPlayerT2 = false
-            table.clear(playersInLoop2V)
+        selectedPlayerName = Value
+                if mainLoopState then
+            executeNetworkSpam()
         end
     end
 })
 
-LoopSection:AddToggle({
+local function updateDropdown()
+    PlayerDropdown:Refresh(getPlayerNames(), true)
+end
+Players.PlayerAdded:Connect(updateDropdown)
+Players.PlayerRemoving:Connect(updateDropdown)
+
+
+Loop2Tab:AddToggle({
+    Name = "Loop kick   <font color='rgb(0,255,0)'>[NETWORKOWNER]</font>",
+    Default = false,
+    Callback = function(Value)
+        mainLoopState = Value
+        if mainLoopState then
+            executeNetworkSpam()
+        else
+            for _, taskThread in pairs(activeTasks) do
+                if taskThread then task.cancel(taskThread) end
+            end
+            table.clear(activeTasks)
+        end
+    end
+})
+
+
+Loop2Tab:AddToggle({
     Name = "lag",
     Default = false,
-    Flag = "LagOptionFlag",
     Callback = function(Value)
-        lagOptionT2 = Value
+        lagOptionState = Value
     end
 })
 
-
+end
 
 LoopTab:AddSection({
     Name = "loopkill"

@@ -1974,7 +1974,7 @@ if D then
         end
     end)
 else
-    warn("Player 객체(D)를 찾을 수 없어 CharacterAdded를 연결하지 못했습니다.")
+    warn("Player")
 end
 
         repeat
@@ -2583,7 +2583,7 @@ OwnerKickMODED = false
 SitMODED = false
 OnlyOwner = false
 SkipOL = false
-OLTPValue = Vector3.new(0, 20, 0)
+OLTPValue = Vector3.new(0, 30, 0)
 
 
 function loopPlayerBlobF4()
@@ -4971,7 +4971,7 @@ local function ifKickThenF()
             local NAP = plr.Name
             
             OrionLib:MakeNotification({
-                Name = "[ 킥당한새끼 ]",
+                Name = "[ kick ]",
                 Content = "[" .. DISP .. "] ( @" .. NAP ..  ")",
                 Image = "rbxassetid://4483345998",
                 Time = 7
@@ -9080,7 +9080,7 @@ LoopTab:AddToggle({
         end
     end
 })
-
+--[[
 LoopTab:AddSection({
     Name = "Silent kick"
 })
@@ -9115,6 +9115,111 @@ local blobLoopToggle = LoopTab:AddToggle({
         end
     end
 })
+]]
+
+
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local grabEvents = ReplicatedStorage:WaitForChild("GrabEvents", 5)
+local setNetworkOwnerEvent = grabEvents and grabEvents:WaitForChild("SetNetworkOwner", 5)
+local createGrabLineEvent = grabEvents and grabEvents:WaitForChild("CreateGrabLine", 5)
+
+local function getTargetPosition(targetPlayer, myHRP)
+    if not targetPlayer or not targetPlayer.Character then return nil, nil end
+    local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local targetHead = targetPlayer.Character:FindFirstChild("Head")
+    return targetHRP, targetHead
+end
+
+local function runSetNetworkOwnerLoop()
+    task.spawn(function()
+        while loopPlayerT2 do
+            local myChar = LocalPlayer.Character
+            local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+            if #playersInLoop2V > 0 then
+                for i = 1, #playersInLoop2V do
+                    if not loopPlayerT2 then break end
+                    local targetName = playersInLoop2V[i]
+                    local targetPlayer = Players:FindFirstChild(targetName)
+                    
+                    if targetPlayer then
+                        local targetHRP, targetHead = getTargetPosition(targetPlayer, myHRP)
+
+                        if setNetworkOwnerEvent then
+                            if targetHead and targetHead:IsDescendantOf(workspace) then
+                                setNetworkOwnerEvent:FireServer(targetHead, targetHead.CFrame)
+                            end
+
+                            if targetHRP and targetHRP:IsDescendantOf(workspace) then
+                                if myHRP and myHRP:IsDescendantOf(workspace) then
+                                    setNetworkOwnerEvent:FireServer(targetHRP, CFrame.lookAt(myHRP.Position, targetHRP.Position))
+                                else
+                                    setNetworkOwnerEvent:FireServer(targetHRP, targetHRP.CFrame)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+            if loopPlayerT2 and lagOptionT2 then
+                if createGrabLineEvent then
+                    local spawnLoc = workspace:FindFirstChild("SpawnLocation") or workspace
+                    createGrabLineEvent:FireServer(
+                        spawnLoc,
+                        CFrame.new(2000000000, 0, 2000000000, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    )
+                end
+                task.wait()
+            else
+                task.wait(0.05)
+            end
+        end
+    end)
+end
+
+
+local LoopSection = LoopTab:AddSection({
+    Name = "No blob kick lag "
+})
+
+LoopSection:AddToggle({
+    Name = "Loop kick   <font color='rgb(0,255,0)'>[Network ownership ]</font>",
+    Default = false,
+    Callback = function(Value)
+        loopPlayerT2 = Value
+        if loopPlayerT2 then
+            table.clear(playersInLoop2V)
+            for i = 1, #playersInLoop1V do
+                local entry = playersInLoop1V[i]
+                if entry then
+                    local nameOnly = entry:match("^(.-) %(") or entry
+                    table.insert(playersInLoop2V, nameOnly)
+                end
+            end
+            runSetNetworkOwnerLoop()
+        else
+            loopPlayerT2 = false
+            table.clear(playersInLoop2V)
+        end
+    end
+})
+
+LoopSection:AddToggle({
+    Name = "lag",
+    Default = false,
+    Flag = "LagOptionFlag",
+    Callback = function(Value)
+        lagOptionT2 = Value
+    end
+})
+
+
 
 LoopTab:AddSection({
     Name = "loopkill"
@@ -9282,7 +9387,7 @@ local function ProcessPlayer(targetPlayer)
 
     local function ExecuteGrab(blobmanInstance)
         local seat = blobmanInstance:WaitForChild("VehicleSeat", 5)
-        if not seat then return end
+        if not seat the n return end
 
         if hum.SeatPart ~= seat then
             hrp.CFrame = seat.CFrame

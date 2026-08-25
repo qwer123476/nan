@@ -9139,8 +9139,8 @@ local SetNetworkOwnerEvent = rs:WaitForChild("GrabEvents"):WaitForChild("SetNetw
 local function restorePosition()
     if savedCFrame and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
         plr.Character.HumanoidRootPart.CFrame = savedCFrame
-        savedCFrame = nil
     end
+    savedCFrame = nil
 end
 
 local function stopAll()
@@ -9165,33 +9165,56 @@ local function processNetworkLoop(player)
         if not player.Parent then break end
         local character = player.Character
         
-        if not character or not character:FindFirstChild("Humanoid") then
-            break
+        while mainLoopState and (not character or not character:FindFirstChild("Humanoid")) do
+            if not player.Parent then return end
+            task.wait(0.1)
+            character = player.Character
         end
         
-        local charHUM = character:FindFirstChild("Humanoid")
-        if not charHUM or charHUM.Health <= 0 then
-            break
+        local charHUM = character and character:FindFirstChild("Humanoid")
+        if not charHUM then
+            task.wait(0.1)
+            continue
+        end
+        
+        while mainLoopState and charHUM and charHUM.Health <= 0 do
+            if not player.Parent then return end
+            task.wait(0.1)
+            character = player.Character
+            charHUM = character and character:FindFirstChild("Humanoid")
         end
         
         local charHRP = character:FindFirstChild("HumanoidRootPart")
         local head = character:FindFirstChild("Head")
         if not charHRP or not head then
-            break
+            task.wait(0.1)
+            continue
         end
         
-        myChar = plr.Character
-        myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
-        
-        local targetGroundCFrame = charHRP.CFrame
-        local targetAirCFrame = targetGroundCFrame * CFrame.new(0, 25, 0)
-        
-        if myHRP then
-            myHRP.CFrame = targetGroundCFrame
-        end
-
         while mainLoopState and character.Parent and charHRP.Parent and charHUM and charHUM.Health > 0 do
+            myChar = plr.Character
+            myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+            
+            local currentPos = charHRP.Position
+            local rayParams = RaycastParams.new()
+            rayParams.FilterType = Enum.RaycastFilterType.Exclude
+            local ignoreList = {}
+            if myChar then table.insert(ignoreList, myChar) end
+            if character then table.insert(ignoreList, character) end
+            rayParams.FilterObjects = ignoreList
+
+            local rayResult = workspace:Raycast(Vector3.new(currentPos.X, currentPos.Y + 10, currentPos.Z), Vector3.new(0, -1000, 0), rayParams)
+            local groundY = currentPos.Y
+            if rayResult then
+                groundY = rayResult.Position.Y
+            end
+
+            local rotation = charHRP.CFrame - charHRP.CFrame.Position
+            local targetAirCFrame = CFrame.new(currentPos.X, groundY + 25, currentPos.Z) * rotation
+            local myGroundCFrame = CFrame.new(currentPos.X, groundY + 3, currentPos.Z) * rotation
+
             if myHRP then
+                myHRP.CFrame = myGroundCFrame
                 SetNetworkOwnerEvent:FireServer(head, targetAirCFrame)
                 SetNetworkOwnerEvent:FireServer(charHRP, CFrame.lookAt(myHRP.Position, targetAirCFrame.Position))
             else
@@ -9207,10 +9230,10 @@ local function processNetworkLoop(player)
             end
             task.wait()
         end
-        break
+        task.wait(0.1)
     end
-
-    stopAll()
+    
+    restorePosition()
 end
 
 local function executeNetworkSpam()
@@ -9288,6 +9311,7 @@ Loop2Tab:AddToggle({
         lagOptionState = Value
     end
 })
+
 
 end
 

@@ -9183,7 +9183,7 @@ local function runSetNetworkOwnerLoop()
     end)
 end
 
-
+do 
 local LoopSection = LoopTab:AddSection({
     Name = "No blob kick lag "
 })
@@ -9244,7 +9244,7 @@ LoopTab:AddToggle({
     end
 })
 
-
+end
 LoopTab:AddToggle({
     Name = "Blob Fling kill <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,

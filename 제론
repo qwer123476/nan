@@ -9143,6 +9143,15 @@ local function restorePosition()
     end
 end
 
+local function stopAll()
+    mainLoopState = false
+    for _, taskThread in pairs(activeTasks) do
+        if taskThread then task.cancel(taskThread) end
+    end
+    table.clear(activeTasks)
+    restorePosition()
+end
+
 local function processNetworkLoop(player)
     if not player then return end
     
@@ -9174,19 +9183,20 @@ local function processNetworkLoop(player)
         myChar = plr.Character
         myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
         
+        local targetGroundCFrame = charHRP.CFrame
+        local targetAirCFrame = targetGroundCFrame * CFrame.new(0, 25, 0)
+        
         if myHRP then
-            myHRP.CFrame = charHRP.CFrame * CFrame.new(0, 25, 0)
+            myHRP.CFrame = targetGroundCFrame
         end
 
         while mainLoopState and character.Parent and charHRP.Parent and charHUM and charHUM.Health > 0 do
-            charHRP.CFrame = charHRP.CFrame * CFrame.new(0, 25, 0)
-
             if myHRP then
-                SetNetworkOwnerEvent:FireServer(head, head.CFrame)
-                SetNetworkOwnerEvent:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
+                SetNetworkOwnerEvent:FireServer(head, targetAirCFrame)
+                SetNetworkOwnerEvent:FireServer(charHRP, CFrame.lookAt(myHRP.Position, targetAirCFrame.Position))
             else
-                SetNetworkOwnerEvent:FireServer(head, head.CFrame)
-                SetNetworkOwnerEvent:FireServer(charHRP, charHRP.CFrame)
+                SetNetworkOwnerEvent:FireServer(head, targetAirCFrame)
+                SetNetworkOwnerEvent:FireServer(charHRP, targetAirCFrame)
             end
             
             if mainLoopState and lagOptionState then
@@ -9200,16 +9210,7 @@ local function processNetworkLoop(player)
         break
     end
 
-    restorePosition()
-end
-
-local function stopAll()
-    mainLoopState = false
-    for _, taskThread in pairs(activeTasks) do
-        if taskThread then task.cancel(taskThread) end
-    end
-    table.clear(activeTasks)
-    restorePosition()
+    stopAll()
 end
 
 local function executeNetworkSpam()
@@ -9243,8 +9244,6 @@ local function getPlayerNames()
     return names
 end
 
-
-
 local PlayerDropdown = Loop2Tab:AddDropdown({
     Name = "Select Target Player",
     Default = "",
@@ -9260,6 +9259,7 @@ local PlayerDropdown = Loop2Tab:AddDropdown({
 local function updateDropdown()
     PlayerDropdown:Refresh(getPlayerNames(), true)
 end
+
 Players.PlayerAdded:Connect(updateDropdown)
 Players.PlayerRemoving:Connect(function(player)
     if selectedPlayerName and player.Name == selectedPlayerName then
@@ -9269,7 +9269,7 @@ Players.PlayerRemoving:Connect(function(player)
 end)
 
 Loop2Tab:AddToggle({
-    Name = "Loop kick   <font color='rgb(0,255,0)'>[NETWORKOWNER]</font>",
+    Name = "Loop kick   <font color='rgb(0,255,0)'>[Grab]</font>",
     Default = false,
     Callback = function(Value)
         mainLoopState = Value

@@ -9387,7 +9387,7 @@ local function ProcessPlayer(targetPlayer)
 
     local function ExecuteGrab(blobmanInstance)
         local seat = blobmanInstance:WaitForChild("VehicleSeat", 5)
-        if not seat them return end
+        if not seat then return end
 
         if hum.SeatPart ~= seat then
             hrp.CFrame = seat.CFrame

@@ -9292,7 +9292,7 @@ LoopTab:AddToggle({
     end
 })
 
-end
+
 LoopTab:AddToggle({
     Name = "Blob Fling kill <font color='rgb(255,154,123)'>[Blobman]</font>",
     Default = false,

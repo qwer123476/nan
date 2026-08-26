@@ -4971,7 +4971,7 @@ local function ifKickThenF()
             local NAP = plr.Name
             
             OrionLib:MakeNotification({
-                Name = "[ 킥당한새끼 ]",
+                Name = "[ kick ]",
                 Content = "[" .. DISP .. "] ( @" .. NAP ..  ")",
                 Image = "rbxassetid://4483345998",
                 Time = 7

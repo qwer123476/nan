@@ -6878,6 +6878,103 @@ getTab:AddToggle({
         end
     end    
 })
+--local Players = game:GetService("Players")
+
+local activeNotifications = {}
+local connections = {}
+
+function calculatePacketSize(data)
+    local size = 0
+    if type(data) == "table" then
+        for k, v in pairs(data) do
+            size = size + calculatePacketSize(k) + calculatePacketSize(v)
+        end
+    elseif type(data) == "string" then
+        size = size + string.len(data)
+    elseif type(data) == "number" then
+        size = size + 8
+    elseif type(data) == "boolean" then
+        size = size + 1
+    elseif typeof(data) == "Instance" then
+        size = size + string.len(data.Name) + 4
+    else
+        size = size + string.len(tostring(data))
+    end
+    return size
+end
+
+local function sendPacketNotification(formattedName, mbSize)
+    OrionLib:MakeNotification({
+        Name = "Packet Lag Detected",
+        Content = formattedName .. " Event Size: " .. mbSize .. "MB",
+        Image = "rbxassetid://4483345998",
+        Time = 3
+    })
+end
+
+function monitorRemote(remote)
+    if remote:IsA("RemoteEvent") then
+        local c = remote.OnClientEvent:Connect(function(...)
+            local args = {...}
+            local totalSize = calculatePacketSize(args)
+            
+            if totalSize >= 10240 then
+                local senderDisplayName = "Unknown"
+                local senderName = "Server"
+                
+                for _, arg in ipairs(args) do
+                    if typeof(arg) == "Instance" and arg:IsA("Player") then
+                        senderDisplayName = arg.DisplayName
+                        senderName = arg.Name
+                        break
+                    elseif type(arg) == "string" and Players:FindFirstChild(arg) then
+                        local plr = Players:FindFirstChild(arg)
+                        senderDisplayName = plr.DisplayName
+                        senderName = plr.Name
+                        break
+                    end
+                end
+                
+                local formattedName = "[ " .. senderDisplayName .. " ] ( " .. senderName .. " )"
+                
+                if not activeNotifications[senderName] then
+                    activeNotifications[senderName] = true
+                    
+                    local mbSize = string.format("%.3f", totalSize / 1048576)
+                    
+                    sendPacketNotification(formattedName, mbSize)
+                    
+                    task.delay(3, function()
+                        activeNotifications[senderName] = false
+                    end)
+                end
+            end
+        end)
+        table.insert(connections, c)
+    end
+end
+
+getTab:AddToggle({
+    Name = "Packet Lag Notification",
+    Default = false,
+    Flag = "PacketLagToggle",
+    Callback = function(Value)
+        if Value then
+            for _, instance in ipairs(game:GetDescendants()) do
+                monitorRemote(instance)
+            end
+            
+            local cDescendant = game.DescendantAdded:Connect(monitorRemote)
+            table.insert(connections, cDescendant)
+        else
+            for _, conn in ipairs(connections) do
+                conn:Disconnect()
+            end
+            table.clear(connections)
+            table.clear(activeNotifications)
+        end
+    end    
+})
 
 
 --[[
@@ -7612,7 +7709,7 @@ local function Notify(title, content)
 end
 
 
-local function addToLoop1(name)
+function addToLoop1(name)
     local target = findPlayer(name)
 
     if not target then
@@ -11674,7 +11771,7 @@ antiTab:AddToggle({
 
             task.spawn(function()
                 while isGhostLooping do
-                    task.wait(12)
+                    task.wait(2)
                     if isGhostLooping then
                         destroyBurger()
                     end
@@ -11859,6 +11956,72 @@ antiTab:AddToggle({
     end
 })
 --AntiMassless:Set(true)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local connections = {}
+
+local function monitorHRP(character)
+    local hrp = character:WaitForChild("HumanoidRootPart", 5)
+    local humanoid = character:WaitForChild("Humanoid", 5)
+    
+    if hrp and humanoid then
+        if hrp.Massless and not humanoid.Sit then
+            hrp.Massless = false
+        end
+        
+        local c1 = hrp:GetPropertyChangedSignal("Massless"):Connect(function()
+            if hrp.Massless and not humanoid.Sit then
+                hrp.Massless = false
+            end
+        end)
+        
+        local c2 = humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
+            if not humanoid.Sit and hrp.Massless then
+                hrp.Massless = false
+            end
+        end)
+        
+        table.insert(connections, c1)
+        table.insert(connections, c2)
+    end
+end
+
+antiTab:AddToggle({
+    Name = "Anti Massless V2",
+    Default = false,
+    Flag = "FixMasslessToggle",
+    Callback = function(Value)
+        if Value then
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    if player.Character then
+                        task.spawn(monitorHRP, player.Character)
+                    end
+                    local c = player.CharacterAdded:Connect(function(character)
+                        task.spawn(monitorHRP, character)
+                    end)
+                    table.insert(connections, c)
+                end
+            end
+            
+            local playerAddedConn = Players.PlayerAdded:Connect(function(player)
+                if player ~= LocalPlayer then
+                    local c = player.CharacterAdded:Connect(function(character)
+                        task.spawn(monitorHRP, character)
+                    end)
+                    table.insert(connections, c)
+                end
+            end)
+            table.insert(connections, playerAddedConn)
+        else
+            for _, conn in ipairs(connections) do
+                conn:Disconnect()
+            end
+            table.clear(connections)
+        end
+    end    
+})
 
 antiTab:AddToggle({
     Name = "Defense / Air Sub-pension",

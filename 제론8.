@@ -1,51 +1,6 @@
-do
 
-local _ENV = getfenv and getfenv(0) or _ENV
-local function __INIT_PROTECTION__()
-    local CONFIG = { MAX_LATENCY = 0.25, MAX_STRIKES = 3 }
-    local _rawget = rawget local _pcall = pcall local _osclock = osclock or os.clock
-    local _tostring = tostring local _error = error local _type = type local _stringfind = string.find
-    local latencyStrikes = 0
-    local function terminateSession(reason)
-        _pcall(function() _error("[Runtime Error] Exception code: 0x" .. _tostring(_osclock() * 1000), 0) end)
-        while true do end
-    end
-    local function checkHooks()
-        local functionsToVerify = { "print", "loadstring", "setmetatable", "pairs", "ipairs" }
-        for i = 1, #functionsToVerify do
-            local funcName = functionsToVerify[i]
-            local func = _rawget(_ENV, funcName)
-            if func then
-                local strRep = _tostring(func)
-                if not _stringfind(strRep, "builtin") and not _stringfind(strRep, "0x") then terminateSession("H-1") end
-                if _type(func) ~= "function" then terminateSession("H-2") end
-            end
-        end
-    end
-    local function verifyTiming(callback)
-        local startTime = _osclock()
-        local success, result = _pcall(callback)
-        local endTime = _osclock()
-        if (endTime - startTime) > CONFIG.MAX_LATENCY then
-            latencyStrikes = latencyStrikes + 1
-            if latencyStrikes >= CONFIG.MAX_STRIKES then terminateSession("D-1") end
-        else latencyStrikes = 0 end
-        if not success then _error(result, 0) end
-        return result
-    end
-    local function protectEnvironment()
-        local meta = getmetatable(_ENV) or {}
-        meta.__newindex = function(t, key, value) terminateSession("T-1") end
-        meta.__metatable = "Locked"
-        setmetatable(_ENV, meta)
-    end
-    _pcall(checkHooks) _pcall(protectEnvironment)
-    _ENV.__VERIFY_FLOW__ = verifyTiming
-    _ENV.__CHECK_HOOKS__ = checkHooks
-end
-__INIT_PROTECTION__()
 
-end
+
 
 
 do

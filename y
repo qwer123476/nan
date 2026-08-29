@@ -758,17 +758,15 @@ function OrionEngine:MakeWindow(Settings)
                     pcall(BCallback)
                 end
             end)
-        end
+                end
         return Tab
     end
+
     return OrionEngine
 end
+
 return OrionEngine
-   for  k, v in pairs(properties) do
-        instance[k] = v
-    end
-    return instance
-end
+   
 
 function Utility:GetTextBounds(text, font, size, vector)
     local textLabel = Instance.new("TextLabel")

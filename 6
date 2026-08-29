@@ -767,7 +767,7 @@ end
 
 return OrionEngine
    
-
+--[[
 function Utility:GetTextBounds(text, font, size, vector)
     local textLabel = Instance.new("TextLabel")
     textLabel.Text = text
@@ -779,7 +779,7 @@ function Utility:GetTextBounds(text, font, size, vector)
     textLabel:Destroy()
     return bounds
 end
-
+]]
 function Utility:CreateRipple(button)
     local ripple = Utility:Create("Frame", {
         Name = "Ripple",

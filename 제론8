@@ -9067,7 +9067,7 @@ LoopTab:AddToggle({
                     local LocalPlayer = Players.LocalPlayer
                     local GE = RS:WaitForChild("GrabEvents")
 
-                    local REMOTE_DELAY = 0.0002
+                    local REMOTE_DELAY = 0.2
                     local lastRemote = 0
 
                     local target = Players:FindFirstChild(targetName)
@@ -9177,7 +9177,7 @@ LoopTab:AddToggle({
         end
     end
 })
-
+--[[
 LoopTab:AddSection({
     Name = "Silent kick"
 })
@@ -9212,12 +9212,12 @@ local blobLoopToggle = LoopTab:AddToggle({
         end
     end
 })
-
+]]
 LoopTab:AddSection({
     Name = "loopkill"
 })
 LoopTab:AddToggle({
-    Name = "loopkill   <font color='rgb(0,0,255)'>[Ownership]</font>   <font color='rgb(255,0,0)'>[grab]</font>",
+    Name = "loopkill    <font color='rgb(255,0,0)'>[grab]</font>",
     Default = false,
    -- Flag = "21",
     Callback = function(Value)
@@ -10465,10 +10465,6 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddLabel("Loop TP is useful for loop kick&kill avoidance.")
-
-
-
 antiTab:AddToggle({
     Name = "Anti ownership spam B1",
     Default = false,
@@ -10667,159 +10663,11 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddToggle({
-    Name = "Anti ownership spamF1",
-    Default = false,
-    Flag = "AntiOwnewyrship2_PCLD",
-    Callback = function(v)
-        Settings.Anti.AntiOwnership2 = v
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local LocalPlayer = Players.LocalPlayer
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        
-        if v then
-            pcall(function()
-                local plr = LocalPlayer
-                local isHeld = plr:WaitForChild("IsHeld", 10)
-                if not isHeld then warn("Anti Ownership 2: IsHeld not found") return end
-                local struggleEvent = ReplicatedStorage:WaitForChild("CharacterEvents"):WaitForChild("Struggle")
-                local savedCFrame = nil
-
-                State.antiOwnershipConns["AntiPCLDTask"] = RunService.Stepped:Connect(function()
-                    local char = plr.Character
-                    if not char then return end
-
-                    for _, part in ipairs(char:GetDescendants()) do
-                        if part:IsA("BasePart") then
-                            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0, 0, 100, 100)
-                            part.Massless = false
-                            local vel = part.AssemblyLinearVelocity
-                            local rotvel = part.AssemblyAngularVelocity
-                            if vel.Magnitude > 1100 or rotvel.Magnitude > 1100 then
-                                part.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-                                part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
-                            end
-                        end
-                        if part:IsA("JointInstance") then
-                            pcall(function()
-                                if (part.Part0 and not part.Part0:IsDescendantOf(char)) or (part.Part1 and not part.Part1:IsDescendantOf(char)) then
-                                    part:Destroy()
-                                end
-                            end)
-                        elseif part:IsA("Constraint") then
-                            pcall(function()
-                                local att0 = part.Attachment0
-                                local att1 = part.Attachment1
-                                if (att0 and att0.Parent and not att0.Parent:IsDescendantOf(char)) or (att1 and att1.Parent and not att1.Parent:IsDescendantOf(char)) then
-                                    part:Destroy()
-                                end
-                            end)
-                        end
-                    end
-                end)
-
-                State.antiOwnershipConns["AntiOwn2Conn"] = isHeld.Changed:Connect(function(heldState)
-                    local char = plr.Character
-                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
-                    if heldState then
-                        if hrp then savedCFrame = hrp.CFrame pcall(function() hrp.Anchored = true end) end
-                        
-                        if char then
-                            for _, p in ipairs(char:GetDescendants()) do
-                                if p:IsA("BasePart") then pcall(function() p.Anchored = true end) end
-                            end
-                        end
-
-                        State.antiOwnershipConns["AntiOwn2Task"] = task.spawn(function()
-                            while isHeld and isHeld.Value and Settings.Anti.AntiOwnership2 do
-                                pcall(function() struggleEvent:FireServer(plr) end)
-                                task.wait(0.05)
-                            end
-                            if hrp and hrp.Parent then
-                                pcall(function() hrp.Anchored = false end)
-                                if savedCFrame then pcall(function() hrp.CFrame = savedCFrame end) end
-                            end
-                            if char then
-                                for _, p in ipairs(char:GetDescendants()) do
-                                    if p:IsA("BasePart") then pcall(function() p.Anchored = false end) end
-                                end
-                            end
-                        end)
-                    else
-                        if hrp and hrp.Parent then
-                            pcall(function() hrp.Anchored = false end)
-                            if savedCFrame then pcall(function() hrp.CFrame = savedCFrame end) end
-                        end
-                        if char then
-                            for _, p in ipairs(char:GetDescendants()) do
-                                if p:IsA("BasePart") then pcall(function() p.Anchored = false end) end
-                            end
-                        end
-                    end
-                end)
-                State.antiOwnershipConns["AntiOwn2CharConn"] = plr.CharacterAdded:Connect(function(char)
-                    task.wait(0.5)
-                    pcall(function()
-                        local hrp = char:WaitForChild("HumanoidRootPart", 5)
-                        if hrp then savedCFrame = hrp.CFrame end
-                    end)
-                end)
-                if isHeld.Value then
-                    local char = plr.Character
-                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
-                    if hrp then savedCFrame = hrp.CFrame pcall(function() hrp.Anchored = true end) end
-                    
-                    if char then
-                        for _, p in ipairs(char:GetDescendants()) do
-                            if p:IsA("BasePart") then pcall(function() p.Anchored = true end) end
-                        end
-                    end
-
-                    State.antiOwnershipConns["AntiOwn2Task"] = task.spawn(function()
-                        while isHeld and isHeld.Value and Settings.Anti.AntiOwnership2 do
-                            pcall(function() struggleEvent:FireServer(plr) end)
-                            task.wait(0.05)
-                        end
-                        if hrp and hrp.Parent then
-                            pcall(function() hrp.Anchored = false end)
-                            if savedCFrame then pcall(function() hrp.CFrame = savedCFrame end) end
-                        end
-                        if char then
-                            for _, p in ipairs(char:GetDescendants()) do
-                                if p:IsA("BasePart") then pcall(function() p.Anchored = false end) end
-                            end
-                        end
-                    end)
-                end
-            end)
-        else
-            if State.antiOwnershipConns["AntiOwn2Conn"] then pcall(function() State.antiOwnershipConns["AntiOwn2Conn"]:Disconnect() end) State.antiOwnershipConns["AntiOwn2Conn"] = nil end
-            if State.antiOwnershipConns["AntiOwn2Task"] then task.cancel(State.antiOwnershipConns["AntiOwn2Task"]) State.antiOwnershipConns["AntiOwn2Task"] = nil end
-            if State.antiOwnershipConns["AntiOwn2CharConn"] then pcall(function() State.antiOwnershipConns["AntiOwn2CharConn"]:Disconnect() end) State.antiOwnershipConns["AntiOwn2CharConn"] = nil end
-            
-            if State.antiOwnershipConns["AntiPCLDTask"] then 
-                State.antiOwnershipConns["AntiPCLDTask"]:Disconnect() 
-                State.antiOwnershipConns["AntiPCLDTask"] = nil 
-            end
-
-            local char = LocalPlayer.Character
-            local hrp = char and char:FindFirstChild("HumanoidRootPart")
-            if hrp then pcall(function() hrp.Anchored = false end) end
-            
-            if char then
-                for _, p in ipairs(char:GetDescendants()) do
-                    if p:IsA("BasePart") then pcall(function() p.Anchored = false end) end
-                end
-            end
-        end
-    end
-})
 
 
 
 antiTab:AddToggle({
-    Name = "Anti PCLD",
+    Name = "Anti PCLD (※woring※)",
     Default = false,
     Flag = "AntiPCLD_7gwOnly",
     Callback = function(v)

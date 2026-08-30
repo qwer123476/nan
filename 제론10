@@ -10804,7 +10804,7 @@ antiTab:AddToggle({
 })
 --AntiGrab:Set(true)
 
-Tab:AddToggle({
+antiTab:AddToggle({
 	Name = "Anti Grab(Ags)",
 	Default = false,
 	Callback = function(Value)

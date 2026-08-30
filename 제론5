@@ -1,5 +1,5 @@
 -- Ironbrew1 Anti-Tamper 아이언브루 안티탬퍼※※※※※※※※※※※※※※※※
-
+do
 local _guard = (function()
 	local type = type
 	local pcall = pcall
@@ -189,7 +189,7 @@ local _guard = (function()
 
 	return canaries
 end)()
-
+end
 -- WynFuscate Anti-Tamper 안티 템퍼 좀 후진거
 do
 	local function abort()

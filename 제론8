@@ -10667,6 +10667,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
 	Name = "Anti Ownership F1",
 	Default = false,
+    Flag = "ehioqkdbfe",
 	Callback = function(Value)
 		antiOwnershipActive = Value
 		if Value then
@@ -10807,6 +10808,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
 	Name = "Anti Grab(Ags)",
 	Default = false,
+    Flag = "ehiisiw9192",
 	Callback = function(Value)
 		antiGrabV1Active = Value
 		
@@ -10851,6 +10853,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
 	Name = "Phantom Anti Grab ",
 	Default = false,
+    Flag = "ehsiwiqkw9202",
 	Callback = function(Value)
 		antiGrabV2Active = Value
 		
@@ -12216,6 +12219,7 @@ ocnAutoLagEnabled = false
 antiTab:AddToggle({
 	Name = "Anti Lag V3",
 	Default = false,
+    Flag = "ehueusjwhsi",
 	Callback = function(Value)
 		ocnAntiLagOn = Value
 		if Value then
@@ -12238,6 +12242,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
 	Name = "Auto Anti Lag V3",
 	Default = false,
+    Flag = "7tfwg8",
 	Callback = function(Value)
 		ocnAutoLagEnabled = Value
 		if Value then
@@ -12253,6 +12258,7 @@ antiTab:AddSlider({
 	Min = 10,
 	Max = 120,
 	Default = 30,
+    Flag = "geheueue",
 	Color = Color3.fromRGB(255, 255, 255),
 	Increment = 1,
 	ValueName = "FPS",
@@ -12471,6 +12477,7 @@ end
 antiTab:AddToggle({
     Name = "Gucci blobman",
     Default = false,
+    Flag = "8w5fvw",
     Callback = function(Value)
         gucciActive = Value
         
@@ -13259,6 +13266,7 @@ antiTab:AddToggle({
 antiTab:AddToggle({
 	Name = " Anti Kick(Break pcld)",
 	Default = false,
+    Flag = "whjsisi",
 	Callback = function(Value)
 		hkExpectDeath = false
 		hkSalmonList = {}
@@ -13332,6 +13340,7 @@ local SelectedToy = ToyList["SpookyCandle1"] or ToyList[DropdownValues[1]]
 antiTab:AddDropdown({
     Name = "Anti Kick Item",
     Default = "Spooky Candle",
+    Flag = "cyd8w",
     Options = DropdownValues,
     Callback = function(Value)
         SelectedToy = ToyList[Value]
@@ -13478,6 +13487,7 @@ end
 antiTab:AddToggle({
     Name = "Anti Kick [ITEM]",
     Default = false,
+    Flag = "ydc7wwfc",
     Callback = function(Val)
         AntiKickItemActive = Val 
         

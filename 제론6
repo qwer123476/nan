@@ -6488,7 +6488,7 @@ do
 
     local function StickShurikenToTarget(shuriken, target, cf)
         local stickyPart = GetStickyPart(shuriken)
-        if not stickyPart or not target me then return end
+        if not stickyPart or not target  then return end
         pcall(function()
             DestroyGrabLine:FireServer(shuriken:FindFirstChildOfClass("BasePart"))
         end)

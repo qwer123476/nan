@@ -13084,6 +13084,7 @@ antiTab:AddButton({
     end
 })
 ]]
+do
 local AntiKickT = false
 
 local function AntiKickF()
@@ -13581,7 +13582,7 @@ plr.CharacterAdded:Connect(function(char)
     end
 end)
 
-
+end
 
 
 

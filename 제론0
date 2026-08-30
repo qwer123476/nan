@@ -6126,8 +6126,8 @@ do
         end
     })
 
-    tppCountLabel = DefT:AddLabel("Protecting: 0 players")
-    tppStatusLabel = DefT:AddLabel("Status: Disabled")
+    tppCountLabel = FDTab:AddLabel("Protecting: 0 players")
+    tppStatusLabel = FDTab:AddLabel("Status: Disabled")
 
     task.spawn(function()
         while task.wait(0.5) do

@@ -12213,7 +12213,7 @@ ocnLastFpsCheck = tick()
 ocnAutoLagStartDelay = tick()
 ocnAutoLagEnabled = false
 
-Tab:AddToggle({
+antiTab:AddToggle({
 	Name = "Anti Lag V3",
 	Default = false,
 	Callback = function(Value)

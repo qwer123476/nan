@@ -6,7 +6,7 @@
     (function() end)(obj);
 
     repeat until valid;
-    ]]
+    
 
     local parsed = Parser:new({LuaVersion = Enums.LuaVersion.Lua51}):parse(code);
     local doStat = parsed.body.statements[1];

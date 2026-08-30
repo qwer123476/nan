@@ -17851,8 +17851,8 @@ lagTab:AddToggle({
 })
 
 do
---local Players = game:GetService("Players")
---local localPlayer = Players.LocalPlayer
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")

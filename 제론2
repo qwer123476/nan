@@ -11469,36 +11469,6 @@ antiTab:AddToggle({
 
 
 
-antiTab:AddToggle({
-    Name = "Anti kick <font color='rgb(0,255,0)'>[Grab]</font>",
-    
-    save = true,
-    Flag = "AntiKickG1rab", 
-    Callback = function(enabled)
-        --if enabled then
-            local character = localPlayer.Character
-
-            antiKickCoroutine = RunService.Heartbeat:Connect(function()
-                local character = localPlayer.Character
-                if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("HumanoidRootPart"):FindFirstChild("FirePlayerPart") then
-                    local partOwner = character:FindFirstChild("HumanoidRootPart"):FindFirstChild("FirePlayerPart"):FindFirstChild("PartOwner")
-                    if partOwner and partOwner.Value ~= localPlayer.Name then
-                        local args = {[1] = character:WaitForChild("HumanoidRootPart"), [2] = 0}
-                        game:GetService("ReplicatedStorage"):WaitForChild("CharacterEvents"):WaitForChild("RagdollRemote"):FireServer(unpack(args))
-                        print("grabbity shap!")
-                        wait(0.1)
-                        Struggle:FireServer()
-                    end
-                end
-            end)
-        else
-            if antiKickCoroutine then
-                antiKickCoroutine:Disconnect()
-                antiKickCoroutine = nil
-            end
-        end
-    end
-})
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")

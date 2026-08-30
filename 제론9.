@@ -12652,7 +12652,7 @@ do
         end
     })
 end
-end
+
 antiTab:AddSection({
     Name = "Other"
 })

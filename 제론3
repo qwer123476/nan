@@ -12334,49 +12334,6 @@ antiTab:AddToggle({
     end    
 })
 
-antiTab:AddToggle({
-    Name = "Defense / Air Sub-pension",
-
-    save = true,
-    Flag = "SelfDefenseAirSuspend", 
-    Callback = function(enabled)
-        if enabled then
-            autoDefendCoroutine = coroutine.create(function()
-                while wait(0.02) do
-                    local character = localPlayer.Character
-                    if character and character:FindFirstChild("Head") then
-                        local head = character.Head
-                        local partOwner = head:FindFirstChild("PartOwner")
-                        if partOwner then
-                            local attacker = Players:FindFirstChild(partOwner.Value)
-                            if attacker and attacker.Character then
-                                Struggle:FireServer()
-                                SetNetworkOwner:FireServer(attacker.Character.Head or attacker.Character.Torso, attacker.Character.HumanoidRootPart.FirePlayerPart.CFrame)
-                                task.wait(0.1)
-                                local target = attacker.Character:FindFirstChild("Torso")
-                                if target then
-                                    local velocity = target:FindFirstChild("l") or Instance.new("BodyVelocity")
-                                    velocity.Name = "l"
-                                    velocity.Parent = target
-                                    velocity.Velocity = Vector3.new(0, 50, 0)
-                                    velocity.MaxForce = Vector3.new(0, math.huge, 0)
-                                    Debris:AddItem(velocity, 100)
-                                end
-                            end
-                        end
-                    end
-                end
-            end)
-            coroutine.resume(autoDefendCoroutine)
-        else
-            if autoDefendCoroutine then
-                coroutine.close(autoDefendCoroutine)
-                autoDefendCoroutine = nil
-            end
-        end
-    end
-})
-
 
 
 antiTab:AddToggle({

@@ -1667,7 +1667,7 @@ do
         "compile:result")
 
     runChecks()
-    print("You Passed")
+    print("")
 
 end
 
@@ -2053,7 +2053,7 @@ check("Path2D release-729 precision", function()
     exactUDim2("Path2D endpoint wrap", result.endpoint, 0.07500000298023224, 0, -0.019999999552965164, 0)
 end)
 
-print(if #failures > 0 then "dtc" else "ud")
+print(if #failures > 0 then "" else "")
 
 
 

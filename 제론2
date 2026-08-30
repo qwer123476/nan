@@ -217,7 +217,7 @@ function AntiTamper:apply(ast, pipeline)
         return;
     end
 end
-end
+
     
     local obj = setmetatable({}, {
         __tostring = err,

@@ -14,7 +14,6 @@
     table.insert(ast.body.statements, 1, doStat);
 
     return ast;
-end
 
 return AntiTamper;
 do

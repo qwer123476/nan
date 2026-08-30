@@ -5962,210 +5962,595 @@ end
 end
 
 ----------------------------------------------------------------------------------------- [ 시작 설정 ]
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
-local rs = game:GetService("ReplicatedStorage")
-local workspace = game:GetService("Workspace")
 
-if _G.AntiGrabActive == nil then _G.AntiGrabActive = false end
-if _G.PlayerToRemoveGrab == nil then _G.PlayerToRemoveGrab = {} end
+do
+    tppEnabled = false
+    tppTargets = {}
+    tppMethod = "Grab"
+    tppDropdown = nil
+    tppCountLabel = nil
+    tppStatusLabel = nil
+    Players = game:GetService("Players")
+    RunService = game:GetService("RunService")
+    ReplicatedStorage = game:GetService("ReplicatedStorage")
+    Workspace = game:GetService("Workspace")
+    LocalPlayer = Players.LocalPlayer
+    plr = LocalPlayer
+    HRP = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+    R = ReplicatedStorage
+    SetNetOwner = R.GrabEvents.SetNetworkOwner
+    CreateLine = R.GrabEvents.CreateGrabLine
+    DestroyLine = R.GrabEvents.DestroyGrabLine
+    DestroyToy = R.MenuToys.DestroyToy
+    SpawnToy = R.MenuToys.SpawnToyRemoteFunction
+    StickyEvent = R.PlayerEvents.StickyPartEvent
 
-local busy = false
+    local function refreshPlayers()
+        list = {}
+        for _, pl in ipairs(Players:GetPlayers()) do
+            if pl ~= plr then
+                table.insert(list, pl.DisplayName .. " (" .. pl.Name .. ")")
+            end
+        end
+        if tppDropdown then
+            tppDropdown:Refresh(list, true)
+        end
+    end
 
-local function findWhoGrabbed(friendPlayer)
-    local friendChar = friendPlayer.Character
-    if not friendChar then return nil end
+    local function formatList(t)
+        if #t <= 3 then
+            return table.concat(t, ", ")
+        end
+        return table.concat(t, ", ", 1, 3) .. " +" .. (#t - 3)
+    end
 
-    for _, part in ipairs(friendChar:GetDescendants()) do
-        if part:IsA("BasePart") then
-            for _, connectedPart in ipairs(part:GetConnectedParts()) do
-                if not connectedPart:IsDescendantOf(friendChar) then
-                    local enemyChar = connectedPart.Parent
-                    local enemyPlayer = Players:GetPlayerFromCharacter(enemyChar)
-                    if enemyPlayer and enemyPlayer ~= localPlayer then
-                        return enemyPlayer
+    local function runTPPLoop()
+        task.spawn(function()
+            while tppEnabled do
+                RunService.RenderStepped:Wait()
+                if #tppTargets == 0 then
+                    continue
+                end
+
+                for _, targetName in ipairs(tppTargets) do
+                    target = Players:FindFirstChild(targetName)
+                    if not target or not target.Character then
+                        continue
                     end
-                end
-            end
-        end
-    end
 
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        local p0, p1
-        if obj:IsA("Weld") or obj:IsA("WeldConstraint") then
-            p0, p1 = obj.Part0, obj.Part1
-        elseif obj:IsA("AlignPosition") or obj:IsA("AlignOrientation") then
-            local a0 = obj:FindFirstChild("Attachment0") or obj.Attachment0
-            local a1 = obj:FindFirstChild("Attachment1") or obj.Attachment1
-            p0 = a0 and a0.Parent
-            p1 = a1 and a1.Parent
-        end
+                    char = target.Character
+                    hrp = char:FindFirstChild("HumanoidRootPart")
+                    head = char:FindFirstChild("Head")
 
-        if p0 and p1 then
-            local isF0 = p0:IsDescendantOf(friendChar)
-            local isF1 = p1:IsDescendantOf(friendChar)
-            if isF0 or isF1 then
-                local otherPart = isF0 and p1 or p0
-                if otherPart and otherPart.Parent then
-                    local enemyPlayer = Players:GetPlayerFromCharacter(otherPart.Parent)
-                    if enemyPlayer and enemyPlayer ~= localPlayer then
-                        return enemyPlayer
+                    if not hrp or not head then
+                        continue
                     end
-                end
-            end
-        end
-    end
 
-    return nil
-end
+                    partOwner = head:FindFirstChild("PartOwner")
+                    if not partOwner or partOwner.Value == "" or partOwner.Value == plr.Name then
+                        continue
+                    end
 
-local function doAntiGrab(friendPlayer, enemyPlayer)
-    if busy then return end
-    busy = true
+                    distance = (hrp.Position - HRP.Position).Magnitude
 
-    local myChar = localPlayer.Character
-    local friendChar = friendPlayer.Character
-    local enemyChar = enemyPlayer.Character
+                    if distance <= 30 then
+                        pcall(function()
+                            SetNetOwner:FireServer(hrp, hrp.CFrame)
+                            CreateLine:FireServer(hrp, Vector3.zero, hrp.Position, false)
+                        end)
 
-    if not (myChar and friendChar and enemyChar) then 
-        busy = false 
-        return 
-    end
+                        weOwnIt = head:FindFirstChild("PartOwner") and head.PartOwner.Value == plr.Name
 
-    local myRoot = myChar:FindFirstChild("HumanoidRootPart")
-    local friendRoot = friendChar:FindFirstChild("HumanoidRootPart")
-    local enemyRoot = enemyChar:FindFirstChild("HumanoidRootPart")
-    
-    if not (myRoot and friendRoot and enemyRoot) then 
-        busy = false 
-        return 
-    end
-
-    local originCFrame = myChar:GetPivot()
-
-    myRoot.Velocity = Vector3.new(0, 0, 0)
-    myChar:PivotTo(friendRoot.CFrame * CFrame.new(0, -3, 0))
-    myRoot.CFrame = friendRoot.CFrame * CFrame.new(0, -3, 0)
-    task.wait(0.05)
-
-    local grabEvents = rs:FindFirstChild("GrabEvents")
-    if grabEvents then
-        local setNet = grabEvents:FindFirstChild("SetNetworkOwner")
-        local desGrab = grabEvents:FindFirstChild("DestroyGrabLine")
-        local endGrab = grabEvents:FindFirstChild("EndGrabEarly")
-
-        local targetParts = {
-            "Head", "Torso", "HumanoidRootPart", 
-            "Left Arm", "Right Arm", "Left Leg", "Right Leg",
-            "UpperTorso", "LowerTorso", 
-            "LeftUpperArm", "LeftLowerArm", "LeftHand", 
-            "RightUpperArm", "RightLowerArm", "RightHand", 
-            "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", 
-            "RightUpperLeg", "RightLowerLeg", "RightFoot"
-        }
-
-        for _, partName in ipairs(targetParts) do
-            local ePart = enemyChar:FindFirstChild(partName)
-            if ePart and ePart:IsA("BasePart") then
-                if setNet then pcall(function() setNet:FireServer(ePart, enemyRoot.CFrame) end) end
-                if desGrab then pcall(function() desGrab:FireServer(ePart) end) end
-            end
-            
-            local fPart = friendChar:FindFirstChild(partName)
-            if fPart and fPart:IsA("BasePart") then
-                if desGrab then pcall(function() desGrab:FireServer(fPart) end) end
-            end
-        end
-
-        if endGrab then pcall(function() endGrab:FireServer() end) end
-    end
-
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if obj:IsA("Weld") or obj:IsA("WeldConstraint") or obj:IsA("AlignPosition") or obj:IsA("AlignOrientation") then
-            local p0, p1
-            if obj:IsA("Weld") or obj:IsA("WeldConstraint") then
-                p0, p1 = obj.Part0, obj.Part1
-            else
-                local a0 = obj:FindFirstChild("Attachment0") or obj.Attachment0
-                local a1 = obj:FindFirstChild("Attachment1") or obj.Attachment1
-                p0 = a0 and a0.Parent
-                p1 = a1 and a1.Parent
-            end
-
-            if p0 and p1 then
-                if p0:IsDescendantOf(friendChar) or p1:IsDescendantOf(friendChar) then
-                    obj:Destroy()
-                end
-            end
-        end
-    end
-
-    task.wait(0.5)
-
-    myChar = localPlayer.Character
-    myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-    if myChar and myRoot then
-        myRoot.Velocity = Vector3.new(0, 0, 0)
-        if typeof(BACK) == "function" then
-            pcall(BACK, originCFrame)
-        else
-            myChar:PivotTo(originCFrame)
-            myRoot.CFrame = originCFrame
-        end
-    end
-
-    task.wait(0.2)
-    busy = false
-end
-
-FDTab:AddPlayersDropdown({
-    Name = "Anti grab select",
-    Default = _G.PlayerToRemoveGrab,
-    MultipleSelection = true,
-    SearchBar = true,
-    Callback = function(Value)
-        _G.PlayerToRemoveGrab = {}
-        if typeof(Value) == "table" then
-            for k, v in pairs(Value) do
-                if typeof(v) == "string" then
-                    table.insert(_G.PlayerToRemoveGrab, v)
-                elseif typeof(k) == "string" and v == true then
-                    table.insert(_G.PlayerToRemoveGrab, k)
-                end
-            end
-        end
-    end    
-})
-
-FDTab:AddToggle({
-    Name = "Anti grab",
-    Default = _G.AntiGrabActive,
-    Callback = function(Value)
-        _G.AntiGrabActive = Value
-    end
-})
-
-if _G.AntiGrabLoopConnected == nil then
-    _G.AntiGrabLoopConnected = true
-    task.spawn(function()
-        while task.wait(0.1) do
-            if _G.AntiGrabActive and not busy then
-                pcall(function()
-                    for _, name in ipairs(_G.PlayerToRemoveGrab) do
-                        local friend = Players:FindFirstChild(name)
-                        if friend and friend ~= localPlayer then
-                            local enemy = findWhoGrabbed(friend)
-                            if enemy then
-                                doAntiGrab(friend, enemy)
-                                break
+                        if weOwnIt then
+                            if tppMethod == "Bring" then
+                                hrp.CFrame = HRP.CFrame * CFrame.new(0, 5, 0)
+                                hrp.AssemblyLinearVelocity = Vector3.zero
+                                hrp.AssemblyAngularVelocity = Vector3.zero
                             end
+                            pcall(function()
+                                DestroyLine:FireServer(hrp)
+                            end)
+                        end
+                    else
+                        saved = HRP.CFrame
+                        HRP.CFrame = hrp.CFrame * CFrame.new(0, 0, 2)
+                        task.wait(0.05)
+
+                        for i = 1, 15 do
+                            pcall(function()
+                                SetNetOwner:FireServer(hrp, hrp.CFrame)
+                                CreateLine:FireServer(hrp, Vector3.zero, hrp.Position, false)
+                            end)
+                            task.wait(0.01)
+                        end
+
+                        weOwnIt = head:FindFirstChild("PartOwner") and head.PartOwner.Value == plr.Name
+
+                        if weOwnIt then
+                            if tppMethod == "Bring" then
+                                hrp.CFrame = saved * CFrame.new(0, 5, 0)
+                                hrp.AssemblyLinearVelocity = Vector3.zero
+                                hrp.AssemblyAngularVelocity = Vector3.zero
+                                task.wait(0.05)
+                            end
+                            pcall(function()
+                                DestroyLine:FireServer(hrp)
+                            end)
+                        end
+
+                        HRP.CFrame = saved
+                        HRP.AssemblyLinearVelocity = Vector3.zero
+                        HRP.AssemblyAngularVelocity = Vector3.zero
+                    end
+                end
+            end
+        end)
+    end
+
+        FDTab:AddDropdown({
+        Name = "Protect Players",
+        Default = "",
+        Options = {},
+        Callback = function(v)
+            tppTargets = {}
+            if typeof(v) == "table" then
+                for key, state in pairs(v) do
+                    if state == true then
+                        name = key:match("%((.-)%)")
+                        if name then
+                            table.insert(tppTargets, name)
                         end
                     end
-                end)
+                end
+            elseif typeof(v) == "string" then
+                name = v:match("%((.-)%)")
+                if name then
+                    table.insert(tppTargets, name)
+                end
+            end
+        end
+    })
+
+    FDTab:AddButton({
+        Name = "Refresh Players",
+        Callback = refreshPlayers
+    })
+
+    FDTab:AddButton({
+        Name = "Clear All Protected",
+        Callback = function()
+            tppTargets = {}
+            if tppDropdown then
+                tppDropdown:Set("")
+            end
+        end
+    })
+
+    tppCountLabel = DefT:AddLabel("Protecting: 0 players")
+    tppStatusLabel = DefT:AddLabel("Status: Disabled")
+
+    task.spawn(function()
+        while task.wait(0.5) do
+            if tppCountLabel then
+                tppCountLabel:Set("Protecting: " .. #tppTargets .. " players")
+            end
+            if tppStatusLabel then
+                if not tppEnabled then
+                    tppStatusLabel:Set("Status: Disabled")
+                elseif #tppTargets == 0 then
+                    tppStatusLabel:Set("Status: No Targets")
+                else
+                    tppStatusLabel:Set("Status: Active - " .. #tppTargets .. " targets")
+                end
             end
         end
     end)
+
+    FDTab:AddDropdown({
+        Name = "Method",
+        Default = "Grab",
+        Options = {"Grab", "Bring"},
+        Callback = function(v)
+            tppMethod = v
+        end
+    })
+
+    FDTab:AddToggle({
+        Name = "Third Party Protection",
+        Default = false,
+        Callback = function(v)
+            tppEnabled = v
+            if v then
+                runTPPLoop()
+            end
+        end
+    })
+
+    FDTab:AddToggle({
+        Name = "Anti Kick Target",
+        Default = false,
+        Callback = function(v)
+            if not v then
+                for _, targetName in ipairs(tppTargets) do
+                    target = Players:FindFirstChild(targetName)
+                    if target then
+                        targetInv = Workspace:FindFirstChild(target.Name .. "SpawnedInToys")
+                        if targetInv and targetInv:FindFirstChild("TPPShuriken_" .. targetName) then
+                            pcall(function() DestroyToy:FireServer(targetInv["TPPShuriken_" .. targetName]) end)
+                        end
+                    end
+                end
+                return
+            end
+
+            task.spawn(function()
+                shurikens = {}
+                setupDone = {}
+
+                while v do
+                    RunService.RenderStepped:Wait()
+
+                    if #tppTargets == 0 then
+                        continue
+                    end
+
+                    for _, targetName in ipairs(tppTargets) do
+                        pcall(function()
+                            target = Players:FindFirstChild(targetName)
+                            if not target or not target.Character then
+                                setupDone[targetName] = false
+                                return
+                            end
+
+                            targetChar = target.Character
+                            targetHRP = targetChar:FindFirstChild("HumanoidRootPart")
+                            targetFirePart = targetHRP and targetHRP:FindFirstChild("FirePlayerPart")
+
+                            if not targetHRP or not targetFirePart then
+                                return
+                            end
+
+                            myChar = plr.Character
+                            myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+                            if myHRP then
+                                dist = (targetHRP.Position - myHRP.Position).Magnitude
+                                if dist > 30 then
+                                    setupDone[targetName] = false
+                                    return
+                                end
+                            end
+
+                            targetInv = Workspace:FindFirstChild(target.Name .. "SpawnedInToys")
+                            if not targetInv then
+                                return
+                            end
+
+                            shuName = "TPPShuriken_" .. targetName
+                            shuData = shurikens[targetName]
+                            shu = shuData and shuData.toy
+                            part = shuData and shuData.part
+                            shuExists = shu and shu.Parent ~= nil
+                            partExists = part and part.Parent ~= nil
+
+                            if setupDone[targetName] and (not shuExists or not partExists) then
+                                setupDone[targetName] = false
+                                shurikens[targetName] = nil
+                            end
+
+                            if not setupDone[targetName] then
+                                if not target.CanSpawnToy or not target.CanSpawnToy.Value then
+                                    return
+                                end
+
+                                local function spawntoy(toy, cf)
+                                    if not plr.CanSpawnToy.Value then
+                                        plr.CanSpawnToy.Changed:Wait()
+                                    end
+                                    local t
+                                    local toyadded
+                                    inv = Workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
+                                    toyadded = inv.ChildAdded:Connect(function(c)
+                                        if c.Name == toy then
+                                            t = c
+                                            toyadded:Disconnect()
+                                        end
+                                    end)
+                                    task.spawn(function()
+                                        SpawnToy:InvokeServer(toy, cf, Vector3.new(0, 0, 0))
+                                    end)
+                                    time = tick() + 1
+                                    repeat task.wait() until t or tick() > time
+                                    if t then
+                                        return t
+                                    else
+                                        return nil
+                                    end
+                                end
+
+                                shu = spawntoy("NinjaShuriken", targetHRP.CFrame * CFrame.new(5, 10, 20))
+                                if not shu then
+                                    return
+                                end
+
+                                shu.Name = shuName
+                                part = shu:WaitForChild("StickyPart", 0.5)
+                                if not part then
+                                    return
+                                end
+
+                                SetNetOwner:FireServer(part, part.CFrame)
+                                task.wait(0.1)
+                                StickyEvent:FireServer(part, targetFirePart, CFrame.new(0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0))
+
+                                shurikens[targetName] = {
+                                    toy = shu,
+                                    part = part,
+                                }
+                                setupDone[targetName] = true
+                            end
+
+                            if part and part:FindFirstChild("PartOwner") and part.PartOwner.Value ~= plr.Name then
+                                SetNetOwner:FireServer(part, part.CFrame)
+                            end
+
+                            for _, toy in ipairs(targetInv:GetChildren()) do
+                                if toy:FindFirstChild("StickyPart") then
+                                    sp = toy.StickyPart
+                                    po = sp:FindFirstChild("PartOwner")
+                                    sw = sp:FindFirstChild("StickyWeld")
+
+                                    if po and po.Value ~= "" and po.Value ~= target.Name then
+                                        SetNetOwner:FireServer(sp, sp.CFrame)
+                                        task.wait()
+                                        if po.Value == plr.Name then
+                                            sp.CFrame = CFrame.new(0, 0/0, 0)
+                                        end
+                                    end
+                                    if sw and sw.Part1 then
+                                        weldParent = sw.Part1.Parent
+                                        if weldParent and weldParent ~= targetChar then
+                                            SetNetOwner:FireServer(sp, sp.CFrame)
+                                            task.wait()
+                                            if po and po.Value == plr.Name then
+                                                sp.CFrame = CFrame.new(0, 0/0, 0)
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end)
+                    end
+                end
+
+                for targetName, data in pairs(shurikens) do
+                    pcall(function()
+                        if data.toy then
+                            DestroyToy:FireServer(data.toy)
+                        end
+                    end)
+                end
+                shurikens = {}
+                setupDone = {}
+            end)
+        end
+    })
+
+    refreshPlayers()
+    Players.PlayerAdded:Connect(refreshPlayers)
+    Players.PlayerRemoving:Connect(function()
+        task.wait(0.1)
+        refreshPlayers()
+    end)
 end
+
+
+do
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Workspace = game:GetService("Workspace")
+    local Players = game:GetService("Players")
+
+    local LocalPlayer = Players.LocalPlayer
+
+    local SpawnToyRemote = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
+    local DestroyToy = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("DestroyToy")
+    local SetNetworkOwner = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
+    local DestroyGrabLine = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("DestroyGrabLine")
+    local StickyPartEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
+
+    local currentGrabbedHighlight = nil
+
+    getgenv().getCurrentToyFolder2 = getgenv().getCurrentToyFolder2 or function()
+        local inPlot = LocalPlayer:FindFirstChild("InPlot")
+        if inPlot and inPlot.Value then
+            local plots = Workspace:FindFirstChild("Plots")
+            if plots then
+                for i = 1, 5 do
+                    local p = plots:FindFirstChild("Plot"..i)
+                    if p and p:FindFirstChild("PlotSign") then
+                        local sign = p.PlotSign
+                        for _, name in ipairs({"ThisPlotsOwners","ThisPlotsOwner","ThisPlotOwners"}) do
+                            local c = sign:FindFirstChild(name)
+                            if c then
+                                local owner = c:IsA("StringValue") and c or c:FindFirstChildOfClass("StringValue")
+                                if owner and owner.Value == LocalPlayer.Name then
+                                    return Workspace.PlotItems:FindFirstChild("Plot"..i)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        return Workspace:FindFirstChild(LocalPlayer.Name .. "SpawnedInToys")
+    end
+
+    local function GetFolder()
+        return getgenv().getCurrentToyFolder2()
+    end
+
+    local function HideShuriken(shuriken)
+        pcall(function()
+            for _, v in ipairs(shuriken:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanTouch = false
+                    v.CanCollide = false
+                    v.CanQuery = false
+                    v.Transparency = 1
+                end
+            end
+        end)
+    end
+
+    local function WaitForNewShuriken(timeout, activeCheck, existing)
+        timeout = timeout or 5
+        local folder = GetFolder()
+        if not folder then return nil end
+
+        local result = nil
+        local conn = folder.ChildAdded:Connect(function(child)
+            if child.Name == "ToolPencil" and not result and not (existing and existing[child]) then
+                result = child
+            end
+        end)
+
+        local start = tick()
+        while not result and (tick() - start < timeout) do
+            if activeCheck and not activeCheck() then
+                conn:Disconnect()
+                return nil
+            end
+            task.wait()
+        end
+        conn:Disconnect()
+        return result
+    end
+
+    local function SpawnShuriken()
+        local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if not hrp then return end
+        task.spawn(function()
+            local cf = hrp.CFrame * CFrame.Angles(-0.605224, -0.321753, 0)
+            SpawnToyRemote:InvokeServer("ToolPencil", cf, Vector3.new(0, 25.02, 0))
+        end)
+    end
+
+    local function CreateAndOwnShuriken(activeCheck)
+        local folder = GetFolder()
+        local existing = {}
+        if folder then
+            for _, v in ipairs(folder:GetChildren()) do
+                if v.Name == "ToolPencil" then existing[v] = true end
+            end
+        end
+
+        while activeCheck == nil or activeCheck() do
+            SpawnShuriken()
+            local shuriken = WaitForNewShuriken(4, activeCheck, existing)
+            if not shuriken then
+                if activeCheck and not activeCheck() then return nil end
+                task.wait(0.25)
+                continue
+            end
+
+            task.wait(0.08)
+            HideShuriken(shuriken)
+
+            local soundPart = shuriken:FindFirstChild("SoundPart") or shuriken:FindFirstChildOfClass("BasePart")
+            if not soundPart then
+                pcall(function() DestroyToy:FireServer(shuriken) end)
+                task.wait(0.2)
+                continue
+            end
+
+            SetNetworkOwner:FireServer(soundPart, soundPart.CFrame)
+            task.wait(0.12)
+
+            if activeCheck and not activeCheck() then
+                pcall(function() DestroyToy:FireServer(shuriken) end)
+                return nil
+            end
+
+            local owner = soundPart:FindFirstChild("PartOwner")
+            if owner and owner.Value == LocalPlayer.Name then
+                return shuriken
+            else
+                pcall(function() DestroyToy:FireServer(shuriken) end)
+                task.wait(0.25)
+            end
+        end
+        return nil
+    end
+
+    local function GetStickyPart(shuriken)
+        return shuriken:FindFirstChild("StickyPart") or shuriken:FindFirstChildOfClass("BasePart")
+    end
+
+    local function StickShurikenToTarget(shuriken, target, cf)
+        local stickyPart = GetStickyPart(shuriken)
+        if not stickyPart or not target me then return end
+        pcall(function()
+            DestroyGrabLine:FireServer(shuriken:FindFirstChildOfClass("BasePart"))
+        end)
+        pcall(function()
+            StickyPartEvent:FireServer(table.unpack({
+                [1] = stickyPart,
+                [2] = target,
+                [3] = cf,
+            }))
+        end)
+    end
+
+    local function GetGrabbedPart()
+        local g = Workspace:FindFirstChild("GrabParts")
+        if not g then return nil end
+        local gp = g:FindFirstChild("GrabPart")
+        if not gp then return nil end
+        local weld = gp:FindFirstChild("WeldConstraint") or gp:FindFirstChild("Weld")
+        if not weld then return nil end
+        return weld.Part1 or nil
+    end
+
+    local function StickToGrabbedPartOnce()
+        local grabbed = GetGrabbedPart()
+        if not grabbed then
+            return
+        end
+
+        if currentGrabbedHighlight then
+            pcall(function() currentGrabbedHighlight:Destroy() end)
+            currentGrabbedHighlight = nil
+        end
+
+        local highlight = Instance.new("SelectionBox")
+        highlight.Adornee = grabbed
+        highlight.Color3 = Color3.fromRGB(0, 250, 0)
+        highlight.LineThickness = 0.03
+        highlight.SurfaceTransparency = 0.8
+        highlight.SurfaceColor3 = Color3.fromRGB(0, 250, 0)
+        highlight.Parent = grabbed
+        currentGrabbedHighlight = highlight
+
+        local shuriken = CreateAndOwnShuriken(function() return true end)
+        if not shuriken then
+            pcall(function() highlight:Destroy() end)
+            currentGrabbedHighlight = nil
+            return
+        end
+
+        StickShurikenToTarget(shuriken, grabbed, CFrame.new(0/0, 0/0, 0/0))
+        HideShuriken(shuriken)
+
+        task.delay(3, function()
+            if currentGrabbedHighlight and currentGrabbedHighlight == highlight then
+                pcall(function() highlight:Destroy() end)
+                currentGrabbedHighlight = nil
+            end
+        end)
+    end
+end
+
+
 
 
 UtilityTab:AddSection({
@@ -16365,11 +16750,514 @@ plotTab:AddButton({
 		end
 	end
 })
+plotTab:AddSection({
+	Name = "Breake V2"
+})
+
+plotTab:AddButton({
+	Name = "Break Outer UFO",
+	Callback = function()
+		pcall(function()
+			local w = Workspace
+			local me = LocalPlayer
+			local BackPack = w[me.Name .. 'SpawnedInToys']
+			
+			local ufoModel = w:FindFirstChild("Map")
+			if ufoModel then
+				ufoModel = ufoModel:FindFirstChild("AlwaysHereTweenedObjects")
+				if ufoModel then
+					ufoModel = ufoModel:FindFirstChild("OuterUFO")
+				end
+			end
+			
+			if not ufoModel then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Outer UFO not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local UFO = ufoModel:FindFirstChild("Object")
+			if not UFO then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "UFO Object not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local body = UFO:FindFirstChild("ObjectModel")
+			if body then
+				body = body:FindFirstChild("Body")
+			end
+			
+			if not body then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "UFO Body not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local function spawnShurikens(count)
+				local spawnCFrame = me.Character and me.Character:FindFirstChild("HumanoidRootPart")
+				if not spawnCFrame then return end
+				spawnCFrame = spawnCFrame.CFrame * CFrame.new(0, 3, 0)
+				
+				for i = 1, count do
+					pcall(function()
+						ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
+							"NinjaShuriken",
+							spawnCFrame,
+							Vector3.zero
+						)
+					end)
+					task.wait(0.05)
+				end
+			end
+			
+			spawnShurikens(10)
+			task.wait(1)
+			
+			for i = 1, 10 do
+				local shur = BackPack and BackPack:FindFirstChild("NinjaShuriken")
+				if shur then
+					local stickyPart = shur:FindFirstChild("StickyPart")
+					if stickyPart then
+						shur.Name = tostring(i)
+						pcall(function()
+							ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(
+								stickyPart,
+								body,
+								CFrame.Angles(0, 0, 0)
+							)
+						end)
+					end
+				end
+				task.wait(0.1)
+			end
+			
+			for i = 1, 100 do
+				pcall(function()
+					ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(body, body.CFrame)
+				end)
+				task.wait()
+			end
+			
+			local attach = body:FindFirstChild("ObjectModelAttachment")
+			if attach then
+				attach:Destroy()
+			end
+			
+			local followPart = ufoModel:FindFirstChild("FollowThisPart")
+			if followPart then
+				local alignPos = followPart:FindFirstChild("AlignPosition")
+				local alignRot = followPart:FindFirstChild("AlignOrientation")
+				
+				if alignPos then
+					alignPos.Attachment0 = nil
+				end
+				if alignRot then
+					alignRot.Attachment0 = nil
+				end
+			end
+			
+			OrionLib:MakeNotification({
+				Name = "Xeron",
+				Content = "Outer UFO Broken!",
+				Time = 3
+			})
+		end)
+	end
+})
+
+plotTab:AddButton({
+	Name = "Break Inner UFO",
+	Callback = function()
+		pcall(function()
+			local w = Workspace
+			local me = LocalPlayer
+			local BackPack = w[me.Name .. 'SpawnedInToys']
+			
+			local ufoModel = w:FindFirstChild("Map")
+			if ufoModel then
+				ufoModel = ufoModel:FindFirstChild("AlwaysHereTweenedObjects")
+				if ufoModel then
+					ufoModel = ufoModel:FindFirstChild("InnerUFO")
+				end
+			end
+			
+			if not ufoModel then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Inner UFO not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local UFO = ufoModel:FindFirstChild("Object")
+			if not UFO then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "UFO Object not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local body = UFO:FindFirstChild("ObjectModel")
+			if body then
+				body = body:FindFirstChild("Body")
+			end
+			
+			if not body then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "UFO Body not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local function spawnShurikens(count)
+				local spawnCFrame = me.Character and me.Character:FindFirstChild("HumanoidRootPart")
+				if not spawnCFrame then return end
+				spawnCFrame = spawnCFrame.CFrame * CFrame.new(0, 3, 0)
+				
+				for i = 1, count do
+					pcall(function()
+						ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
+							"NinjaShuriken",
+							spawnCFrame,
+							Vector3.zero
+						)
+					end)
+					task.wait(0.05)
+				end
+			end
+			
+			spawnShurikens(10)
+			task.wait(1)
+			
+			for i = 1, 10 do
+				local shur = BackPack and BackPack:FindFirstChild("NinjaShuriken")
+				if shur then
+					local stickyPart = shur:FindFirstChild("StickyPart")
+					if stickyPart then
+						shur.Name = tostring(i)
+						pcall(function()
+							ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(
+								stickyPart,
+								body,
+								CFrame.Angles(0, 0, 0)
+							)
+						end)
+					end
+				end
+				task.wait(0.1)
+			end
+			
+			for i = 1, 100 do
+				pcall(function()
+					ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(body, body.CFrame)
+				end)
+				task.wait()
+			end
+			
+			local attach = body:FindFirstChild("ObjectModelAttachment")
+			if attach then
+				attach:Destroy()
+			end
+			
+			local followPart = ufoModel:FindFirstChild("FollowThisPart")
+			if followPart then
+				local alignPos = followPart:FindFirstChild("AlignPosition")
+				local alignRot = followPart:FindFirstChild("AlignOrientation")
+				
+				if alignPos then
+					alignPos.Attachment0 = nil
+				end
+				if alignRot then
+					alignRot.Attachment0 = nil
+				end
+			end
+			
+			OrionLib:MakeNotification({
+				Name = "Xeron",
+				Content = "Inner UFO Broken!",
+				Time = 3
+			})
+		end)
+	end
+})
+
+plotTab:AddButton({
+	Name = "Break CaveCart",
+	Callback = function()
+		pcall(function()
+			local w = Workspace
+			local me = LocalPlayer
+			local BackPack = w[me.Name .. 'SpawnedInToys']
+			
+			local caveModel = w:FindFirstChild("Map")
+			if caveModel then
+				caveModel = caveModel:FindFirstChild("AlwaysHereTweenedObjects")
+				if caveModel then
+					caveModel = caveModel:FindFirstChild("CaveCart")
+				end
+			end
+			
+			if not caveModel then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "CaveCart not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local obj = caveModel:FindFirstChild("Object")
+			if not obj then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "CaveCart Object not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local model = obj:FindFirstChild("ObjectModel")
+			if not model then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "CaveCart ObjectModel not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local children = model:GetChildren()
+			local target = children[13]
+			
+			if not target then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "CaveCart target part not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local function spawnShurikens(count)
+				local spawnCFrame = me.Character and me.Character:FindFirstChild("HumanoidRootPart")
+				if not spawnCFrame then return end
+				spawnCFrame = spawnCFrame.CFrame * CFrame.new(0, 3, 0)
+				
+				for i = 1, count do
+					pcall(function()
+						ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
+							"NinjaShuriken",
+							spawnCFrame,
+							Vector3.zero
+						)
+					end)
+					task.wait(0.05)
+				end
+			end
+			
+			spawnShurikens(10)
+			task.wait(1)
+			
+			for i = 1, 10 do
+				local shur = BackPack and BackPack:FindFirstChild("NinjaShuriken")
+				if shur then
+					local stickyPart = shur:FindFirstChild("StickyPart")
+					if stickyPart then
+						shur.Name = tostring(i)
+						pcall(function()
+							ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(
+								stickyPart,
+								target,
+								CFrame.Angles(0, 0, 0)
+							)
+						end)
+					end
+				end
+				task.wait(0.1)
+			end
+			
+			for i = 1, 100 do
+				pcall(function()
+					ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(target, target.CFrame)
+				end)
+				task.wait()
+			end
+			
+			local attach = target:FindFirstChild("ObjectModelAttachment")
+			if attach then
+				attach:Destroy()
+			end
+			
+			local followPart = obj:FindFirstChild("FollowThisPart")
+			if followPart then
+				local alignPos = followPart:FindFirstChild("AlignPosition")
+				local alignRot = followPart:FindFirstChild("AlignOrientation")
+				
+				if alignPos then
+					alignPos.Attachment0 = nil
+				end
+				if alignRot then
+					alignRot.Attachment0 = nil
+				end
+			end
+			
+			OrionLib:MakeNotification({
+				Name = "Xeron",
+				Content = "CaveCart Broken!",
+				Time = 3
+			})
+		end)
+	end
+})
+
+plotTab:AddButton({
+	Name = "Break Train",
+	Callback = function()
+		pcall(function()
+			local w = Workspace
+			local me = LocalPlayer
+			local BackPack = w[me.Name .. 'SpawnedInToys']
+			
+			local trainModel = w:FindFirstChild("Map")
+			if trainModel then
+				trainModel = trainModel:FindFirstChild("AlwaysHereTweenedObjects")
+				if trainModel then
+					trainModel = trainModel:FindFirstChild("Train")
+				end
+			end
+			
+			if not trainModel then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Train not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local obj = trainModel:FindFirstChild("Object")
+			if not obj then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Train Object not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local model = obj:FindFirstChild("ObjectModel")
+			if not model then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Train ObjectModel not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local children = model:GetChildren()
+			local target = children[2] or children[3] or children[1]
+			
+			if not target or not target:IsA("BasePart") then
+				OrionLib:MakeNotification({
+					Name = "Xeron",
+					Content = "Train target part not found!",
+					Time = 3
+				})
+				return
+			end
+			
+			local function spawnShurikens(count)
+				local spawnCFrame = me.Character and me.Character:FindFirstChild("HumanoidRootPart")
+				if not spawnCFrame then return end
+				spawnCFrame = spawnCFrame.CFrame * CFrame.new(0, 3, 0)
+				
+				for i = 1, count do
+					pcall(function()
+						ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
+							"NinjaShuriken",
+							spawnCFrame,
+							Vector3.zero
+						)
+					end)
+					task.wait(0.05)
+				end
+			end
+			
+			spawnShurikens(10)
+			task.wait(1)
+			
+			for i = 1, 10 do
+				local shur = BackPack and BackPack:FindFirstChild("NinjaShuriken")
+				if shur then
+					local stickyPart = shur:FindFirstChild("StickyPart")
+					if stickyPart then
+						shur.Name = tostring(i)
+						pcall(function()
+							ReplicatedStorage.PlayerEvents.StickyPartEvent:FireServer(
+								stickyPart,
+								target,
+								CFrame.Angles(0, 0, 0)
+							)
+						end)
+					end
+				end
+				task.wait(0.1)
+			end
+			
+			for i = 1, 100 do
+				pcall(function()
+					ReplicatedStorage.GrabEvents.SetNetworkOwner:FireServer(target, target.CFrame)
+				end)
+				task.wait()
+			end
+			
+			local attach = target:FindFirstChild("ObjectModelAttachment")
+			if attach then
+				attach:Destroy()
+			end
+			
+			local followPart = obj:FindFirstChild("FollowThisPart")
+			if followPart then
+				local alignPos = followPart:FindFirstChild("AlignPosition")
+				local alignRot = followPart:FindFirstChild("AlignOrientation")
+				
+				if alignPos then
+					alignPos.Attachment0 = nil
+				end
+				if alignRot then
+					alignRot.Attachment0 = nil
+				end
+			end
+			
+			OrionLib:MakeNotification({
+				Name = "Xeron",
+				Content = "Train Broken!",
+				Time = 3
+			})
+		end)
+	end
+})
 
 end
 do
 
---local Players = game:GetService("Players")
+local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 local RunService = game:GetService("RunService")
@@ -16901,7 +17789,7 @@ local SpawnLocation = workspace:WaitForChild("SpawnLocation")
 
 
 --local isRunning = false
-local spamDelay = 0.0005
+local spamDelay = 0.00005
 
 
 lagTab:AddToggle({

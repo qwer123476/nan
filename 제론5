@@ -1,3 +1,68 @@
+
+do
+local Players = game:GetService("Players")
+local ScriptContext = game:GetService("ScriptContext")
+local LocalPlayer = Players.LocalPlayer
+
+local function secureExecutionEnvironment()
+    local self = script
+    
+    local success, err = pcall(function()
+        if not self or not self.Parent then
+            LocalPlayer:Kick("Security Policy Violation")
+        end
+    end)
+    
+    if not success then
+        LocalPlayer:Kick("Security Enforcement Failure")
+    end
+end
+
+local function preventDecompilerAccess()
+    local env = getfenv and getfenv(0) or _ENV
+    local protectedFunctions = {"getrawmetatable", "hookmetamethod", "setreadonly", "make_writeable", "decompile", "getgc", "getnilinstances"}
+    
+    for _, funcName in ipairs(protectedFunctions) do
+        if env[funcName] ~= nil or rawget(env, funcName) ~= nil then
+            LocalPlayer:Kick("Unauthorized Environment Detected")
+            while true do end
+        end
+    end
+end
+
+local function protectScriptIdentity()
+    local isProtected = false
+    
+    pcall(function()
+        if setscriptable then
+            setscriptable(script, "Disabled", false)
+        end
+    end)
+    
+    local thread = task.spawn(function()
+        while true do
+            task.wait(0.2)
+            
+            if not script or not script:IsDescendantOf(game) then
+                LocalPlayer:Kick("Tamper Detected")
+                break
+            end
+            
+            preventDecompilerAccess()
+        end
+    end)
+    
+    return thread
+end
+
+secureExecutionEnvironment()
+preventDecompilerAccess()
+protectScriptIdentity()
+
+pcall(function()
+    script.Name = tostring(math.random(100000, 999999)) .. "\0"
+end)
+end
 -- Ironbrew1 Anti-Tamper 아이언브루 안티탬퍼※※※※※※※※※※※※※※※※
 do
 local _guard = (function()

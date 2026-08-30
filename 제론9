@@ -17394,7 +17394,7 @@ SMTab:AddDropdown({
     Options = {""},
     Callback = function(targetPlayerNameString)
         if targetPlayerNameString ~= "" then
-            --TargetToBombPlayer = targetPlayerNameString:match("^[^(]+"):gsub("%s+$", "")
+            TargetToBombPlayer = targetPlayerNameString:match("^[^(]+"):gsub("%s+$", "")
         else
             TargetToBombPlayer = ""
         end

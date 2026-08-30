@@ -13255,45 +13255,38 @@ antiTab:AddToggle({
         end
     end
 })
-function pcldreset()
-    targetValueName = "[ " .. plr.DisplayName .. " ] ( @" .. plr.Name .. " )"
-        while AntiPCLDT do
-            task.wait()
-            if not hasDetectedFirstTime and AntiPCLDT then
-                for _, item in ipairs(workspace:GetChildren()) do
-                    if item.Name == "PlayerCharacterLocationDetector" then
-                        for _, child in ipairs(item:GetChildren()) do
-                            if child:IsA("BoolValue") and child.Name == targetValueName then
-                                plr.Character.HumanoidRootPart.CFrame = CFrame.new(0,999999,0)
-                                task.wait(0.1)
-                                plr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
-                                hasDetectedFirstTime = true
-                            end
-                        end
-                    end
-                end
-            else
-                if AntiPCLDT and hasDetectedFirstTime and plr.Character.Humanoid.Died:Connect() then
-                character = plr.Character or plr.CharacterAdded:Wait()
-                CF = character:WaitForChild("Torso").CFrame
-                char = plr.CharacterAdded:Wait()
-                char:WaitForChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
-                char:WaitForChild("Torso").CFrame = CF
-                task.wait(5)
-				if not AntiPCLDT then hasDetectedFirstTime = false end
-            end
-        end
-    end
-end
-
 antiTab:AddToggle({
-    Name = "PCLD reset V2",
-    Default = false,
-    Flag = "PCLDResetV2",
-    Callback = function(Value)
-        AntiPCLDT = Value
-        task.spawn(pcldreset)
-    end
+	Name = " Anti Kick(Break pcld)",
+	Default = false,
+	Callback = function(Value)
+		hkExpectDeath = false
+		hkSalmonList = {}
+		hkSalmonList[LocalPlayer.UserId] = true
+		
+		local function hkApplySalmon(char)
+			if not char then return end
+			newHum = char:WaitForChild("Humanoid", 5)
+			if not newHum then return end
+			if hkSalmonList[LocalPlayer.UserId] and not hkExpectDeath then
+				hkExpectDeath = true
+				newHum:ChangeState(Enum.HumanoidStateType.Dead)
+			else
+				hkExpectDeath = false
+			end
+		end
+		
+		LocalPlayer.CharacterAdded:Connect(function(char)
+			hkApplySalmon(char)
+		end)
+		
+		hkSalmonList[LocalPlayer.UserId] = Value and true or nil
+		if Value then
+			hkExpectDeath = false
+			char = LocalPlayer.Character
+			hum = char and char:FindFirstChildOfClass("Humanoid")
+			if hum then hum.Health = 0 end
+		end
+	end    
 })
 
 
@@ -13311,6 +13304,282 @@ antiTab:AddToggle({
         end
     end
 })
+Players = game:GetService("Players")
+RS = game:GetService("ReplicatedStorage")
+RunService = game:GetService("RunService")
+plr = Players.LocalPlayer
+
+AntiKickItemActive = false
+MyPCLD = nil
+pcldConn = nil
+charFixConnection = nil
+
+local ToyList = {
+    ["Japanese Lantern"] = "JapaneseLantern",
+    ["Spooky Candle"]    = "SpookyCandle1",
+
+    }
+
+local DropdownValues = {}
+for shortName, _ in pairs(ToyList) do
+    table.insert(DropdownValues, shortName)
+end
+table.sort(DropdownValues)
+
+local SelectedToy = ToyList["SpookyCandle1"] or ToyList[DropdownValues[1]]
+
+antiTab:AddDropdown({
+    Name = "Anti Kick Item",
+    Default = "Spooky Candle",
+    Options = DropdownValues,
+    Callback = function(Value)
+        SelectedToy = ToyList[Value]
+    end    
+})
+
+local function GetMagnitude(Part1, Part2)
+    return (Part1.Position - Part2.Position).Magnitude
+end
+
+local function FWD(parent, part, timeOffset)
+    return parent:FindFirstChild(part) or parent:WaitForChild(part, timeOffset or 1)
+end
+
+local function CheckNetworkOwnerOnPart(Part) 
+    local po = Part:FindFirstChild("PartOwner")
+    return po and po.Value == plr.Name
+end
+
+local function sno(part)
+    pcall(function()
+        local grabEvents = RS:FindFirstChild("GrabEvents")
+        local setNetOwner = grabEvents and grabEvents:FindFirstChild("SetNetworkOwner")
+        if setNetOwner then
+            setNetOwner:FireServer(part, part.CFrame)
+        end
+    end)
+end
+
+local function CheckForHome()
+    local plotItems = workspace:FindFirstChild("PlotItems")
+    local plots = workspace:FindFirstChild("Plots")
+    
+    if plots and plotItems then
+        for i = 1, 5 do 
+            local Plot = plots:FindFirstChild("Plot"..i)
+            if Plot then
+                local sign = Plot:FindFirstChild("PlotSign")
+                local owners = sign and sign:FindFirstChild("ThisPlotsOwners")
+                if owners then
+                    for _,v in pairs(owners:GetChildren()) do 
+                        if v.Value == plr.Name then 
+                            return plotItems:FindFirstChild("Plot"..i)
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return nil
+end
+
+local function SpawnToy(ToyName)
+    local InPlot = plr:FindFirstChild("InPlot")
+    local InOwnedPlot = plr:FindFirstChild("InOwnedPlot")
+    local CanSpawnToy = plr:FindFirstChild("CanSpawnToy")
+    local inv = workspace:FindFirstChild(plr.Name.."SpawnedInToys")
+
+    if InPlot and InPlot.Value and InOwnedPlot and not InOwnedPlot.Value then 
+        InPlot:GetPropertyChangedSignal("Value"):Wait()
+    end 
+    if CanSpawnToy and not CanSpawnToy.Value then 
+        CanSpawnToy:GetPropertyChangedSignal("Value"):Wait()
+    end
+
+    local hrp = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return nil end
+
+    local SpawnCF = (MyPCLD or hrp).CFrame * CFrame.new(0, 14, 20)
+    local Container = (InOwnedPlot and InOwnedPlot.Value) and CheckForHome() or inv
+    if not Container then return nil end
+
+    local spawnedObject = nil
+    local connection
+    connection = Container.ChildAdded:Connect(function(child)
+        if child.Name == ToyName then
+            spawnedObject = child
+        end
+    end)
+
+    task.spawn(function()
+        pcall(function()
+            local menuToys = RS:FindFirstChild("MenuToys")
+            local spawnRemote = menuToys and menuToys:FindFirstChild("SpawnToyRemoteFunction")
+            if spawnRemote then
+                spawnRemote:InvokeServer(ToyName, SpawnCF, Vector3.zero)
+            end
+        end)
+    end)
+
+    local start = tick()
+    repeat task.wait() until spawnedObject or (tick() - start) > 2.5
+
+    if connection then connection:Disconnect() end
+    return spawnedObject
+end
+
+local function FindPCLD(hrp)
+    if pcldConn then pcldConn:Disconnect() end
+    MyPCLD = nil
+    pcldConn = RunService.Heartbeat:Connect(function()
+        if MyPCLD or not hrp or not hrp.Parent then 
+            if pcldConn then pcldConn:Disconnect() pcldConn = nil end
+            return
+        end
+        for _, v in pairs(workspace:GetChildren()) do 
+            if v.Name == "PlayerCharacterLocationDetector" and v:IsA("BasePart") then
+                if GetMagnitude(v, hrp) <= 2 then 
+                    MyPCLD = v
+                    break
+                end
+            end
+        end
+    end)
+end
+
+local function fixCharacter(char)
+    if not char then return end
+    local hum = char:FindFirstChild("Humanoid")
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    if hum and hrp then
+        hum.AutoRotate = true
+        hum.Sit = false
+        hrp.Velocity = Vector3.zero
+        hrp.AssemblyLinearVelocity = Vector3.zero
+        hrp.AssemblyAngularVelocity = Vector3.zero
+        hrp.CanCollide = true
+        hrp.CanTouch = true
+        hrp.CanQuery = true
+        for _, part in pairs(char:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+                part.CanTouch = true
+                part.CanQuery = true
+                part.Velocity = Vector3.zero
+                part.AssemblyLinearVelocity = Vector3.zero
+                part.AssemblyAngularVelocity = Vector3.zero
+            end
+        end
+        hum:ChangeState(Enum.HumanoidStateType.Running)
+    end
+end
+
+antiTab:AddToggle({
+    Name = "Anti Kick [ITEM]",
+    Default = false,
+    Callback = function(Val)
+        AntiKickItemActive = Val 
+        
+        if Val then
+            fixCharacter(plr.Character)
+            
+            if charFixConnection then charFixConnection:Disconnect() end
+            charFixConnection = plr.CharacterAdded:Connect(function(char)
+                task.wait(0.5)
+                fixCharacter(char)
+            end)
+            
+            task.spawn(function()
+                local Item, SoundPart
+                while AntiKickItemActive and task.wait() do 
+                    local char = plr.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    local hum = char and char:FindFirstChild("Humanoid")
+                    local inPlot = plr:FindFirstChild("InPlot")
+                    local inv = workspace:FindFirstChild(plr.Name.."SpawnedInToys")
+                    local destroyToy = RS:FindFirstChild("MenuToys") and RS.MenuToys:FindFirstChild("DestroyToy")
+                    
+                    if not hrp or not hum or hum.Health <= 0 or not inv then continue end  
+                    if inPlot and inPlot.Value then continue end 
+                    
+                    if not MyPCLD and not pcldConn then
+                        FindPCLD(hrp)
+                    end
+
+                    Item = inv:FindFirstChild("AntiKickItem") 
+                    SoundPart = Item and Item:FindFirstChild("Hitbox")
+                    
+                    if not Item or not SoundPart then
+                        for _,v in pairs(inv:GetChildren()) do 
+                            if v.Name == "AntiKickItem" then 
+                                pcall(function() destroyToy:FireServer(v) end)
+                            end
+                        end
+                        
+                        Item = SpawnToy(SelectedToy)
+                        if not Item then continue end 
+                        
+                        SoundPart = Item and FWD(Item, "Hitbox", 0.5)
+                        if SoundPart then sno(SoundPart) end
+                        
+                        for _,v in pairs(Item:GetChildren()) do 
+                            if v:IsA("BasePart") then 
+                                v.CanCollide = false 
+                                v.Transparency = 0.8
+                                v.Color = Color3.fromRGB(0, 255, 255)
+                            end
+                        end
+                        
+                        Item.Name = "AntiKickItem"
+                    end
+                    
+                    if SoundPart and not CheckNetworkOwnerOnPart(SoundPart) then 
+                        sno(SoundPart)
+                    end
+                    
+                    local targetPart = MyPCLD or hrp:FindFirstChild("FirePlayerPart") or hrp
+                    
+                    if SoundPart and targetPart then
+                        SoundPart.CFrame = targetPart.CFrame
+                        SoundPart.AssemblyLinearVelocity = Vector3.zero
+                        SoundPart.AssemblyAngularVelocity = Vector3.zero
+                    end
+                end
+            end)
+        else
+            if pcldConn then pcldConn:Disconnect() pcldConn = nil end
+            if charFixConnection then
+                charFixConnection:Disconnect()
+                charFixConnection = nil
+            end
+            MyPCLD = nil
+            
+            fixCharacter(plr.Character)
+            
+            task.spawn(function()
+                local inv = workspace:FindFirstChild(plr.Name.."SpawnedInToys")
+                local destroyToy = RS:FindFirstChild("MenuToys") and RS.MenuToys:FindFirstChild("DestroyToy")
+                if inv and destroyToy then
+                    for _,v in pairs(inv:GetChildren()) do 
+                        if v.Name == "AntiKickItem" then 
+                            pcall(function() destroyToy:FireServer(v) end)
+                        end
+                    end
+                end
+            end)
+        end
+    end    
+})
+
+plr.CharacterAdded:Connect(function(char)
+    if AntiKickItemActive then
+        MyPCLD = nil
+        local hrp = char:WaitForChild("HumanoidRootPart", 5)
+        if hrp then FindPCLD(hrp) end
+        task.wait(0.5)
+        fixCharacter(char)
+    end
+end)
 
 
 

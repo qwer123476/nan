@@ -20692,7 +20692,7 @@ function ExplodeBomb(bombInstance, positionPart, otherData)
     end
 end
 
-local function ExplodeByTargetMode(bombInstance)
+function ExplodeByTargetMode(bombInstance)
     if spamexplosiontarget == 0 then
         ExplodeBomb(bombInstance, workspace.SpawnLocation, Vector3.new(math.random(-10, 10), math.random(-10, 10), math.random(-10, 10)))
     elseif spamexplosiontarget == 1 then
@@ -21460,7 +21460,7 @@ local UserInputService = game:GetService("UserInputService")
 local plr = Players.LocalPlayer
 local mouse = plr:GetMouse()
 
-local function tpF()
+function tpF()
     local char = plr.Character
     if not char then return end
 
@@ -21566,7 +21566,7 @@ local waveFuncs = {
 	["Tan"] = math.tan
 }
 
-local function getTargetPart(obj)
+function getTargetPart(obj)
 	if not obj or typeof(obj) ~= "Instance" then return nil end
 	if obj:IsA("BasePart") then return obj end
 	local soundPart = obj:FindFirstChild("SoundPart", true)
@@ -21574,7 +21574,7 @@ local function getTargetPart(obj)
 	return obj.PrimaryPart or obj:FindFirstChildWhichIsA("BasePart", true)
 end
 
-local function claimOwnership(target)
+function claimOwnership(target)
 	local part = getTargetPart(target)
 	if part then
 		for _ = 1, 3 do
@@ -21886,7 +21886,7 @@ WTab:AddDropdown({
 	end    
 })
 
-local isToggled = false
+--local isToggled = false
 
 WTab:AddToggle({
 	Name = "neutralization",
@@ -22198,26 +22198,6 @@ WTab:AddToggle({
 
 do
 
--- Orion Library 불러오기
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({
-    Name = "Figure Grab Hub", 
-    HidePremium = false, 
-    SaveConfig = false, 
-    ConfigFolder = "OrionFGMConfig",
-    IntroText = "Figure Grab Hub Loading..."
-})
-
--- 요청하신 FTab 생성
-local FTab = Window:MakeTab({
-    Name = "Figure Grab",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-------------------------------------------------------------------------
--- [1] 모듈 초기화 및 서비스 설정
-------------------------------------------------------------------------
 getgenv().FigureGrabModule = getgenv().FigureGrabModule or {}
 local FGM = getgenv().FigureGrabModule
 
@@ -22243,9 +22223,6 @@ FGM.MenuToys = _menuToys
 FGM.ToySpawn = _menuToys and _menuToys:WaitForChild('SpawnToyRemoteFunction', 5) or nil
 FGM.DestroyToy = _menuToys and _menuToys:WaitForChild('DestroyToy', 5) or nil
 
-------------------------------------------------------------------------
--- [2] 상태 및 설정 데이터
-------------------------------------------------------------------------
 FGM.State = FGM.State or {
     FigureGrabEnabled = false,
     FigureGrabConnection = nil,
@@ -22453,9 +22430,6 @@ function FGM.ApplyLimbHighlight(limbName)
     state.HighlightedLimb = limbName
 end
 
-------------------------------------------------------------------------
--- [4] 핵심 로직 (Grab, Bring, Ragdoll, RunHeartbeat)
-------------------------------------------------------------------------
 function FGM.BringTargetToMe(target)
     if not target then return false end
     local myChar = FGM.LocalPlayer.Character
@@ -22610,7 +22584,7 @@ function FGM.StopPersistentGrab()
     end
 end
 
-local function RunHeartbeat(MyCharacter)
+function RunHeartbeat(MyCharacter)
     local cfg = FGM.Configuration
     local state = FGM.State
     local zero = state.VectorZero
@@ -22664,7 +22638,7 @@ local function RunHeartbeat(MyCharacter)
             holdCFrame = holdCFrame * CFrame.Angles(0, math.rad(state.SpinAngle), 0)
         end
 
-        -- 위치 적용
+        
         if cfg.DampingEnabled then
             local prev = state.SmoothedCFrames.Torso or holdCFrame
             local alpha = math.min(1, cfg.DampingSpeed * dt)
@@ -22756,79 +22730,8 @@ function FGM.ToggleFigureGrab()
     end
 end
 
-------------------------------------------------------------------------
--- [5] 크리처 / 타겟 컨트롤 시스템 (Decoy Control)
-------------------------------------------------------------------------
-local ControlAudioEffect = Instance.new('Sound', FGM.Workspace)
-ControlAudioEffect.SoundId = 'rbxassetid://9114374439'
-ControlAudioEffect.PlaybackSpeed = 1.25
 
-local ColorCorrectionInstance = Instance.new('ColorCorrectionEffect', FGM.Lighting)
-ColorCorrectionInstance.Enabled = false
-
-local ConnectionNoclip = nil
-local NoclipEnabled = false
-
-local function ActivateNoclipMode()
-    if not ConnectionNoclip then
-        NoclipEnabled = true
-        ConnectionNoclip = FGM.RunService.Stepped:Connect(function()
-            if FGM.LocalPlayer.Character then
-                for _, part in pairs(FGM.LocalPlayer.Character:GetChildren()) do
-                    if part:IsA('BasePart') then part.CanCollide = false end
-                end
-            end
-        end)
-    end
-end
-
-local function DeactivateNoclipMode()
-    if ConnectionNoclip then
-        ConnectionNoclip:Disconnect()
-        ConnectionNoclip = nil
-    end
-    NoclipEnabled = false
-end
-
-function FGM.ExecuteControlToggle()
-    if _G.ControllingCreature then
-        _G.ControllingCreature = nil
-        DeactivateNoclipMode()
-        ColorCorrectionInstance.Enabled = false
-    else
-        local char = FGM.LocalPlayer.Character
-        if not char or not char:FindFirstChild("Head") then return end
-        local cam = FGM.Workspace.CurrentCamera
-        local rayparams = RaycastParams.new()
-        rayparams.FilterDescendantsInstances = {char}
-        rayparams.FilterType = Enum.RaycastFilterType.Exclude
-
-        local result = FGM.Workspace:Raycast(char.Head.Position, cam.CFrame.LookVector * 50, rayparams)
-        if result and result.Instance and result.Instance.Parent then
-            local targetModel = result.Instance.Parent
-            local hum = targetModel:FindFirstChildOfClass("Humanoid")
-            if hum then
-                _G.ControllingCreature = targetModel
-                ActivateNoclipMode()
-                ColorCorrectionInstance.Enabled = true
-                ControlAudioEffect:Play()
-                
-                task.spawn(function()
-                    while _G.ControllingCreature == targetModel and targetModel.Parent do
-                        local head = targetModel:FindFirstChild("Head")
-                        if head then _FireSetNetworkOwner(head, head.CFrame) end
-                        task.wait(0.1)
-                    end
-                    DeactivateNoclipMode()
-                    ColorCorrectionInstance.Enabled = false
-                end)
-            end
-        end
-    end
-end
-
-
-local function FG_GetPlayerList()
+function FG_GetPlayerList()
     local list = {}
     for _, p in ipairs(FGM.Players:GetPlayers()) do
         if p ~= FGM.LocalPlayer then

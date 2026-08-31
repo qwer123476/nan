@@ -3371,7 +3371,6 @@ local FDTab = Window:MakeTab({Name = "protection", Icon = "rbxassetid://60265681
 local antiTab = Window:MakeTab({Name = "Invincibility", Icon = "rbxassetid://6034831332", PremiumOnly = false})               
 local ListTab = Window:MakeTab({Name = "TP", Icon = "rbxassetid://3572491301", PremiumOnly = false})              
 local LoopTab = Window:MakeTab({Name = "Loop", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
-local Loop2Tab = Window:MakeTab({Name = "Loop2", Icon = "rbxassetid://6023426923", PremiumOnly = false})   
 local SMTab = Window:MakeTab({Name = "Explosions", Icon = "rbxassetid://779891379989", PremiumOnly = false})
 local AuraTab = Window:MakeTab({Name = "Aura", Icon = "rbxassetid://6031068423", PremiumOnly = false})   
 local WTab = Window:MakeTab({Name = "network", Icon = "rbxassetid://6026568198", PremiumOnly = false})        
@@ -14368,7 +14367,7 @@ antiTab:AddToggle({
                     pcall(function()
                         ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(
                             "FoodMayonnaise",
-                            CFrame.new(0, 30000, 0),
+                            CFrame.new(0, 300, 0),
                             Vector3.new(0, 0, 0)
                         )
                     end)
@@ -14385,7 +14384,7 @@ antiTab:AddToggle({
                     pcall(function()
                         mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
                             mayo,
-                            CFrame.new(30000, 0),
+                            CFrame.new(3000, 0),
                             Vector3.new(0, 0, 0)
                         )
                     end)
@@ -14398,7 +14397,7 @@ antiTab:AddToggle({
                 pcall(function()
                     mayo.HoldPart.DropItemRemoteFunction:InvokeServer(
                         mayo,
-                        CFrame.new(0, 300, 0),
+                        CFrame.new(0, 3000, 0),
                         Vector3.new(0, 0, 0)
                     )
                 end)
@@ -15811,61 +15810,64 @@ antiTab:AddToggle({
     Default = false,
     Callback = function(Value)
         shurikenAntiKickActive = Value
-        
+
         if Value then
-            fixShurikenCharacter(LocalPlayer.Character)
-            
+            if type(fixShurikenCharacter) == "function" then
+                fixShurikenCharacter(LocalPlayer.Character)
+            end
+
             if shurikenCharFixConnection then
                 shurikenCharFixConnection:Disconnect()
             end
-            
+
             shurikenCharFixConnection = LocalPlayer.CharacterAdded:Connect(function(char)
                 task.wait(0.5)
-                fixShurikenCharacter(char)
+                if type(fixShurikenCharacter) == "function" then
+                    fixShurikenCharacter(char)
+                end
             end)
 
             if shurikenRespawnConnection then
                 shurikenRespawnConnection:Disconnect()
             end
-            
+
             shurikenRespawnConnection = LocalPlayer.CharacterAdded:Connect(function()
                 task.wait(1)
-                if shurikenAntiKickActive then
+                if shurikenAntiKickActive and type(ClearKunai) == "function" then
                     ClearKunai()
                 end
             end)
-            
+
             shurikenAntiKickTask = task.spawn(function()
                 local plr = LocalPlayer
                 local ReplicatedStorage = game:GetService("ReplicatedStorage")
                 local setOwner = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
                 local stickyEvent = ReplicatedStorage:WaitForChild("PlayerEvents"):WaitForChild("StickyPartEvent")
-                local spawnRemote = ReplicatedStorage.MenuToys.SpawnToyRemoteFunction
-                local destroyrem = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("DestroyToy")
+                local spawnRemote = ReplicatedStorage:WaitForChild("MenuToys"):WaitForChild("SpawnToyRemoteFunction")
                 local canSpawn = plr:WaitForChild("CanSpawnToy")
-                
+
                 local function getHRP()
-                    if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-                        return plr.Character.HumanoidRootPart
-                    else
-                        local character = plr.CharacterAdded:Wait()
-                        return character:WaitForChild("HumanoidRootPart")
+                    if plr.Character then
+                        return plr.Character:FindFirstChild("HumanoidRootPart")
                     end
                 end
-                
+
                 local function CheckForHome()
-                    if not workspace.PlotItems.PlayersInPlots:FindFirstChild(plr.Name) then
+                    local playersInPlots = workspace.PlotItems.PlayersInPlots
+
+                    if not playersInPlots:FindFirstChild(plr.Name) then
                         return false
                     end
-                    
+
                     for _, v in pairs(workspace.Plots:GetChildren()) do
                         local sign = v:FindFirstChild("PlotSign")
                         local owners = sign and sign:FindFirstChild("ThisPlotsOwners")
-                        
+
                         if owners then
                             for _, b in pairs(owners:GetChildren()) do
                                 if b.Value == plr.Name then
                                     local folder = workspace.PlotItems:FindFirstChild(v.Name)
+
                                     if folder then
                                         return true, folder
                                     end
@@ -15873,36 +15875,41 @@ antiTab:AddToggle({
                             end
                         end
                     end
-                    
+
                     return false
                 end
-                
+
                 local function StickKunai(kunai)
                     if not kunai or not kunai:FindFirstChild("StickyPart") then
                         return
                     end
-                    
+
                     local currentHRP = getHRP()
+
                     if not currentHRP then
                         return
                     end
-                    
-                    if kunai:FindFirstChild("SoundPart") then
-                        if not kunai.SoundPart:FindFirstChild("PartOwner") or kunai.SoundPart.PartOwner.Value ~= plr.Name then
-                            setOwner:FireServer(kunai.SoundPart, kunai.SoundPart.CFrame)
+
+                    local soundPart = kunai:FindFirstChild("SoundPart")
+
+                    if soundPart then
+                        local owner = soundPart:FindFirstChild("PartOwner")
+
+                        if not owner or owner.Value ~= plr.Name then
+                            setOwner:FireServer(soundPart, soundPart.CFrame)
                         end
                     end
-                    
-                    local firePart = currentHRP:FindFirstChild("FirePlayerPart") or currentHRP:WaitForChild("FirePlayerPart", 5)
-                    
+
+                    local firePart = currentHRP:FindFirstChild("FirePlayerPart")
+
                     if firePart then
                         stickyEvent:FireServer(
                             kunai.StickyPart,
                             firePart,
-                            CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(90), math.rad(90))
+                            CFrame.Angles(0, math.rad(90), math.rad(90))
                         )
                     end
-                    
+
                     for _, obj in pairs(kunai:GetChildren()) do
                         if obj:IsA("BasePart") then
                             obj.CanTouch = false
@@ -15911,167 +15918,164 @@ antiTab:AddToggle({
                             obj.Transparency = 0.8
                         end
                     end
-                    
-                    if kunai:FindFirstChild("Handle") then
-                        local handle = kunai.Handle
-                        if not handle:FindFirstChild("Highlight") then
-                            local high = Instance.new("Highlight", handle)
-                            high.FillColor = Color3.fromRGB(0, 255, 255)
-                        end
+
+                    local handle = kunai:FindFirstChild("Handle")
+
+                    if handle and not handle:FindFirstChild("Highlight") then
+                        local high = Instance.new("Highlight")
+                        high.FillColor = Color3.fromRGB(0, 255, 255)
+                        high.Parent = handle
                     end
                 end
-                
+
                 local function SpawnToy(name)
-                    local t = tick()
-                    
+                    local start = tick()
+
                     while not canSpawn.Value do
-                        if not shurikenAntiKickActive or tick() - t > 5 then
+                        if not shurikenAntiKickActive or tick() - start > 5 then
                             return nil
                         end
+
                         task.wait(0.1)
                     end
-                    
+
                     local currentHRP = getHRP()
-                    
-                    if currentHRP then
-                        task.spawn(function()
-                            pcall(function()
-                                spawnRemote:InvokeServer(
-                                    name,
-                                    currentHRP.CFrame * CFrame.new(0, 12, 20),
-                                    Vector3.new(0, 0, 0)
-                                )
-                            end)
-                        end)
+
+                    if not currentHRP then
+                        return nil
                     end
-                    
+
+                    pcall(function()
+                        spawnRemote:InvokeServer(
+                            name,
+                            currentHRP.CFrame * CFrame.new(0, 12, 20),
+                            Vector3.zero
+                        )
+                    end)
+
                     local boolik, house = CheckForHome()
                     local inv = workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
-                    
+
                     if boolik and house then
                         return house:WaitForChild(name, 2)
-                    elseif not workspace.PlotItems.PlayersInPlots:FindFirstChild(plr.Name) and inv then
+                    end
+
+                    if not workspace.PlotItems.PlayersInPlots:FindFirstChild(plr.Name) and inv then
                         return inv:WaitForChild(name, 2)
                     end
-                    
+
                     return nil
                 end
-                
+
                 while shurikenAntiKickActive do
                     task.wait(0.005)
-                    
-                    if not plr.Character or not plr.Character:FindFirstChild("Humanoid") or plr.Character.Humanoid.Health <= 0 then
-                        task.wait(0.5)
-                        ClearKunai()
+
+                    local character = plr.Character
+                    local humanoid = character and character:FindFirstChild("Humanoid")
+
+                    if not humanoid or humanoid.Health <= 0 then
+                        if type(ClearKunai) == "function" then
+                            ClearKunai()
+                        end
                         return
                     end
-                    
+
                     local inv = workspace:FindFirstChild(plr.Name .. "SpawnedInToys")
                     local kunai = inv and inv:FindFirstChild(SelectedShurikenToy)
-                    
+
                     if workspace.PlotItems.PlayersInPlots:FindFirstChild(plr.Name) then
                         local boolik, house = CheckForHome()
-                        
+
                         if boolik and house and workspace.Plots:FindFirstChild(house.Name) then
                             local sign = workspace.Plots[house.Name]:FindFirstChild("PlotSign")
-                            
-                            if sign and sign.ThisPlotsOwners.Value.TimeRemainingNum.Value > 89 then
+
+                            if sign
+                                and sign:FindFirstChild("ThisPlotsOwners")
+                                and sign.ThisPlotsOwners.Value
+                                and sign.ThisPlotsOwners.Value:FindFirstChild("TimeRemainingNum")
+                                and sign.ThisPlotsOwners.Value.TimeRemainingNum.Value > 89 then
+
                                 kunai = SpawnToy(SelectedShurikenToy)
-                                
-                                if kunai == nil then
+
+                                if not kunai then
                                     return
                                 end
-                                
+
                                 kunai.Name = "AntiKick"
                                 StickKunai(kunai)
                             end
                         end
                     end
-                    
+
                     if not kunai then
                         if workspace.PlotItems.PlayersInPlots:FindFirstChild(plr.Name) then
                             return
                         end
-                        
+
                         kunai = SpawnToy(SelectedShurikenToy)
-                        
-                        if kunai == nil then
+
+                        if not kunai then
                             return
                         end
-                        
+
                         kunai.Name = "AntiKick"
                     end
-                    
+
                     repeat
-                        if kunai and kunai:FindFirstChild("StickyPart") and kunai.StickyPart.CanTouch == true then
+                        if kunai
+                            and kunai:FindFirstChild("StickyPart")
+                            and kunai.StickyPart.CanTouch then
+
                             StickKunai(kunai)
                             kunai.Name = "AntiKick"
                         end
-                        
+
                         task.wait(0.3)
                     until not kunai
                         or not shurikenAntiKickActive
                         or not kunai:FindFirstChild("StickyPart")
-                        or kunai.StickyPart.CanTouch == false
+                        or not kunai.StickyPart.CanTouch
                         or not plr.Character
                         or not plr.Character:FindFirstChild("HumanoidRootPart")
-                        or not kunai:FindFirstChild("StickyPart")
                         or (plr.Character.HumanoidRootPart.Position - kunai.StickyPart.Position).Magnitude >= 20
-                    
-                    if not kunai
-                        or not kunai:FindFirstChild("StickyPart")
-                        or not plr.Character
-                        or not plr.Character:FindFirstChild("HumanoidRootPart")
-                        or (plr.Character.HumanoidRootPart.Position - kunai.StickyPart.Position).Magnitude >= 20 then
+
+                    if type(ClearKunai) == "function" then
                         ClearKunai()
                     end
-                    
-                    pcall(function()
-                        repeat
-                            task.wait(0.05)
-                        until not shurikenAntiKickActive
-                            or not plr.Character
-                            or not plr.Character:FindFirstChild("Humanoid")
-                            or not kunai
-                            or not kunai:FindFirstChild("StickyPart")
-                            or not kunai.StickyPart:FindFirstChild("StickyWeld")
-                            or not kunai.StickyPart.StickyWeld.Part1
-                        
-                        if not kunai
-                            or not kunai:FindFirstChild("StickyPart")
-                            or (plr.Character and plr.Character:FindFirstChild("Humanoid") and plr.Character.Humanoid.Health <= 0)
-                            or not kunai["StickyPart"]:FindFirstChild("StickyWeld").Part1 then
-                            ClearKunai()
-                        end
-                    end)
                 end
-                
-                ClearKunai()
+
+                if type(ClearKunai) == "function" then
+                    ClearKunai()
+                end
             end)
         else
             shurikenAntiKickActive = false
-            
+
             if shurikenAntiKickTask then
                 task.cancel(shurikenAntiKickTask)
                 shurikenAntiKickTask = nil
             end
-            
+
             if shurikenCharFixConnection then
                 shurikenCharFixConnection:Disconnect()
                 shurikenCharFixConnection = nil
             end
-            
+
             if shurikenRespawnConnection then
                 shurikenRespawnConnection:Disconnect()
                 shurikenRespawnConnection = nil
             end
-            
-            --fixShurikenCharacter(LocalPlayer.Character)
-            ClearKunai()
+
+            if type(fixShurikenCharacter) == "function" then
+                fixShurikenCharacter(LocalPlayer.Character)
+            end
+
+            if type(ClearKunai) == "function" then
+                ClearKunai()
+            end
         end
     end
 })
-
 
 
 antiTab:AddToggle({
@@ -22053,108 +22057,7 @@ WTab:AddToggle({
 	end    
 })
 ]]
-do
-Loop2Tab:AddDropdown("DestroyHeight", {
-    Text = "Destroy Height",
-    Values = {"Spawn", "Heaven"},
-    Default = "Spawn",
-    Callback = function(Value)
-        selectedHeight = Value
-    end
-})
 
-Loop2Tab:AddButton({
-    Text = "Destroy Server",
-    Callback = function()
-        task.spawn(function()
-            height = (selectedHeight == "Heaven") and 1e9 or 35
-            startLineLag()
-            task.wait(1)
-
-            players = getAllPlayers()
-
-            if #players == 0 then
-                stopLineLag()
-                return
-            end
-
-            myChar = LocalPlayer.Character
-            myHrp = myChar and myChar:FindFirstChild("HumanoidRootPart")
-
-            if not myHrp then
-                stopLineLag()
-                return
-            end
-
-            playerData = {}
-
-            for _, plr in ipairs(players) do
-                char = plr.Character
-                hrp = char and char:FindFirstChild("HumanoidRootPart")
-
-                if hrp then
-                    table.insert(playerData, {
-                        player = plr,
-                        hrp = hrp
-                    })
-                end
-            end
-
-            for _, data in ipairs(playerData) do
-                teleportToPlayer(myHrp, data.hrp)
-                task.wait(0.2)
-                spamOwnership(data.hrp)
-                task.wait()
-            end
-
-            radius = 40
-            angleStep = (math.pi * 2) / #playerData
-
-            for idx, data in ipairs(playerData) do
-                angle = (idx - 1) * angleStep
-                x = math.cos(angle) * radius
-                z = math.sin(angle) * radius
-
-                pcall(function()
-                    data.hrp.CFrame = CFrame.new(x, height, z)
-                    data.hrp.AssemblyLinearVelocity = Vector3.zero
-                end)
-
-                bp = Instance.new("BodyPosition")
-                bp.MaxForce = Vector3.new(1e9, 1e9, 1e9)
-                bp.P = 40000000
-                bp.Position = Vector3.new(x, height, z)
-                bp.Parent = data.hrp
-
-                task.delay(2, function()
-                    pcall(function()
-                        bp:Destroy()
-                    end)
-                end)
-
-                task.wait()
-            end
-
-            for i = 1, 8 do
-                for _, data in ipairs(playerData) do
-                    destroyLineOnPlayer(data.hrp)
-                end
-                task.wait(0.3)
-            end
-        end)
-    end
-})
-
-Loop2Tab:AddButton({
-    Text = "Stop Lag",
-    Callback = function()
-        stopLineLag()
-    end
-})
-
-
-
-end
 end
 end
 local Players = game:GetService("Players")

@@ -16066,7 +16066,7 @@ antiTab:AddToggle({
                 shurikenRespawnConnection = nil
             end
             
-            fixShurikenCharacter(LocalPlayer.Character)
+            --fixShurikenCharacter(LocalPlayer.Character)
             ClearKunai()
         end
     end

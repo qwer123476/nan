@@ -1090,10 +1090,28 @@ local SpawnToyRF = menuToysFolder:WaitForChild("SpawnToyRemoteFunction")
 local DeleteToyRE = menuToysFolder:WaitForChild("DestroyToy")
 local playerEventsFolder = ReplicatedStorage:WaitForChild("PlayerEvents")
 local StickyPartEvent = playerEventsFolder:WaitForChild("StickyPartEvent")
---local isHeldValue = LocalPlayer:WaitForChild("IsHeld")
---local playerScriptsFolder = LocalPlayer:WaitForChild("PlayerScripts")
---local anticreatelinelocalscript = playerScriptsFolder:WaitForChild("CharacterAndBeamMove", 5)
---local spawnedInToysFolder = Workspace:WaitForChild(LocalPlayer.Name .. "SpawnedInToys", 5)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local RootPart = Character:WaitForChild("HumanoidRootPart")
+
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+    Character = newChar
+    Humanoid = newChar:WaitForChild("Humanoid")
+    RootPart = newChar:WaitForChild("HumanoidRootPart")
+end)
+
+local function resetCharacter()
+    if Character and Humanoid then
+        Humanoid.Health = 0
+        task.wait(0.1)
+        if Humanoid.Health > 0 then
+            Character:BreakJoints()
+        end
+    end
+end
 
 local apagarfogo = nil
 pcall(function()

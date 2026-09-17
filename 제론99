@@ -19614,8 +19614,10 @@ local success = pcall(function()
 end)
 
 if not success then
-    game.Players.LocalPlayer:Kick("failed to load the loader.(Load Failed)")
+    warn("[Junkie] failed to load the loader.(Load Failed)")
+    return
 end
+
 
 task.spawn(function()
     task.wait(1)

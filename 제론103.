@@ -5696,7 +5696,7 @@ function tpF()
 
 local hum = char and char:FindFirstChildOfClass("Humanoid")
 if not char or not hum or hum.Health <= 0 then
-    return
+    return end
 end
 
 if not mouse or not mouse.Hit then

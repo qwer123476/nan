@@ -13242,7 +13242,7 @@ if characterAddedConnection then
 end
 
 characterAddedConnection = LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
-
+--[[
 antiTab:AddDropdown({
     Name = "Gucci Type",
     Items = {"Blobman", "Tractor", "Santa Sleigh"},
@@ -13251,7 +13251,7 @@ antiTab:AddDropdown({
         selectedGucciType = gucciTypes[Value] or 'CreatureBlobman'
     end
 })
-
+]]
 antiTab:AddToggle({
     Name = "GUCCI Anti Grab V2",
     Default = false,
@@ -13315,8 +13315,8 @@ antiTab:AddSection({
     Name = "Anti kick"
 })
 
---local flyingResetConn = nil
---local resetProtectionConn = nil
+local flyingResetConn = nil
+local resetProtectionConn = nil
 antiTab:AddToggle({
     Name = "Auto reset <font color='rgb(50,0,50)'>[Self kill]</font>",
     
@@ -13930,8 +13930,7 @@ RS = game:GetService("ReplicatedStorage")
 RunService = game:GetService("RunService")
 plr = Players.LocalPlayer
 
-AntiKickItemActive = false
-MyPCLD = nil
+mypcld = torso
 pcldConn = nil
 charFixConnection = nil
 

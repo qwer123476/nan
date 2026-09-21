@@ -1,48 +1,7 @@
- local Players = game:GetService("Players")
-local StarterGui = game:GetService("StarterGui")
-local LocalPlayer = Players.LocalPlayer
-
-
-local resetBindable = Instance.new("BindableEvent")
-resetBindable.Event:Connect(function()
-    local char = LocalPlayer.Character
-    if char then
+ 
         
-        local hum = char:FindFirstChildOfClass("Humanoid")
-        if hum then hum.Health = 0 end
-        char:BreakJoints()
-
-local hrp = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
-        if hrp then
-            hrp.CFrame = CFrame.new(0, -9999, 0)
-        end
-
-                task.delay(0.5, function()
-            if char and char.Parent then
-                char:Destroy()
-            end
-        end)
-    end
-end)
 
 
-local function RegisterReset()
-    task.spawn(function()
-        for i = 1, 10 do
-            local success = pcall(function()
-                StarterGui:SetCore("ResetButtonCallback", resetBindable)
-            end)
-            if success then break end
-            task.wait(0.2)
-        end
-    end)
-end
-
-RegisterReset()
-LocalPlayer.CharacterAdded:Connect(function()
-    task.wait(0.5)
-    RegisterReset()
-end)
 
 
 
@@ -5734,16 +5693,22 @@ function tpF()
         end
     end
 
-    local mouseHit = mouse.Hit
-    local targetPos = mouseHit.Position + Vector3.new(0, 5, 0)
-    local newCFrame = CFrame.new(targetPos) * currentRotation
-
-    if ragdolled.Value == true then
-        char:PivotTo(newCFrame)
-    else
-        hrp.CFrame = newCFrame
-    end
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+if not char or not hum or hum.Health <= 0 then
+    return 
 end
+
+
+local mouseHit = mouse.Hit
+local targetPos = mouseHit.Position + Vector3.new(0, 5, 0)
+local newCFrame = CFrame.new(targetPos) * currentRotation
+
+if ragdolled.Value == true then
+    char:PivotTo(newCFrame)
+else
+    hrp.CFrame = newCFrame
+end
+
 
 function AntiBlobUseF()
     task.spawn(function()

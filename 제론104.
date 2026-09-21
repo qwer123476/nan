@@ -13253,7 +13253,7 @@ antiTab:AddDropdown({
 })
 
 antiTab:AddToggle({
-    Name = "GUCCI Anti Grab",
+    Name = "GUCCI Anti Grab V2",
     Default = false,
     Flag = "78wfrgw7t8",
     Callback = function(Value)
@@ -13270,7 +13270,7 @@ antiTab:AddToggle({
         end
     end
 })
-end
+
 
 antiTab:AddSection({
     Name = "Other"

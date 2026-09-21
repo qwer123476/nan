@@ -107,7 +107,7 @@ task.spawn(function()
     while task.wait(2) do
         if debug.info(checkFunc, "s") ~= debug.info(CheckIsOwner, "s") or typeof(CheckIsOwner) ~= "function" then
             warn("[Security Alert] Script tampering detected.")
-break
+
 
             break
         end

@@ -4293,7 +4293,100 @@ local AntiKickF = function()
         end
     end
 end
+do
 
+local antiGucciConnection
+local safePosition
+local restoreFrames = 0
+local function spawnBlobman()
+	local args = {
+		[1] = "CreatureBlobman",
+		[2] = CFrame.new(0, 5000000, 0),
+		[3] = Vector3.new(0, 60, 0)
+	}
+	pcall(function()
+		ReplicatedStorage.MenuToys.SpawnToyRemoteFunction:InvokeServer(unpack(args))
+	end)
+	local folder = Workspace:WaitForChild(Player.Name .. "SpawnedInToys", 5)
+	if folder and folder:FindFirstChild("CreatureBlobman") then
+		local blob = folder.CreatureBlobman
+		if blob:FindFirstChild("Head") then
+			blob.Head.CFrame = CFrame.new(0, 50000, 0)
+			blob.Head.Anchored = true
+		end
+		notify("Success", "Blobman Spawned!", 3)
+	end
+end
+local function startAntiGucci()
+	local character = Player.Character or Player.CharacterAdded:Wait()
+	local humanoid = character:WaitForChild("Humanoid")
+	local rootPart = character:WaitForChild("HumanoidRootPart")
+	safePosition = rootPart.Position
+	local folder = Workspace:FindFirstChild(Player.Name .. "SpawnedInToys")
+	local blob = folder and folder:FindFirstChild("CreatureBlobman")
+	local seat = blob and blob:FindFirstChild("VehicleSeat")
+	if not blob then
+		spawnBlobman()
+		task.wait(0.3)
+		folder = Workspace:FindFirstChild(Player.Name .. "SpawnedInToys")
+		blob = folder and folder:FindFirstChild("CreatureBlobman")
+		seat = blob and blob:FindFirstChild("VehicleSeat")
+	end
+	if seat and seat:IsA("VehicleSeat") then
+		rootPart.CFrame = seat.CFrame + Vector3.new(0, 2, 0)
+		seat:Sit(humanoid)
+	end
+	humanoid:GetPropertyChangedSignal("Jump"):Connect(function()
+		if humanoid.Jump and humanoid.Sit then
+			restoreFrames = 15
+			safePosition = rootPart.Position
+		end
+	end)
+	if antiGucciConnection then
+		antiGucciConnection:Disconnect()
+	end
+	antiGucciConnection = R.Heartbeat:Connect(function()
+		if not rootPart or not humanoid then
+			return
+		end
+		ReplicatedStorage.CharacterEvents.RagdollRemote:FireServer(rootPart, 0)
+		if restoreFrames > 0 then
+			rootPart.CFrame = CFrame.new(safePosition)
+			restoreFrames = restoreFrames - 1
+		end
+	end)
+	task.spawn(function()
+		while humanoid.Sit do
+			task.wait(1)
+		end
+		task.wait(0.5)
+		rootPart.CFrame = CFrame.new(safePosition)
+	end)
+end
+local function stopAntiGucci()
+	if antiGucciConnection then
+		antiGucciConnection:Disconnect()
+		antiGucciConnection = nil
+	end
+		local char = Player.Character
+	local hum = char and char:FindFirstChild("Humanoid")
+	if hum then
+		hum.Sit = false
+		pcall(function() hum:ChangeState(Enum.HumanoidStateType.GettingUp) end)
+	end
+	local blobFolder = Workspace:FindFirstChild(Player.Name .. "SpawnedInToys")
+	if blobFolder and blobFolder:FindFirstChild("CreatureBlobman") then
+		local blob = blobFolder.CreatureBlobman
+		pcall(function()
+			ReplicatedStorage.MenuToys.DestroyToy:FireServer(blob)
+		end)
+		task.wait(0.1)
+			if blob and blob.Parent then
+			blob:Destroy()
+		end
+	end
+end
+end
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -12907,104 +13000,276 @@ antiTab:AddToggle({
     end
 })
 
-antiTab:AddToggle({
-    Name = "Gucci Train",
-    
-    save = true,
-    Flag = "autoGucciToggleFyquxla1g",
-    Callback = function(Value)
-        AutoGucciTV2 = Value
-        if AutoGucciTV2 then
-            task.spawn(AutoGucciFV2)
-        else
-            local char = plr.Character
-            if char then
-                local hum = char:FindFirstChild("Humanoid")
-                if hum then
-                    hum.Sit = true
-                    task.wait(0.1)
-                    hum.Sit = false
-                 end
-	    end
-    	 sitJumpT = false
-     end
+RunService = game:GetService('RunService')
+Players = game:GetService('Players')
+ReplicatedStorage = game:GetService('ReplicatedStorage')
+DestroyToy = ReplicatedStorage.MenuToys.DestroyToy
+SpawnToyRemoteFunction = ReplicatedStorage.MenuToys.SpawnToyRemoteFunction
+GrabEvents = ReplicatedStorage.GrabEvents
+SetNetworkOwner = GrabEvents.SetNetworkOwner
+CharacterEvents = ReplicatedStorage.CharacterEvents
+RagdollRemote = CharacterEvents.RagdollRemote
+GUE = false
+GUTYPE = 'CreatureBlobman'
+inexistance = {}
+
+local itm
+local sp
+local sv
+local humconnection
+local LocalPlayer = game.Players.LocalPlayer
+
+local gucciTypes = {
+    ['Blobman'] = 'CreatureBlobman',
+    ['Tractor'] = 'TractorGreen',
+    ['Santa Sleigh'] = 'SantaSleigh'
+}
+
+local selectedGucciType = 'CreatureBlobman'
+
+function getCharParts()
+    local char = LocalPlayer.Character
+    if not char then
+        return nil, nil
+    end
+    return char:FindFirstChild('Humanoid'), char:FindFirstChild('HumanoidRootPart')
 end
+
+hum, hrp = getCharParts()
+
+local characterAddedConnection
+gucciRunning = false
+
+function diddle()
+    if itm then
+        for _, prt in pairs(itm:GetChildren())do
+            if prt:IsA('BasePart') then
+                prt.CanCollide = false
+            end
+        end
+    end
+    hrp.CFrame = sp
+    hrp.AssemblyLinearVelocity = sv
+    hum:GetPropertyChangedSignal('SeatPart'):Once(diddle)
+end
+
+function checkgrab(part)
+    pcall(function()
+        SetNetworkOwner:FireServer(part, part.CFrame)
+    end)
+end
+
+function gucciblob()
+    if gucciRunning then
+        return
+    end
+    gucciRunning = true
+
+    local guccion = false
+    local tickyticky = tick()
+
+    while GUE do
+        hum, hrp = getCharParts()
+
+        if hum and hrp then
+            local dt = tick() - tickyticky
+            tickyticky = tick()
+
+            if itm and itm:FindFirstChild('VehicleSeat') then
+                local occupant = itm.VehicleSeat.Occupant
+                if occupant and occupant ~= hum then
+                    task.spawn(function()
+                        DestroyToy:FireServer(itm)
+                    end)
+                    itm = nil
+                    guccion = false
+                    inexistance = {}
+                    task.wait(0.1)
+                    if LocalPlayer.CanSpawnToy.Value then
+                        task.spawn(function()
+                            SpawnToyRemoteFunction:InvokeServer(selectedGucciType, hrp.CFrame * CFrame.new(0, 100000000, 10), Vector3.new(0, 0, 0))
+                        end)
+                    end
+                    task.wait()
+                    continue
+                end
+            end
+
+            if itm and itm.Parent and not ((itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')) and itm:FindFirstChild('VehicleSeat') and (not itm.VehicleSeat.Occupant or itm.VehicleSeat.Occupant ~= hum) or inexistance[itm] < 1) then
+                task.spawn(function()
+                    DestroyToy:FireServer(itm)
+                end)
+            else
+                local toyFolder = workspace:FindFirstChild(LocalPlayer.Name .. 'SpawnedInToys')
+                itm = toyFolder and toyFolder:FindFirstChild(selectedGucciType)
+            end
+
+            if not sp or not hum.SeatPart then
+                sp = hrp.CFrame
+                sv = hrp.AssemblyLinearVelocity
+            end
+
+            if humconnection ~= hum then
+                humconnection = hum
+                hum:GetPropertyChangedSignal('SeatPart'):Once(diddle)
+            end
+
+            local wait = true
+
+            if itm then
+                inexistance[itm] = (inexistance[itm] or 0) + dt
+
+                if (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')) and itm:FindFirstChild('VehicleSeat') and (not itm.VehicleSeat.Occupant or itm.VehicleSeat.Occupant == hum) then
+                    if not guccion then
+                        (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')).AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                    end
+
+                    local diddy = itm.VehicleSeat
+                    diddy.Parent = nil
+                    diddy.Parent = itm
+
+                    if not checkgrab(itm) and (hrp.CFrame.Position - (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')).CFrame.Position).Magnitude < 28 then
+                        for _, prt in pairs(itm:GetChildren())do
+                            if prt:IsA('BasePart') and prt.CanQuery then
+                                SetNetworkOwner:FireServer(prt, CFrame.lookAt(hrp.CFrame.Position, prt.CFrame.Position))
+                            end
+                        end
+                    end
+
+                    if not hum.SeatPart then
+                        hum.Sit = false
+                    else
+                        wait = false
+                        task.wait()
+                    end
+
+                    if hrp and hum and (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')) and itm:FindFirstChild('VehicleSeat') and (not itm.VehicleSeat.Occupant or itm.VehicleSeat.Occupant == hum) then
+                        local ragdolled = hum:FindFirstChild('Ragdolled')
+                        if ragdolled and ragdolled.Value then
+                            guccion = false
+                        end
+
+                        if itm.VehicleSeat.Occupant == hum then
+                            guccion = true
+                        elseif not guccion then
+                            task.wait()
+                            wait = false
+                            if (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')) and itm:FindFirstChild('VehicleSeat') and (not itm.VehicleSeat.Occupant or itm.VehicleSeat.Occupant == hum) then
+                                local ragdolled2 = hum:FindFirstChild('Ragdolled')
+                                if not ragdolled2 or not ragdolled2.Value then
+                                    itm.VehicleSeat:Sit(hum)
+                                    RagdollRemote:FireServer(hrp, 0.016)
+                                end
+                            end
+                        end
+
+                        if guccion then
+                            (itm:FindFirstChild('HumanoidRootPart') or itm:FindFirstChild('SoundPart')).AssemblyLinearVelocity = Vector3.new(0, 1e15, 0)
+                        else
+                            if inexistance[itm] >= game.Stats.Network.ServerStatsItem['Data Ping']:GetValue() / 250 then
+                                task.spawn(function()
+                                    DestroyToy:FireServer(itm)
+                                end)
+                                hum.Sit = true
+                            end
+                        end
+                    end
+                else
+                    if guccion then
+                        hum.Sit = true
+                    end
+                    guccion = false
+                    if inexistance[itm] >= 1 then
+                        task.spawn(function()
+                            DestroyToy:FireServer(itm)
+                        end)
+                        if LocalPlayer.CanSpawnToy.Value then
+                            task.spawn(function()
+                                SpawnToyRemoteFunction:InvokeServer(selectedGucciType, hrp.CFrame * CFrame.new(0, 100000000, 10), Vector3.new(0, 0, 0))
+                            end)
+                        end
+                    end
+                end
+            else
+                if guccion then
+                    guccion = false
+                    hum.Sit = true
+                end
+                if LocalPlayer.CanSpawnToy.Value then
+                    task.spawn(function()
+                        SpawnToyRemoteFunction:InvokeServer(selectedGucciType, hrp.CFrame * CFrame.new(0, 100000000, 10), Vector3.new(0, 0, 0))
+                    end)
+                end
+            end
+
+            if wait then
+                task.wait()
+                hum.Sit = false
+            end
+        else
+            task.wait()
+        end
+    end
+    gucciRunning = false
+end
+
+function onCharacterAdded(char)
+    if not GUE then
+        return
+    end
+    if itm and itm.Parent then
+        task.spawn(function()
+            DestroyToy:FireServer(itm)
+        end)
+    end
+    itm = nil
+    inexistance = {}
+    humconnection = nil
+    sp = nil
+    sv = nil
+    gucciRunning = false
+
+    char:WaitForChild('Humanoid', 10)
+    char:WaitForChild('HumanoidRootPart', 10)
+
+    hum, hrp = getCharParts()
+    task.wait(0.5)
+    task.spawn(gucciblob)
+end
+
+if characterAddedConnection then
+    characterAddedConnection:Disconnect()
+end
+
+characterAddedConnection = LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+antiTab:AddDropdown({
+    Name = "Gucci Type",
+    Items = {"Blobman", "Tractor", "Santa Sleigh"},
+    Default = "Blobman",
+    Callback = function(Value)
+        selectedGucciType = gucciTypes[Value] or 'CreatureBlobman'
+    end
 })
 
-
-
-do
-    local Players = game:GetService("Players")
-    local RunService = game:GetService("RunService")
-
-    local localPlayer = Players.LocalPlayer
-
-    local invisibleAntiGrabEnabled = false
-    local invisibleAntiGrabConnection = nil
-    local characterAddedConnection = nil
-
-    local function executeAntiGrab()
-        local char = localPlayer.Character
-        if not char then return end
-
-        for _,v in ipairs(char:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v.CanCollide = false
-                v.Massless = true
-            end
-        end
-    end
-
-    local function resetCharacter()
-        local char = localPlayer.Character
-        if not char then return end
-
-        for _,v in ipairs(char:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v.CanCollide = true
-                v.Massless = false
-            end
-        end
-    end
-
-    antiTab:AddToggle({
-        Name = " Gucci V2",
-        Default = false,
-        Callback = function(Value)
-            invisibleAntiGrabEnabled = Value
-
-            if Value then
-                if not localPlayer:GetAttribute("AntiGrabActive") then
-                    localPlayer:SetAttribute("AntiGrabActive", true)
-                end
-
-                invisibleAntiGrabConnection = RunService.Heartbeat:Connect(executeAntiGrab)
-
-                characterAddedConnection = localPlayer.CharacterAdded:Connect(function()
-                    if invisibleAntiGrabEnabled then
-                        task.wait(1)
-                        executeAntiGrab()
-                    end
+antiTab:AddToggle({
+    Name = "GUCCI Anti Grab",
+    Default = false,
+    Flag = "78wfrgw7t8",
+    Callback = function(Value)
+        GUE = Value
+        if Value then
+            task.spawn(gucciblob)
+        else
+            if itm and itm.Parent then
+                task.spawn(function()
+                    DestroyToy:FireServer(itm)
                 end)
-
-            else
-                if invisibleAntiGrabConnection then
-                    invisibleAntiGrabConnection:Disconnect()
-                    invisibleAntiGrabConnection = nil
-                end
-
-                if characterAddedConnection then
-                    characterAddedConnection:Disconnect()
-                    characterAddedConnection = nil
-                end
-
-                if localPlayer:GetAttribute("AntiGrabActive") then
-                    localPlayer:SetAttribute("AntiGrabActive", false)
-                    resetCharacter()
-                end
             end
+            itm = nil
         end
-    })
+    end
+})
 end
 
 antiTab:AddSection({

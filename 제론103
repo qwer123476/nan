@@ -5693,21 +5693,28 @@ function tpF()
         end
     end
 
-    local hum = char and char:FindFirstChildOfClass("Humanoid")
+
+local hum = char and char:FindFirstChildOfClass("Humanoid")
 if not char or not hum or hum.Health <= 0 then
-    return end
+    return
 end
 
-
-local mouseHit = mouse.Hit
-local targetPos = mouseHit.Position + Vector3.new(0, 5, 0)
-local newCFrame = CFrame.new(targetPos) * currentRotation
-
-if ragdolled.Value == true then
-    char:PivotTo(newCFrame)
-else
-    hrp.CFrame = newCFrame
+if not mouse or not mouse.Hit then
+    return
 end
+
+local targetPos = mouse.Hit.Position + Vector3.new(0, 5, 0)
+
+if targetPos and currentRotation then
+    local newCFrame = CFrame.new(targetPos) * currentRotation
+
+    if ragdolled and ragdolled.Value == true then
+        char:PivotTo(newCFrame)
+    elseif hrp then
+        hrp.CFrame = newCFrame
+    end
+end
+
 
 
 function AntiBlobUseF()

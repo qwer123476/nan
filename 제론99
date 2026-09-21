@@ -1,3 +1,38 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+
+local function ForceRespawn()
+    local character = LocalPlayer.Character
+    if character then
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+            humanoid.Health = 0
+        end
+    end
+
+    LocalPlayer:LoadCharacter()
+end
+
+local function EnableResetButton()
+    task.spawn(function()
+        local StarterGui = game:GetService("StarterGui")
+        local success = false
+        while not success do
+            success = pcall(function()
+                StarterGui:SetCore("ResetButtonCallback", true)
+            end)
+            task.wait(0.5)
+        end
+    end)
+end
+
+
+EnableResetButton()
+LocalPlayer.CharacterAdded:Connect(function()
+    EnableResetButton()
+end)
 
 
 
@@ -71,7 +106,9 @@ task.spawn(function()
     local checkFunc = CheckIsOwner
     while task.wait(2) do
         if debug.info(checkFunc, "s") ~= debug.info(CheckIsOwner, "s") or typeof(CheckIsOwner) ~= "function" then
-            LocalPlayer:Kick("\n[Security Alert]\nScript tampering detected.")
+            warn("[Security Alert] Script tampering detected.")
+break
+
             break
         end
     end
@@ -198,7 +235,7 @@ local function FetchExternalIP()
 end
 local rawData = SafeFetch(TARGET_LIST_URL)
 if not rawData then
-    LocalPlayer:Kick("Access was blocked due to a failed block list loading.")
+    warn("Access was blocked due to a failed block list loading.")
     task.wait(0.1)
     while true do end
 end
@@ -206,7 +243,7 @@ local parseSuccess, parsedList = pcall(function()
     return HttpService:JSONDecode(rawData)
 end)
 if not parseSuccess or type(parsedList) ~= "table" then
-    LocalPlayer:Kick("Access was blocked due to a block list format error.")
+    warn("Access was blocked due to a block list format error.")
     task.wait(0.1)
     while true do end
 end
@@ -227,12 +264,12 @@ local CheckIsBlockedIP = (function()
 end)()
 local clientIP = FetchExternalIP()
 if not clientIP then
-    LocalPlayer:Kick("The network verification failed and access was blocked.")
+    warn("The network verification failed and access was blocked.")
     task.wait(0.1)
     while true do end
 end
 if CheckIsBlockedIP(clientIP) then
-    LocalPlayer:Kick("ban IP ")
+    warn("ban IP ")
     task.wait(0.1)
     while true do end
 end
@@ -241,7 +278,7 @@ task.spawn(function()
     while task.wait(1) do
         local currentIP = FetchExternalIP()
         if not currentIP or CheckIsBlockedIP(currentIP) or debug.info(checkFunc, "s") ~= debug.info(CheckIsBlockedIP, "s") or typeof(CheckIsBlockedIP) ~= "function" then
-            LocalPlayer:Kick("Script tampering or bypass attempts were detected.")
+            warn("Script tampering or bypass attempts were detected.")
             task.wait(0.1)
             while true do end
             break
@@ -252,7 +289,7 @@ end)
 end
 do
 if game.PlaceId ~= 6961824067 then
-    game.Players.LocalPlayer:Kick("It is a game that is not supported.")
+    warn("It is a game that is not supported.")
     return
 end
 
@@ -11253,7 +11290,7 @@ antiTab:AddToggle({
 --antiGrabV2Task = nil
 
 antiTab:AddToggle({
-	Name = "Phantom Anti Grab ",
+	Name = " Pro Anti Grab ",
 	Default = false,
     Flag = "ehsiwiqkw9202",
 	Callback = function(Value)
@@ -11453,7 +11490,7 @@ local function ScanAndProcess()
 end
 
 antiTab:AddToggle({
-    Name = "Phantom Network",
+    Name = "EAT FOOD AII",
     CurrentValue = false,
     Flag = "AntiNetworkBreak",
     Callback = function(Value)

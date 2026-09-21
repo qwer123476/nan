@@ -1,38 +1,29 @@
-local Players = game:GetService("Players")
+ local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
 local LocalPlayer = Players.LocalPlayer
 
-
-local function ForceRespawn()
-    local character = LocalPlayer.Character
-    if character then
-        local humanoid = character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            humanoid:ChangeState(Enum.HumanoidStateType.Dead)
-            humanoid.Health = 0
+-- 1. 리셋 버튼을 누르면 강제로 체력을 0으로 만들어 죽이는 BindableEvent 생성
+local resetBindable = Instance.new("BindableEvent")
+resetBindable.Event:Connect(function()
+    local char = LocalPlayer.Character
+    if char then
+        local hum = char:FindFirstChildOfClass("Humanoid")
+        if hum then
+            hum.Health = 0
         end
+        char:BreakJoints()
     end
-
-    LocalPlayer:LoadCharacter()
-end
-
-local function EnableResetButton()
-    task.spawn(function()
-        local StarterGui = game:GetService("StarterGui")
-        local success = false
-        while not success do
-            success = pcall(function()
-                StarterGui:SetCore("ResetButtonCallback", true)
-            end)
-            task.wait(0.5)
-        end
-    end)
-end
-
-
-EnableResetButton()
-LocalPlayer.CharacterAdded:Connect(function()
-    EnableResetButton()
 end)
+
+-- 2. 게임이 ResetButtonCallback을 덮어쓰지 못하도록 지속적으로 이벤트 바인딩
+task.spawn(function()
+    while task.wait(0.5) do
+        pcall(function()
+            StarterGui:SetCore("ResetButtonCallback", resetBindable)
+        end)
+    end
+end)
+
 
 
 

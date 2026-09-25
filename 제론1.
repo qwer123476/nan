@@ -14526,7 +14526,7 @@ game:GetService("UserInputService").JumpRequest:Connect(function()
         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
     end
 end)
-
+do
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -14661,7 +14661,7 @@ local function NOFLY()
 end
 
 
-local function unmobilefly(speaker)
+function unmobilefly(speaker)
     pcall(function()
         FLYING = false
         local root = getRoot(speaker.Character)
@@ -14789,7 +14789,7 @@ playerTab:AddSlider({
         vehicleflyspeed = Value
     end    
 })
-
+end 
 
 
 
@@ -17749,7 +17749,7 @@ end
 do
 
 
-
+--[[
  keybindTab:AddSection({
     Name = "Player ESP"
 })
@@ -17910,7 +17910,7 @@ keybindTab:AddToggle({
 })
 
 
-
+]]
 
 
 
@@ -18190,37 +18190,6 @@ lagTab:AddToggle({
         else
             
             print("")
-        end
-    end    
-})
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Event = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
-local LocalPlayer = game:GetService("Players").LocalPlayer
-
---local isRunning = false
-local spamDelay = 0.0005
-
-lagTab:AddToggle({
-    Name = "Line sapm",
-    Default = false,
-    Callback = function(Value)
-        isRunning = Value
-        
-        if isRunning then
-            task.spawn(function()
-                while isRunning do
-                    task.wait(spamDelay)
-                    pcall(function()
-                        local character = LocalPlayer.Character
-                        if character and character:FindFirstChild("Torso") then
-                            Event:FireServer(
-                                character.Torso,
-                                character.Torso.CFrame
-                            )
-                        end
-                    end)
-                end
-            end)
         end
     end    
 })
@@ -18746,15 +18715,6 @@ end)
 --end
 
 
---[[
-ImageSection:AddLabel("안녕하세요 반가워요^^ ")
-ImageSection:AddLabel("새로운 스크립트 Xeron(제론) 이라고 합니다.")
-ImageSection:AddLabel("더 많은 기능을 가진 V2모델입니닷")
-ImageSection:AddLabel("이스크립트는 지정된 사람만 쓸수있으며")
-ImageSection:AddLabel("이외의 사람은 이스크를  쓰면안되며 유포도 절대금지입니다")
-ImageSection:AddLabel("그럼재미 있게 즐겨주세요!")
-]]
---OrionLib:Init()
 
 
 --local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/Xeron/main/웹"))
@@ -19547,6 +19507,7 @@ WTab:AddSlider({
 		waveIntensity = Value / 20
 	end    
 })
+--[[
 do
 local SelectedTarget = "UFO 1"
 
@@ -19717,176 +19678,9 @@ WTab:AddToggle({
 		end
 	end
 })
+]]
 
 
---local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
---local RunService = game:GetService("RunService")
-
-local LocalPlayer = Players.LocalPlayer
-local GrabRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("CreateGrabLine")
-local NetOwnerRemote = ReplicatedStorage:WaitForChild("GrabEvents"):WaitForChild("SetNetworkOwner")
-
-local TerrorConfig = {
-	TargetPlayer = nil,
-	SelectedToy = "Bear",
-	IsTerrorOn = false,
-	KeepOwnership = false
-}
-
-local ToyMap = {
-	["Bear"] = "Bear",
-	["Duck"] = "Duck",
-	["Frog"] = "Frog",
-	["Tiger"] = "Tiger"
-}
-
-local terrorConnection = nil
-local ownerThread = nil
-
-local function getPlayerList()
-	local list = {}
-	for _, p in ipairs(Players:GetPlayers()) do
-		table.insert(list, p.DisplayName .. " (@" .. p.Name .. ")")
-	end
-	return list
-end
-
-local function getPlayerFromString(str)
-	if not str then return nil end
-	for _, p in ipairs(Players:GetPlayers()) do
-		if str == p.DisplayName .. " (@" .. p.Name .. ")" then
-			return p
-		end
-	end
-	return nil
-end
-
-local function stopTerror()
-	TerrorConfig.IsTerrorOn = false
-	if terrorConnection then
-		terrorConnection:Disconnect()
-		terrorConnection = nil
-	end
-	if ownerThread then
-		task.cancel(ownerThread)
-		ownerThread = nil
-	end
-end
-
-function startTerror()
-	if not TerrorConfig.IsTerrorOn then return end
-
-	local targetPlayer = getPlayerFromString(TerrorConfig.TargetPlayer)
-	if not targetPlayer then return end
-
-	local toyName = ToyMap[TerrorConfig.SelectedToy]
-	local animalsFolder = workspace:FindFirstChild("Large Animals")
-	if not animalsFolder then return end
-
-	local animal = animalsFolder:FindFirstChild(toyName)
-	if not animal then return end
-
-	local soundPart = animal:FindFirstChild("SoundPart")
-	if not soundPart then return end
-
-	local myChar = LocalPlayer.Character
-	local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
-	if myHRP then
-		myHRP.CFrame = soundPart.CFrame * CFrame.new(0, 0, 15)
-		task.wait(0.2)
-	end
-
-	for i = 1, 5 do
-		pcall(function()
-			GrabRemote:FireServer(soundPart, soundPart.CFrame)
-			NetOwnerRemote:FireServer(soundPart, soundPart.CFrame)
-		end)
-		task.wait(0.02)
-	end
-
-	stopTerror()
-	TerrorConfig.IsTerrorOn = true
-
-	terrorConnection = RunService.Heartbeat:Connect(function()
-		if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			local currentTargetHRP = targetPlayer.Character.HumanoidRootPart
-			soundPart.CanCollide = false
-			soundPart.Velocity = Vector3.zero
-			soundPart.RotVelocity = Vector3.zero
-			animal:PivotTo(currentTargetHRP.CFrame)
-		else
-			stopTerror()
-		end
-	end)
-
-	ownerThread = task.spawn(function()
-		while TerrorConfig.IsTerrorOn do
-			if TerrorConfig.KeepOwnership and targetPlayer and targetPlayer.Character then
-				local currentTargetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-				if currentTargetHRP then
-					pcall(function()
-						GrabRemote:FireServer(soundPart, currentTargetHRP.CFrame)
-						NetOwnerRemote:FireServer(soundPart, currentTargetHRP.CFrame)
-					end)
-				end
-			end
-			task.wait(0.5)
-		end
-	end)
-end
-do
-
-WTab:AddSection({
-	Name = "Terrorism"
-})
-
-WTab:AddDropdown({
-	Name = "Target player",
-	Default = "",
-	Options = getPlayerList(),
-	Callback = function(Value)
-		TerrorConfig.TargetPlayer = Value
-	end    
-})
-
-WTab:AddButton({
-	Name = "remove",
-	Callback = function()
-		PlayerDropdown:Refresh(getPlayerList(), true)
-	end    
-})
-
-
-WTab:AddDropdown({
-	Name = "Terror Items",
-	Default = "Bear",
-	Options = {"Frog", "Tiger", "Bear", "Duck"},
-	Callback = function(Value)
-		TerrorConfig.SelectedToy = Value
-	end    
-})
-
-WTab:AddToggle({
-	Name = "Auto Network",
-	Default = false,
-	Callback = function(Value)
-		TerrorConfig.KeepOwnership = Value
-	end    
-})
-
-WTab:AddToggle({
-	Name = "Terrorism",
-	Default = false,
-	Callback = function(Value)
-		TerrorConfig.IsTerrorOn = Value
-		if Value then
-			startTerror()
-		else
-			stopTerror()
-		end
-	end    
-})
 --[[
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")

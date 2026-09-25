@@ -2605,10 +2605,9 @@ OwnerKickMODED = false
 SitMODED = false
 OnlyOwner = false
 SkipOL = false
-OLTPValue = Vector3.new(0, 20, 0)
+OLTPValue = Vector3.new(0, 25, 5)
 
-
-function loopPlayerBlobF4()
+function loopPlayerBlobF4() 
     UpdateCurrentBlobman()
 
     local runningTasks = {}
@@ -2744,25 +2743,19 @@ function loopPlayerBlobF4()
                 local mySeat = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
                 local amIRiding = mySeat and mySeat.Parent and mySeat.Parent.Name == "CreatureBlobman"
 
+                rs.GrabEvents.SetNetworkOwner:FireServer(head, head.CFrame)
                 local ownerTag = head:FindFirstChild("PartOwner")
-                if not ownerTag or (ownerTag:IsA("StringValue") and ownerTag.Value ~= plr.Name) then
-                    rs.GrabEvents.SetNetworkOwner:FireServer(head, head.CFrame)
-                    if charHRP then rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, charHRP.CFrame) end
-                end
 
                 if ownerTag and ownerTag:IsA("StringValue") and ownerTag.Value == plr.Name then
                     break
                 else
-                    if charHRP then
-                        charHRP.Velocity = Vector3.new(0,0,0)
-                        charHRP.RotVelocity = Vector3.new(0,0,0)
-                    end
                     if amIRiding then
                         BlobGrab(currentBlobS, charHRP, "Right")
                         BlobRelease(currentBlobS, charHRP, "Right")
                     end
                     if amIRiding and charHUM then
                         charHUM.Sit = true
+                        task.wait()
                         charHUM.Sit = false
                     end
                 end
@@ -2842,49 +2835,32 @@ function loopPlayerBlobF4()
                         return
                     end
 
-                    charHRP.Velocity = Vector3.new(0,0,0)
-                    charHRP.RotVelocity = Vector3.new(0,0,0)
-
                     local currentSeat = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
                     local isRidingNow = currentSeat and currentSeat.Parent and currentSeat.Parent.Name == "CreatureBlobman"
 
                     if not isRidingNow and not OwnerKickMODED then
-                        if not charHUM.Sit  and not OnlyOwner then rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position)) end
-                        if charHUM.Sit and not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
-                        if player.IsHeld then rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position)) end
-                        if charHUM.Sit and not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
-                    end
+                    if not charHUM.Sit  and not OnlyOwner then rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position)) end
+                    if charHUM.Sit and not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
+                    if player.IsHeld then rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position)) end
+                    if charHUM.Sit and not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
+end
                     if not isRidingNow and OwnerKickMODED then
-                        rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
-                        if not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
-                        if SitMODED then charHUM.Sit = true end
-                    end
+                    rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
+                    if not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
+                    if SitMODED then charHUM.Sit = true end
+end
                     if isRidingNow then
-                        rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
-                        if not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
-                        if SitMODED then  charHUM.Sit = true end
-                    end
-
-                    local activeKicking = {}
-                    for p, t in pairs(runningTasks) do
-                        if t and p.Parent and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and ownerTags[p] then
-                            table.insert(activeKicking, p)
-                        end
-                    end
-                    table.sort(activeKicking, function(a, b) return a.Name < b.Name end)
+                    rs.GrabEvents.SetNetworkOwner:FireServer(charHRP, CFrame.lookAt(myHRP.Position, charHRP.Position))
+                    if not OnlyOwner then rs.GrabEvents.DestroyGrabLine:FireServer(charHRP) end
+                    if SitMODED then  charHUM.Sit = true end
+end
 
                     local targetPosition
-                    if #activeKicking <= 1 then
+                    if blobLoopT4 then
                         targetPosition = myHRP.CFrame * CFrame.new(OLTPValue)
-                    else
-                        local index = table.find(activeKicking, player) or 1
-                        local count = #activeKicking
-                        local angle = (index - 1) * (2 * math.pi / count)
-                        local radius = 20
-                        local offset = Vector3.new(math.cos(angle) * radius, 0, math.sin(angle) * radius)
-                        targetPosition = (myHRP.CFrame * CFrame.new(OLTPValue)) * CFrame.new(offset)
                     end
 
+                    --if isnetworkowner(charHRP) then charHRP.CFrame = targetPosition end
                     charHRP.CFrame = targetPosition
                 end)
 
@@ -2926,11 +2902,11 @@ function loopPlayerBlobF4()
 
                     local currentSeat = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") and plr.Character:FindFirstChildOfClass("Humanoid").SeatPart
                     if currentSeat and currentSeat.Parent and currentSeat.Parent.Name == "CreatureBlobman" then
-                        charHRP.Velocity = Vector3.new(0,0,0)
                         BlobGrab(currentBlobS, charHRP, "Right")
+                        task.wait()
                         BlobRelease(currentBlobS, charHRP, "Right")
                         charHUM.Sit = true
-                        task.delay(0, function() if charHUM then charHUM.Sit = false end end)
+                        task.delay(0.0002, function() if charHUM then charHUM.Sit = false end end)
                     end
                     task.wait()
                 end
@@ -2965,7 +2941,7 @@ function loopPlayerBlobF4()
                 originPositions[player] = nil
             end
             
-            task.wait(0.35)
+            task.wait(0.5)
         end
     end
 
@@ -3089,6 +3065,7 @@ function loopPlayerBlobF4()
         destroyCounts = {}
     end)
 end
+
 
 
 

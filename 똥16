@@ -18,6 +18,11 @@ local Character = GetCharacter(LocalPlayer)
 
 
 --getgenv().__PoopHubShared = {}
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+local Options = Library.Options
+local Toggles = Library.Toggles
+
 local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
 local result2 = response2:gsub("\n", "")
 local response3 = game:HttpGet("https://api.dcus.pro/dcdian/lib.lua")

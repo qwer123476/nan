@@ -1,38 +1,7 @@
 do
 
---[[
-local connection = game.ChildAdded:Connect(function(child)
-end)
-connection:Disconnect()
-local connection2 = workspace.ChildAdded:Connect(function(child2)
-end)
-connection2:Disconnect()
-local Folder = Instance.new("Folder")
-local connection3 = Folder.ChildAdded:Connect(function(child3)
-end)
-connection3:Disconnect()
-Folder:GetChildren()
-Folder:Destroy()
-local Folder2 = Instance.new("Folder", Folder)
-local connection4 = Folder2.ChildAdded:Connect(function(child4)
-end)
-connection4:Disconnect()
-Folder2.Name = "481091796"
-Folder:WaitForChild("481091796")
-Folder:Destroy()
-Folder2:Destroy()
-local HttpService = game:GetService("HttpService")
-local connection5 = HttpService.ChildAdded:Connect(function(child5)
-end)
-connection5:Disconnect()
-local RunService = game:GetService("RunService")
-local connection6 = RunService.ChildAdded:Connect(function(child6)
-end)
-connection6:Disconnect()
-local response = game:HttpGet("https://api.dcus.pro/verify/headermodule/main.lua")
-local result = loadstring(response)()
-result.Config = { Key = "YOUR_KEY_HERE", ScriptID = "dcus_243db875" }
-result:Check()
+
+
 ]]
 getgenv().__PoopHubShared = {}
 local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")

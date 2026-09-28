@@ -11790,4 +11790,4 @@ RightGroupbox42:AddToggle("LoopBananaRagdoll", {
 	Callback = function(arg1072, arg1073)
 	end
 })
-end
+

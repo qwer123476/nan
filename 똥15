@@ -135,20 +135,42 @@ Players.PlayerRemoving:Connect(function(player2)
 	end
 	Dropdown16:SetValues({ v99.DisplayName .. " @" .. v99.Name })
 end)
-Players.LocalPlayer.CharacterAdded:Connect(function(character2)
-	character2:WaitForChild("Humanoid", 5)
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local workspace = game:GetService("Workspace")
+
+local function SafeCharacter(target)
+        if target and target.Character then
+        return target.Character
+    end
+    return nil
+end
+
+local function _NOTIFY(message, duration)
+        print("[알림]:", message, "- 유지 시간:", duration)
+end
+
+Players.LocalPlayer.CharacterAdded:Connect(function(character)
+	character:WaitForChild("Humanoid", 5)
+    task.wait(0.2)
 end)
-Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-task.spawn(function(...)
-	task.wait(0.5)
-	task.wait(0.5)
+
+local localHumanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+
+task.spawn(function()
+	task.wait(1)
 end)
-task.spawn(function(...)
+
+task.spawn(function()
 	task.wait(2)
 	local descendants = workspace:GetDescendants()
 	for i, v in ipairs(descendants) do
+        
 	end
 end)
+
+
+if not v29 then return end 
 
 local Character3 = SafeCharacter(v29)
 if not Character3 then
@@ -166,11 +188,11 @@ local PartOwner = Head3:FindFirstChild("PartOwner")
 _NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)
 _G.loopKickBlobTask = nil
 _G.loopKickBlobAllTask = nil
+
+
 local CharacterEvents4 = ReplicatedStorage:WaitForChild("CharacterEvents")
 CharacterEvents4:WaitForChild("RagdollRemote")
-Players.LocalPlayer.CharacterAdded:Connect(function(character3)
-	task.wait(0.2)
-end)
+
 Players.LocalPlayer.CharacterAdded:Connect(function(character4)
 	task.wait(1)
 	local Humanoid14 = Players.LocalPlayer.Character:WaitForChild("Humanoid")

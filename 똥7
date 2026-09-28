@@ -2,7 +2,7 @@ do
 
 
 
-]]
+
 getgenv().__PoopHubShared = {}
 local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
 local result2 = response2:gsub("\n", "")

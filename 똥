@@ -1,3 +1,5 @@
+do
+
 local connection = game.ChildAdded:Connect(function(child)
 end)
 connection:Disconnect()
@@ -7498,6 +7500,7 @@ LeftGroupbox19:AddSlider("TrailLifetime", {
 		end
 	end
 })
+end
 Dropdown14:SetValue("Halo")
 local RightGroupbox17 = Tab10:AddRightGroupbox("Rainbow Settings")
 RightGroupbox17:AddToggle("RainbowEnable", {

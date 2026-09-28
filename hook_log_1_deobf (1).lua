@@ -1,0 +1,11785 @@
+local connection = game.ChildAdded:Connect(function(child)
+end)
+connection:Disconnect()
+local connection2 = workspace.ChildAdded:Connect(function(child2)
+end)
+connection2:Disconnect()
+local Folder = Instance.new("Folder")
+local connection3 = Folder.ChildAdded:Connect(function(child3)
+end)
+connection3:Disconnect()
+Folder:GetChildren()
+Folder:Destroy()
+local Folder2 = Instance.new("Folder", Folder)
+local connection4 = Folder2.ChildAdded:Connect(function(child4)
+end)
+connection4:Disconnect()
+Folder2.Name = "481091796"
+Folder:WaitForChild("481091796")
+Folder:Destroy()
+Folder2:Destroy()
+local HttpService = game:GetService("HttpService")
+local connection5 = HttpService.ChildAdded:Connect(function(child5)
+end)
+connection5:Disconnect()
+local RunService = game:GetService("RunService")
+local connection6 = RunService.ChildAdded:Connect(function(child6)
+end)
+connection6:Disconnect()
+local response = game:HttpGet("https://api.dcus.pro/verify/headermodule/main.lua")
+local result = loadstring(response)()
+result.Config = { Key = "YOUR_KEY_HERE", ScriptID = "dcus_243db875" }
+result:Check()
+getgenv().__PoopHubShared = {}
+local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
+local result2 = response2:gsub("\n", "")
+local response3 = game:HttpGet("https://api.dcus.pro/dcdian/lib.lua")
+local result3 = loadstring(response3)()
+local response4 = game:HttpGet("https://raw.githubusercontent.com/uhfork/Obsidian/refs/heads/main/addons/ThemeManager.lua")
+local result4 = loadstring(response4)()
+local response5 = game:HttpGet("https://raw.githubusercontent.com/uhfork/Obsidian/refs/heads/main/addons/SaveManager.lua")
+local result5 = loadstring(response5)()
+getgenv().Library = result3
+getgenv().ThemeManager = result4
+getgenv().SaveManager = result5
+result3.GetCustomIcon = function(arg, arg2)
+	arg:GetCustomIcon(arg2)
+end
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+getgenv().Services = {
+	Players = Players,
+	ReplicatedStorage = ReplicatedStorage,
+	RunService = RunService,
+	TweenService = TweenService,
+	UserInputService = UserInputService,
+	Workspace = workspace
+}
+result3.Notify = function(arg3, arg4)
+	result3.Notify(arg3, arg4, nil)
+end
+_G._NOTIFY = function(arg5, arg6)
+	tostring(arg5):find(":")
+	tostring(arg5):find("https?://")
+	result3:Notify({ Title = "PoopHub", Description = tostring(arg5), BigIcon = AdImage, Time = 4 }, nil)
+end
+getgenv()._NOTIFY = function(arg5, arg6)
+	tostring(arg5):find(":")
+	tostring(arg5):find("https?://")
+	result3:Notify({ Title = "PoopHub", Description = tostring(arg5), BigIcon = AdImage, Time = 4 }, nil)
+end
+local MenuToys = ReplicatedStorage:WaitForChild("MenuToys")
+local SpawnToyRemoteFunction = MenuToys:WaitForChild("SpawnToyRemoteFunction")
+local CharacterEvents = ReplicatedStorage:WaitForChild("CharacterEvents")
+local RagdollRemote = CharacterEvents:WaitForChild("RagdollRemote")
+workspace:WaitForChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+local GrabEvents = ReplicatedStorage:WaitForChild("GrabEvents")
+GrabEvents:WaitForChild("SetNetworkOwner")
+local MenuToys2 = ReplicatedStorage:WaitForChild("MenuToys")
+MenuToys2:WaitForChild("DestroyToy")
+local GameCorrectionEvents = ReplicatedStorage:WaitForChild("GameCorrectionEvents")
+GameCorrectionEvents:WaitForChild("StopAllVelocity")
+local CharacterEvents2 = ReplicatedStorage:WaitForChild("CharacterEvents")
+CharacterEvents2:WaitForChild("Struggle")
+local GrabEvents2 = ReplicatedStorage:WaitForChild("GrabEvents", 9000000000)
+GrabEvents2:WaitForChild("CreateGrabLine", 9000000000)
+local CharacterEvents3 = ReplicatedStorage:WaitForChild("CharacterEvents", 1)
+CharacterEvents3:WaitForChild("RagdollRemote", 1)
+Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+Players.LocalPlayer.Character:WaitForChild("Humanoid")
+local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+Players.LocalPlayer.CharacterAdded:Connect(function(character)
+	character:WaitForChild("HumanoidRootPart")
+	character:WaitForChild("Humanoid")
+end)
+Players.PlayerAdded:Connect(function(player)
+	task.wait(1)
+	local players41 = Players:GetPlayers()
+	for i62, v88 in ipairs(players41) do
+	end
+	Dropdown:SetValues({ v88.DisplayName .. " @" .. v88.Name })
+	local players42 = Players:GetPlayers()
+	for i63, v89 in ipairs(players42) do
+	end
+	Dropdown3:SetValues({ v89.DisplayName .. " @" .. v89.Name })
+	local players43 = Players:GetPlayers()
+	for i64, v90 in ipairs(players43) do
+	end
+	Dropdown4:SetValues({ v90.DisplayName .. " @" .. v90.Name })
+	local players44 = Players:GetPlayers()
+	for i65, v91 in ipairs(players44) do
+	end
+	Dropdown5:SetValues({ v91.DisplayName .. " @" .. v91.Name })
+	local players45 = Players:GetPlayers()
+	for i66, v92 in ipairs(players45) do
+	end
+	Dropdown15:SetValues({ v92.DisplayName .. " @" .. v92.Name })
+	local players46 = Players:GetPlayers()
+	for i67, v93 in ipairs(players46) do
+	end
+	Dropdown16:SetValues({ v93.DisplayName .. " @" .. v93.Name })
+end)
+Players.PlayerRemoving:Connect(function(player2)
+	task.wait(1)
+	local players47 = Players:GetPlayers()
+	for i68, v94 in ipairs(players47) do
+	end
+	Dropdown:SetValues({ v94.DisplayName .. " @" .. v94.Name })
+	local players48 = Players:GetPlayers()
+	for i69, v95 in ipairs(players48) do
+	end
+	Dropdown3:SetValues({ v95.DisplayName .. " @" .. v95.Name })
+	local players49 = Players:GetPlayers()
+	for i70, v96 in ipairs(players49) do
+	end
+	Dropdown4:SetValues({ v96.DisplayName .. " @" .. v96.Name })
+	local players50 = Players:GetPlayers()
+	for i71, v97 in ipairs(players50) do
+	end
+	Dropdown5:SetValues({ v97.DisplayName .. " @" .. v97.Name })
+	local players51 = Players:GetPlayers()
+	for i72, v98 in ipairs(players51) do
+	end
+	Dropdown15:SetValues({ v98.DisplayName .. " @" .. v98.Name })
+	local players52 = Players:GetPlayers()
+	for i73, v99 in ipairs(players52) do
+	end
+	Dropdown16:SetValues({ v99.DisplayName .. " @" .. v99.Name })
+end)
+Players.LocalPlayer.CharacterAdded:Connect(function(character2)
+	character2:WaitForChild("Humanoid", 5)
+end)
+Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+task.spawn(function(...)
+	task.wait(0.5)
+	task.wait(0.5)
+end)
+task.spawn(function(...)
+	task.wait(2)
+	local descendants = workspace:GetDescendants()
+	for i, v in ipairs(descendants) do
+	end
+end)
+workspace.DescendantAdded:Connect(function(descendant)
+end)
+_G.permOwnerList = {}
+_G.permOwnerResetConns = {}
+RunService.Heartbeat:Connect(function(deltaTime)
+	local Head3 = v29.Character:FindFirstChild("Head")
+	Head3:FindFirstChild("PartOwner")
+	_NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)
+end)
+_G.loopKickBlobTask = nil
+_G.loopKickBlobAllTask = nil
+local CharacterEvents4 = ReplicatedStorage:WaitForChild("CharacterEvents")
+CharacterEvents4:WaitForChild("RagdollRemote")
+Players.LocalPlayer.CharacterAdded:Connect(function(character3)
+	task.wait(0.2)
+end)
+Players.LocalPlayer.CharacterAdded:Connect(function(character4)
+	task.wait(1)
+	local Humanoid14 = Players.LocalPlayer.Character:WaitForChild("Humanoid")
+	local Animator2 = Humanoid14:WaitForChild("Animator")
+	local Animation7 = Instance.new("Animation")
+	Animation7.AnimationId = "rbxassetid://7004578012"
+	Animator2:LoadAnimation(Animation7)
+	local Animation8 = Instance.new("Animation")
+	Animation8.AnimationId = "rbxassetid://6980229055"
+	Animator2:LoadAnimation(Animation8)
+	local Animation9 = Instance.new("Animation")
+	Animation9.AnimationId = "rbxassetid://7047322890"
+	Animator2:LoadAnimation(Animation9)
+	local Animation10 = Instance.new("Animation")
+	Animation10.AnimationId = "rbxassetid://148840371"
+	Animator2:LoadAnimation(Animation10)
+	local Animation11 = Instance.new("Animation")
+	Animation11.AnimationId = "rbxassetid://72042024"
+	Animator2:LoadAnimation(Animation11)
+	local Animation12 = Instance.new("Animation")
+	Animation12.AnimationId = "rbxassetid://168268306"
+	Animator2:LoadAnimation(Animation12)
+end)
+task.spawn(function(...)
+	local Humanoid = Players.LocalPlayer.Character:WaitForChild("Humanoid")
+	local Animator = Humanoid:WaitForChild("Animator")
+	local Animation = Instance.new("Animation")
+	Animation.AnimationId = "rbxassetid://7004578012"
+	local track = Animator:LoadAnimation(Animation)
+	local Animation2 = Instance.new("Animation")
+	Animation2.AnimationId = "rbxassetid://6980229055"
+	local track2 = Animator:LoadAnimation(Animation2)
+	local Animation3 = Instance.new("Animation")
+	Animation3.AnimationId = "rbxassetid://7047322890"
+	local track3 = Animator:LoadAnimation(Animation3)
+	local Animation4 = Instance.new("Animation")
+	Animation4.AnimationId = "rbxassetid://148840371"
+	local track4 = Animator:LoadAnimation(Animation4)
+	local Animation5 = Instance.new("Animation")
+	Animation5.AnimationId = "rbxassetid://72042024"
+	local track5 = Animator:LoadAnimation(Animation5)
+	local Animation6 = Instance.new("Animation")
+	Animation6.AnimationId = "rbxassetid://168268306"
+	local track6 = Animator:LoadAnimation(Animation6)
+end)
+print("Poop HUB Fun (Obsidian) loaded successfully!")
+_G.ShieldActive = false
+_G.TentacleActive = false
+_G.PropsActive = false
+_G.prop_startProps = function(arg7, arg8)
+	_G.PropsActive = true
+	local HumanoidRootPart = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	local child = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+	ReplicatedStorage.MenuToys:FindFirstChild("DestroyToy")
+	local children = child:GetChildren()
+	for i2, v2 in ipairs(children) do
+	end
+	task.wait(0.3)
+	SpawnToyRemoteFunction:InvokeServer("LadderLightBrown", (HumanoidRootPart.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+	task.wait(0.15)
+	SpawnToyRemoteFunction:InvokeServer("LadderLightBrown", (HumanoidRootPart.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+	task.wait(0.15)
+end
+_G.PropsActive = false
+_G.prop_stopProps = function(arg9, arg10)
+end
+_G.prop_toJSON = function(arg11, arg12)
+end
+_G.prop_setMode = function(arg13, arg14)
+end
+_G.prop_setAnimSpeed = function(arg15, arg16)
+end
+_G.prop_setHeadOn = function(arg17, arg18)
+end
+_G.prop_setSearchMode = function(arg19, arg20)
+end
+Players.PlayerAdded:Connect(function(player3)
+	task.wait(1)
+	local players53 = Players:GetPlayers()
+	for i74, v100 in ipairs(players53) do
+	end
+	arg25:SetValues({ "All Players", v100.DisplayName .. " @" .. v100.Name })
+	local players54 = Players:GetPlayers()
+	for i75, v101 in ipairs(players54) do
+	end
+	Dropdown2:SetValues({ "All Players", v101.DisplayName .. " @" .. v101.Name })
+end)
+Players.PlayerRemoving:Connect(function(player4)
+	task.wait(1)
+	local players55 = Players:GetPlayers()
+	for i76, v102 in ipairs(players55) do
+	end
+	arg25:SetValues({ "All Players", v102.DisplayName .. " @" .. v102.Name })
+	local players56 = Players:GetPlayers()
+	for i77, v103 in ipairs(players56) do
+	end
+	Dropdown2:SetValues({ "All Players", v103.DisplayName .. " @" .. v103.Name })
+end)
+ReplicatedStorage:FindFirstChild("GrabEvents")
+_G.kt_startLineLag = function(arg21, arg22)
+	local GrabEvents3 = ReplicatedStorage:FindFirstChild("GrabEvents")
+	local CreateGrabLine = GrabEvents3:FindFirstChild("CreateGrabLine")
+	local SpawnLocation = workspace:FindFirstChild("SpawnLocation")
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(792948067, 0, -1667471610))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-346096276, 0, 938518198))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-340482476, 0, 340880587))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-420251567, 0, 1169780777))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-334705015, 0, 1647564051))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1731230229, 0, 339230510))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(789575630, 0, 1284773238))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1647532419, 0, -1282841069))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2045526600, 0, -60051300))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-470562035, 0, 873077408))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-241207421, 0, -1670642501))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(152777248, 0, -1100376387))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-397646577, 0, 1619520956))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1017105528, 0, -894637387))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-48165053, 0, 651039292))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1807823950, 0, -117967348))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(201902924, 0, 1081859279))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1044833462, 0, 171860371))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1287938659, 0, -829166206))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1539464261, 0, -1303696293))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(462036077, 0, 1008409116))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1530853501, 0, 1987488088))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1643444529, 0, 301610309))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(702736021, 0, 1530218751))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1284676240, 0, -29395433))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-209758243, 0, 180948414))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1638558971, 0, 1919699995))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-315436586, 0, 616303365))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-526928916, 0, 178695602))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(99689828, 0, -400458335))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-959982955, 0, -1906649551))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(79090959, 0, 1359746326))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1336496173, 0, 771395389))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1117526509, 0, 474808861))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2065915387, 0, 1817802685))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(662305074, 0, -1247943038))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1053896649, 0, 2094960436))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1762870502, 0, -942275871))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-281978701, 0, -40928349))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1801879900, 0, 2015030719))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-780078333, 0, 335661492))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1079910512, 0, 1839476289))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1650445132, 0, -2040112893))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-449906543, 0, 683056653))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(245755224, 0, 1173884636))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(526347647, 0, 502638411))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(413623615, 0, -2038444940))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(913251049, 0, 326567855))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(336360596, 0, -1086589420))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-628807923, 0, 1087703980))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1876176428, 0, -271160375))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1223204161, 0, -1131082579))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1748920519, 0, -81070989))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2048215810, 0, 367541015))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-166018086, 0, -639195683))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1033607957, 0, 1411872751))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1068107257, 0, -1465613411))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1738825127, 0, 139485587))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1171085002, 0, 1245255447))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1446707795, 0, -1990744975))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1495042718, 0, -70208573))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1072555210, 0, -1685134133))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1835355862, 0, -1616430663))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-287311333, 0, -298827259))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1965880359, 0, 1780947471))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1266361023, 0, 1110425033))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-170425652, 0, -979704983))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-558841933, 0, 1046223824))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-835769091, 0, 539243965))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-677523183, 0, -944826910))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-153562722, 0, 1856607681))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2112725976, 0, -1747828641))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1140257442, 0, 1419608639))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1027626560, 0, 255991669))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1148266501, 0, 1055936905))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(404606818, 0, 1199598552))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1819732848, 0, 860187467))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(435595403, 0, 1473039831))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(880220728, 0, -1272300783))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1718907512, 0, 2000495619))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1436678986, 0, 794281668))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1635438019, 0, 208806213))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-176251209, 0, 1810740437))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1815874858, 0, -1229373344))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(632267486, 0, -468811815))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(138873699, 0, -1852001883))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1202867667, 0, -1764114962))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(376588202, 0, -1086304674))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1800645560, 0, 184723894))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2041811996, 0, 244016871))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(265886874, 0, 1180851583))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(56134104, 0, 759128836))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1350592581, 0, -1506485817))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-827018532, 0, 726534119))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2119006957, 0, -365117776))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(488320602, 0, 1046278269))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1524067329, 0, 853861879))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(398188596, 0, -419835583))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1899483664, 0, -824243129))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1171686524, 0, -1083737121))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2095058048, 0, -821606909))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1888169710, 0, 1785943736))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2034638137, 0, 793807825))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-222117403, 0, -487916586))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1164549076, 0, 31519481))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1621586759, 0, 1041761886))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(988023385, 0, -210859607))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1279907909, 0, -1357134092))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-470559996, 0, -721669783))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1254287893, 0, -222067511))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1983147784, 0, -316483632))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-671265436, 0, -974796219))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1652119038, 0, 206917902))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1585494588, 0, -2081526762))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(509840226, 0, 1476229310))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1566873086, 0, -896511130))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(678323189, 0, 553412873))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-770492193, 0, -57644838))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-990002291, 0, -169241648))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(821557241, 0, 1209834242))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1606839510, 0, -1033324874))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1808148687, 0, -572805928))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1665242317, 0, 1062923247))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1818155797, 0, -1353172233))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-787192308, 0, 882752619))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1782048243, 0, 1013617822))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-943059284, 0, -1578380434))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-157283318, 0, 1553002311))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-612211226, 0, -1609688877))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1969690716, 0, -930800705))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-680248388, 0, -777192303))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1965014797, 0, -1324554620))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2119676583, 0, 444604926))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(908063150, 0, -1574730295))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1569667580, 0, 1756005746))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1830183484, 0, 371109975))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(930905185, 0, -226626638))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1594044985, 0, -1730898658))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1487925278, 0, -744843486))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1585517676, 0, 900094442))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-782055915, 0, -1282607440))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(499278844, 0, 1804730774))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1808127129, 0, 2053968317))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1065545434, 0, 1438355724))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(930522154, 0, 933883146))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(251087337, 0, 890329916))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1286778522, 0, -948138071))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-5212546, 0, 1495578011))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(409338753, 0, -473601505))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1081667796, 0, -1682691033))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(145383785, 0, -26757954))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1365210713, 0, -57308726))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(274565485, 0, 265051064))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1201351847, 0, -1758994690))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-255814959, 0, -547559493))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1066549391, 0, 1244769697))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1795549421, 0, 1292944442))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1657548599, 0, -61638491))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-668421701, 0, -1459153324))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1252741590, 0, -868388441))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2008289389, 0, 1220920790))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1508644419, 0, 1630124947))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-181348746, 0, -119091000))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-253299488, 0, -888941840))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(923772473, 0, -630049806))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-849914980, 0, 90155377))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1393427147, 0, 73833627))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2096352334, 0, -165768326))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1552126373, 0, 1425622301))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(10213451, 0, -1924761850))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1466518766, 0, -1607728062))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-306696401, 0, -1850054071))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-597898826, 0, 683925909))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1523803060, 0, -348795061))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1140312718, 0, 2013642537))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1374968112, 0, -1101861483))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-371883365, 0, -1073884405))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1719092628, 0, 1813457232))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1360236408, 0, 769663837))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1102732672, 0, 488633847))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1302996909, 0, -491931127))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2121806690, 0, 1731902128))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(497862100, 0, -1763586470))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1376054703, 0, -129786880))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-9218535, 0, -1638840440))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(123858824, 0, -126405878))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1177730305, 0, -280813929))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(215904945, 0, -1028807713))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1581782716, 0, -259661308))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1546076634, 0, -1002975582))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(389566582, 0, 836524196))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1386639367, 0, -382578532))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1859982371, 0, -1482292303))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1021997247, 0, 751857499))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-861625297, 0, 95651555))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1061827862, 0, 311950856))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1646226666, 0, -214015401))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-215484258, 0, -1879259752))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1275094975, 0, 1392328370))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1756292096, 0, -1612825261))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1129826035, 0, -1125011311))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-262377368, 0, -1445253227))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1034620925, 0, 415283383))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(826683717, 0, -1239134431))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2077251526, 0, -473697261))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1610403386, 0, -1777493681))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2054628439, 0, 757755213))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(549186382, 0, -2066596391))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1739996942, 0, -858714020))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1401148709, 0, -1843644743))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-677401927, 0, -1004512751))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1721566946, 0, -534949742))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1673210016, 0, -1470012551))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(763865487, 0, -1182679573))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2091495858, 0, -1427927550))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1657377403, 0, 1896797290))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(28824821, 0, -631906248))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-736033692, 0, 11697598))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1884717765, 0, -1051623827))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(778221857, 0, 1730772471))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(528531267, 0, 1111867530))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(434567776, 0, -237405495))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-498264959, 0, -1610713170))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1118548801, 0, -1000211736))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1025447292, 0, -1259845264))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-519516167, 0, -1693335763))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1331503200, 0, 1718353309))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1751299225, 0, -1809039126))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1085531354, 0, 1201162158))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(998290948, 0, -1800397427))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1913663712, 0, -360174689))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1571116933, 0, 132037080))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(245158160, 0, -1829327262))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1991857609, 0, -1627158172))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2122517319, 0, -512062835))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1996241544, 0, -641957451))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1444121077, 0, 227752161))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1268247339, 0, 1970069454))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-223430269, 0, -1026665559))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1289757146, 0, 1054651552))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(730451740, 0, -1955001571))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1074527699, 0, 845197259))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(480747020, 0, 231991475))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2059531344, 0, -1958650860))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-926202810, 0, -1006558038))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(67767665, 0, -789135108))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-418451693, 0, 120638332))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(42454792, 0, 607572637))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(645651132, 0, -249627383))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(30243480, 0, 1228224500))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1511464413, 0, 279220469))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2019724727, 0, -1712507980))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-406120279, 0, 1398495550))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(514888700, 0, 202602605))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(858872524, 0, 1446343202))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1018601429, 0, 260313371))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(123682815, 0, -544478128))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(959678797, 0, -1272730958))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1284854879, 0, 1636463463))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1229213132, 0, -666535130))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1484365266, 0, -1537279570))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1135231691, 0, -1888901136))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1126028864, 0, 2026564569))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1780601120, 0, 1785070568))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-503261523, 0, -213106438))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-861788037, 0, -151408940))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-382597929, 0, 326872297))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(839236153, 0, -1684552312))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(368012123, 0, 597181971))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1660031843, 0, 1615761828))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1202669005, 0, -53263578))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1182714156, 0, 88360127))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1262204300, 0, -307848285))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(545462614, 0, -233609998))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1402801670, 0, -792001085))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2071615859, 0, 468869556))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-576167515, 0, 1698755336))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(152351513, 0, -1388943708))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1664876880, 0, 783258086))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1494599242, 0, -2036793559))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2035586878, 0, -1875948671))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1586971864, 0, 1327757150))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1302784735, 0, 529102232))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-367560337, 0, -755886258))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-303264014, 0, -193775568))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1800266048, 0, -1976616314))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1819782746, 0, 1211136847))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1846995431, 0, -275121979))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2038228111, 0, 1036476133))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1173727143, 0, 1482553402))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(235012517, 0, 1314222039))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-752077962, 0, -295649254))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1926952472, 0, 214558826))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1545969756, 0, -811588004))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-293761646, 0, -1881522854))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1929931664, 0, 1853177186))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1431420495, 0, 1235267196))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1820813831, 0, -1279436291))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1923021291, 0, -1967979834))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1683518825, 0, -104501363))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1891286431, 0, 710118363))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1890508709, 0, 123893354))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1914977281, 0, 494357228))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1397573227, 0, -2059566373))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1644741906, 0, 1321707702))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1403100593, 0, 370419652))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1042464291, 0, 170362887))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(15519297, 0, 982110160))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1805141880, 0, -265478606))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(985453880, 0, -330208437))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(487144713, 0, 731730860))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1363617384, 0, -1779796299))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1658157314, 0, 194733029))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1367667233, 0, -1986331097))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1209008804, 0, 1129800609))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1959838162, 0, -659532399))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-937247830, 0, -1967967381))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(479646696, 0, -831081750))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-582561704, 0, 1811999054))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1204955970, 0, -490858855))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-952076213, 0, -1095988711))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1564815925, 0, -1386915968))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(255096611, 0, -1486287401))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(579238985, 0, 1445057092))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(562947079, 0, 2025210412))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1487325082, 0, -1359601067))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2088494591, 0, -2088373481))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1502110590, 0, -1532940279))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(814779763, 0, -1658030733))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1600286932, 0, -868075921))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(69584776, 0, -108608818))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1742819111, 0, 2064394990))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1213153921, 0, 623072900))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-509555932, 0, -1178948549))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(340380238, 0, -1677392396))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1759421039, 0, 1282594449))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1195801471, 0, -1337853699))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-656117176, 0, 1359140243))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(704124323, 0, -1190715700))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1887557387, 0, 738512087))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1277116735, 0, 628922402))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-744457287, 0, -242210863))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2082982846, 0, 2065141843))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-879762001, 0, 148046807))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2084612349, 0, 428588823))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(688899057, 0, 386294099))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1986110455, 0, -1550712238))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(764465918, 0, 1721336847))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2087382752, 0, -1170780701))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(407706686, 0, 2080514626))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-532699259, 0, 1416620815))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-792883573, 0, -103103197))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1027914757, 0, -1772885680))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(121322375, 0, -2071790611))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1548268659, 0, 1653418164))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1446957785, 0, -1522711115))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(893501229, 0, -1899323115))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1836510210, 0, 1478556277))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1655980562, 0, -394830377))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(833346909, 0, 1569153094))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-619364885, 0, 1720516565))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-236167982, 0, 927753780))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1760476171, 0, -53560205))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(109207050, 0, -1093611825))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(706764643, 0, -1948755012))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1159156289, 0, 762201660))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(103480206, 0, -223002616))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-934837583, 0, -1483862548))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2053739181, 0, -443847699))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1563715687, 0, -1616901672))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(270707226, 0, 167390169))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(836607712, 0, 2086612196))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1915726702, 0, -1946175122))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-584366472, 0, 1454187814))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1283010219, 0, -1349730187))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(37780891, 0, -1795580785))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(657622427, 0, 1148940658))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-88590616, 0, -2091283277))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-229169485, 0, 693716602))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1462781174, 0, 1246083330))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2063387034, 0, 1822555538))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(23210497, 0, -1823220878))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(546935829, 0, -1242227850))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-583447971, 0, 455010497))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(142041269, 0, 873256575))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1795001422, 0, 1392700629))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1363424653, 0, -225081451))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2024517831, 0, -1175201287))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-739302059, 0, -903778196))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(793349148, 0, 1569778416))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1956195172, 0, -1770506341))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1059689059, 0, 1696443588))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(229837610, 0, -953601396))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1233799524, 0, 2098459076))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(969856907, 0, 837202802))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-18449282, 0, -1521142010))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-531743329, 0, 772012770))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1785592737, 0, 1846302957))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1891058758, 0, -1305693275))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1726306785, 0, 1991090134))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-962990265, 0, -602022888))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(996633908, 0, -1791955531))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1432040912, 0, 1250703191))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(851413460, 0, -1025962626))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1858588970, 0, -1390563147))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-607604545, 0, -1825423421))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(173980624, 0, -9265530))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1062209936, 0, -11350487))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1888209995, 0, 971292814))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(237064035, 0, 2081694108))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1975375587, 0, 466949016))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2071438536, 0, 1685142807))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-612424582, 0, 431838389))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1475598740, 0, -1157388536))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-249871981, 0, -1719376308))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1581257461, 0, 734338225))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1511952620, 0, 922136313))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-118350492, 0, -1564462731))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(197202636, 0, -165312405))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1682007128, 0, -2081786203))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(524177747, 0, 351787331))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1770279090, 0, 12817764))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1943091625, 0, -1726930946))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(873557700, 0, -905995404))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1482762051, 0, -1125964527))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1219838454, 0, 1310861836))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1003774639, 0, 58463070))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-162915922, 0, -1153129122))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1235296044, 0, 789613601))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-799255521, 0, 1850027555))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1303896919, 0, -1781236929))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-653345223, 0, 701320399))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-229074417, 0, -18470143))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-819633435, 0, 1530925468))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(514921628, 0, -792381475))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(437049598, 0, 1509325182))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(704425103, 0, 568493909))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1897477892, 0, -102720280))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1974713558, 0, -465051868))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1631986653, 0, -1496405053))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1936646023, 0, -2081204759))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-939993864, 0, 1496677157))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1383685355, 0, -1895304022))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-163192579, 0, -151195583))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1834683322, 0, 1213218013))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(112181844, 0, -1580358446))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(55291997, 0, 1387882499))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1440015156, 0, -640950370))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-408703829, 0, 216079847))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1563358904, 0, 444734044))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(830022916, 0, 1602695156))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1233476522, 0, -190607821))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1547339762, 0, -1490662176))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1637484581, 0, 1388809636))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1474977967, 0, -749122420))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(198827274, 0, -1051132319))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(860566788, 0, 405835321))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-614287666, 0, 23781144))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-351236407, 0, 1728194601))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(213907234, 0, -596048402))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(243500297, 0, 188234709))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1148685573, 0, -1736430760))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1634800131, 0, 316048606))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-356429350, 0, -294353434))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-439558204, 0, -950146070))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1454033997, 0, -699555290))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1490537322, 0, 1175424340))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1089019400, 0, -1099350198))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-847205189, 0, 409213493))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-455922462, 0, -1715984743))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1074479704, 0, 1076061683))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-804739078, 0, 779655776))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(197249948, 0, -153347705))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1928193168, 0, 479763243))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1158805060, 0, -1104818508))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(797184696, 0, -1925997676))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-588747715, 0, -199346565))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-853817947, 0, 1297622092))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(940449557, 0, -1429848212))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-303696588, 0, -228866854))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1972315833, 0, -1244154515))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(44879514, 0, 668804566))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(716516110, 0, 239252922))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1531905563, 0, 75351189))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1547773797, 0, 1236506263))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1189411041, 0, -222709111))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(674733931, 0, -1340251624))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1176035959, 0, -796558524))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(330060296, 0, 970724638))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-918351668, 0, 1436084442))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2122218378, 0, -74384270))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1865599867, 0, 129848851))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-209330688, 0, 364164029))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2041115973, 0, -1387216314))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2050161700, 0, 1142461543))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1714640788, 0, 491378980))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1173180450, 0, -671963653))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(194093559, 0, 8326917))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2072782730, 0, -1132019536))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1440342380, 0, 976621506))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1369066318, 0, 426042152))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1506705832, 0, -1956497843))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1203793368, 0, -1437982843))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1952592716, 0, 1523589757))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1520723561, 0, 1402182777))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-909379, 0, 1685299354))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1873533033, 0, -1597818219))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1295832580, 0, -1318632800))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(668630250, 0, -663323142))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(2057382246, 0, -1330967897))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-244258668, 0, -228750024))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(487720246, 0, -886990639))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1076643102, 0, 124909725))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(590764910, 0, 766447216))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1290099050, 0, -288233573))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-863790721, 0, 647037113))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-2046089112, 0, 1354101439))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(1805368154, 0, 1577897176))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(-1137536742, 0, 733059247))
+	CreateGrabLine:FireServer(SpawnLocation, CFrame.new(151513757, 0, -164159419))
+	task.wait(1)
+	local GrabEvents4 = ReplicatedStorage:FindFirstChild("GrabEvents")
+	local CreateGrabLine2 = GrabEvents4:FindFirstChild("CreateGrabLine")
+	local SpawnLocation2 = workspace:FindFirstChild("SpawnLocation")
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1373775216, 0, -1945164594))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-225753691, 0, 2032500868))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-961238469, 0, -1000575016))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1324985524, 0, -1690533883))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1495882503, 0, -1994089346))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1081488071, 0, -1868553759))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1431122128, 0, 808952419))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-18167356, 0, 1345146368))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1813856817, 0, 323640081))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-174572611, 0, -412162359))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1076537521, 0, 1090870866))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-41118038, 0, 644217208))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(12894745, 0, 1292228168))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1878306954, 0, 1874551763))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1362674550, 0, -1134749765))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1195943757, 0, -560002660))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-825901103, 0, -115292581))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-468378108, 0, -1265826309))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(525016325, 0, 1959805388))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-739476395, 0, -1172422114))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1675290029, 0, 193296380))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1561826290, 0, -51033049))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-416464088, 0, -645384607))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-162870261, 0, 1119480357))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1176634038, 0, 1482665922))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-321694894, 0, 735969902))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-660054342, 0, 554315723))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(529062383, 0, -1881266678))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1963474142, 0, -1490296120))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(725234904, 0, 651696667))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-217655889, 0, 1147950944))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1764384227, 0, -1353705166))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1016686513, 0, 1186645499))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1466983791, 0, 351101803))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1913886014, 0, 1252160728))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2028725530, 0, 287297186))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1878232823, 0, -568530797))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1194102348, 0, 49681479))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1953955292, 0, 537950815))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1923351048, 0, 634789620))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1851765498, 0, -1023411840))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-492826470, 0, 1958792363))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1632171153, 0, -810487696))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1948100127, 0, 837745706))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-416618332, 0, 541010288))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1536405705, 0, 14547455))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2034285035, 0, 1995167614))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-302651740, 0, -1752702325))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(404198318, 0, -655364979))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1232401056, 0, -2050141628))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(800361474, 0, 943428004))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(433773949, 0, -1546388332))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-202305031, 0, -1560410598))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1911805716, 0, -994067549))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(580629930, 0, -81073109))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1887902648, 0, 1405207662))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-574425461, 0, -1067149101))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1643090074, 0, -691683543))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-729919933, 0, -1852321898))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-320792428, 0, 1479408283))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1618390603, 0, -651225954))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-765516320, 0, 2056245661))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1161918598, 0, -1142445486))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1155400481, 0, -1216147418))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1974337968, 0, -1205566423))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(615345301, 0, 1079487634))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-770954144, 0, 1306075693))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(812617864, 0, 1611749800))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(427115698, 0, -331822388))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(16077787, 0, -88849291))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1701993538, 0, -354794077))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2020979905, 0, 298929088))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1289322966, 0, 1629823691))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-498806720, 0, -742840094))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1956303362, 0, 1566687708))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(391675942, 0, 2030059579))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-512871471, 0, -513373986))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1017047864, 0, 1974479759))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(663174040, 0, 1207886777))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1885701504, 0, 241270230))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1375736693, 0, -839438640))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(84815112, 0, -2035282382))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(308146542, 0, 2070270696))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(667174711, 0, -636970003))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1916671142, 0, 696370670))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-38506746, 0, -442307548))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1063133626, 0, -677030554))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1404526267, 0, -1103689070))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-263596716, 0, 957654800))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1368258944, 0, -643516810))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2067385866, 0, -1563697068))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-985671813, 0, -2021166342))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-394157561, 0, -1681030303))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(637944471, 0, 949579441))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1421140656, 0, -40729732))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1612832454, 0, -337741958))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1520203074, 0, 1037872062))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-533386730, 0, -2022837622))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2056611662, 0, 638762227))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(377204214, 0, 1338932216))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-377510637, 0, -239275974))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-88266202, 0, -1127369896))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-900065162, 0, -1191262234))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1527492494, 0, -1104184375))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-313077328, 0, -1792947990))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-472197344, 0, -1823658589))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1968736115, 0, 1138178830))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1388255312, 0, 782538790))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1619997390, 0, 201565005))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(319217788, 0, -1247375074))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1049035876, 0, 999551086))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(90002534, 0, -910238740))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1241450387, 0, 459750504))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1997827393, 0, -1363414334))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(809618307, 0, -1393193586))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(292364915, 0, 516610904))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1944690573, 0, 302666422))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-859936563, 0, -330587887))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(415335819, 0, -1752689469))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(333497360, 0, -928475721))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-110912602, 0, -160375709))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1523042701, 0, 1539572432))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1428643461, 0, 1629439116))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1029376379, 0, 1086699387))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1320238539, 0, 170941898))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1884107309, 0, -1900390134))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1100189652, 0, -1841297577))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1941173010, 0, -331518393))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(25761030, 0, 1257317817))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1176781881, 0, 961657898))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1501872500, 0, -883453776))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(199542949, 0, -1422509615))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(902521568, 0, -411688481))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(435499123, 0, 1899900219))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2095068632, 0, 1385998597))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(930611412, 0, 459865645))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1589587554, 0, -716175428))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(526568318, 0, 822284291))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(218356288, 0, 1573404083))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1200707700, 0, -1798923057))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2139424686, 0, 1673500113))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1552297001, 0, -764883357))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-572811633, 0, 164236880))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2100561714, 0, 1026513528))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2033959761, 0, -1234684532))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-232481270, 0, 590497140))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1070101001, 0, 2090875494))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1108433513, 0, 1274491430))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1340123746, 0, -1927703078))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1881529965, 0, -2002643665))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1587023868, 0, 1810231118))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1347847545, 0, -1692072887))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1854531405, 0, 922539761))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-909060894, 0, -1959084511))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1366782761, 0, -875068858))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(536942957, 0, -1852645007))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(276077883, 0, 750994366))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-934121475, 0, 1287834206))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2042449533, 0, -1282608583))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-38091527, 0, 901894349))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-410922529, 0, -212411196))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-327402883, 0, -111990102))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-613489944, 0, -1613661247))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1430492902, 0, 1844718984))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(982809361, 0, 1714612573))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1929792261, 0, 1160510816))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1022326604, 0, -812736450))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1201877585, 0, -870930769))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1136114969, 0, -1756498079))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(648017481, 0, -1852379450))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(574074650, 0, -1597607740))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(418214243, 0, -1274257157))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1719354434, 0, 1669720988))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1801381250, 0, 595736587))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1514658166, 0, -798807656))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1608018368, 0, -1773903878))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-588984029, 0, -525163345))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1839640487, 0, -1238705318))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(613063844, 0, -235470425))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1128810538, 0, 586624643))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(834542840, 0, -474071929))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-960343359, 0, 1015689302))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-305331965, 0, 920391362))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-601546433, 0, 1552772114))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(138710431, 0, -2014291728))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1556314231, 0, -1940047637))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(185121182, 0, 445012145))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1589911244, 0, -1149644611))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1455585491, 0, -293671264))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(837534249, 0, -481313718))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-101006881, 0, 901211092))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1633486255, 0, -1040573951))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(544237366, 0, -1762547387))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1209627687, 0, 851358961))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1923858684, 0, -2038278944))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(574463367, 0, 282525875))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1657648327, 0, -960345200))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(595261507, 0, 1557669186))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(397829511, 0, -1212122676))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1473197001, 0, -136049419))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(693861590, 0, 875423396))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1812583601, 0, -1509781628))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(458094696, 0, -830226288))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1577624909, 0, -627409648))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(438119091, 0, -410505320))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-757820791, 0, 315102441))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-16527357, 0, -322678127))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1754500785, 0, 120600923))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2058849530, 0, 1426850942))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1360723736, 0, 157501454))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-428705399, 0, -1981835876))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1553316737, 0, -2097066110))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1561664442, 0, -1399844261))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1467263899, 0, -292890001))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(475268059, 0, 615420166))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-995149098, 0, -555077920))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2043405501, 0, 21351888))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1912018056, 0, -995912002))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(429060725, 0, -460259836))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1348292075, 0, -67554786))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1151218683, 0, -1242213845))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(840604562, 0, 979529682))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(886953672, 0, -2059437237))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2129368195, 0, -774791136))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1195509267, 0, -1526674904))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1977267299, 0, 510236828))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1428222310, 0, -1403441575))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1914030990, 0, -435587605))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-993826939, 0, 479309611))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-326633004, 0, 844838736))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1593582949, 0, -952106295))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1396659685, 0, -1766301621))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1992689170, 0, 125776026))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1591063655, 0, -1182612676))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(333332377, 0, -1275906536))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(88695593, 0, -1717724808))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1499222943, 0, -196425329))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-264300652, 0, -1632978926))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1585864165, 0, -1887755578))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-729986000, 0, 117080070))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1305785760, 0, -1299017886))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1170250505, 0, -1743512056))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1793183997, 0, 1232366895))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1671989664, 0, 709688425))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(87226463, 0, 1846585795))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1749943741, 0, -1693286363))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(490031771, 0, -604894481))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-387531942, 0, 98610077))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-578667594, 0, 835198198))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1648746137, 0, 2093173580))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(216660692, 0, 537668019))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(387890546, 0, -247471365))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1322981570, 0, -787950953))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-568566752, 0, 283305304))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(998433451, 0, 419410441))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1167991562, 0, -1740752037))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1732135425, 0, -914444764))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1288780498, 0, -785429083))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1874732560, 0, 1059704948))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-381117931, 0, -1607266395))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1352896480, 0, 1749001863))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(109101159, 0, 636653539))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(98207989, 0, 1659302118))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-26353747, 0, -585717459))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1369314170, 0, 861904487))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-870913045, 0, 979988328))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1260549677, 0, 1241321154))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1661436628, 0, -342410075))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1045709745, 0, -153277769))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-531864368, 0, 1864378175))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-34442045, 0, 338909392))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-750027315, 0, 2040733981))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-657759336, 0, 2018443178))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-896010595, 0, 60731529))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1550141602, 0, 525908497))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1482912959, 0, 429528828))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1623123697, 0, 3749911))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1392405720, 0, -395612474))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1504418563, 0, 564586438))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-667644073, 0, -1342370310))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2084104258, 0, -110989561))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(983579554, 0, 1775796282))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1997047199, 0, 988171435))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(952950207, 0, 1127477788))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-973041371, 0, 339720318))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-271348955, 0, 509697848))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-339673986, 0, 906737285))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1515825825, 0, -1188266999))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1006963735, 0, 1266516483))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1478806963, 0, 1373592892))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1732960210, 0, 1190667112))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1574760791, 0, 701935859))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(534654423, 0, -116123372))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1386644543, 0, -1834896187))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1717560457, 0, 1315196537))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-962400086, 0, 1932574874))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(546132260, 0, -1195895594))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(344241059, 0, -632740310))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1871704604, 0, 1395446017))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-829932024, 0, 520334891))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1421039716, 0, -1054034657))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1172317394, 0, -1228468888))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2007134913, 0, 1077662198))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1997423038, 0, 1618252192))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-670946714, 0, -1376457546))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1258912229, 0, -1730021261))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1247466550, 0, 1335286109))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-853247968, 0, -629279475))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-452445266, 0, -1519305840))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-235369288, 0, -1722016467))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1784311668, 0, 715429998))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(312817357, 0, 1840033728))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2140084848, 0, -694142637))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(632474374, 0, 650674430))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1199481603, 0, -109253389))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2124355058, 0, -937521040))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1233036189, 0, -552186427))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1701416762, 0, 1601090192))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1464566723, 0, -1623424965))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1005010337, 0, -1943809627))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1701205308, 0, -1243824094))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1247221426, 0, 23560700))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1073891807, 0, 1377167031))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(997089877, 0, 483538793))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1813821948, 0, 1689291381))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(655432208, 0, 1064035403))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-973080943, 0, -592818440))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2030891858, 0, 243397697))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(958309068, 0, -1746390967))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1176189325, 0, -768565224))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-202430291, 0, -1607938110))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-227161514, 0, -1848198))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1277623715, 0, -1414944483))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1325722305, 0, -815776822))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1184068873, 0, 1564452788))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1942589566, 0, 1055192497))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(852057192, 0, -480520528))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1317262454, 0, 474618711))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2040961036, 0, 2069648405))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1363093201, 0, -1097804239))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1704235115, 0, 1194563383))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-442454773, 0, 284904906))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-680316416, 0, -534069031))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1679289050, 0, 1493846867))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1948526419, 0, -1825919867))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-553984567, 0, 594208126))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1059734646, 0, 1326770752))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2075967910, 0, -1005643360))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2033422063, 0, -1582721400))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1923430864, 0, -2042783400))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(136514637, 0, 1839961415))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1557462931, 0, 60021458))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1297270463, 0, 1883020459))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1258451695, 0, 1600320805))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(271191011, 0, 1397559945))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-124823666, 0, 251434429))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2024718537, 0, -1758004340))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1253597568, 0, -1661552335))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(382307794, 0, 859787700))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1426817608, 0, 822725375))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-677507476, 0, 333757237))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1073507598, 0, 622796076))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1310325619, 0, 1368743977))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1194491567, 0, -2008834052))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(739541524, 0, 1444763644))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(253323857, 0, -489172426))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1234532758, 0, 1607353946))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1218183008, 0, -1153571120))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-49508217, 0, 2045914709))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-628385780, 0, -658322987))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1921657563, 0, 2029940628))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-948227835, 0, 714213299))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-159306657, 0, -2062021169))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1545324057, 0, -1900053109))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1505529903, 0, 195532547))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1849822039, 0, 505785677))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-50985996, 0, 201492853))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-565404956, 0, -2006367584))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1698315036, 0, 1048867709))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-2031418958, 0, 200792373))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1898235102, 0, 1535116792))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1126518572, 0, -1436420484))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1156577769, 0, 1152489777))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1402972525, 0, -1809013280))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(549106377, 0, -723676220))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1291543003, 0, -1595102585))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1562932884, 0, 1034796397))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1721017142, 0, 1078243921))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-636205195, 0, -1606072158))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1868499396, 0, 1267934504))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1645145238, 0, -415643436))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(704783735, 0, -907198901))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-698182423, 0, 665242293))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1498565034, 0, -2055545978))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1499089261, 0, 1266979387))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(936475898, 0, -633368517))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-599042251, 0, 899650012))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2073072357, 0, -1598733342))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1966859674, 0, -1814621258))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(377498574, 0, -338602705))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2018735249, 0, -1207489349))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2082192762, 0, 1629372122))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-117734397, 0, -1130823883))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1785659971, 0, -1501282751))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1890409408, 0, 108151771))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1715521029, 0, 2084040765))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1682240170, 0, -322852700))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1331575551, 0, -1038531973))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1694586810, 0, -1329990107))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-62480845, 0, 1679005026))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1894218955, 0, 736355295))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(292635520, 0, 1327804214))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(63508162, 0, -1591194272))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1012063784, 0, -919154578))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-798750864, 0, 42732157))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1607949913, 0, 1274536281))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(720950082, 0, -1415804380))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(177505801, 0, -413011321))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1056376868, 0, 2012577176))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-467569585, 0, 1537840037))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-790899234, 0, 1400643153))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1536208146, 0, 224896498))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(914864312, 0, 780756612))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(793187249, 0, 159914418))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-879157740, 0, 1639046697))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(783282192, 0, -1752160401))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1314627755, 0, -584388945))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1555933259, 0, 1420626384))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1788417222, 0, -1438293152))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1538416789, 0, 889734774))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1905241616, 0, 1681160363))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1634312184, 0, -609255211))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2102052921, 0, 1521499713))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1266190885, 0, -1580507141))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1397665369, 0, -58124415))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1811217710, 0, 938157429))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1011214011, 0, 1514662244))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1721500802, 0, -1893387256))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(410060189, 0, 1562600068))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-709202667, 0, 362103361))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-114701767, 0, -353689211))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1731564254, 0, 190512788))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(233090279, 0, -1312610053))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-869671802, 0, 841339154))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-646124772, 0, -1624913811))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(246198104, 0, -307096081))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-903758758, 0, -979754494))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(583137846, 0, -1271880541))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-393157699, 0, -259815648))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1342425881, 0, 565443196))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1714471054, 0, 1437667890))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(971625149, 0, 1734652439))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1004656802, 0, -639777951))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1493798749, 0, -269843199))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(899190672, 0, 1823356603))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1387957988, 0, -670910647))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1060854014, 0, -1687648595))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(612751453, 0, 1571566121))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1851962280, 0, 904972273))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1258550551, 0, -833297059))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1888752949, 0, 923718061))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(920361756, 0, -824816542))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-16754849, 0, 1345606185))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-266033107, 0, 1836316091))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1998956818, 0, 1091198839))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(54146932, 0, -923953856))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(235343240, 0, -1606912602))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-582663657, 0, -1846129428))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-388209027, 0, 1344092155))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1991479220, 0, -720299503))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1476554953, 0, 334017416))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1115314394, 0, -102515208))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1241889498, 0, -88677531))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1646755288, 0, -2100802169))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1129535323, 0, 252437976))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-580455300, 0, -373029635))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-292160963, 0, -1847268419))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(568090970, 0, 864349086))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(865817869, 0, -11668030))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1688419018, 0, -1368957500))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(316551153, 0, -868833083))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1513533064, 0, -946447012))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-837310717, 0, 302025215))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1930406907, 0, 1997336267))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-503343600, 0, -1657330041))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-85494406, 0, 565016016))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(72294866, 0, 368672805))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(712384174, 0, -454538937))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1353725, 0, -239756375))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1441799981, 0, -1131631006))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1307938033, 0, -336749169))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(2010240379, 0, 1480852749))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1353789768, 0, -1166613198))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1270951736, 0, -1514903859))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1559520108, 0, 739210952))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(387159435, 0, -1775953151))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1146993574, 0, 1054090691))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1073014849, 0, 229124517))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(593523850, 0, -178301063))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1429357383, 0, 1299885920))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1622316229, 0, -168818549))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-113773547, 0, 523154535))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1849664304, 0, -756630746))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(558375596, 0, -1264872416))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1550300787, 0, -1552931147))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1441894256, 0, -501039139))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1278013845, 0, 2044886540))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1595268985, 0, -1833025667))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-931515339, 0, 786742356))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1802921394, 0, 2024100384))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1288700948, 0, -358574798))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1490829131, 0, 1171787156))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1459293384, 0, 2078355497))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(866302111, 0, -1933477170))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(1034944984, 0, 1712447970))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1219825957, 0, 76292180))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1671659428, 0, 1598130405))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1620428487, 0, -150683555))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(248542123, 0, -1300973021))
+	CreateGrabLine2:FireServer(SpawnLocation2, CFrame.new(-1522665966, 0, 1190766773))
+	task.wait(1)
+end
+_G.kt_stopLineLag = function(arg23, arg24)
+	task.wait(0.1)
+end
+_G.kt_setupDropdown = function(arg25, arg26)
+	local players = Players:GetPlayers()
+	for i3, v3 in ipairs(players) do
+	end
+	arg25:SetValues({ "All Players", v3.DisplayName .. " @" .. v3.Name })
+end
+_G.kt_executeBlobmanKick = function(arg27, arg28)
+	local players2 = Players:GetPlayers()
+	for i4, v4 in ipairs(players2) do
+		Players.LocalPlayer:IsFriendsWith(v4.UserId)
+	end
+	_NOTIFY("Kick Target: No targets found.", 3)
+end
+_G.kt_executeNoBlobKick = function(arg29, arg30)
+	task.spawn(function(...)
+		local GrabEvents5 = ReplicatedStorage:FindFirstChild("GrabEvents")
+		local CreateGrabLine3 = GrabEvents5:FindFirstChild("CreateGrabLine")
+		local SpawnLocation3 = workspace:FindFirstChild("SpawnLocation")
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1918245757, 0, 327770801))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(473763745, 0, 1028307847))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(237351141, 0, -23741842))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1004289236, 0, 1073794628))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1719308160, 0, 350839459))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-571899186, 0, 1099867739))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(856801417, 0, -556360786))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-233711400, 0, -1428753477))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(129601171, 0, -1149781273))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1345681427, 0, 916928925))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2045417411, 0, -1131183358))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2073102179, 0, -1514402596))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1047586588, 0, -1642018294))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-131044705, 0, -893812739))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-279264218, 0, -1582887870))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(979610014, 0, 947647073))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1714333622, 0, -2073735799))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-575155400, 0, 1320608066))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1521837647, 0, 1449815295))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1556793477, 0, 1236563141))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(450013272, 0, 591095511))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1362611450, 0, -1383352721))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1708814170, 0, -855615563))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1410371675, 0, 594002055))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1695313752, 0, -762063725))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(262490116, 0, 633466110))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(928811019, 0, 1037948718))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1348179424, 0, 1501827137))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1309120044, 0, -1351841335))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1616230183, 0, 145543668))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-647533979, 0, -76205125))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1938506827, 0, 420016049))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1785314076, 0, -1988972477))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1119365349, 0, -783304861))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1857031223, 0, 628594787))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-941729559, 0, -1505109820))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-777485861, 0, 1852590672))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1492081572, 0, 1213541781))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1398362169, 0, 780159935))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1768255111, 0, -1713158861))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1847828306, 0, 1396069845))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(311150922, 0, 850014059))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1142344173, 0, 26879581))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1814996085, 0, -1619143514))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1581962578, 0, -626133292))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1141394464, 0, -936703105))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1776572759, 0, 253703644))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(268338424, 0, 333874102))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-581947295, 0, 2025996144))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(473179128, 0, -638076770))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1553609352, 0, -1641040036))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1656027750, 0, -783168701))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1619870424, 0, 1206522032))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(299388300, 0, 264814155))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1392390626, 0, -1084337755))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-785312134, 0, -656348653))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2062786431, 0, -888750515))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1290055411, 0, -1687595528))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1043815345, 0, -1569072172))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1539921378, 0, -1061946010))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2066238456, 0, -495814114))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(346097199, 0, -987605010))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-345628025, 0, -1791719889))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-4801179, 0, -1652370417))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1440255416, 0, 1839718084))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-974099949, 0, 1558876190))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(554730842, 0, -1516374922))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1954982662, 0, -820513659))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1182114469, 0, -1397347425))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1814586707, 0, 1823704766))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1341248544, 0, -1755645576))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1255473959, 0, -486608106))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1495682005, 0, -1119654202))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1427376996, 0, 467876804))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(519336798, 0, 1001838174))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-778649726, 0, 1610154230))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1232891518, 0, 1397850495))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-266005779, 0, -273116176))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1586551333, 0, 626427032))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-504935331, 0, 1579187640))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-931287484, 0, 48051401))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-72522837, 0, -1995395767))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1361606792, 0, -1670010947))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2027269467, 0, 1570901940))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1983162480, 0, 202573153))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1475242366, 0, -37876807))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1409718432, 0, 1188200255))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1675218778, 0, 1151342273))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-319102970, 0, 1903222462))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-95623767, 0, -27243988))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-392322941, 0, -223689442))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-8711488, 0, 1840239572))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1867469531, 0, 1215320969))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1381048548, 0, -1126885982))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-701948156, 0, 1300012614))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(943453665, 0, -962098940))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(317561182, 0, -1619124628))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1491299313, 0, 589439345))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-546044462, 0, 207344755))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1726755112, 0, 5346562))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1733138529, 0, 1280483665))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1418080836, 0, 1932136697))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1228786537, 0, -1451190625))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1628103833, 0, -1097259148))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1351681874, 0, -1596774774))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(459626222, 0, 704296164))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1292000873, 0, 519346533))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(193288893, 0, 91612218))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(107153980, 0, 255798522))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-317981838, 0, -471636249))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1134884624, 0, 1681646572))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1901379994, 0, -1860516069))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-89283040, 0, -1616889050))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(759025501, 0, 1134551434))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-585928602, 0, 569230261))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-892010593, 0, -1919845514))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1527413763, 0, -702930321))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1993586812, 0, -1885315502))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1401935297, 0, 1393081619))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(358217250, 0, 1291828138))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(132081627, 0, -1037938624))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-719532540, 0, -1433644705))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1295145969, 0, 339614614))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(864244289, 0, -1027605002))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2026193828, 0, -230601051))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1186511731, 0, 329134728))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-105694016, 0, -760707470))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(665606922, 0, -407461671))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2009388395, 0, 708554694))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1078862722, 0, -706122104))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-432159187, 0, 1252375699))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1795005954, 0, 257054657))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(734342704, 0, 1686612058))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-16136390, 0, 1055094061))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-211481628, 0, 301669374))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-758065366, 0, -601106599))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1285373536, 0, 1106580331))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2050749292, 0, -1826975840))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1911926089, 0, -1751653916))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-553435599, 0, -1652171148))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1124712402, 0, 2044554249))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1825224945, 0, -96681872))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-764068508, 0, 1029608698))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(44852480, 0, 330997392))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(826353994, 0, 324343794))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-421946953, 0, 1225044815))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2042887480, 0, -726178346))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1185199664, 0, -1949432135))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-685648000, 0, 1281390211))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1306066911, 0, -1741658710))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-417574985, 0, -2090838289))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1230046120, 0, 114112024))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1532282024, 0, 1695089675))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2084473477, 0, -176271695))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-880914304, 0, -40879324))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(851986351, 0, -1293070926))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(466597549, 0, 771626013))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1015666186, 0, 1450700292))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1397428302, 0, 1107468829))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1884772228, 0, -915199344))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(55391423, 0, 1375483723))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(454589368, 0, -1831187788))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1690836759, 0, -590976754))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1667134848, 0, 1667694583))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-305114133, 0, 1891691949))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1137424212, 0, -1247349167))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(72455571, 0, 1882261194))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1607107671, 0, -1760403033))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2071367071, 0, 69233709))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-509449162, 0, 1444179798))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1693847686, 0, -519943827))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1047253098, 0, -692195231))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-578365190, 0, -654122939))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1824350305, 0, 976669326))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1590171220, 0, -544074484))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1003888965, 0, 364315719))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1387608420, 0, 96264179))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1967365633, 0, 941387471))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1348228805, 0, -427746778))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-312972487, 0, 240541826))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1059510980, 0, -943886003))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1864731596, 0, 1645336139))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1472623914, 0, -157162716))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1536597773, 0, 1925933627))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(787153685, 0, 874679127))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(633053365, 0, 1379706094))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(610276983, 0, -1527266469))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1085546743, 0, 1742892559))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1279593578, 0, 1543718522))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1144599509, 0, 58466744))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1964557452, 0, 1048292315))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-286225876, 0, -2012373622))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1449912086, 0, 1025923369))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-544389523, 0, -1897600753))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(824769182, 0, -173983309))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-149879144, 0, 719692000))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1779026637, 0, 1119776830))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1285275499, 0, -755443865))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-263243048, 0, -918358401))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-707915843, 0, 1340697524))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(846687935, 0, 1946872561))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-849606458, 0, -1191849246))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1179979163, 0, -1837735595))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(878959132, 0, -1684242320))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(498035899, 0, -2012769554))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-915382729, 0, -1277415143))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(814824338, 0, 1301687738))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-882810447, 0, -1616036881))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1945482773, 0, -66229538))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(237309427, 0, -1676489823))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1026328839, 0, -974276083))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1382821708, 0, -1410673538))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1339408582, 0, 1288779892))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1993420195, 0, 979903111))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2067166622, 0, 195462107))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1114606278, 0, -130877030))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1784236422, 0, 653283343))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1283413811, 0, -844925576))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1091645707, 0, -1010334968))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(971241947, 0, -1641078867))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-573718845, 0, -863900149))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(400058644, 0, 1925075079))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1513110494, 0, 478274690))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(949018095, 0, 1473245764))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1530976204, 0, -1973587639))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-845675438, 0, 497773616))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(654640275, 0, -174840427))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1750515688, 0, 1295958416))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1114524461, 0, 1955571403))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(381492344, 0, 1871449829))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1024767061, 0, -1223759187))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1683813019, 0, 62344971))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1358255874, 0, -1021358835))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1589639634, 0, 1019906594))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-784269471, 0, 1646101045))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-535794964, 0, 640536378))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(574476647, 0, -1764377132))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(805313986, 0, 280552851))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1185350566, 0, -923152857))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1083178433, 0, 384381320))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(435035785, 0, 1456701082))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2064239973, 0, -1092169200))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-761891988, 0, -1023818539))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(456960723, 0, -1933255280))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1665932111, 0, 1717530588))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-201154530, 0, -474717101))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1049481956, 0, 28992094))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(821242484, 0, -907690128))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1442805329, 0, -53486465))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1497545703, 0, 1375579020))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-873104978, 0, -155515191))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(670558268, 0, 1139481162))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-224925309, 0, -317627855))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1442194255, 0, -778441115))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1606293726, 0, 2058279811))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1335178257, 0, 1923338669))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(779780738, 0, 1714313975))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1597003271, 0, -2036471053))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(335186151, 0, 655520976))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-197406846, 0, -1950486637))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1054784049, 0, 1223083513))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1787865527, 0, 848877287))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1083988440, 0, -671968386))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1590033065, 0, 1645224038))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-610329279, 0, 1317039047))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(328886950, 0, 1244178888))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-873700359, 0, 2082866749))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1877185925, 0, -1238259038))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-748526364, 0, -636548823))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1001626873, 0, 569100798))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(609627253, 0, -95188853))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(98343592, 0, -1751034745))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1566584621, 0, -1389640190))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1237539723, 0, -1315000518))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1481155395, 0, 1821706413))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1420718003, 0, 776352074))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1963729517, 0, 1350719198))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-365000960, 0, 1999808372))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(38149826, 0, -1075274511))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2096106879, 0, 1863571698))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1032044111, 0, 282023203))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-758933802, 0, 972810750))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1619702467, 0, 813608029))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1213821578, 0, 672458258))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1517465408, 0, -618372262))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(947834019, 0, 937557456))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(551893147, 0, 1825596787))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1129392607, 0, 74685794))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-437378940, 0, 1184360557))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-550742208, 0, -1349005752))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(929675938, 0, 1037803683))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-262078816, 0, 887027986))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(819970435, 0, 1787769304))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-970358894, 0, -1406495335))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1153324812, 0, -940992895))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2099661511, 0, 970275689))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1447227801, 0, -66884326))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1499867894, 0, -747319937))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(747799894, 0, -1011127064))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(987288279, 0, 793918376))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-524909615, 0, -1921200745))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-187545503, 0, 458910809))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1959637474, 0, 113202086))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1172435386, 0, 1883702860))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-823550478, 0, 1424183339))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-184761099, 0, 485101742))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1776021720, 0, 1401765551))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1213856286, 0, 1467318370))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1397522453, 0, 1678540268))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(306649950, 0, -913382937))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(103186404, 0, -1380733126))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1389428799, 0, 209461251))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(363726915, 0, -1011754121))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(27348318, 0, 667988065))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-989834349, 0, 1716859036))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(866407678, 0, -1001511976))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(82281041, 0, -478629868))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1158775763, 0, -1164537191))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(488967829, 0, 1553513695))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(226255310, 0, -89360394))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(638051265, 0, -1450793779))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-840578366, 0, -2043589776))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1568221825, 0, -583672975))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-694391821, 0, -988667542))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(899827587, 0, 2708614))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-62553521, 0, 1463851898))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1432909446, 0, 1198711017))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1494785145, 0, 165717626))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(791086134, 0, 1563878901))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(8134158, 0, 1768408880))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(777510053, 0, -1542371122))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1505184655, 0, -447719094))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(668548372, 0, -1344490823))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1974743490, 0, 1990174931))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1814785652, 0, 802650173))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1794099062, 0, 260231939))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(612333012, 0, -939825925))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1763077412, 0, -768099980))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-464432194, 0, 1728104932))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1774972778, 0, -12933278))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(597199472, 0, 1581128194))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1001318698, 0, -144620927))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-24100438, 0, -1564300118))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2019253675, 0, -474969818))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1118307288, 0, 361569805))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-855612253, 0, 1820381395))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-541213277, 0, -1624716735))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1225201734, 0, -774662655))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1375418391, 0, -1847805735))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(263950385, 0, -1239654105))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1071099018, 0, -1303230610))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1051546005, 0, 1508273231))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1017527853, 0, 1628984411))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1232169341, 0, -1632422333))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(552362476, 0, -1740274674))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1599705090, 0, -607224446))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(305502804, 0, 504554286))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1367959530, 0, 1181442456))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(784952624, 0, -213978950))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1134188331, 0, 1297080335))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(852969464, 0, 162878823))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1980076762, 0, -1910406541))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1314490925, 0, -1298481160))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1631232897, 0, -1922384858))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1243791294, 0, -1124215718))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(165446418, 0, -2024657354))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1221324092, 0, 541435736))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1219948181, 0, 46847196))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(934789911, 0, -1867866259))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1404802759, 0, 613637355))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-637450058, 0, -179586596))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-275599010, 0, 1157075265))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(490916635, 0, -86632556))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1736733291, 0, -1425634318))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-790895147, 0, -1744011677))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-855366892, 0, 2076294952))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1399625350, 0, 719059457))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(486880238, 0, -1717214513))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1334237457, 0, -490161533))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(994948282, 0, 786568022))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(595231020, 0, -1119522238))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-166758185, 0, -2106820055))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-300886503, 0, 509290525))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(906202107, 0, 346907779))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(376046036, 0, 958949321))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1945526996, 0, 2031790641))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(950593299, 0, 449149062))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(478998827, 0, 1884045104))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(886156878, 0, 1229941542))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(810215438, 0, -1466410644))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(867141928, 0, 1774242853))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(143493478, 0, -1885499179))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2082543219, 0, -161822884))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2078157907, 0, -798404766))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(576531211, 0, -785318840))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1552932519, 0, 930146847))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1965169307, 0, 85894541))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2059961467, 0, -1935644451))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(245712588, 0, -830449358))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-311110844, 0, 4592679))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1211208571, 0, -1375061269))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-428830987, 0, 1221426843))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(668532256, 0, 2018423809))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-738114715, 0, 1301338231))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1405633441, 0, -1079808315))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1275590401, 0, -1467286195))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1134768988, 0, 1210338493))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(128376646, 0, 1489424270))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1891317910, 0, -1278305499))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1578347397, 0, 1318331947))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1931284869, 0, -1911369378))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(836425935, 0, -1949633632))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-558548982, 0, -486535049))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1742968758, 0, 1972845311))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1628311343, 0, -1261634691))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1159500665, 0, -187790188))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-480935611, 0, -72969715))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-415167528, 0, -548629119))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(965643898, 0, 1121063825))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-604966585, 0, 1525996606))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2001550413, 0, -336511089))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-346023289, 0, -2052776028))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1133266998, 0, -820808693))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-180159154, 0, -1131857783))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-803753521, 0, 957495486))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-365832962, 0, -564686384))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(235318175, 0, -1168107980))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1159516189, 0, 172948537))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(19675579, 0, -1374709203))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1707061595, 0, 1422904233))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(196860022, 0, 1298270007))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-306801408, 0, -1031760638))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1533423965, 0, -368659987))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2088177668, 0, -967098118))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(877434981, 0, 796370883))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1868595764, 0, 735856742))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1480822979, 0, -1618182573))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-641337619, 0, -462659833))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-584509373, 0, -1226185697))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1277419305, 0, -189478750))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-912924882, 0, -2047768164))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(662829105, 0, 1218577112))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-581002731, 0, -1087855121))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1582823088, 0, 167857296))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1718072256, 0, -1493235048))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1272886192, 0, 1116898689))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(559135889, 0, -1631365624))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(926306570, 0, -1245576819))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(359741546, 0, 790005077))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1449966980, 0, -1951346617))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1191422456, 0, 1160137933))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-224051509, 0, -381347138))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(819493613, 0, -872973218))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1156094917, 0, 875663558))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1430621634, 0, 825857162))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-72615686, 0, -550559276))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-736615930, 0, -1495617375))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-204862582, 0, 1317730584))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(134614485, 0, -110562165))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(609419332, 0, 1677665392))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-968947752, 0, -855564590))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-619427143, 0, 1724672905))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1236198066, 0, -1680007802))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(811765419, 0, -114805570))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1920669899, 0, -84188437))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1934595079, 0, -373968555))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-14314811, 0, -2067616874))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1278615538, 0, -141006261))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-220893345, 0, 282277971))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(563898414, 0, -1539157712))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(762785538, 0, -1753900467))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1338724910, 0, -1448873808))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1010825800, 0, 293280120))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1610398159, 0, -191293105))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(393955794, 0, -1404024997))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1120030451, 0, 1571368965))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1447240217, 0, -339520319))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1755476414, 0, -1112159260))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(121958814, 0, 2056137055))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1723417736, 0, -1100538367))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1328735394, 0, -555676355))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-420083082, 0, -2040555285))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-310101290, 0, -236209789))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1754184304, 0, 789651938))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-985828989, 0, -2059091564))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-2106032076, 0, -784045730))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(38493806, 0, -255991003))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(323299703, 0, -2104778828))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1292041485, 0, -749275643))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(2064869894, 0, 1666982063))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1858155898, 0, 2099462643))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-310339316, 0, -1488411027))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(128197647, 0, 780407918))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1474935725, 0, -1035563071))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1128479957, 0, 1639345419))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1307847898, 0, -195594477))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1976447605, 0, 1376175507))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(130317814, 0, -614605965))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1235918424, 0, 1986761590))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-973757053, 0, 1250598666))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-561277259, 0, 265418109))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(677132711, 0, 1923236498))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(459004789, 0, 1651687747))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(24915053, 0, -1450090518))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1125081424, 0, -1812239809))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1247724748, 0, 568320976))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-432763599, 0, -1994093879))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-859747507, 0, -1321107510))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(867373135, 0, 1143089854))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-67706608, 0, -939791623))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-1898623506, 0, -710104283))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1412941496, 0, 1297759569))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1464573536, 0, 2024760285))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(-683982262, 0, -1976386639))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1755051771, 0, 1079132766))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(1417446243, 0, -1666568080))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(309641988, 0, -1168237899))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(99906950, 0, 693018015))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(689663994, 0, -179430356))
+		CreateGrabLine3:FireServer(SpawnLocation3, CFrame.new(273474658, 0, -1496408308))
+		task.wait(1)
+		local GrabEvents6 = ReplicatedStorage:FindFirstChild("GrabEvents")
+		local CreateGrabLine4 = GrabEvents6:FindFirstChild("CreateGrabLine")
+		local SpawnLocation4 = workspace:FindFirstChild("SpawnLocation")
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(5731452, 0, -677987647))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1485581395, 0, 1373778967))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-941188642, 0, -639681472))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1941290266, 0, -1134798737))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(946685762, 0, 1540857295))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1338734294, 0, 582431955))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2011747126, 0, -1334328310))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1217578574, 0, 659645168))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(707633684, 0, 155591249))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1727375021, 0, 1606645047))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1738215485, 0, 303048867))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1414078730, 0, 262801670))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1236693576, 0, 1025766556))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(388583967, 0, -1223748272))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(267295820, 0, -479545549))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1355718470, 0, -1063865213))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1964212162, 0, 2045944278))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1084848500, 0, 803278511))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1185938688, 0, 391375928))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1942840039, 0, -104081361))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1507293964, 0, -415891369))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1834383200, 0, -1323085766))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1774945685, 0, 219487231))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1889018722, 0, 1047612151))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1415763782, 0, -1218634542))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(948012182, 0, 689536631))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1380513906, 0, -70062753))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2044688445, 0, -1135836099))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1870521972, 0, -1933662705))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1990496284, 0, 1976587335))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-91470149, 0, 1181605113))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-105745665, 0, -654210467))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-623591123, 0, -96838264))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-473087227, 0, 1766878297))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1505882399, 0, 1569829848))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1282618521, 0, 496421179))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2140334176, 0, -1992598908))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1983283141, 0, -759643389))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(653096550, 0, -434018323))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2130203788, 0, 484553055))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1821076365, 0, 50354837))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-770459720, 0, -220466457))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1478277287, 0, -1779249258))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1512218309, 0, -1544198961))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2035913580, 0, -815858767))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1634034563, 0, 259620280))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-241939675, 0, 913986297))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(825195046, 0, -606135840))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1484849496, 0, 662681922))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-127552604, 0, -1180980656))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(801331967, 0, 2051247973))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1586869381, 0, 209142574))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1672918848, 0, 1061441674))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1758099302, 0, -196327870))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(379544107, 0, 1175203693))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2086696675, 0, 394134182))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(989390165, 0, -1545208951))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1439187497, 0, 256303374))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(177297170, 0, -291542681))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1566311812, 0, 1589573343))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(337863423, 0, -1535766094))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-368704308, 0, -1330052144))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1586544443, 0, 202444054))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1566879542, 0, -532629663))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1746739682, 0, 1113884040))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-609326006, 0, 101052559))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(280810664, 0, 495613522))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-465694535, 0, -297504745))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-104364992, 0, 985561732))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1749364927, 0, -2077324075))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(107628914, 0, 726180002))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-260169569, 0, -1303473253))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1357507328, 0, 1411345906))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1499087874, 0, -299689718))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2004608313, 0, -247795626))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1562276487, 0, 1851406473))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(934749316, 0, 1476325713))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1817031840, 0, 647331944))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-654124146, 0, -318923824))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-934070965, 0, 1955638599))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1322459195, 0, 1985155592))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1391875293, 0, -89621657))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(660291895, 0, -1427547390))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(341210977, 0, -1502278666))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-575877842, 0, 1957436659))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1578286604, 0, -1853430118))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2084163580, 0, -2073006388))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1033238465, 0, -1570463363))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1668672571, 0, -1144307355))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1926156427, 0, -1247680084))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(189686470, 0, -1664094061))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1832549361, 0, -640056127))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-343058675, 0, -1098773955))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1417193858, 0, 327651365))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2116628673, 0, -1906123392))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(571030941, 0, -1940445973))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2064514862, 0, 24722889))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1693525357, 0, 1990010024))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1897406596, 0, 877241683))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1221765449, 0, 1094162605))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1677189806, 0, 1422384223))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1597466619, 0, -1177017494))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1989734364, 0, 1655322770))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(63935836, 0, 687306126))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-118066961, 0, -1074810477))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2043680307, 0, -822503927))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1110545260, 0, 1939040395))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1160701633, 0, -1077648455))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-8288299, 0, -1309425193))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1229430062, 0, 688825244))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1280054808, 0, 1124635576))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(329160651, 0, -1900563883))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2057651738, 0, 765029243))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-960153998, 0, -14927853))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-18718543, 0, -249771138))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1377210269, 0, -767193975))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1460381700, 0, 2078142733))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(104557483, 0, 2025130598))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(268220355, 0, -1322786568))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(571214084, 0, -1093049895))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-661833843, 0, -1886430166))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1304718920, 0, 288342264))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1106287088, 0, 2050437029))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1427453685, 0, 376358410))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(762817005, 0, 995727987))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1656211936, 0, 1644212641))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1426064493, 0, -317465772))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(565670854, 0, 104652766))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1759201676, 0, 1828921064))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-470460952, 0, 1322382519))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(958451568, 0, 97105181))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-226940296, 0, 1683416237))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1287749266, 0, -1482966642))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-410335649, 0, -310503363))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(687833569, 0, 1015128640))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1623237477, 0, 603684590))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1516692660, 0, -422901397))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1372384546, 0, -796724392))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(919874814, 0, -1471226626))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1944355531, 0, -439945565))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(959399247, 0, -450554088))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(66008276, 0, 2022289567))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1965064971, 0, -777130878))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-453626433, 0, -882245132))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-27537162, 0, -584878553))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-517998978, 0, 609477556))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1466900416, 0, 684018146))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1240838012, 0, 927314517))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2098949738, 0, 1018402868))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1122456165, 0, 824236307))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1622814909, 0, -1582864144))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1513018828, 0, -81854643))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1240480223, 0, -1034928039))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-811935549, 0, 489068500))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1903070261, 0, -1559256520))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1286870215, 0, -2004110013))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-29671631, 0, 1507759295))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(691572399, 0, -962359612))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1739994632, 0, -545803463))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1277165254, 0, -1220130924))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1616682279, 0, 56830542))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(340111827, 0, -639117003))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1088036585, 0, -191379993))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1038391563, 0, 183890290))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1620985226, 0, 1335430639))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1527917772, 0, -825483464))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-466478892, 0, 1139099421))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1371972415, 0, 678906807))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2037404036, 0, -64680275))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-805661448, 0, -661141467))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1728028926, 0, 1155380135))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1567841793, 0, 423906674))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1322995861, 0, -434651651))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-961775650, 0, -644401349))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-495400394, 0, -2056274967))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1002401326, 0, 1169624649))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1457488387, 0, 734595774))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(218112575, 0, -124109380))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1905447588, 0, 354792662))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(546792114, 0, -665004593))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(218446328, 0, 1440622423))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1147902968, 0, 921636329))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(778537185, 0, 1400371815))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2035759874, 0, -1426039299))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-879183341, 0, -272066878))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(324903158, 0, -1688119331))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(580329636, 0, -1642876692))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-208616987, 0, 943578557))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1686960541, 0, 296644721))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1266781344, 0, -1517534537))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1192824376, 0, -728619012))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-373860701, 0, -982236916))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-650934595, 0, 775732028))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1649983333, 0, 1881366306))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1707322885, 0, -499832523))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1299607412, 0, -1524730107))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-753507387, 0, 802245139))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1112066310, 0, -1838481259))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1483885944, 0, -1866858892))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1186703323, 0, -611414037))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1332351440, 0, 1810334907))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(241849560, 0, 638942699))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-693815323, 0, -264936605))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1600661993, 0, 933197476))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1374622253, 0, 2093564921))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1479502459, 0, 1206367068))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1353293039, 0, -396370418))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-469099232, 0, 154605997))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1955959140, 0, 26208590))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1845538691, 0, -1235888075))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(40226079, 0, 794919657))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(498371337, 0, 1681992927))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(44047888, 0, -790217463))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-752662372, 0, -1611000798))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(99028097, 0, -721129196))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1646292678, 0, -505083784))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(428405015, 0, -1997971065))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1616525995, 0, -1638251318))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(125527826, 0, -502441333))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1258731875, 0, 559084907))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1485077457, 0, 2087240831))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(890088647, 0, 1622576909))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-891544149, 0, 313819016))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-250742892, 0, -1248228727))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1698070732, 0, -1380683174))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1919357783, 0, 176702898))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1435129255, 0, -641955048))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(554820665, 0, 296155460))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1467004520, 0, -494997819))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(259891273, 0, -393817106))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1499979355, 0, 1245827420))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(113566131, 0, 1627783523))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(387763360, 0, -1436747285))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(998659030, 0, -1343351449))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(963518717, 0, -1862338253))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1533643189, 0, 36472836))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2099043143, 0, 725020722))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1165259833, 0, 1309642220))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1213022637, 0, 651937383))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1494848940, 0, -1222174329))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1374513128, 0, -1702189365))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-590315501, 0, 1188902809))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-302209481, 0, 706938847))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1215869818, 0, -1524120082))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(96354748, 0, 833412208))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-28737985, 0, 763113612))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-492245633, 0, -1861349478))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(433020636, 0, -1550034117))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(395331288, 0, 46896208))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-406530486, 0, 894177664))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1122662395, 0, 1199450272))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1556167784, 0, -956177178))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1835087795, 0, -694378119))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(571817160, 0, -1726263959))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1757139714, 0, 656341762))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-702172587, 0, 224374744))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(691794799, 0, 337882876))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1115121816, 0, 284608132))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(278645366, 0, 1561916282))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(522149892, 0, -178087413))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(582727055, 0, 660808288))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1829304774, 0, -1407298216))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1458981502, 0, -308918963))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1480505509, 0, 271827708))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(774246111, 0, 1869743230))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1786115941, 0, 112563487))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1113705794, 0, -1915066196))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1538155245, 0, -1747056286))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1234023857, 0, 100823416))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(513138939, 0, 970302429))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-907489790, 0, 1972632981))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-202079025, 0, 1047291852))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-885722804, 0, 1448697490))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2025580947, 0, -1054021449))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1994437447, 0, -1208037260))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(377727810, 0, 1896642866))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1756056957, 0, 914748647))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1159469048, 0, 1106076909))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1468066727, 0, -662944239))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1476754200, 0, -865021021))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1834939510, 0, -275166416))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(987466945, 0, -25130438))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1458768280, 0, -1435227888))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(796727436, 0, 1437889642))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-797780829, 0, 926620275))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(334764856, 0, -1687376032))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1479412384, 0, 1807994881))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(693141236, 0, 763064521))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1697682186, 0, -446630095))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1326387402, 0, 1024257657))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(757455629, 0, -100717213))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1461948927, 0, -590461633))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-480258546, 0, 1299688347))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1731574029, 0, -1855705139))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1272205908, 0, -327919412))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1773124171, 0, -31952312))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2093112705, 0, -737579309))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-389915343, 0, -1586619038))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1724693367, 0, -1214287995))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-900577711, 0, 49797087))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1756840990, 0, 52363724))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1860270772, 0, 467115856))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-820205371, 0, -223349363))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1192273375, 0, 1476329558))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1444099734, 0, -1328231603))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1883219143, 0, 802794364))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-6059819, 0, 402845995))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-98806071, 0, -119376717))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1472308866, 0, -1151562468))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1506360835, 0, -1372227650))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1880105156, 0, 1830842789))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2108005183, 0, 2092285754))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(348467934, 0, 1484734775))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-560397335, 0, 1922653841))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2067995650, 0, 1430481419))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1617900407, 0, -1698076762))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1394370178, 0, -1808925599))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1444976030, 0, 1208647269))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(753635115, 0, -1498790480))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1295288095, 0, -206517631))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-136695516, 0, -894822794))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(500551018, 0, 1188416821))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1166747525, 0, -1762084422))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1260256191, 0, 1734445054))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(949524897, 0, 700031919))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1656329940, 0, 1100061920))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(219945093, 0, -1059769732))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1743661100, 0, -329938480))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(768894781, 0, 1578757307))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1670826754, 0, 442550057))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1280307774, 0, -2099634497))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-859601013, 0, -1593483990))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-984208452, 0, -665031635))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1307257480, 0, -818870683))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-514770390, 0, -489121121))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1247624601, 0, 1378103971))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1206989367, 0, -1321516066))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1683796007, 0, -343448630))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1168314684, 0, -1056050538))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-346488156, 0, 2033708790))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-282048871, 0, -1880377480))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2130156019, 0, -1263293014))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(804118394, 0, 1773227144))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-156077228, 0, -588103770))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1366567541, 0, 1170755693))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(179273001, 0, -1438263108))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-207641747, 0, 1328564283))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1366378164, 0, -1374321487))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-145100746, 0, -981987761))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1270229290, 0, 325016986))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1911480213, 0, -1110181166))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1413191446, 0, -153771291))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1329775369, 0, -1245836728))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1569902701, 0, -129348115))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(446499854, 0, -888305542))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1239312728, 0, 839477862))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1667651770, 0, -1040276296))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(918645393, 0, -1531001939))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1688314369, 0, 814840201))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(886936753, 0, 331916336))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1744557472, 0, 199781448))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1180654804, 0, -476088543))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(181369803, 0, -1457112119))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-269340736, 0, 71526148))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-430246018, 0, -577480473))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(293324877, 0, 2071013143))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(475197151, 0, 1664124512))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-696108846, 0, -666183140))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2034553699, 0, -1291382971))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1907660795, 0, -1389179129))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1924105928, 0, 240580819))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1129070340, 0, 380761468))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(623993327, 0, -1475970026))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1160153459, 0, -1105930150))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1855464970, 0, 1850038527))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2039832000, 0, -802717900))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2041940945, 0, 722959362))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1391760254, 0, 995468243))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1345953465, 0, 449983667))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1875174228, 0, -1249132121))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1678064085, 0, 1456911111))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-957357267, 0, 552656283))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-601540812, 0, 393017875))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1958256377, 0, -2075780296))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-897054035, 0, -1597616306))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(678939572, 0, -1876784425))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1264475784, 0, 1713983359))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1229941997, 0, 89864298))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1181165864, 0, 125434902))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1736236740, 0, 1626096916))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1125375123, 0, 342323896))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(714728663, 0, -1983991917))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1271637869, 0, -513305380))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(478321173, 0, -1066073442))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-459832916, 0, 529603333))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1486227170, 0, 1999695314))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-416661331, 0, 221844110))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1329281955, 0, 796712492))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-336414314, 0, 655080509))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1241259640, 0, 368194494))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-532093843, 0, 1639507734))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-223153623, 0, -1389027887))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1952102200, 0, 143632845))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(785905720, 0, 1043777379))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(700693301, 0, 208347407))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-899393613, 0, -1712876758))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-768663006, 0, 733311915))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1342745035, 0, 1293543132))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1144218989, 0, 374176515))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1589880167, 0, -1836099466))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(727096924, 0, 1674177685))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(917265044, 0, -698837637))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-303558104, 0, 1995846378))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(45906744, 0, 1731444795))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(36930198, 0, -204095372))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1594585793, 0, -1904747849))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1764326972, 0, 623083551))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1530814017, 0, -764987998))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1319180537, 0, 653226526))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2026946950, 0, 12783710))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1972141882, 0, -1626952927))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1120295325, 0, 1343423252))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(668434909, 0, -1482191159))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-45185393, 0, -1578273586))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(574362497, 0, 1152214562))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(220963715, 0, 210038663))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-475946926, 0, 451778122))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1808889826, 0, 89423424))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1180766119, 0, 1906582250))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1637269715, 0, -2079197688))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1205513778, 0, -1571221712))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2086542283, 0, -1999488336))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2056374537, 0, 1426230444))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-37822189, 0, 1858135275))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(650268206, 0, 2013622843))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1179511194, 0, -844761457))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1067859007, 0, 474738579))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1518963066, 0, -1985145721))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2071003705, 0, 336117065))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1817119562, 0, 538172926))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2057702685, 0, -790669126))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(205931174, 0, 209400199))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1064298122, 0, -1412211769))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1598909203, 0, -353781927))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1576234690, 0, -836298145))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1425303349, 0, 1698265268))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2051969295, 0, -920926439))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1043813254, 0, -981784239))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1127040187, 0, -1866211580))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-464566937, 0, -1635956845))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-296422689, 0, -1333217581))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2116683789, 0, 1889611007))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1194689896, 0, -603163586))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(597556899, 0, 290985201))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(545012388, 0, -1253700542))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-239737281, 0, -555711800))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1988995943, 0, -25880040))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-910589914, 0, -2013534360))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2073048980, 0, -1389638269))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-146577027, 0, 1676596295))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(806714815, 0, 581111896))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1940684972, 0, -161099599))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1765015241, 0, -2064964429))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(618232484, 0, -706247509))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(384560122, 0, 712909503))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-450840126, 0, -590267760))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2057838762, 0, -897882705))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1354782544, 0, -1203144394))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-839259359, 0, 396776906))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1692904530, 0, -1182041457))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1683483527, 0, 110537256))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1883750911, 0, 261808102))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2020143458, 0, -520124888))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1646185553, 0, 1089051651))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1971164783, 0, -9241883))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2037951454, 0, 1183591728))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(330066510, 0, -1742996045))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1047385988, 0, -1815188939))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1577801348, 0, -693097493))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1922204409, 0, 1730143777))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-465458661, 0, 1214532514))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-494775653, 0, 1417551615))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-108176147, 0, 660035077))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1082979295, 0, -1296505139))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1235887173, 0, 303923107))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1599604993, 0, -620258504))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-89029100, 0, 55113627))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1698076196, 0, -972303813))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1107286487, 0, -1326511137))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-2134162866, 0, 1751339337))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1551731108, 0, -1120773203))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(607540431, 0, 781854773))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1261745893, 0, -1854744567))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1210931595, 0, -149884865))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-971558286, 0, -590260170))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(750270957, 0, -49039592))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(925039648, 0, 62176340))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-637737366, 0, 947082240))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1270794298, 0, 864438682))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(801169117, 0, -884327022))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1921715820, 0, 1813163922))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-980698055, 0, -1452335318))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(2020403598, 0, -1514833955))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1082552311, 0, 1048279906))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1392757279, 0, -402521400))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1336595754, 0, -1455542424))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1713270579, 0, -662618488))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1382406896, 0, -1049137300))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-301224252, 0, 1558695861))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(983304485, 0, 1262251131))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1409328981, 0, 1729339526))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-457602217, 0, 321086307))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1296354358, 0, 2026677641))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1363914929, 0, -1361847311))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1479576068, 0, 1271041171))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1487810880, 0, -887740546))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1577729328, 0, 1576923361))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-141423997, 0, 1019095514))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(-1291647922, 0, 789980127))
+		CreateGrabLine4:FireServer(SpawnLocation4, CFrame.new(1835231895, 0, 812691952))
+		task.wait(1)
+	end)
+end
+_G.gka_stop = function(arg31, arg32)
+	task.wait(0.1)
+	_NOTIFY("GatherKickAll: Stopped.", 2)
+end
+_G.gka_execute = function(arg33, arg34)
+	task.spawn(function(...)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10)
+		local players3 = Players:GetPlayers()
+		for i5, v5 in ipairs(players3) do
+			Players.LocalPlayer:IsFriendsWith(v5.UserId)
+		end
+		_NOTIFY("GatherKickAll: No targets!", 3)
+		task.wait(0.1)
+		_NOTIFY("GatherKickAll: Stopped.", 2)
+	end)
+end
+local Lighting = game:GetService("Lighting")
+local ColorCorrectionEffect = Instance.new("ColorCorrectionEffect")
+ColorCorrectionEffect.Name = "_lc_cc"
+ColorCorrectionEffect.Enabled = false
+ColorCorrectionEffect.Saturation = 0
+ColorCorrectionEffect.Contrast = 0
+ColorCorrectionEffect.TintColor = Color3.fromRGB(255, 255, 255)
+ColorCorrectionEffect.Brightness = 0
+ColorCorrectionEffect.Parent = Lighting
+local BloomEffect = Instance.new("BloomEffect")
+BloomEffect.Name = "_lc_bloom"
+BloomEffect.Threshold = 0.9
+BloomEffect.Enabled = false
+BloomEffect.Intensity = 0.5
+BloomEffect.Size = 24
+BloomEffect.Parent = Lighting
+local SunRaysEffect = Instance.new("SunRaysEffect")
+SunRaysEffect.Name = "_lc_sun"
+SunRaysEffect.Enabled = false
+SunRaysEffect.Spread = 0.5
+SunRaysEffect.Intensity = 0.1
+SunRaysEffect.Parent = Lighting
+local DepthOfFieldEffect = Instance.new("DepthOfFieldEffect")
+DepthOfFieldEffect.Name = "_lc_dof"
+DepthOfFieldEffect.Enabled = false
+DepthOfFieldEffect.FarIntensity = 0
+DepthOfFieldEffect.FocusDistance = 50
+DepthOfFieldEffect.InFocusRadius = 10
+DepthOfFieldEffect.NearIntensity = 1
+DepthOfFieldEffect.Parent = Lighting
+local BlurEffect = Instance.new("BlurEffect")
+BlurEffect.Name = "_lc_blur"
+BlurEffect.Enabled = false
+BlurEffect.Size = 0
+BlurEffect.Parent = Lighting
+RunService.RenderStepped:Connect(function(deltaTime2)
+	Lighting:FindFirstChild("_lc_cc")
+	Lighting:FindFirstChild("_lc_bloom")
+	Lighting:FindFirstChild("_lc_sun")
+	Lighting:FindFirstChild("_lc_dof")
+	Lighting:FindFirstChild("_lc_blur")
+end)
+_G.lc_CC = ColorCorrectionEffect
+_G.lc_Bloom = BloomEffect
+_G.lc_Sun = SunRaysEffect
+_G.lc_DOF = DepthOfFieldEffect
+_G.lc_Blur = BlurEffect
+_G.lc_applyPreset = function(arg35, arg36)
+	ColorCorrectionEffect.Enabled = false
+	BloomEffect.Enabled = false
+	SunRaysEffect.Enabled = false
+	DepthOfFieldEffect.Enabled = false
+	BlurEffect.Enabled = false
+	result3.Options.lc_cc_on:SetValue(false)
+	result3.Options.lc_bloom_on:SetValue(false)
+	result3.Options.lc_sun_on:SetValue(false)
+	result3.Options.lc_dof_on:SetValue(false)
+	result3.Options.lc_blur_on:SetValue(false)
+	ColorCorrectionEffect.TintColor = arg35.cc.tint
+	ColorCorrectionEffect.Saturation = arg35.cc.sat
+	ColorCorrectionEffect.Contrast = arg35.cc.con
+	ColorCorrectionEffect.Brightness = arg35.cc.bri
+	ColorCorrectionEffect.Enabled = true
+	result3.Options.lc_cc_on:SetValue(true)
+	result3.Options.lc_cc_tint:SetValue(arg35.cc.tint)
+	result3.Options.lc_cc_sat:SetValue(math.floor((arg35.cc.sat * 100)))
+	result3.Options.lc_cc_con:SetValue(math.floor((arg35.cc.con * 100)))
+	result3.Options.lc_cc_bri:SetValue(math.floor((arg35.cc.bri * 100)))
+	BloomEffect.Intensity = arg35.bloom.int
+	BloomEffect.Size = arg35.bloom.size
+	BloomEffect.Threshold = arg35.bloom.thresh
+	BloomEffect.Enabled = true
+	result3.Options.lc_bloom_on:SetValue(true)
+	result3.Options.lc_bloom_int:SetValue(math.floor((arg35.bloom.int * 100)))
+	result3.Options.lc_bloom_size:SetValue(arg35.bloom.size)
+	result3.Options.lc_bloom_thresh:SetValue(math.floor((arg35.bloom.thresh * 100)))
+	SunRaysEffect.Intensity = arg35.sun.int
+	SunRaysEffect.Spread = arg35.sun.spread
+	SunRaysEffect.Enabled = true
+	result3.Options.lc_sun_on:SetValue(true)
+	result3.Options.lc_sun_int:SetValue(math.floor((arg35.sun.int * 100)))
+	result3.Options.lc_sun_spread:SetValue(math.floor((arg35.sun.spread * 100)))
+	DepthOfFieldEffect.FarIntensity = arg35.dof.far
+	DepthOfFieldEffect.NearIntensity = arg35.dof.near
+	DepthOfFieldEffect.FocusDistance = arg35.dof.dist
+	DepthOfFieldEffect.InFocusRadius = arg35.dof.rad
+	DepthOfFieldEffect.Enabled = true
+	result3.Options.lc_dof_on:SetValue(true)
+	result3.Options.lc_dof_far:SetValue(math.floor((arg35.dof.far * 100)))
+	result3.Options.lc_dof_near:SetValue(math.floor((arg35.dof.near * 100)))
+	result3.Options.lc_dof_dist:SetValue(arg35.dof.dist)
+	result3.Options.lc_dof_rad:SetValue(arg35.dof.rad)
+	BlurEffect.Size = arg35.blur.size
+	BlurEffect.Enabled = true
+	result3.Options.lc_blur_on:SetValue(true)
+	result3.Options.lc_blur_size:SetValue(arg35.blur.size)
+end
+_G.lc_disableAll = function(arg37, arg38)
+	ColorCorrectionEffect.Enabled = false
+	BloomEffect.Enabled = false
+	SunRaysEffect.Enabled = false
+	DepthOfFieldEffect.Enabled = false
+	BlurEffect.Enabled = false
+	result3.Options.lc_cc_on:SetValue(false)
+	result3.Options.lc_bloom_on:SetValue(false)
+	result3.Options.lc_sun_on:SetValue(false)
+	result3.Options.lc_dof_on:SetValue(false)
+	result3.Options.lc_blur_on:SetValue(false)
+end
+_G.lc_presets = {
+	{ data = {}, name = "Reset" },
+	{
+		data = {
+			bloom = { int = 0.6, size = 24, thresh = 0.7 },
+			cc = { bri = 0.05, con = 0.2, sat = 0.1, tint = Color3.fromRGB(180, 200, 255) },
+			sun = { int = 0.1, spread = 0.5 }
+		},
+		name = "Winter"
+	},
+	{
+		data = {
+			bloom = { int = 1, size = 32, thresh = 0.55 },
+			cc = { bri = 0.1, con = 0.2, sat = 0.35, tint = Color3.fromRGB(255, 160, 80) },
+			sun = { int = 0.3, spread = 0.85 }
+		},
+		name = "Sunset"
+	},
+	{
+		data = {
+			bloom = { int = 0.3, size = 16, thresh = 0.8 },
+			cc = { bri = -0.3, con = 0.25, sat = -0.2, tint = Color3.fromRGB(100, 110, 180) }
+		},
+		name = "Night"
+	},
+	{
+		data = {
+			bloom = { int = 0.15, size = 8, thresh = 0.95 },
+			blur = { size = 4 },
+			cc = { bri = -0.25, con = 0.5, sat = -0.7, tint = Color3.fromRGB(180, 100, 100) }
+		},
+		name = "Horror"
+	},
+	{
+		data = {
+			bloom = { int = 1.5, size = 40, thresh = 0.5 },
+			cc = { bri = 0.15, con = 0.3, sat = 0.9, tint = Color3.fromRGB(255, 255, 255) },
+			sun = { int = 0.2, spread = 0.6 }
+		},
+		name = "Vivid"
+	},
+	{
+		data = {
+			bloom = { int = 0.4, size = 20, thresh = 0.85 },
+			cc = { bri = -0.05, con = 0.4, sat = -0.1, tint = Color3.fromRGB(240, 230, 200) },
+			dof = { dist = 30, far = 0.6, near = 0, rad = 12 }
+		},
+		name = "Cinema"
+	},
+	{
+		data = {
+			bloom = { int = 0.8, size = 30, thresh = 0.6 },
+			blur = { size = 8 },
+			cc = { bri = -0.1, con = -0.1, sat = 0.2, tint = Color3.fromRGB(80, 160, 200) }
+		},
+		name = "Underwater"
+	},
+	{
+		data = {
+			bloom = { int = 2, size = 48, thresh = 0.4 },
+			cc = { bri = -0.1, con = 0.45, sat = 0.6, tint = Color3.fromRGB(160, 100, 255) },
+			sun = { int = 0.05, spread = 0.3 }
+		},
+		name = "Cyberpunk"
+	},
+	{
+		data = {
+			bloom = { int = 0.3, size = 24, thresh = 0.7 },
+			blur = { size = 12 },
+			cc = { bri = 0.1, con = 0.1, sat = -0.3, tint = Color3.fromRGB(210, 215, 220) }
+		},
+		name = "Foggy"
+	},
+	{
+		data = {
+			bloom = { int = 0.5, size = 20, thresh = 0.75 },
+			cc = { bri = 0.05, con = 0.15, sat = 0.4, tint = Color3.fromRGB(255, 190, 100) },
+			sun = { int = 0.15, spread = 0.6 }
+		},
+		name = "Autumn"
+	},
+	{
+		data = {
+			bloom = { int = 0.7, size = 28, thresh = 0.65 },
+			cc = { bri = 0.1, con = 0.1, sat = 0.5, tint = Color3.fromRGB(200, 240, 180) },
+			sun = { int = 0.2, spread = 0.7 }
+		},
+		name = "Nature"
+	}
+}
+local players4 = Players:GetPlayers()
+for i6, v6 in ipairs(players4) do
+	v6.CharacterAdded:Connect(function(character5)
+	end)
+end
+Players.PlayerAdded:Connect(function(player5)
+	player5.CharacterAdded:Connect(function(character15)
+	end)
+end)
+Players.PlayerRemoving:Connect(function(player6)
+end)
+local ScreenGui2 = Instance.new("ScreenGui")
+ScreenGui2.Name = "Noks_DamagePopups"
+ScreenGui2.IgnoreGuiInset = true
+local CoreGui = game:GetService("CoreGui")
+ScreenGui2.Parent = CoreGui
+RunService.RenderStepped:Connect(function(deltaTime3)
+end)
+local Folder3 = Instance.new("Folder")
+Folder3.Name = "PoophubHalo"
+Folder3.Parent = workspace
+local Part = Instance.new("Part")
+Part.Name = "HaloPart"
+Part.Size = Vector3.new(2, 1, 1)
+Part.Material = Enum.Material.ForceField
+Part.Anchored = true
+Part.CanCollide = false
+Part.Transparency = 1
+Part.Parent = Folder3
+local Attachment = Instance.new("Attachment")
+Attachment.CFrame = CFrame.new(-0.25, 0.93, 0.25, 0.4689, -0.2499, -0.8471, -0.1171, 0.933, -0.3401, 0.8754, 0.2587, 0.4082)
+Attachment.Visible = false
+Attachment.Parent = Part
+local ParticleEmitter = Instance.new("ParticleEmitter")
+ParticleEmitter.Name = "Ring1"
+ParticleEmitter.Texture = "rbxassetid://8819682608"
+ParticleEmitter.Rate = 7
+ParticleEmitter.Lifetime = NumberRange.new(1, 1)
+ParticleEmitter.Speed = NumberRange.new(0.001, 0.001)
+ParticleEmitter.RotSpeed = NumberRange.new(-400, 400)
+ParticleEmitter.Rotation = NumberRange.new(0, 360)
+ParticleEmitter.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 2.5), NumberSequenceKeypoint.new(1, 3) })
+ParticleEmitter.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.2, 0), NumberSequenceKeypoint.new(0.8, 0), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter.LightEmission = 1
+ParticleEmitter.Brightness = 2
+ParticleEmitter.SpreadAngle = Vector2.new(5, 5)
+ParticleEmitter.LockedToPart = true
+ParticleEmitter.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter.Parent = Attachment
+local ParticleEmitter2 = Instance.new("ParticleEmitter")
+ParticleEmitter2.Name = "Ring2"
+ParticleEmitter2.Texture = "rbxassetid://8819682608"
+ParticleEmitter2.Rate = 7
+ParticleEmitter2.Lifetime = NumberRange.new(1, 1)
+ParticleEmitter2.Speed = NumberRange.new(0.001, 0.001)
+ParticleEmitter2.RotSpeed = NumberRange.new(-400, 400)
+ParticleEmitter2.Rotation = NumberRange.new(0, 360)
+ParticleEmitter2.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 2), NumberSequenceKeypoint.new(1, 3) })
+ParticleEmitter2.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.2, 0), NumberSequenceKeypoint.new(0.8, 0), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter2.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter2.LightEmission = 1
+ParticleEmitter2.Brightness = 2
+ParticleEmitter2.SpreadAngle = Vector2.new(5, 5)
+ParticleEmitter2.LockedToPart = true
+ParticleEmitter2.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter2.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter2.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter2.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter2.Parent = Attachment
+local Folder4 = Instance.new("Folder")
+Folder4.Name = "PoophubAmbientAura"
+Folder4.Parent = workspace
+local Part2 = Instance.new("Part")
+Part2.Name = "AuraRoot"
+Part2.Size = Vector3.new(2, 2, 1)
+Part2.Transparency = 1
+Part2.Anchored = true
+Part2.CanCollide = false
+Part2.Massless = true
+Part2.Parent = Folder4
+local ParticleEmitter3 = Instance.new("ParticleEmitter")
+ParticleEmitter3.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter3.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter3.Lifetime = NumberRange.new(2, 2)
+ParticleEmitter3.Speed = NumberRange.new(0.001, 0.001)
+ParticleEmitter3.Brightness = 2
+ParticleEmitter3.Texture = "rbxassetid://12713358087"
+ParticleEmitter3.RotSpeed = NumberRange.new(-600, 600)
+ParticleEmitter3.LockedToPart = true
+ParticleEmitter3.Rate = 20
+ParticleEmitter3.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter3.Rotation = NumberRange.new(0, 360)
+ParticleEmitter3.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter3.Name = "Ambient2"
+ParticleEmitter3.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter3.LightEmission = 1
+ParticleEmitter3.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.3, 1), NumberSequenceKeypoint.new(0.6, 2.5), NumberSequenceKeypoint.new(0.8, 4), NumberSequenceKeypoint.new(1, 6) })
+ParticleEmitter3.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter3.EmissionDirection = Enum.NormalId.Top
+ParticleEmitter3.Parent = Part2
+local ParticleEmitter4 = Instance.new("ParticleEmitter")
+ParticleEmitter4.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter4.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter4.Lifetime = NumberRange.new(2, 2)
+ParticleEmitter4.Speed = NumberRange.new(0.001, 0.001)
+ParticleEmitter4.Brightness = 2
+ParticleEmitter4.Texture = "rbxassetid://7216849325"
+ParticleEmitter4.RotSpeed = NumberRange.new(-30, 30)
+ParticleEmitter4.LockedToPart = true
+ParticleEmitter4.Rate = 20
+ParticleEmitter4.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter4.Rotation = NumberRange.new(0, 360)
+ParticleEmitter4.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.6, 0.2), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter4.Name = "Stars"
+ParticleEmitter4.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter4.LightEmission = 1
+ParticleEmitter4.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.3, 1), NumberSequenceKeypoint.new(0.6, 2.5), NumberSequenceKeypoint.new(0.8, 4), NumberSequenceKeypoint.new(1, 6) })
+ParticleEmitter4.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter4.EmissionDirection = Enum.NormalId.Top
+ParticleEmitter4.Parent = Part2
+local ParticleEmitter5 = Instance.new("ParticleEmitter")
+ParticleEmitter5.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter5.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter5.Lifetime = NumberRange.new(2, 2)
+ParticleEmitter5.Speed = NumberRange.new(0.001, 0.001)
+ParticleEmitter5.Brightness = 2
+ParticleEmitter5.Texture = "rbxassetid://7216855136"
+ParticleEmitter5.RotSpeed = NumberRange.new(-40, 40)
+ParticleEmitter5.LockedToPart = true
+ParticleEmitter5.Rate = 20
+ParticleEmitter5.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter5.Rotation = NumberRange.new(0, 360)
+ParticleEmitter5.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.2, 0.3), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter5.Name = "Ambient1"
+ParticleEmitter5.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter5.LightEmission = 1
+ParticleEmitter5.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.3, 2), NumberSequenceKeypoint.new(0.6, 5), NumberSequenceKeypoint.new(0.8, 8), NumberSequenceKeypoint.new(1, 12) })
+ParticleEmitter5.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter5.EmissionDirection = Enum.NormalId.Top
+ParticleEmitter5.Parent = Part2
+local Folder5 = Instance.new("Folder")
+Folder5.Name = "PoophubAngelWings"
+Folder5.Parent = workspace
+local Part3 = Instance.new("Part")
+Part3.Name = "AngelRoot"
+Part3.Size = Vector3.new(2, 2, 1)
+Part3.Material = Enum.Material.ForceField
+Part3.Anchored = true
+Part3.CanCollide = false
+Part3.Transparency = 1
+Part3.Parent = Folder5
+local Attachment2 = Instance.new("Attachment")
+Attachment2.CFrame = (CFrame.new(-1.012, 0.5, 0.852) * CFrame.Angles(0, 0.26179938779914941, 0))
+Attachment2.Parent = Part3
+local Attachment3 = Instance.new("Attachment")
+Attachment3.CFrame = (CFrame.new(1.167, 0.5, 0.852) * CFrame.Angles(0, -0.26179938779914941, 0))
+Attachment3.Parent = Part3
+local Attachment4 = Instance.new("Attachment")
+Attachment4.CFrame = CFrame.new(0, 0.3, 0)
+Attachment4.Parent = Part3
+local ParticleEmitter6 = Instance.new("ParticleEmitter")
+ParticleEmitter6.Texture = "http://www.roblox.com/asset/?id=13267054240"
+ParticleEmitter6.Rate = 4
+ParticleEmitter6.Lifetime = NumberRange.new(1, 1)
+ParticleEmitter6.Speed = NumberRange.new(0.05, 0.05)
+ParticleEmitter6.RotSpeed = NumberRange.new(0, 0)
+ParticleEmitter6.Rotation = NumberRange.new(-15, -15)
+ParticleEmitter6.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 2.75), NumberSequenceKeypoint.new(1, 3.5) })
+ParticleEmitter6.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.944), NumberSequenceKeypoint.new(0.2, 0), NumberSequenceKeypoint.new(0.8, 0), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter6.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter6.LightEmission = 1
+ParticleEmitter6.Brightness = 1
+ParticleEmitter6.LockedToPart = true
+ParticleEmitter6.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter6.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter6.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter6.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter6.EmissionDirection = Enum.NormalId.Back
+ParticleEmitter6.SpreadAngle = Vector2.new(0, 0)
+ParticleEmitter6.VelocitySpread = 0
+ParticleEmitter6.Parent = Attachment2
+local ParticleEmitter7 = Instance.new("ParticleEmitter")
+ParticleEmitter7.Texture = "http://www.roblox.com/asset/?id=13267054240"
+ParticleEmitter7.Rate = 4
+ParticleEmitter7.Lifetime = NumberRange.new(1, 1)
+ParticleEmitter7.Speed = NumberRange.new(0.05, 0.05)
+ParticleEmitter7.RotSpeed = NumberRange.new(0, 0)
+ParticleEmitter7.Rotation = NumberRange.new(-15, -15)
+ParticleEmitter7.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 2.75), NumberSequenceKeypoint.new(1, 3.5) })
+ParticleEmitter7.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.944), NumberSequenceKeypoint.new(0.2, 0), NumberSequenceKeypoint.new(0.8, 0), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter7.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter7.LightEmission = 1
+ParticleEmitter7.Brightness = 1
+ParticleEmitter7.LockedToPart = true
+ParticleEmitter7.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter7.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter7.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter7.Orientation = Enum.ParticleOrientation.VelocityPerpendicular
+ParticleEmitter7.EmissionDirection = Enum.NormalId.Front
+ParticleEmitter7.SpreadAngle = Vector2.new(0, 0)
+ParticleEmitter7.VelocitySpread = 0
+ParticleEmitter7.Parent = Attachment3
+local ParticleEmitter8 = Instance.new("ParticleEmitter")
+ParticleEmitter8.Texture = "rbxassetid://11402221943"
+ParticleEmitter8.Rate = 5
+ParticleEmitter8.Lifetime = NumberRange.new(2, 2)
+ParticleEmitter8.Speed = NumberRange.new(0.5, 0.5)
+ParticleEmitter8.RotSpeed = NumberRange.new(0, 0)
+ParticleEmitter8.Rotation = NumberRange.new(0, 360)
+ParticleEmitter8.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 3), NumberSequenceKeypoint.new(1, 4) })
+ParticleEmitter8.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.5, 0.3), NumberSequenceKeypoint.new(1, 1) })
+ParticleEmitter8.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+ParticleEmitter8.LightEmission = 1
+ParticleEmitter8.Brightness = 2
+ParticleEmitter8.LockedToPart = true
+ParticleEmitter8.Shape = Enum.ParticleEmitterShape.Box
+ParticleEmitter8.ShapeStyle = Enum.ParticleEmitterShapeStyle.Volume
+ParticleEmitter8.ShapeInOut = Enum.ParticleEmitterShapeInOut.Outward
+ParticleEmitter8.Orientation = Enum.ParticleOrientation.FacingCamera
+ParticleEmitter8.EmissionDirection = Enum.NormalId.Top
+ParticleEmitter8.SpreadAngle = Vector2.new(180, 180)
+ParticleEmitter8.VelocitySpread = 180
+ParticleEmitter8.FlipbookLayout = Enum.ParticleFlipbookLayout.Grid4x4
+ParticleEmitter8.FlipbookMode = Enum.ParticleFlipbookMode.OneShot
+ParticleEmitter8.Parent = Attachment4
+local Folder6 = Instance.new("Folder")
+Folder6.Name = "PoophubTrail"
+Folder6.Parent = workspace
+local Part4 = Instance.new("Part")
+Part4.Name = "TrailRoot"
+Part4.Size = Vector3.new(0.10000000149011612, 0.10000000149011612, 0.10000000149011612)
+Part4.Transparency = 1
+Part4.Anchored = true
+Part4.CanCollide = false
+Part4.Massless = true
+Part4.Parent = Folder6
+local Attachment5 = Instance.new("Attachment")
+Attachment5.Position = Vector3.new(0, 0.5, 0)
+Attachment5.Parent = Part4
+local Attachment6 = Instance.new("Attachment")
+Attachment6.Position = Vector3.new(0, -0.5, 0)
+Attachment6.Parent = Part4
+local Trail = Instance.new("Trail")
+Trail.Attachment0 = Attachment5
+Trail.Attachment1 = Attachment6
+Trail.Lifetime = 0.4
+Trail.MinLength = 0.01
+Trail.FaceCamera = true
+Trail.LightEmission = 1
+Trail.LightInfluence = 0
+Trail.Brightness = 2
+Trail.WidthScale = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.4, 0.6), NumberSequenceKeypoint.new(0.7, 0.25), NumberSequenceKeypoint.new(1, 0) })
+Trail.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.5, 0.1), NumberSequenceKeypoint.new(0.8, 0.5), NumberSequenceKeypoint.new(1, 1) })
+Trail.Color = ColorSequence.new(Color3.fromRGB(133, 220, 255))
+Trail.Parent = Part4
+ParticleEmitter.Enabled = false
+ParticleEmitter2.Enabled = false
+ParticleEmitter3.Enabled = false
+ParticleEmitter4.Enabled = false
+ParticleEmitter5.Enabled = false
+ParticleEmitter6.Enabled = false
+ParticleEmitter7.Enabled = false
+ParticleEmitter8.Enabled = false
+Trail.Enabled = false
+RunService.RenderStepped:Connect(function(deltaTime4)
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChild("Head")
+	Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+end)
+makefolder("PoopHub")
+makefolder("PoopHub/Logo")
+makefolder("PoopHub/Logo/UBG")
+makefolder("PoopHub/Logo/FTAP")
+makefolder("PoopHub/Logo/FTAP/ASSET")
+local response6 = game:HttpGet("https://dcus.pro/planet.png")
+writefile("PoopHub/Logo/FTAP/dcusplanet.png", response6)
+local Window = result3:CreateWindow({
+	Title = "PoopHub",
+	AutoShow = true,
+	Footer = "FTAP | V5 | Made by dcus",
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	NotifySide = "Right",
+	ShowCustomCursor = true,
+	SubTitle = "Premium",
+	TabShowTime = 1.5
+})
+local Tab = Window:AddTab("Home", "house", "Home page & script status")
+local Tab2 = Window:AddTab("Defense", "shield", "Protection features")
+local Tab3 = Window:AddTab("Grab", "rbxassetid://10723404472", "Grab controls & exploits")
+local Tab4 = Window:AddTab("Blobman", "rbxassetid://10709782230", "Blobman control & loops")
+local Tab5 = Window:AddTab("Aura", "zap", "Aura exploits")
+local Tab6 = Window:AddTab("Target", "crosshair", "Track & target options")
+local Tab7 = Window:AddTab("Kick", "ban", "Kick & lag methods")
+local Tab8 = Window:AddTab("Wing", "feather", "Wing visuals")
+local Tab9 = Window:AddTab("Attack", "swords", "Sit loops & breakers")
+local Tab10 = Window:AddTab("Character", "rbxassetid://10747372167", "Walkspeed & character options")
+local Tab11 = Window:AddTab("ESP", "eye", "Player ESP & visual chams")
+local Tab12 = Window:AddTab("Visual", "palette", "Visual toggles & themes")
+local Tab13 = Window:AddTab("Lighting", "sun", "Lighting & snow options")
+local Tab14 = Window:AddTab("Fun", "smile", "Emotes & animations")
+local Tab15 = Window:AddTab("Toy Mod", "package", "Toy shields & modifiers")
+local Tab16 = Window:AddTab("Misc", "rbxassetid://10734897250", "Trigger Bot & Silent Aim")
+local Tab17 = Window:AddTab("World", "globe", "World settings & custom blackholes")
+local Tab18 = Window:AddTab("UI Settings", "settings", "UI settings & configuration")
+local LeftGroupbox = Tab:AddLeftGroupbox("Information")
+LeftGroupbox:AddLabel("Version: " .. result2)
+LeftGroupbox:AddLabel("User: " .. Players.LocalPlayer.DisplayName .. " (@" .. Players.LocalPlayer.Name .. ")")
+LeftGroupbox:AddLabel("User ID: 0")
+local RightGroupbox = Tab:AddRightGroupbox("Server Information")
+local Label = RightGroupbox:AddLabel("Server Time: Loading...")
+local Label2 = RightGroupbox:AddLabel("Players: 0/0")
+local Label3 = RightGroupbox:AddLabel("Ping: Calculating...")
+local Label4 = RightGroupbox:AddLabel("FPS: Calculating...")
+task.spawn(function(...)
+	local Stats = game:GetService("Stats")
+	RunService.Heartbeat:Connect(function(deltaTime5)
+	end)
+	task.wait(1)
+	Label:SetText("Server Time: 16:09:45")
+	Players:GetPlayers()
+	Label2:SetText("Players: 1/0")
+	local value = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+	Label3:SetText("Ping: " .. tostring(math.round(value)) .. " ms")
+	Label4:SetText("FPS: 60")
+	task.wait(1)
+	Label:SetText("Server Time: 16:09:45")
+	Players:GetPlayers()
+	Label2:SetText("Players: 1/0")
+	local value2 = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+	Label3:SetText("Ping: " .. tostring(math.round(value2)) .. " ms")
+	Label4:SetText("FPS: 60")
+	task.wait(1)
+end)
+local LeftGroupbox2 = Tab:AddLeftGroupbox("Links")
+LeftGroupbox2:AddButton({
+	Text = "Official Page",
+	Func = function(arg39, arg40)
+		setclipboard("https://dcus.pro")
+		_NOTIFY("Official Page link copied to clipboard!", 3)
+	end
+})
+LeftGroupbox2:AddButton({
+	Text = "Shop Page",
+	Func = function(arg41, arg42)
+		setclipboard("https://dcus.mysellauth.com")
+		_NOTIFY("Shop Page link copied to clipboard!", 3)
+	end
+})
+LeftGroupbox2:AddButton({
+	Text = "Discord Link",
+	Func = function(arg43, arg44)
+		setclipboard("https://discord.gg/bUeHwyjdb7")
+		_NOTIFY("Discord link copied to clipboard!", 3)
+	end
+})
+local RightGroupbox2 = Tab2:AddRightGroupbox("R6 Limb Delete")
+RightGroupbox2:AddDropdown("R6LimbSelect", {
+	Text = "Select Limb",
+	Default = 1,
+	Values = { "Left Arm", "Right Arm", "Left Leg", "Right Leg" },
+	Callback = function(state, arg46)
+	end
+})
+RightGroupbox2:AddButton({
+	Text = "Delete Selected Limb",
+	Func = function(arg47, arg48)
+		_NOTIFY("Select a limb first.", 3)
+	end
+})
+RightGroupbox2:AddButton({
+	Text = "Break PCLD (Kick Byebye)",
+	Func = function(arg49, arg50)
+		task.spawn(function(...)
+			workspace.FallenPartsDestroyHeight = 0/0
+			local HumanoidRootPart2 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local descendants2 = Players.LocalPlayer.Character:GetDescendants()
+			for i7, v7 in ipairs(descendants2) do
+				v7.Part0 = nil
+			end
+			HumanoidRootPart2.CFrame = CFrame.new(-272.2197265625, -7.3504037857055664, 475.01089477539062)
+			local connection7 = RunService.RenderStepped:Connect(function(deltaTime6)
+				HumanoidRootPart2.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+				HumanoidRootPart2.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			end)
+			task.wait(0.12)
+			connection7:Disconnect()
+			v7.Part0 = v7.Part0
+			Players.LocalPlayer.CharacterAdded:Once(function(character6)
+				task.wait(0.25)
+				local HumanoidRootPart36 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:GetDescendants()
+				HumanoidRootPart36.CFrame = CFrame.new(-272.2197265625, -7.3504037857055664, 475.01089477539062)
+				local connection19 = RunService.RenderStepped:Connect(function(deltaTime30)
+					HumanoidRootPart36.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+					HumanoidRootPart36.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+				end)
+				task.wait(0.12)
+				connection19:Disconnect()
+			end)
+			_NOTIFY("Break PCLD: Done!", 3)
+		end)
+	end
+})
+local TextButton = Instance.new("TextButton")
+TextButton.BackgroundTransparency = 1
+TextButton.Text = ""
+TextButton.Active = false
+TextButton.Visible = false
+task.spawn(function(...)
+	local PlayerGui2 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+	local ContextActionGui = PlayerGui2:WaitForChild("ContextActionGui", 5)
+	local ContextButtonFrame = ContextActionGui:WaitForChild("ContextButtonFrame", 5)
+	local descendants3 = ContextButtonFrame:GetDescendants()
+	for i8, v8 in ipairs(descendants3) do
+	end
+	ContextButtonFrame.DescendantAdded:Connect(function(descendant2)
+	end)
+end)
+TextButton.InputBegan:Connect(function(input, gameProcessed)
+end)
+local LeftGroupbox3 = Tab3:AddLeftGroupbox("Super Strength")
+LeftGroupbox3:AddToggle("SuperStrengthGrab", {
+	Text = "Super Strength",
+	Default = false,
+	Callback = function(state, arg52)
+		if state then
+			TextButton.Visible = state
+		else
+			TextButton.Visible = false
+		end
+	end
+})
+LeftGroupbox3:AddSlider("StrengthValue", {
+	Text = "Strength",
+	Default = 5000,
+	Max = 10000,
+	Min = 10,
+	Rounding = 0,
+	Callback = function(state, arg54)
+	end
+})
+local LeftGroupbox4 = Tab3:AddLeftGroupbox("Grab Mode")
+LeftGroupbox4:AddToggle("Grab_Freeze Grab", {
+	Text = "Freeze Grab",
+	Default = false,
+	Callback = function(state, arg56)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Spin Grab", {
+	Text = "Spin Grab",
+	Default = false,
+	Callback = function(state, arg58)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Teleport Up", {
+	Text = "Teleport Up",
+	Default = false,
+	Callback = function(state, arg60)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Supersonic Grab", {
+	Text = "Supersonic Grab",
+	Default = false,
+	Callback = function(state, arg62)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Teleport Down", {
+	Text = "Teleport Down",
+	Default = false,
+	Callback = function(state, arg64)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Noclip Grab", {
+	Text = "Noclip Grab",
+	Default = false,
+	Callback = function(state, arg66)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Sky Grab", {
+	Text = "Sky Grab",
+	Default = false,
+	Callback = function(state, arg68)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Chaos Grab", {
+	Text = "Chaos Grab",
+	Default = false,
+	Callback = function(state, arg70)
+	end
+})
+LeftGroupbox4:AddToggle("Grab_Kill Grab", {
+	Text = "Kill Grab",
+	Default = false,
+	Callback = function(state, arg72)
+	end
+})
+local LeftGroupbox5 = Tab3:AddLeftGroupbox("Free Gamepass")
+LeftGroupbox5:AddToggle("FreeGamepassReach", {
+	Text = "Further Reach",
+	Default = false,
+	Callback = function(state, arg74)
+		if state then
+			local FartherReach = game.Players.LocalPlayer:FindFirstChild("FartherReach")
+			FartherReach.Value = true
+			game.ReplicatedStorage.GamepassEvents:FindFirstChild("FurtherReachBoughtNotifier")
+		else
+			local FartherReach2 = game.Players.LocalPlayer:FindFirstChild("FartherReach")
+			FartherReach2:Destroy()
+		end
+	end
+})
+local RightGroupbox3 = Tab3:AddRightGroupbox("Line Colors")
+local Label5 = RightGroupbox3:AddLabel("Line Color 1")
+Label5:AddColorPicker("LineColor1", {
+	Text = "LineColor 1",
+	Default = Color3.fromRGB(255, 0, 0),
+	Callback = function(state, arg76)
+	end
+})
+local Label6 = RightGroupbox3:AddLabel("Line Color 2")
+Label6:AddColorPicker("LineColor2", {
+	Text = "LineColor 2",
+	Default = Color3.fromRGB(0, 0, 255),
+	Callback = function(state, arg78)
+	end
+})
+local Label7 = RightGroupbox3:AddLabel("Line Color 3")
+Label7:AddColorPicker("LineColor3", {
+	Text = "LineColor 3",
+	Default = Color3.fromRGB(0, 255, 0),
+	Callback = function(state, arg80)
+	end
+})
+local Label8 = RightGroupbox3:AddLabel("Line Color 4")
+Label8:AddColorPicker("LineColor4", {
+	Text = "LineColor 4",
+	Default = Color3.fromRGB(255, 255, 0),
+	Callback = function(state, arg82)
+	end
+})
+local Label9 = RightGroupbox3:AddLabel("Line Color 5")
+Label9:AddColorPicker("LineColor5", {
+	Text = "LineColor 5",
+	Default = Color3.fromRGB(255, 0, 255),
+	Callback = function(state, arg84)
+	end
+})
+local Label10 = RightGroupbox3:AddLabel("Line Color 6")
+Label10:AddColorPicker("LineColor6", {
+	Text = "LineColor 6",
+	Default = Color3.fromRGB(0, 255, 255),
+	Callback = function(state, arg86)
+	end
+})
+RightGroupbox3:AddButton({
+	Text = "Apply Line Color",
+	Func = function(arg87, arg88)
+	end
+})
+local RightGroupbox4 = Tab3:AddRightGroupbox("Line Extend")
+RightGroupbox4:AddToggle("InfiniteLineExtend", {
+	Text = "Infinity Extend Line",
+	Default = false,
+	Callback = function(state, arg90)
+		if state then
+			_G.FurtherExtend = state
+			toggleFurtherExtendButtonState(state)
+		else
+			_G.FurtherExtend = false
+			toggleFurtherExtendButtonState(false)
+		end
+	end
+})
+RightGroupbox4:AddSlider("ExtendSpeed", {
+	Text = "Speed",
+	Default = 3,
+	Max = 25,
+	Min = 3,
+	Rounding = 0,
+	Callback = function(state, arg92)
+	end
+})
+RightGroupbox4:AddLabel("Mobile / Pc Supported")
+local ScreenGui3 = Instance.new("ScreenGui")
+ScreenGui3.ResetOnSpawn = false
+ScreenGui3.Name = "FurtherExtendGUI"
+ScreenGui3.Parent = Players.LocalPlayer.PlayerGui
+local ImageButton = Instance.new("ImageButton")
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+ImageButton.Position = UDim2.new(1, -70, 1, -259)
+ImageButton.Image = "rbxassetid://97166444"
+ImageButton.BackgroundTransparency = 1
+ImageButton.ImageTransparency = 1
+ImageButton.Visible = false
+ImageButton.ImageColor3 = Color3.fromRGB(142, 142, 142)
+ImageButton.Parent = ScreenGui3
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Size = UDim2.new(1, 0, 1, 0)
+ImageLabel.Image = "rbxassetid://9603831913"
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.Visible = false
+ImageLabel.Parent = ImageButton
+local ImageButton2 = Instance.new("ImageButton")
+ImageButton2.Size = UDim2.new(0, 45, 0, 45)
+ImageButton2.Position = UDim2.new(1, -70, 1, -211)
+ImageButton2.Image = "rbxassetid://97166444"
+ImageButton2.BackgroundTransparency = 1
+ImageButton2.ImageTransparency = 1
+ImageButton2.Visible = false
+ImageButton2.ImageColor3 = Color3.fromRGB(142, 142, 142)
+ImageButton2.Parent = ScreenGui3
+local ImageLabel2 = Instance.new("ImageLabel")
+ImageLabel2.Size = UDim2.new(1, 0, 1, 0)
+ImageLabel2.Image = "rbxassetid://9603826756"
+ImageLabel2.BackgroundTransparency = 1
+ImageLabel2.Visible = false
+ImageLabel2.Parent = ImageButton2
+task.spawn(function(...)
+	local PlayerGui3 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+	local ContextActionGui2 = PlayerGui3:WaitForChild("ContextActionGui", 5)
+	local ContextButtonFrame2 = ContextActionGui2:WaitForChild("ContextButtonFrame", 5)
+	local descendants4 = ContextButtonFrame2:GetDescendants()
+	for i9, v9 in ipairs(descendants4) do
+	end
+	ContextButtonFrame2.DescendantAdded:Connect(function(descendant3)
+	end)
+end)
+task.spawn(function(...)
+	local PlayerGui4 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+	local ContextActionGui3 = PlayerGui4:WaitForChild("ContextActionGui", 5)
+	local ContextButtonFrame3 = ContextActionGui3:WaitForChild("ContextButtonFrame", 5)
+	local descendants5 = ContextButtonFrame3:GetDescendants()
+	for i10, v10 in ipairs(descendants5) do
+	end
+	ContextButtonFrame3.DescendantAdded:Connect(function(descendant4)
+	end)
+end)
+workspace.ChildAdded:Connect(function(child7)
+end)
+workspace.ChildRemoved:Connect(function(child8)
+end)
+UserInputService.InputChanged:Connect(function(input2, gameProcessed2)
+end)
+ImageButton.InputBegan:Connect(function(input3, gameProcessed3)
+end)
+ImageButton.InputEnded:Connect(function(input4, gameProcessed4)
+end)
+ImageButton2.InputBegan:Connect(function(input5, gameProcessed5)
+end)
+ImageButton2.InputEnded:Connect(function(input6, gameProcessed6)
+end)
+Players.LocalPlayer.CharacterAdded:Connect(function(character7)
+	Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:WaitForChild("GrabbingScript", 5)
+end)
+task.spawn(function(character7)
+	Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:WaitForChild("GrabbingScript", 5)
+end)
+local RightGroupbox5 = Tab3:AddRightGroupbox("Trail Customizer")
+RightGroupbox5:AddDropdown("TrailCategory", {
+	Text = "Settings Category",
+	Default = 1,
+	Multi = false,
+	Tooltip = "Select which settings to modify",
+	Values = { "Texture", "Shape & Wave", "Optics" },
+	Callback = function(state, arg94)
+	end
+})
+RightGroupbox5:AddDivider()
+RightGroupbox5:AddDropdown("TexturePicker", {
+	Text = "Texture Select",
+	Default = 1,
+	Multi = false,
+	Tooltip = "Select a texture for the trail",
+	Values = { "Chain", "Custom ID", "Glitch", "Heartrate", "Lightning", "Slend", "Swirl" },
+	Callback = function(state, arg96)
+	end
+})
+RightGroupbox5:AddInput("CustomIDInput", {
+	Text = "Custom Texture ID",
+	Default = "",
+	Finished = false,
+	Numeric = false,
+	Placeholder = "rbxassetid://...",
+	Tooltip = "rbxassetid://XXXXXXXXX (Effective when Custom ID is selected)",
+	Callback = function(arg97, arg98)
+		local result6 = arg97:gsub("rbxassetid://", "")
+		workspace.GrabParts.BeamPart.GrabBeam.Texture = "rbxassetid://" .. result6
+	end
+})
+RightGroupbox5:AddToggle("WatcherToggle", {
+	Text = "Auto Apply to New Trails",
+	Default = false,
+	Tooltip = "Automatically apply properties to newly created GrabBeams",
+	Callback = function(state, arg100)
+	end
+})
+RightGroupbox5:AddButton({
+	Text = "Apply All Properties",
+	Func = function(arg101, arg102)
+		workspace.GrabParts.BeamPart.GrabBeam.Texture = "rbxassetid://" .. result6
+		workspace.GrabParts.BeamPart.GrabBeam.TextureLength = 5
+		workspace.GrabParts.BeamPart.GrabBeam.TextureSpeed = 6
+		workspace.GrabParts.BeamPart.GrabBeam.Width0 = 0.375
+		workspace.GrabParts.BeamPart.GrabBeam.Width1 = 0.375
+		workspace.GrabParts.BeamPart.GrabBeam.CurveSize0 = 0
+		workspace.GrabParts.BeamPart.GrabBeam.CurveSize1 = 0.8481442928314209
+		workspace.GrabParts.BeamPart.GrabBeam.Segments = 50
+		workspace.GrabParts.BeamPart.GrabBeam.LightEmission = 0
+		workspace.GrabParts.BeamPart.GrabBeam.LightInfluence = 1
+		workspace.GrabParts.BeamPart.GrabBeam.Transparency = NumberSequence.new(0)
+		workspace.GrabParts.BeamPart.GrabBeam.ZOffset = 0
+		_NOTIFY("Applied all properties!", 3)
+	end
+})
+RightGroupbox5:AddButton({
+	Text = "Reset Beam Properties",
+	Func = function(arg103, arg104)
+		workspace.GrabParts.BeamPart.GrabBeam.Texture = "rbxassetid://" .. result6
+		workspace.GrabParts.BeamPart.GrabBeam.TextureLength = 5
+		workspace.GrabParts.BeamPart.GrabBeam.TextureSpeed = 6
+		workspace.GrabParts.BeamPart.GrabBeam.Width0 = 0.375
+		workspace.GrabParts.BeamPart.GrabBeam.Width1 = 0.375
+		workspace.GrabParts.BeamPart.GrabBeam.CurveSize0 = 0
+		workspace.GrabParts.BeamPart.GrabBeam.CurveSize1 = 0.8481442928314209
+		workspace.GrabParts.BeamPart.GrabBeam.Segments = 50
+		workspace.GrabParts.BeamPart.GrabBeam.LightEmission = 0
+		workspace.GrabParts.BeamPart.GrabBeam.LightInfluence = 1
+		workspace.GrabParts.BeamPart.GrabBeam.Transparency = NumberSequence.new(0)
+		workspace.GrabParts.BeamPart.GrabBeam.ZOffset = 0
+		_NOTIFY("Beam properties reset", 3)
+	end
+})
+RightGroupbox5:AddSlider("SliderTexLen", {
+	Text = "Texture Length",
+	Default = 5,
+	Max = 20,
+	Min = 0.01,
+	Rounding = 2,
+	Callback = function(state, arg106)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.TextureLength = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.TextureLength = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderTexSpeed", {
+	Text = "Texture Speed",
+	Default = 6,
+	Max = 10,
+	Min = -10,
+	Rounding = 1,
+	Callback = function(state, arg108)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.TextureSpeed = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.TextureSpeed = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderW0", {
+	Text = "Start Width",
+	Default = 0.375,
+	Max = 10,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg110)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.Width0 = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.Width0 = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderW1", {
+	Text = "End Width",
+	Default = 0.375,
+	Max = 10,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg112)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.Width1 = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.Width1 = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderCurve0", {
+	Text = "Start Curve Size",
+	Default = 0,
+	Max = 10,
+	Min = -10,
+	Rounding = 2,
+	Callback = function(state, arg114)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.CurveSize0 = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.CurveSize0 = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderCurve1", {
+	Text = "End Curve Size",
+	Default = 0.8481442928314209,
+	Max = 10,
+	Min = -10,
+	Rounding = 2,
+	Callback = function(state, arg116)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.CurveSize1 = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.CurveSize1 = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderSegments", {
+	Text = "Curve Segments",
+	Default = 50,
+	Max = 60,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(arg117, arg118)
+		workspace.GrabParts.BeamPart.GrabBeam.Segments = math.floor(arg117)
+	end
+})
+RightGroupbox5:AddSlider("SliderEmission", {
+	Text = "Light Emission",
+	Default = 0,
+	Max = 1,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg120)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.LightEmission = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.LightEmission = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderInfluence", {
+	Text = "Light Influence",
+	Default = 1,
+	Max = 1,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg122)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.LightInfluence = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.LightInfluence = false
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderTransparency", {
+	Text = "Transparency",
+	Default = 0,
+	Max = 1,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg124)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.Transparency = NumberSequence.new(state)
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.Transparency = NumberSequence.new(false)
+		end
+	end
+})
+RightGroupbox5:AddSlider("SliderZOffset", {
+	Text = "Z-Offset",
+	Default = 0,
+	Max = 10,
+	Min = -10,
+	Rounding = 1,
+	Callback = function(state, arg126)
+		if state then
+			workspace.GrabParts.BeamPart.GrabBeam.ZOffset = state
+		else
+			workspace.GrabParts.BeamPart.GrabBeam.ZOffset = false
+		end
+	end
+})
+workspace.GrabParts.BeamPart.GrabBeam.AncestryChanged:Connect(function(child9, parent)
+end)
+workspace.GrabParts.BeamPart.GrabBeam.Texture = "rbxassetid://" .. result6
+workspace.GrabParts.BeamPart.GrabBeam.TextureLength = false
+workspace.GrabParts.BeamPart.GrabBeam.TextureSpeed = false
+workspace.GrabParts.BeamPart.GrabBeam.Width0 = false
+workspace.GrabParts.BeamPart.GrabBeam.Width1 = false
+workspace.GrabParts.BeamPart.GrabBeam.CurveSize0 = false
+workspace.GrabParts.BeamPart.GrabBeam.CurveSize1 = false
+workspace.GrabParts.BeamPart.GrabBeam.Segments = math.floor(arg117)
+workspace.GrabParts.BeamPart.GrabBeam.LightEmission = false
+workspace.GrabParts.BeamPart.GrabBeam.LightInfluence = false
+workspace.GrabParts.BeamPart.GrabBeam.Transparency = NumberSequence.new(false)
+workspace.GrabParts.BeamPart.GrabBeam.ZOffset = false
+workspace.DescendantAdded:Connect(function(descendant5)
+end)
+local LeftGroupbox6 = Tab5:AddLeftGroupbox("Sex Aura")
+local RightGroupbox6 = Tab5:AddRightGroupbox("Grab Auras")
+RightGroupbox6:AddSlider("AuraRadius", {
+	Text = "Aura Radius",
+	Default = 20,
+	Max = 100,
+	Min = 5,
+	Rounding = 0,
+	Callback = function(state, arg128)
+	end
+})
+RightGroupbox6:AddToggle("TelekinesisAura", {
+	Text = "Telekinesis Aura",
+	Default = false,
+	Callback = function(state, arg130)
+		if state then
+			task.spawn(function(...)
+				local players5 = Players:GetPlayers()
+				for k, v11 in pairs(players5) do
+					v11.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					v11.Character.HumanoidRootPart.Velocity = Vector3.new(0, 50, 0)
+				end
+				task.wait(0.1)
+				local players6 = Players:GetPlayers()
+				for k2, v12 in pairs(players6) do
+					v12.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					v12.Character.HumanoidRootPart.Velocity = Vector3.new(0, 50, 0)
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+RightGroupbox6:AddToggle("AnchorAura", {
+	Text = "Anchor Aura",
+	Default = false,
+	Callback = function(state, arg132)
+		if state then
+			task.spawn(function(...)
+				local players7 = Players:GetPlayers()
+				for k4, v14 in pairs(players7) do
+					v14.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local children2 = v14.Character:GetChildren()
+					for k5, v15 in pairs(children2) do
+						v15.Anchored = true
+					end
+				end
+				task.wait(0.1)
+				local players8 = Players:GetPlayers()
+				for k6, v16 in pairs(players8) do
+					v16.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local children3 = v16.Character:GetChildren()
+					for k7, v17 in pairs(children3) do
+						v17.Anchored = true
+					end
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+RightGroupbox6:AddToggle("FlingAura", {
+	Text = "Fling Aura",
+	Default = false,
+	Callback = function(state, arg134)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local players9 = Players:GetPlayers()
+				for k10, v20 in pairs(players9) do
+					v20.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local HumanoidRootPart3 = v20.Character:FindFirstChild("HumanoidRootPart")
+					HumanoidRootPart3:FindFirstChild("FlingAuraVelocity")
+				end
+				task.wait(0.1)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local players10 = Players:GetPlayers()
+				for k11, v21 in pairs(players10) do
+					v21.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local HumanoidRootPart4 = v21.Character:FindFirstChild("HumanoidRootPart")
+					HumanoidRootPart4:FindFirstChild("FlingAuraVelocity")
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+RightGroupbox6:AddSlider("FlingStrength", {
+	Text = "Fling Strength",
+	Default = 400,
+	Max = 10000,
+	Min = 400,
+	Rounding = 0,
+	Callback = function(state, arg136)
+	end
+})
+RightGroupbox6:AddDropdown("FlingTargetType", {
+	Text = "Fling Target",
+	Default = "Players",
+	Values = { "Players", "Objects", "Players and Objects" },
+	Callback = function(state, arg138)
+	end
+})
+LeftGroupbox6:AddToggle("SexAuraToggle", {
+	Text = "Sex Aura",
+	Default = false,
+	Callback = function(state, arg140)
+		if state then
+			local thread = task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local players11 = Players:GetPlayers()
+				for k13, v23 in pairs(players11) do
+					v23.Character:FindFirstChild("HumanoidRootPart")
+					v23.Character:FindFirstChildOfClass("Humanoid")
+					task.wait(0.05)
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local players12 = Players:GetPlayers()
+					for k14, v24 in pairs(players12) do
+						v24.Character:FindFirstChild("HumanoidRootPart")
+						v24.Character:FindFirstChildOfClass("Humanoid")
+					end
+					task.wait(0.05)
+				end
+			end)
+		else
+			task.cancel(thread)
+			local players13 = Players:GetPlayers()
+			for k16, v26 in pairs(players13) do
+				local HumanoidRootPart5 = v26.Character:FindFirstChild("HumanoidRootPart")
+				local BodyPosition = HumanoidRootPart5:FindFirstChildOfClass("BodyPosition")
+				local BodyGyro = HumanoidRootPart5:FindFirstChildOfClass("BodyGyro")
+				BodyPosition:Destroy()
+				BodyGyro:Destroy()
+				local Humanoid2 = v26.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid2.PlatformStand = false
+			end
+		end
+	end
+})
+LeftGroupbox6:AddDropdown("SexAuraPart", {
+	Text = "Select Target Part",
+	Default = 3,
+	Values = { "Head", "Torso", "HumanoidRootPart", "Left Foot", "Right Foot" },
+	Callback = function(state, arg142)
+	end
+})
+LeftGroupbox6:AddDropdown("SexAuraAxis", {
+	Text = "Select Rotation Axis",
+	Default = 2,
+	Values = { "X Axis (Tilt)", "Y Axis (Spin)" },
+	Callback = function(state, arg144)
+	end
+})
+LeftGroupbox6:AddSlider("SexAuraAngle", {
+	Text = "Rotation Angle",
+	Default = 0,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg146)
+	end
+})
+LeftGroupbox6:AddSlider("SexAuraDist", {
+	Text = "Distance from Player",
+	Default = 3,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg148)
+	end
+})
+LeftGroupbox6:AddSlider("SexAuraHeight", {
+	Text = "Height Offset",
+	Default = -0.5,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg150)
+	end
+})
+LeftGroupbox6:AddSlider("SexAuraSpeed", {
+	Text = "Thrust Speed",
+	Default = 2,
+	Max = 200,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg152)
+	end
+})
+LeftGroupbox6:AddSlider("SexAuraRadius", {
+	Text = "Aura Radius",
+	Default = 20,
+	Max = 100,
+	Min = 5,
+	Rounding = 0,
+	Callback = function(state, arg154)
+	end
+})
+LeftGroupbox6:AddToggle("SexAuraWhitelist", {
+	Text = "Whitelist (Friends)",
+	Default = false,
+	Callback = function(state, arg156)
+	end
+})
+local LeftGroupbox7 = Tab4:AddLeftGroupbox("Target")
+local RightGroupbox7 = Tab4:AddRightGroupbox("Aura Mode")
+local players14 = Players:GetPlayers()
+for i11, v27 in ipairs(players14) do
+end
+local Dropdown = LeftGroupbox7:AddDropdown("BlobKickTargetDropdown", {
+	Text = "Select Target",
+	Default = 1,
+	Values = { v27.DisplayName .. " @" .. v27.Name },
+	Callback = function(state, arg158)
+		if state then
+			local result7 = state:match("@(.+)$")
+		end
+	end
+})
+local players15 = Players:GetPlayers()
+for i12, v28 in ipairs(players15) do
+end
+Dropdown:SetValues({ v28.DisplayName .. " @" .. v28.Name })
+LeftGroupbox7:AddButton({
+	Text = "Kick",
+	Func = function(arg159, arg160)
+		local child2 = Players:FindFirstChild(result7)
+		task.spawn(function(...)
+			local HumanoidRootPart6 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid3 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			local child3 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			local CreatureBlobman = child3:FindFirstChild("CreatureBlobman")
+			local VehicleSeat = CreatureBlobman:FindFirstChildOfClass("VehicleSeat")
+			VehicleSeat:Sit(Humanoid3)
+			task.wait(0.05)
+			local HumanoidRootPart7 = child2.Character:FindFirstChild("HumanoidRootPart")
+			local LeftDetector = CreatureBlobman:FindFirstChild("LeftDetector")
+			local LeftWeld = LeftDetector:FindFirstChild("LeftWeld")
+			HumanoidRootPart6.CFrame = (HumanoidRootPart7.CFrame * CFrame.new(0, 0, 3))
+			task.wait(0.1)
+			CreatureBlobman.BlobmanSeatAndOwnerScript.CreatureGrab:FireServer(LeftDetector, HumanoidRootPart6, LeftWeld)
+			task.wait(0.12)
+		end)
+	end
+})
+RightGroupbox7:AddDropdown("AuraModeSelect", {
+	Text = "Aura Mode",
+	Default = 1,
+	Values = { "Kill Aura", "Destroy Aura", "Speed/Jump Control", "TP Spam", "Kick Aura" },
+	Callback = function(state, arg162)
+	end
+})
+RightGroupbox7:AddToggle("EnableAura", {
+	Text = "Enable Aura",
+	Default = false,
+	Callback = function(state, arg164)
+	end
+})
+RightGroupbox7:AddSlider("TargetWalkSpeed", {
+	Text = "Target WalkSpeed",
+	Default = 16,
+	Max = 500,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg166)
+	end
+})
+RightGroupbox7:AddSlider("TargetJumpPower", {
+	Text = "Target JumpPower",
+	Default = 50,
+	Max = 500,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg168)
+	end
+})
+RightGroupbox7:AddToggle("KickAuraFriendWhitelist", {
+	Text = "Kick Aura: Friend Whitelist",
+	Default = false,
+	Callback = function(state, arg170)
+	end
+})
+RightGroupbox7:AddDropdown("AllModeSelect", {
+	Text = "All Mode",
+	Default = 1,
+	Values = { "All Kill", "All Destroy", "All Speed/Jump", "All TP Spam" },
+	Callback = function(state, arg172)
+	end
+})
+RightGroupbox7:AddToggle("EnableAll", {
+	Text = "Enable All",
+	Default = false,
+	Callback = function(state, arg174)
+	end
+})
+RightGroupbox7:AddToggle("SkyTP", {
+	Text = "Auto TP to Sky (15s)",
+	Default = false,
+	Callback = function(state, arg176)
+	end
+})
+LeftGroupbox7:AddToggle("LoopKickBlobman", {
+	Text = "Loop Kick",
+	Default = false,
+	Callback = function(state, arg178)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+local LeftGroupbox8 = Tab4:AddLeftGroupbox("Perm Owner")
+LeftGroupbox8:AddButton({
+	Text = "Perm Owner All",
+	Func = function(arg179, arg180)
+		task.spawn(function(...)
+			_G.permOwnerResetConns = {}
+			_G.permOwnerList = {}
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			local child4 = workspace:WaitForChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			local CreatureBlobman2 = child4:FindFirstChild("CreatureBlobman")
+			CreatureBlobman2:FindFirstChildWhichIsA("VehicleSeat", true)
+			Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			local BlobmanSeatAndOwnerScript = CreatureBlobman2:FindFirstChild("BlobmanSeatAndOwnerScript")
+			local LeftDetector2 = CreatureBlobman2:FindFirstChild("LeftDetector")
+			local LeftWeld2 = LeftDetector2:FindFirstChild("LeftWeld")
+			local CreatureGrab = BlobmanSeatAndOwnerScript:FindFirstChild("CreatureGrab")
+			local CreatureRelease = BlobmanSeatAndOwnerScript:FindFirstChild("CreatureRelease")
+			local CreatureDrop = BlobmanSeatAndOwnerScript:FindFirstChild("CreatureDrop")
+			local players16 = Players:GetPlayers()
+			for i13, v29 in ipairs(players16) do
+			end
+			_NOTIFY("1 targets starting...", 3)
+			v29.Character:FindFirstChild("HumanoidRootPart")
+			local connection8 = RunService.RenderStepped:Connect(function(deltaTime7)
+				local HumanoidRootPart37 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				local HumanoidRootPart38 = v29.Character:FindFirstChild("HumanoidRootPart")
+				HumanoidRootPart37.CFrame = (HumanoidRootPart38.CFrame * CFrame.new(0, 0, -3))
+			end)
+			task.wait(0.3)
+			connection8:Disconnect()
+			local HumanoidRootPart8 = v29.Character:FindFirstChild("HumanoidRootPart")
+			v29.Character:FindFirstChildOfClass("Humanoid")
+			CreatureGrab:FireServer(LeftDetector2, HumanoidRootPart8, LeftWeld2)
+			CreatureRelease:FireServer(LeftWeld2, HumanoidRootPart8)
+			CreatureDrop:FireServer(LeftWeld2, HumanoidRootPart8)
+			v29.CharacterAdded:Connect(function(character8)
+			end)
+			_NOTIFY("Done! Auto-removed on reset", 4)
+		end)
+	end
+})
+LeftGroupbox8:AddButton({
+	Text = "Quick Kill All",
+	Func = function(arg181, arg182)
+		task.spawn(function(...)
+			v29.Character:FindFirstChildOfClass("Humanoid")
+		end)
+	end
+})
+LeftGroupbox8:AddButton({
+	Text = "Bring All",
+	Func = function(arg183, arg184)
+		task.spawn(function(...)
+			local HumanoidRootPart9 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			local HumanoidRootPart10 = v29.Character:FindFirstChild("HumanoidRootPart")
+			HumanoidRootPart10.CFrame = (HumanoidRootPart9.CFrame * CFrame.new(0, 0, -3))
+			_NOTIFY("1 players moved in front", 3)
+		end)
+	end
+})
+LeftGroupbox8:AddButton({
+	Text = "Heaven All",
+	Func = function(arg185, arg186)
+		task.spawn(function(...)
+			local HumanoidRootPart11 = v29.Character:FindFirstChild("HumanoidRootPart")
+			HumanoidRootPart11.CFrame = CFrame.new(HumanoidRootPart11.Position.X, 1, HumanoidRootPart11.Position.Z)
+			_NOTIFY("1 players sent to the sky", 3)
+		end)
+	end
+})
+local RightGroupbox8 = Tab4:AddRightGroupbox("Toy Mod / Orbit")
+RightGroupbox8:AddToggle("OrbitAll", {
+	Text = "Orbit All (Clockwise)",
+	Default = false,
+	Callback = function(state, arg188)
+		if state then
+			local connection9 = RunService.RenderStepped:Connect(function(deltaTime8)
+			end)
+			_NOTIFY("Orbit All: Started!", 2)
+		else
+			connection9:Disconnect()
+			_NOTIFY("Orbit All: Stopped", 2)
+		end
+	end
+})
+RightGroupbox8:AddSlider("OrbitSpeed", {
+	Text = "Orbit Speed",
+	Default = 1,
+	Max = 20,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg190)
+	end
+})
+RightGroupbox8:AddSlider("OrbitHeight", {
+	Text = "Orbit Height",
+	Default = 5,
+	Max = 50,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg192)
+	end
+})
+RightGroupbox8:AddSlider("OrbitRadius", {
+	Text = "Orbit Radius",
+	Default = 8,
+	Max = 60,
+	Min = 2,
+	Rounding = 0,
+	Callback = function(state, arg194)
+	end
+})
+local LeftGroupbox9 = Tab7:AddLeftGroupbox("Kick Configuration")
+local RightGroupbox9 = Tab7:AddRightGroupbox("Execute Kick")
+local Dropdown2 = LeftGroupbox9:AddDropdown("kickTargetPlayerDisplay", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { "All Players" },
+	Callback = function(state, arg196)
+	end
+})
+local players17 = Players:GetPlayers()
+for i14, v30 in ipairs(players17) do
+end
+Dropdown2:SetValues({ "All Players", v30.DisplayName .. " @" .. v30.Name })
+LeftGroupbox9:AddToggle("kickExcludeFriends", {
+	Text = "Exclude Friends",
+	Default = true,
+	Callback = function(state, arg198)
+	end
+})
+LeftGroupbox9:AddToggle("kickUseWhitelist", {
+	Text = "Exclude Whitelisted Players",
+	Default = true,
+	Callback = function(state, arg200)
+	end
+})
+RightGroupbox9:AddDropdown("kickTargetHeightMode", {
+	Text = "NoBlob Kick Height Mode",
+	Default = 1,
+	Values = { "Spawn", "Water" },
+	Callback = function(state, arg202)
+	end
+})
+RightGroupbox9:AddButton({
+	Text = "Execute NoBlob Kick",
+	Func = function(arg203, arg204)
+	end
+})
+RightGroupbox9:AddButton({
+	Text = "Execute Blobman Kick V2",
+	Func = function(arg205, arg206)
+		local players18 = Players:GetPlayers()
+		for i15, v31 in ipairs(players18) do
+		end
+		_NOTIFY("Kick Target: Starting Blobman Kick V2 on 1 targets...", 3)
+		task.spawn(function(...)
+			local HumanoidRootPart12 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local child5 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			local CreatureBlobman3 = child5:FindFirstChild("CreatureBlobman")
+			CreatureBlobman3:Destroy()
+			task.wait(0.133)
+			local child6 = workspace:WaitForChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			local CreatureBlobman4 = child6:FindFirstChild("CreatureBlobman")
+			task.wait(0.1)
+			CreatureBlobman4:FindFirstChildWhichIsA("VehicleSeat", true)
+			Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			task.wait(0.3)
+			local descendants6 = Players.LocalPlayer.Character:GetDescendants()
+			for i16, v32 in ipairs(descendants6) do
+				v32.CanCollide = false
+			end
+			local HumanoidRootPart13 = v31.Character:FindFirstChild("HumanoidRootPart")
+			HumanoidRootPart12.CFrame = HumanoidRootPart13.CFrame
+			HumanoidRootPart12.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			task.wait(0.11)
+		end)
+	end
+})
+RightGroupbox9:AddDivider()
+RightGroupbox9:AddButton({
+	Text = "Gather + Blobman Orbit Kick (All)",
+	Func = function(arg207, arg208)
+		task.spawn(function(...)
+			Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10)
+			local players19 = Players:GetPlayers()
+			for i17, v33 in ipairs(players19) do
+				Players.LocalPlayer:IsFriendsWith(v33.UserId)
+				v33.Character:FindFirstChild("HumanoidRootPart")
+			end
+			_NOTIFY("GatherKickAll: Starting...", 3)
+			local GrabEvents7 = ReplicatedStorage:FindFirstChild("GrabEvents")
+			local CreateGrabLine5 = GrabEvents7:FindFirstChild("CreateGrabLine")
+			local SpawnLocation5 = workspace:FindFirstChild("SpawnLocation")
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-610860531, 0, 1078008437))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1291162096, 0, 401472258))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(782796295, 0, 580212538))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1224003641, 0, 1477149955))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1757572286, 0, -9024455))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-579345672, 0, -713049605))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-922993415, 0, 218748515))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(483366183, 0, 390938197))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1913851630, 0, -2075995386))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1641894801, 0, -1481163264))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-589300369, 0, -1420588902))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(413201821, 0, 147759310))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(633916507, 0, 397611415))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1076507605, 0, 1318720943))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1591681037, 0, -838522932))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(210187274, 0, -700802281))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(23696013, 0, -653082484))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-406110482, 0, 894085855))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-113636956, 0, -35444094))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-744864873, 0, -1465693152))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1212414580, 0, 492514167))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1610265421, 0, 1825157292))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1160809904, 0, -1723346629))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1478849359, 0, 1567626526))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1490230209, 0, -1964268274))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1619936653, 0, 1227186713))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(158801314, 0, 296187618))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-878808761, 0, -584835703))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(14889570, 0, -1906933330))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(622554117, 0, -1558695594))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1276917195, 0, -1431126218))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(437108386, 0, -164663000))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1204503756, 0, 1182006584))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-936513760, 0, 34310072))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2030845926, 0, -156872959))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2125882428, 0, -747756671))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(8934856, 0, -862828660))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1097384806, 0, -2058678578))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1243903458, 0, -1410378817))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1876572131, 0, 1823871379))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1704941877, 0, 1168305210))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(3162247, 0, -2039579240))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-357471797, 0, -1537878942))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1124871750, 0, 288055179))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-471710918, 0, 1061400110))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2065364639, 0, 772900470))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1677298936, 0, 813755711))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1888819459, 0, 758355269))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1967469502, 0, 1821460277))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-590954945, 0, -1407589834))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1840382224, 0, -1240492252))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-135367165, 0, -813466774))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1262541735, 0, 2028581791))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(857719820, 0, 78716028))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1748033056, 0, -1705345970))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-185243639, 0, -1051250860))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(83132012, 0, -2101188574))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(176540020, 0, -1987774021))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-440779571, 0, -1717446734))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-890663887, 0, -1346772545))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-756768562, 0, 512845893))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(579052903, 0, -2035091936))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1151218282, 0, -1990605022))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2036908078, 0, -255479713))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(129516467, 0, 1439552894))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1456972247, 0, 2056167609))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2101359216, 0, -1373626236))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1511946314, 0, 1982669920))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(162065197, 0, 998597330))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1306891224, 0, 122976824))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1478969515, 0, 976568357))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-43395449, 0, 1838464695))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-600465411, 0, 980110483))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(906091905, 0, -861186166))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1846623153, 0, -135723125))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1929296568, 0, 420623743))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1377142688, 0, 2093459763))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1841591021, 0, -636941351))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1849017199, 0, 1916615735))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-482178442, 0, 1348835741))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(304467095, 0, 296342544))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1534067654, 0, -330215076))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(737953543, 0, 1075727150))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-397789887, 0, -755667269))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-99483916, 0, 1225274533))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1232385289, 0, -503079894))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1175284688, 0, 377209193))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2020801789, 0, -896498128))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-479288891, 0, -690166554))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1133305242, 0, -392071354))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1669325819, 0, 844648465))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1637188570, 0, 497289634))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(680190138, 0, -784878241))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1998977138, 0, 1630793246))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(740960861, 0, -903034496))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1974217400, 0, -245473408))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1458929839, 0, -2064418800))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(35857348, 0, 269378261))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1709408452, 0, -600757286))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(920374539, 0, 1050526921))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1363985607, 0, 793891117))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1606857183, 0, 923310513))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1147015666, 0, -1592449146))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1224030628, 0, -1971461017))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1370744690, 0, -156451635))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(248661037, 0, 443233822))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1453357183, 0, -1382501645))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(46205090, 0, -782143946))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-371482890, 0, -1382773974))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-257472157, 0, -1928426034))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-224217481, 0, -1879164512))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(882433904, 0, -627568865))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-564357900, 0, -1706644763))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1968645598, 0, -1613474253))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1070871096, 0, -863276572))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-294562287, 0, 1805780729))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(899028504, 0, -584108608))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(214525952, 0, -1635354545))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-775343739, 0, -2046379521))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-193046589, 0, -1841412756))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1546873575, 0, 3926030))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(126551968, 0, 1461063424))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2090842496, 0, 158388348))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1108611877, 0, 1606241383))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1422939454, 0, -234721501))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1938293950, 0, 106604017))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2098431084, 0, -662746210))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(521677904, 0, 515232400))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(200304909, 0, 1225424841))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1716070272, 0, 8943213))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(996438754, 0, 1771576270))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1929529368, 0, -829677153))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-413848962, 0, -693543869))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-851921841, 0, -1923092456))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(146028340, 0, 249921091))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2030977288, 0, -63847735))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-503143927, 0, 234625164))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1362302796, 0, -1867965040))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2020835733, 0, -1582442703))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2055087876, 0, -576696322))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-273589446, 0, -1985003637))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1142829080, 0, 1301430900))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-854917514, 0, 2038915426))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-82707241, 0, -2104390932))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(118884065, 0, 1362927964))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1793490826, 0, -1136793407))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1762171336, 0, 813552590))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1451647394, 0, -293660564))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-680337437, 0, -1103736317))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(602435603, 0, 1179140581))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-741702752, 0, -1507889737))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-925525453, 0, -324680594))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-489546165, 0, 186122503))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2097292213, 0, 241231192))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(386875670, 0, 624804215))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1426073867, 0, 437732616))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(406569819, 0, 902317133))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1826772220, 0, 658902155))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(733735696, 0, -827039283))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(603289413, 0, -1660811807))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1829659596, 0, 1655049801))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1717255590, 0, -348464343))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1901906795, 0, -1684636126))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(655443993, 0, -209476956))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(22562366, 0, 1046286879))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(504300524, 0, -539666553))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1105748771, 0, -524575468))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(544379918, 0, 1639343626))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-43934480, 0, -1807520776))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1256616745, 0, -1100950061))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(335625282, 0, -1865377982))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1169827941, 0, -430262168))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1675216310, 0, 1681200054))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(705486735, 0, -530694022))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1366806406, 0, 1696757642))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1286716490, 0, -2007287704))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1018487002, 0, -1101448935))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1171465306, 0, 1819676653))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2129933237, 0, 2004274383))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-736414163, 0, 1056148880))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1674939819, 0, 1359831257))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1596521367, 0, 1065949535))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(70511336, 0, 1279693861))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-150434257, 0, 423221647))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-531440565, 0, -1955219409))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(239308277, 0, -675159975))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(203285322, 0, 739759848))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1420854064, 0, 1783294551))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(935204826, 0, -1177110845))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2045873536, 0, -1264005139))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1910044551, 0, 21785476))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1248571268, 0, -497580209))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(461533531, 0, -1923221831))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(305246276, 0, -1354548703))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-352251297, 0, 535674845))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1375454084, 0, -1532816345))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-76037389, 0, 531236324))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-999749965, 0, 1452188270))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1937350147, 0, -333251127))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2045074997, 0, -622964256))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(323348604, 0, 1978135493))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1803679987, 0, -1715089457))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(655634065, 0, 1104126609))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(28921669, 0, -1668645926))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1881844234, 0, 1158262642))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(35657285, 0, 1737202050))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1895805491, 0, -1850149861))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(900257518, 0, -1925588312))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(823119664, 0, 578131794))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1301807047, 0, -1655722356))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1219699692, 0, -504310516))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1491633580, 0, -344523209))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1888737705, 0, 665300898))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1030454554, 0, 508532818))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1032110940, 0, 1349459706))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1860313810, 0, 219572554))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1785652533, 0, 2046534446))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1011806812, 0, -539119746))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1827130301, 0, 120063577))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(465019760, 0, 1442656658))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(934076296, 0, 1365702312))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1119578518, 0, -140956632))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1706354803, 0, -1964231313))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1189491152, 0, -1685702208))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1763801954, 0, 2078287628))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1310618822, 0, 645771389))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(970900842, 0, 1851373772))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1647606409, 0, 1518740572))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-241099463, 0, -219219551))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1222722496, 0, 98863845))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1499372577, 0, 365626874))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1084819240, 0, 1785348831))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-498940413, 0, 1337679981))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-356896757, 0, 1004268426))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(875707176, 0, -1846264990))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1501458862, 0, 555247955))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1232668006, 0, 546930108))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-83042346, 0, 828835578))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1350828994, 0, -1496914856))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1790247057, 0, -399396964))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1964465338, 0, -2050813776))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(114179124, 0, 435020928))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1395940638, 0, -2006133450))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(129937981, 0, -1030089868))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1615772211, 0, -1165724388))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2133226335, 0, 1891960154))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1883432697, 0, -1728645333))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1282004896, 0, 1448034977))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-620496263, 0, 1170661987))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1494039590, 0, 1573608796))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1746225402, 0, -62016488))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-615279063, 0, 321962068))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-294390007, 0, -1180687605))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1446810194, 0, -260113066))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1049141562, 0, 1763645808))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(441688361, 0, 1997107802))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1169370322, 0, 574402702))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(880757908, 0, -1802942076))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-646877599, 0, -560168334))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-512176217, 0, -590368734))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-422261534, 0, -1032861179))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(905934887, 0, 989587948))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-779628500, 0, 1004540815))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-681497726, 0, -717480446))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-402440615, 0, -69312566))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-439896852, 0, -1511672742))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2053524333, 0, 1264785080))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1980046998, 0, 1513795379))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1499191966, 0, 1102613862))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2092356535, 0, 49890804))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1759384939, 0, -2038025003))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1538358427, 0, -479081946))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1586497730, 0, -317401546))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1339743362, 0, 539105656))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1997735427, 0, -778466703))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(296677566, 0, -1486937069))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1811757423, 0, 858986821))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(721276250, 0, -608194529))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(659531202, 0, 396599779))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1062170528, 0, -1692233897))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1431360783, 0, 1754965362))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1328728033, 0, -1086841069))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1968922917, 0, -21349182))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1051715507, 0, -779570802))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1828300161, 0, 1696033666))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1398290124, 0, 1860672876))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1846792883, 0, -1487316742))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1804247746, 0, -1789323121))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1967440891, 0, -709028764))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-541315702, 0, -1035519834))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-343788565, 0, -1950050834))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(307845167, 0, 1467433634))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1556994654, 0, -1709770581))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1399258401, 0, 718886641))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1117615844, 0, 87703784))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1761216980, 0, 1884122640))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1922620152, 0, -348662110))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1401128545, 0, 660449915))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2100247492, 0, -1323101951))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1984108428, 0, 445022213))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1133078150, 0, 977560089))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-439090471, 0, 1436824426))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(857505972, 0, -1058921331))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1725496409, 0, 1665446016))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(769354599, 0, -1729602347))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1982915683, 0, 1473322868))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1000183470, 0, 966028943))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1738169868, 0, 401526209))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1695184270, 0, 876827218))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-31013202, 0, 1711514444))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1328614040, 0, -1328227851))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1670232677, 0, -2098191418))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1745838064, 0, -916184984))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-631824741, 0, 1067927158))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(674918528, 0, 545997544))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1196316153, 0, -308581248))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1247961637, 0, -315249002))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1897941714, 0, 160208796))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1941323909, 0, 1069357945))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1899167613, 0, 1669227723))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1376474126, 0, 405746301))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(519961820, 0, -94181704))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1311726269, 0, -30467026))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-50406648, 0, -1101716593))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2045851570, 0, -503862188))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1303377626, 0, -90967305))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(816818825, 0, -1282472450))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(578586902, 0, 1836778418))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1271315046, 0, -884461924))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1683910161, 0, 137415806))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1278577162, 0, 288887906))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-884724429, 0, -1710683435))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(227360604, 0, 1864007466))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-508976434, 0, -627187709))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1368369418, 0, 1418133059))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(206539804, 0, -1629091746))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(764304600, 0, 1964103900))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1009285315, 0, -1114841282))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1552861569, 0, 1405364521))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1960393930, 0, -749659729))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1291080828, 0, 1801011094))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1660837205, 0, 1597827076))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-123559496, 0, 1303009869))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1984634402, 0, 1982358605))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-176956133, 0, -949173622))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1404803012, 0, 1563998183))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1664735249, 0, -1020385483))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(611020961, 0, -1716226007))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(244951549, 0, -109151230))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(79985115, 0, 2036738705))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1077670849, 0, 484723916))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(98454384, 0, 994983105))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-855272196, 0, -1187742721))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1395263966, 0, -343586683))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1043726822, 0, 1603842442))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1352308347, 0, -29051356))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-82919540, 0, -1546187444))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(390750704, 0, -48596388))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1247951467, 0, -822474572))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-18746785, 0, 1624133355))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1433967321, 0, -1250200802))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-895567864, 0, -492497348))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(683411971, 0, -1878749922))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1315814544, 0, -341043686))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-483857181, 0, -934616282))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1276150100, 0, -1158701063))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(222324880, 0, -1210580870))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-676348269, 0, 1323668694))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1211322666, 0, 167558459))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(464558154, 0, -1804990950))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1037590300, 0, -95513881))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-536125328, 0, -100035270))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1774409638, 0, -206772903))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(736120742, 0, -887072108))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1849696671, 0, -654452397))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(342554880, 0, 1088840928))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1894473346, 0, -530307005))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(213301033, 0, 788942061))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1205241658, 0, -765989125))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-815267306, 0, 506653193))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(404200930, 0, 425447018))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1591890757, 0, 258147463))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-782804616, 0, 2000457045))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(840666661, 0, -219811679))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1276748855, 0, 210335575))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-847787597, 0, -1907354872))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-57325990, 0, -446878440))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1241324378, 0, -99697267))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1656145729, 0, -1525191524))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1759697429, 0, 1723296007))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(608961781, 0, -340138006))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1427305667, 0, 1335135476))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1766494099, 0, 1510116180))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1461800515, 0, 1530695752))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(738047255, 0, -1639211420))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1873191236, 0, 855022374))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-762997707, 0, 2022155326))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1247700380, 0, -133735700))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1266154624, 0, 1955713539))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(505496078, 0, -236374747))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-218955388, 0, 1151682935))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1541667415, 0, -439861979))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1489169445, 0, -2054723165))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1260586427, 0, 906392334))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2098135047, 0, 1504379244))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2120811938, 0, 1417537149))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1419234428, 0, -1332541269))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-741990632, 0, -1123337467))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1089145909, 0, 2025228623))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1857824095, 0, -792192083))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2124261144, 0, -345555007))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2009874373, 0, 1264339225))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-597517321, 0, -896515904))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(729810025, 0, -2043489082))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(899206619, 0, 937560945))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1923000938, 0, -925777004))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1466291163, 0, 1224663011))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1361440018, 0, -1945274910))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-642248785, 0, -907327091))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1992282035, 0, -444618899))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1476902079, 0, 240422940))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1695502987, 0, -21625674))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1702664394, 0, 701041372))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(288708777, 0, -577693741))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-301965213, 0, 1718968125))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(172382120, 0, 800978753))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(147855801, 0, 78714819))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(571008213, 0, -1987152786))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-599944452, 0, -480384777))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-277506024, 0, -1664474706))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-791843005, 0, -986319455))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2064580458, 0, 467717279))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(728075439, 0, -1420502138))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2114853603, 0, -632412489))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1593569892, 0, 1900788888))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1681865818, 0, 1862154562))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1684742623, 0, -1677126743))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(356338175, 0, 1594196071))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(698060588, 0, 1132108252))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(338693345, 0, -1682507076))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(802977238, 0, -813394925))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1322794814, 0, 1403726865))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1744730566, 0, 1459758127))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(574200603, 0, -1590698535))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(793349978, 0, 623696751))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1683215963, 0, -386323729))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1269313277, 0, 1151557315))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-529781216, 0, -2059461078))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2033063520, 0, 1388688702))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2109933486, 0, 1155069840))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-302565147, 0, -2076568518))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2059210788, 0, -1921030579))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-812150546, 0, -1315558358))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(306502338, 0, -1785017976))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(623113841, 0, 265963455))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1875325917, 0, -498702647))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(237649040, 0, -1432141754))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(371161090, 0, 236280397))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-275222707, 0, 1514083683))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1139032864, 0, 803169531))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(224192547, 0, -1899167764))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-583213236, 0, 1139387481))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1990977800, 0, 1715319453))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1966833004, 0, -312579503))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(481833787, 0, 2059235148))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1312638888, 0, -2086000815))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-533030983, 0, -565736780))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-330052966, 0, 1684917225))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(598778686, 0, -333091896))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1922565633, 0, 2006106594))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-665671152, 0, -685815676))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(602251950, 0, -1910709051))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(746874106, 0, -1652054186))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(955123843, 0, 1149391713))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1111594893, 0, 1920699043))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1144428430, 0, -1209649153))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1835662411, 0, 713861064))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(378897668, 0, 2092945872))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1655134484, 0, -172793170))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(768578627, 0, 35396886))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(888276813, 0, -934229413))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(994533761, 0, 253466879))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1460232570, 0, 1541561659))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-638595817, 0, -237003981))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-755944083, 0, -766781214))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-668742280, 0, -738765701))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1667373641, 0, 847368597))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2049798968, 0, 1736417957))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1784751556, 0, -728718718))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-973039203, 0, 440346219))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-705080166, 0, -1185826093))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1433113071, 0, 1651409107))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2087684522, 0, -87152749))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1222816759, 0, -1354509708))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(43088844, 0, -1541182530))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1230345910, 0, -1183512075))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1161523921, 0, 1572770716))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1629218949, 0, 11615550))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-436277248, 0, -96558600))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-2127438151, 0, 1713003805))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(903006066, 0, -1228912815))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1356440313, 0, 966331027))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1669629362, 0, 1739181817))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1817454812, 0, 164655098))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-197698726, 0, 1724212200))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1279079604, 0, 224189340))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(2096356104, 0, -1545062117))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(493047806, 0, -1792503144))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1784986533, 0, 1435602348))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1604476716, 0, -1017215119))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(578922813, 0, -210727917))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-343929219, 0, 734288240))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1686577654, 0, 622566265))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1957146868, 0, 1491299380))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-516679379, 0, -258581920))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-603478506, 0, 1071591055))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(1119388572, 0, -1712978770))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(205947965, 0, -752235504))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(372479996, 0, -1047635326))
+			CreateGrabLine5:FireServer(SpawnLocation5, CFrame.new(-1096523041, 0, -430616237))
+			task.wait(1)
+			local GrabEvents8 = ReplicatedStorage:FindFirstChild("GrabEvents")
+			local CreateGrabLine6 = GrabEvents8:FindFirstChild("CreateGrabLine")
+			local SpawnLocation6 = workspace:FindFirstChild("SpawnLocation")
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2121211342, 0, -357671930))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1153611613, 0, -1540753418))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1856177657, 0, 39816791))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-476171513, 0, -469072129))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(29141687, 0, 503330268))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(854348737, 0, -401061466))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1200472180, 0, 465775720))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(191166783, 0, -1838764800))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-658394854, 0, -726438739))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(642739682, 0, 1763790807))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(146712193, 0, -1568905385))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-399138288, 0, -1448449713))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(531116226, 0, 2097945887))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1647800303, 0, 652640073))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(368099336, 0, 1736705644))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-885252107, 0, -493428853))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1143105492, 0, -807745271))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-336278668, 0, 1609929387))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1364663063, 0, -87805576))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1740336904, 0, 400252118))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-61782311, 0, 441333187))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(835885850, 0, -511778963))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1739998828, 0, 953880439))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(784631972, 0, -2003710077))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1261505797, 0, 958455842))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(945969768, 0, 1656875177))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1223203622, 0, 1761368942))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-348019187, 0, 1982437066))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1698089579, 0, 995454094))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1259557945, 0, -2069446513))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1764745361, 0, 825588030))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1804624547, 0, 223968260))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(571103384, 0, -1518690357))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1719359160, 0, 1891543120))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-236813263, 0, 1792530441))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-164191281, 0, -1231217099))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1016889501, 0, 1232838423))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(739401180, 0, 168227933))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1074558796, 0, -678684451))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1656104814, 0, 136172781))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-55555522, 0, 1236939055))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-888334502, 0, 224672656))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1393945038, 0, -416420184))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2077912430, 0, -111598648))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1527076277, 0, -1513541782))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1464116084, 0, 222695744))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1070689125, 0, 134540595))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2130978328, 0, -1975887433))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-375734192, 0, 635738059))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-402435798, 0, 244052170))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(626626688, 0, 2097021569))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1643808228, 0, -1349890493))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(72087261, 0, 569842869))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-266140741, 0, -914135654))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-298572937, 0, 1287097405))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(804665201, 0, 277707595))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2006002020, 0, 758490483))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(772495816, 0, -1469335410))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1946757427, 0, 1286412214))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1999255654, 0, 1999366799))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(806580452, 0, -1872560874))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1981780212, 0, 422732064))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1832464246, 0, 1391065982))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-756367036, 0, 1770855599))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2128260311, 0, 484526294))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1684975931, 0, 1749397384))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2055892138, 0, 471772941))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-170371420, 0, -2041431854))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1973385640, 0, 1454658075))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1564120845, 0, -1380315615))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1740395623, 0, 2072741798))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1802689219, 0, 1705178906))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-976592558, 0, -1263234638))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(753566370, 0, 569525194))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1598492386, 0, -1339870959))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1334418173, 0, 1648501846))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(610591650, 0, 1474641366))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-790448088, 0, -892826873))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1561156550, 0, -1049428236))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(635153015, 0, -548491917))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-278998384, 0, -44925236))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2048741552, 0, -811472209))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1334661002, 0, -1803506726))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(603149293, 0, 1863831221))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(819328578, 0, 1723789239))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2102326437, 0, 2069059020))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1276766669, 0, 1587399835))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1648045644, 0, -806488433))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(492722787, 0, 2029354006))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1740701264, 0, 71159395))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1792133975, 0, -1137658716))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(634442231, 0, -112899398))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1503235945, 0, 469936974))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1974764385, 0, -1389920938))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1502806828, 0, 814792326))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1905492736, 0, 1763094599))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1458690716, 0, -1822665056))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-490472587, 0, 1308519986))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1377194778, 0, 1853562865))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1712143563, 0, 623243590))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1137922449, 0, 910505122))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1549674289, 0, -1657947938))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1185790956, 0, -1212295190))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(802203591, 0, -1219969266))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1930290928, 0, 2041655537))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1275276985, 0, -1922530859))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1210735802, 0, -41088034))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1280363941, 0, -847654040))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1287570931, 0, -1520117325))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(366831368, 0, -1605012596))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(196684133, 0, 355455005))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1420568475, 0, 461010640))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1838764237, 0, 1836663104))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-969052362, 0, -1968630969))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(247336465, 0, 1071767883))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1366783387, 0, -607963305))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1321454428, 0, -159669918))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1573931094, 0, -1084908007))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1122921297, 0, -1387310320))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2098317711, 0, -859125499))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-865773969, 0, 179956233))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1005448228, 0, -1060093801))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(624901217, 0, -451057337))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2128013432, 0, -1194931819))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1199409062, 0, -1236799460))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1958618467, 0, -2071651747))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1430230614, 0, -470457530))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1073171304, 0, -252354743))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(555597019, 0, 1204791817))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1453142542, 0, -137702982))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1041622043, 0, 518655381))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1539225443, 0, -645050854))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(888002822, 0, -707385208))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1255981080, 0, 1860076531))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2114199320, 0, 1208178262))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(556785726, 0, -2033618842))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-661009887, 0, -2069995270))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1475938824, 0, 649290090))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-492096623, 0, 1355271946))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(278246178, 0, 1317569977))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1257518071, 0, 103258056))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-494789446, 0, -1421746092))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(935596715, 0, 1463063939))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1570026382, 0, 1226873113))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(467126297, 0, 2053435683))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(44084908, 0, -1248161783))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1283713460, 0, 172462716))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-795263246, 0, -1855065058))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-712992604, 0, 1912119412))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-989712420, 0, 2087813705))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1775774331, 0, -1802881571))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-751933971, 0, -755285595))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1111750035, 0, -1232892943))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(426422339, 0, -708564785))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(938780810, 0, 1162893694))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1426084815, 0, 1564520066))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1748094022, 0, -2093639273))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1755916720, 0, 1163314465))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1439665797, 0, 1856423622))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(832524003, 0, -1377731888))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2067141336, 0, 2000880419))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(562093892, 0, -358962269))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1695763624, 0, 165723086))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(72504128, 0, -2103959292))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1842846839, 0, -1730441738))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2108427673, 0, -795813427))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1489360887, 0, -1335791330))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1083537083, 0, 1669146090))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-429986502, 0, -674774112))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-391195554, 0, -1580191988))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2133226163, 0, -1360757085))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2022363789, 0, -1829999253))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(810847137, 0, 362447107))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-673013752, 0, 1945591511))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(745859203, 0, 887291238))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1634640934, 0, -1886201798))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(5491017, 0, -1305137741))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1058177373, 0, 905954592))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1706905410, 0, 1412338159))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1035629699, 0, 1503565769))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(28056867, 0, -1707881083))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2109402032, 0, 383477484))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1517746249, 0, 1206537057))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1003278404, 0, -1306200725))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2068531030, 0, -1089522011))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-121690312, 0, 1441465258))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1251987377, 0, 2074397505))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2057530858, 0, 160086880))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1608937114, 0, 256136551))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1755910636, 0, -2065651894))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-337129043, 0, -1077101680))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(495930566, 0, -1254128476))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1876891377, 0, -60653441))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1356825024, 0, -1220094984))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1618278552, 0, 89684944))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1127316364, 0, -597968602))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-78674103, 0, -1662592989))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(89711710, 0, 2007541837))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-255075893, 0, 1567967021))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(502991285, 0, -770720968))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-823745466, 0, -1637902651))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1315793828, 0, 1772491545))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1340734791, 0, 874386345))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-674113581, 0, 1452453254))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1351529108, 0, 845470542))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(42814280, 0, 1116810214))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(481269786, 0, -1794057630))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1864036655, 0, 1973290811))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-631293223, 0, -244783423))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1595036907, 0, 1272281327))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(610837690, 0, 1451936840))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(913289837, 0, 1704226571))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1193963682, 0, 614275910))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1325798482, 0, -1189176883))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2077847430, 0, 1102040224))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1979822257, 0, -779712073))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1990497819, 0, 1919610205))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1722708966, 0, 1572877526))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1025327569, 0, 1277956761))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1489322328, 0, -592210471))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1462830432, 0, 1929397875))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1357655229, 0, 1264086488))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1371977002, 0, 419517430))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(956364993, 0, -1457100571))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1744625514, 0, 710096137))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1700149503, 0, -2075683686))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1198930999, 0, -1037149198))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-990175404, 0, 100743721))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(926272811, 0, -294952433))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(108489296, 0, 1115041060))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2076660600, 0, 1848103251))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1429582045, 0, -1228101755))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1735705576, 0, -1868848135))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-247628284, 0, -534731355))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1465778761, 0, 1215250653))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(838280946, 0, -566711919))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-594612360, 0, 1543010994))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-453855171, 0, 1883327013))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1985656168, 0, 1118483897))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-889671334, 0, -1110277551))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1199300190, 0, -1808209604))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(272510102, 0, 616577554))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-35342666, 0, -862927287))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1833027215, 0, -395196165))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1466891418, 0, 1600589796))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-754436405, 0, -79171348))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1214400108, 0, -1532849978))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1824356325, 0, 1387972433))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-446166763, 0, 1275318788))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1845558353, 0, 1748001628))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1013263413, 0, 1868658546))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1132082017, 0, -225470329))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(498619776, 0, 1458900854))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(824789663, 0, -234453679))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1349744300, 0, 2077868552))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1662246820, 0, 1803577352))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-232935758, 0, 1115751326))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(994854206, 0, -376273100))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(791750758, 0, -2051953007))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1307975375, 0, -1961458302))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-905566917, 0, 1673124411))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(930850895, 0, -749550366))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1163173370, 0, 1652526569))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(291982410, 0, -163369223))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1420658851, 0, -1350280336))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1213142793, 0, 1776886627))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1748392119, 0, 754678487))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1503879889, 0, 408750355))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1146935552, 0, -1653197059))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1316066287, 0, -1831870688))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(713059198, 0, 47108689))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-448544087, 0, -1512903823))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2005033415, 0, -552422585))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-774225375, 0, 1848313738))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1044590489, 0, -644432273))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-135190371, 0, 1592302883))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1651358281, 0, -2012083762))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2038304826, 0, 2078167211))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-966993353, 0, 1091197395))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(10484374, 0, -818056719))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1564242435, 0, -1461823871))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(15568791, 0, 988744644))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(222342002, 0, 1835327337))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1944846077, 0, -731401343))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1780351439, 0, -1771862501))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2006786746, 0, 1761852073))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-232810345, 0, -1858145590))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-365406927, 0, 1341498758))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1201540303, 0, 895228442))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1421181648, 0, -700305513))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1479932384, 0, 1931410712))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(743649686, 0, 16635809))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1320395462, 0, -38283451))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(744141291, 0, 951124123))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-628016478, 0, -1979598580))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1542402307, 0, 302208892))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-754834878, 0, -55824968))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-894135448, 0, 1592693919))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(796050331, 0, -1120217121))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1886073668, 0, 1988827779))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2091846601, 0, 1960710328))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2013667116, 0, -68608681))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1514884949, 0, 1478366569))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-97162054, 0, 1339534838))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1134909538, 0, 1696572915))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1591419419, 0, 1157736388))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1019361117, 0, 261212468))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-486394713, 0, 269789253))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1134553273, 0, 1739108648))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(887572372, 0, 1293081221))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2023565903, 0, -906817999))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1714412758, 0, 657127221))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(323201622, 0, -1812835690))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1616273777, 0, -1328073077))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1136415960, 0, 1397353758))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1930301, 0, 219272128))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(792619568, 0, 1535094167))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1249387210, 0, -1759170531))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1927424407, 0, 830468048))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(741273970, 0, -1214963943))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(560695231, 0, -470727526))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-498397429, 0, 619696625))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-458787801, 0, -1686913011))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1888019510, 0, 419558933))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1960109812, 0, -19514711))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1243094179, 0, 1041280248))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1516352093, 0, 1241492487))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1151399632, 0, 304701980))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-641373449, 0, 1687378699))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(388785264, 0, 951580751))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-695275680, 0, 930264930))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(630799697, 0, -1391202865))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(944164676, 0, -507375408))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-949326180, 0, 1184677234))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1464435945, 0, 326132579))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(567137927, 0, -222365723))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1486602659, 0, -2001210577))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-829422034, 0, 115283016))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1745461253, 0, -1486833966))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1304285022, 0, 1911187196))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(915383290, 0, -596851230))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1423736116, 0, -889445059))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2572442, 0, 1778301337))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-11697629, 0, -99490918))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1771992177, 0, -859631211))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1872738115, 0, -2060235016))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1254290037, 0, -887788182))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2001154770, 0, -689202372))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1978530356, 0, 1566590981))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-698263318, 0, 1362031552))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-778132847, 0, -1684365790))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2134326888, 0, 1895842843))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1264755321, 0, 90886884))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1739423718, 0, -637600081))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-562919853, 0, 598452370))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(445802610, 0, 338552135))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1047731116, 0, 1155836019))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(644379227, 0, -595512104))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1175297283, 0, 2089402425))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(805135241, 0, -40314216))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(802438384, 0, -1958850182))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2003468702, 0, -1579809148))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1651286358, 0, 164985834))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1502862123, 0, 761064736))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-804634369, 0, -360434728))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1225374721, 0, -2014850395))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1836071868, 0, 965473388))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1659508846, 0, -1641080927))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1888766073, 0, -926374534))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(917106525, 0, 1274251778))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-765195498, 0, -1024564307))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1742855061, 0, 853697125))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1010158764, 0, 830558615))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-828901300, 0, 587989074))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-707422313, 0, 1451811155))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1860535175, 0, -2015948966))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(797546872, 0, -1510930121))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(549241748, 0, 1409919879))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2133218753, 0, -912584178))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1051786518, 0, 647447632))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2102238318, 0, -565111122))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(637421576, 0, -1841336248))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-43438027, 0, 216769589))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1349618532, 0, 1000543977))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(43036201, 0, -1665525717))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1220431303, 0, -482374362))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-184502610, 0, -1671253853))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2003726091, 0, -950906340))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(429734402, 0, -1957964858))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1545295279, 0, 1226880406))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(304210582, 0, 993742768))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1765468102, 0, -773112119))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1142374742, 0, -852659665))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2054305599, 0, 625656448))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-242380585, 0, -1415941368))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1768744477, 0, -1187428493))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1734921055, 0, 1686430892))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1591848734, 0, 918192226))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(472129610, 0, 150135721))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(12880296, 0, 531973255))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-962718174, 0, -583125961))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-811251568, 0, 112488353))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1226823106, 0, -1829933003))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-494072195, 0, 254205326))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-364474874, 0, 1585805973))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1344314224, 0, 412703022))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(499352861, 0, 1075975900))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2003715693, 0, -1855462051))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1068849795, 0, 1631481281))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(513968187, 0, -261006971))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-419673787, 0, -61972319))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1710077747, 0, 901841601))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-689238376, 0, 1553070321))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-828155297, 0, -270229987))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(553421629, 0, -1521262774))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1867161697, 0, -2045785578))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-466751265, 0, 1445065541))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2081494996, 0, 624263090))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1982737145, 0, 324362000))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-531951898, 0, 761460880))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(426915055, 0, 580109921))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1572277111, 0, -445928032))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(515378381, 0, -629084213))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(141633923, 0, 1419282457))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(832436147, 0, 1471242274))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1183408703, 0, 65940905))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(712458787, 0, 918452189))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-24320432, 0, -874101501))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1216704283, 0, -1621682375))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(217583290, 0, 95588379))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(819132804, 0, -1422465594))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1397846360, 0, 782049042))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(841495868, 0, -1816371354))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(687875396, 0, 445043619))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1371035644, 0, -1565483810))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-650929500, 0, -824998168))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2034298566, 0, -241656577))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1208386326, 0, -2058854106))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-55466022, 0, -2010561025))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1328804727, 0, 746342068))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(779073457, 0, 1817174701))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(713005595, 0, -684673849))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-419769397, 0, 2088061020))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(272640623, 0, -742001438))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(871146865, 0, 488312967))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(584653158, 0, 853947202))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-687443903, 0, 1541769996))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(451190088, 0, -1483092713))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1814185270, 0, 2045240082))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1413013997, 0, -1331062699))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1004237297, 0, 1525632053))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2031453182, 0, 310622999))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2015903433, 0, -1197537061))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(271169459, 0, 1138119592))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1883652539, 0, -978321961))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1013613069, 0, 1849671392))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1746766061, 0, -1582296601))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-958087625, 0, -626860680))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(514499756, 0, -1156725748))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1946803739, 0, -77896768))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(8799246, 0, -463537993))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(181346903, 0, 1304321516))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1342743915, 0, 603203525))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1711004250, 0, -971928204))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-699054874, 0, -556443083))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-943927212, 0, -864863718))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(707589881, 0, -1256072261))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-192700711, 0, 924402403))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(764106128, 0, -1759630504))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1209625443, 0, -839906204))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1759341254, 0, 501097286))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(943127084, 0, 1147823043))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-684006546, 0, -412553674))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1335565159, 0, -764500003))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1285412446, 0, 1209629191))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2028417460, 0, -788969158))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1168270015, 0, 1289873425))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1751958560, 0, 1051268743))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(58342467, 0, 1296997024))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(428503946, 0, -1885989213))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1912270791, 0, -225367366))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1469990229, 0, 777009801))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1559985433, 0, 519649754))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(665488755, 0, 201965739))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1866212144, 0, -1664807407))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-2105272135, 0, -1024130337))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-345683567, 0, -1671383108))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2028686978, 0, -1944070164))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-294695390, 0, -1467115158))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1891991084, 0, 82887025))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(911448429, 0, -299895582))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1406341932, 0, 133346905))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2093978713, 0, 1636681600))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1612879144, 0, -1622817778))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(967743395, 0, 705647254))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1781362019, 0, -882813658))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(871291962, 0, 820451939))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-948495347, 0, 1848779734))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1876237480, 0, 1076373397))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1686586903, 0, -1893112956))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1561053796, 0, -157241031))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1512977987, 0, -1276387157))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(2060653797, 0, -1018325338))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1689497111, 0, -1662140247))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(550151138, 0, 1780746152))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-864618617, 0, -1050378760))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1705838659, 0, 217926484))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-365557676, 0, 1050922872))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-635201873, 0, 1797489343))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1499350670, 0, 200053227))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(820808518, 0, 1372798753))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(255615501, 0, -1219276624))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1193835537, 0, 15992211))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-704613812, 0, 962207194))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1885132793, 0, -482826225))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(-1061827382, 0, -1558158186))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1648882933, 0, 129637201))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1488685998, 0, 2079997637))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(1864373136, 0, -1153936921))
+			CreateGrabLine6:FireServer(SpawnLocation6, CFrame.new(383429800, 0, -1568740369))
+			task.wait(1)
+		end)
+	end
+})
+RightGroupbox9:AddButton({
+	Text = "Stop Gather Kick All",
+	Func = function(arg209, arg210)
+		task.wait(0.1)
+		_NOTIFY("GatherKickAll: Stopped.", 2)
+	end
+})
+local LeftGroupbox10 = Tab7:AddLeftGroupbox("Gather Kick Settings")
+LeftGroupbox10:AddSlider("gkaCircleRadius", {
+	Text = "Circle Radius",
+	Default = 6,
+	Max = 25,
+	Min = 2,
+	Rounding = 1,
+	Callback = function(state, arg212)
+	end
+})
+LeftGroupbox10:AddSlider("gkaCenterY", {
+	Text = "Center Height Y",
+	Default = 50,
+	Max = 300,
+	Min = 10,
+	Rounding = 0,
+	Callback = function(state, arg214)
+	end
+})
+LeftGroupbox10:AddSlider("gkaBlobRotateRadius", {
+	Text = "Blob Orbit Radius",
+	Default = 18,
+	Max = 60,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg216)
+	end
+})
+LeftGroupbox10:AddSlider("gkaBlobRotateSpeed", {
+	Text = "Blob Orbit Speed x0.1",
+	Default = 40,
+	Max = 200,
+	Min = 5,
+	Rounding = 0,
+	Callback = function(arg217, arg218)
+	end
+})
+local LeftGroupbox11 = Tab17:AddLeftGroupbox("Lag Server")
+LeftGroupbox11:AddToggle("LagServerToggle", {
+	Text = "Lag Server",
+	Default = false,
+	Callback = function(arg219, arg220)
+		local GrabEvents9 = ReplicatedStorage:FindFirstChild("GrabEvents")
+		local CreateGrabLine7 = GrabEvents9:FindFirstChild("CreateGrabLine")
+		local SpawnLocation7 = workspace:FindFirstChild("SpawnLocation")
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(936370342, 0, -1857593252))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-427095838, 0, -330493108))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(711699818, 0, -1909700615))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(866891093, 0, 547449))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-158069466, 0, -1098177483))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-606431266, 0, 1560132268))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1040685092, 0, -1554048624))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-593158273, 0, 697274717))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1249138397, 0, -1892370436))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1321475906, 0, -909634450))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(678921442, 0, -114039709))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(767976956, 0, -2073378021))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1200321037, 0, 463847063))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1270327091, 0, 1612029167))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(489804954, 0, 869866374))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1884050366, 0, 586169063))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1922164356, 0, -407656296))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1583100383, 0, -152854070))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(975420762, 0, -859571063))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1075057709, 0, -963324326))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1208185291, 0, -1246162375))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1380948884, 0, 1302234942))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1346084129, 0, -1113509863))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-204431759, 0, 319726635))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(148558656, 0, 1758658105))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(696573383, 0, -353166621))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-916968788, 0, 44777331))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-191360857, 0, 587476878))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(347710010, 0, 1574991964))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1306605457, 0, 1613539733))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1942124281, 0, -1936688883))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(240684055, 0, 568955286))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-407813205, 0, -1541989735))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-234857726, 0, 1920806854))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1705889656, 0, -41084253))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-606095986, 0, -1265696830))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-594991567, 0, 254656263))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1540286456, 0, -1843994742))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1026875353, 0, -914654483))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1445736058, 0, 1656627199))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1638138257, 0, -615035610))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(459027911, 0, 1574372785))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-621500474, 0, -616483731))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-883846040, 0, 571269157))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(811464733, 0, -686786434))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2089979660, 0, -157154453))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1932714929, 0, 1638626266))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2133224185, 0, 1221185278))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-40380418, 0, 11947851))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-357226780, 0, 190523312))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(450234512, 0, -1149332832))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(935930130, 0, 1209936173))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-557354982, 0, -360865438))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-679098671, 0, 1378638596))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2040512052, 0, 1073836112))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(314509392, 0, -166213383))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1734681719, 0, 389614924))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1966790047, 0, -764167637))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1135792191, 0, -1488772341))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1562587130, 0, -697066770))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1583079944, 0, -914240950))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(789650928, 0, 1354814547))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2097421493, 0, 1095244995))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(373659045, 0, -695946083))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(230489965, 0, 742025541))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1280945175, 0, -1790393745))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1163215959, 0, 1171711118))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1999962887, 0, -1440285726))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1763232392, 0, -1394031365))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1575174833, 0, -1145118816))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1717843410, 0, -890568241))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-595502279, 0, 48913576))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2106301713, 0, -672985376))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1245549435, 0, -1887082744))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-197787176, 0, 1887692525))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1499987020, 0, -1144743921))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1543342038, 0, -559308074))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1531164003, 0, -1596864164))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(389524513, 0, 310422619))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(375511906, 0, -1354268663))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-920460936, 0, 929789404))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(459139341, 0, 869712799))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-914065557, 0, -729462579))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1404993965, 0, 1452675651))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-401729143, 0, -737450891))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1834920170, 0, -17906551))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-206186851, 0, 1454069239))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1939695194, 0, 2085201183))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-54457368, 0, -1350243791))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1670975759, 0, -2084037600))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-382672371, 0, 886081858))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(799528069, 0, 1967867665))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1241222550, 0, -2058520288))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1766813893, 0, 1957686633))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(869050221, 0, 614367520))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-818526875, 0, -255625131))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-88487061, 0, -1322907666))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-736181397, 0, 560073146))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1703791058, 0, 1311364740))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1319125414, 0, 378436670))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1188622057, 0, 639159801))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1934565660, 0, 1286910171))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(178902332, 0, -1563434833))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1467427866, 0, -1940573078))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1411399625, 0, -1116959095))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2123584645, 0, 1521271237))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(100512661, 0, 173052568))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1275710849, 0, -1306535879))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1142357534, 0, 1795343044))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-964435516, 0, -761845189))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-466892940, 0, -1213634257))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1997059123, 0, 1861798567))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(956775768, 0, -1295813027))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1162188721, 0, 1924776173))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(797853029, 0, 511736255))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-658789889, 0, -1165002354))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1955479063, 0, 432258498))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1500389747, 0, 1873121075))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(869159533, 0, -1861949681))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(141589223, 0, -1246144444))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1473620774, 0, 271350130))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1171466417, 0, -984407118))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1604418527, 0, -961412904))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1263382036, 0, 1795106477))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(928633082, 0, -371043128))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1314831058, 0, -986998136))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-845914752, 0, -1522656926))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-138311292, 0, -831796529))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1319041282, 0, -845404026))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1350683278, 0, -1163273125))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1151506177, 0, 932004341))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1086993294, 0, -1940783160))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1360439151, 0, 41481381))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-512982486, 0, 347127563))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-136086779, 0, -2059673857))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2064725243, 0, 1532104477))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2100688601, 0, -409030067))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-511416003, 0, 606784554))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1587274476, 0, -367350031))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2118418844, 0, -1322786401))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1220730456, 0, 2057827293))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-265619485, 0, -1274502244))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1785599400, 0, -988721639))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1236787586, 0, -1928566782))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(122809135, 0, -1469380463))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2085911920, 0, 1012132148))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1372286544, 0, 1444564684))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(748646126, 0, -462255974))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-172113592, 0, -446168781))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1554751917, 0, 679631846))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1273543164, 0, -1888010502))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-517663535, 0, 814210043))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-947001374, 0, 976014321))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-161673363, 0, 259944644))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1289303581, 0, -111807133))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1998896054, 0, 1268798528))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(220173141, 0, -985943951))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-468136074, 0, 479842550))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2032559039, 0, 1560398677))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-285544673, 0, 1937081710))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1245301588, 0, 338864085))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-955219551, 0, 1079500166))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1331539780, 0, 1238850059))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2014316170, 0, 1550378005))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-726221896, 0, 427323563))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1887768669, 0, 2062450851))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1848498349, 0, 869346106))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1433412041, 0, -1909060775))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-777253290, 0, 490084112))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(761958015, 0, 1487616044))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-483368131, 0, -1979306641))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1749693269, 0, 1598408206))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-611486038, 0, -58972300))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1776450107, 0, 276230316))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1438287125, 0, -1093497580))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1084341897, 0, -1041310321))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(735567363, 0, -1928238690))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1214933785, 0, 554958566))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1914305481, 0, 1409352901))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1205571160, 0, 1816182370))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1031418900, 0, 1005694311))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1010470471, 0, -209232983))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1625443063, 0, -18275979))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-431592280, 0, 520490947))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(564775234, 0, 1743018599))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1587016285, 0, -130820916))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1460514283, 0, 97009492))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1686073395, 0, -1326543542))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(122964877, 0, 269110682))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(67253142, 0, 1724779679))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1025579465, 0, 1428254255))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1727613916, 0, 132141915))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-913600528, 0, -1200933775))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1146935903, 0, 1269899132))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-192480671, 0, 286121733))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1383545052, 0, -776582368))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1484009874, 0, 253283248))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1956817747, 0, -1906705815))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1332694326, 0, 692734026))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1049128026, 0, 1215349344))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-886538617, 0, -774513603))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1940416313, 0, 1535053570))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1507179636, 0, -460791378))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(778139109, 0, 1143219827))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1161079687, 0, 1339735387))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(612572599, 0, 414920958))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-847571742, 0, -880726748))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1168464107, 0, -293925232))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(133197614, 0, 1931890924))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1428637326, 0, 728582983))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1295131713, 0, -1437949286))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1851418791, 0, -1876668400))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(992966733, 0, 506397012))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-250223368, 0, 892731959))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-440715106, 0, -2028785875))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1551037131, 0, 2087191194))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-797817432, 0, -213756639))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1983586314, 0, 332635040))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(17551847, 0, -2032459925))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1773443023, 0, 387434473))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-505695214, 0, 1313809998))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1546853223, 0, -1313229205))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1780923162, 0, 1176889478))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-202881273, 0, 746911516))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1334583918, 0, -1300327785))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1186530712, 0, 779870834))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-678345330, 0, 1334741240))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1860060527, 0, -721967259))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1549459776, 0, -647635128))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(336193727, 0, -189084853))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-412176806, 0, -1772854109))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1741278950, 0, -1816819375))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(83808260, 0, 736381511))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1457171013, 0, 1795404982))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-867326477, 0, 485919594))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1289960326, 0, -661166039))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(695282553, 0, -1937004342))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-90816302, 0, 1875798795))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-47274231, 0, 1558052517))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(899832577, 0, -854810445))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1434046966, 0, -1800795070))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-630072643, 0, 80036681))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(893425343, 0, 298295140))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2075986775, 0, 335826473))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1827325269, 0, 318451347))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1692244610, 0, 783497662))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(991846417, 0, 858827668))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1072302039, 0, 858261441))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-870398208, 0, -1307376366))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2065855909, 0, 2067796649))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1855011738, 0, 1206817979))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(995098048, 0, 2035046095))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1270097670, 0, 134837291))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-888674179, 0, 1465994716))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(11695409, 0, -1451017443))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-754166823, 0, 1833299237))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1228791255, 0, 1123955121))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-295825387, 0, 1073293447))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1510872674, 0, -696779396))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-56616763, 0, 1170122698))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1268659450, 0, -2083300942))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1870220142, 0, -2011375094))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-363649454, 0, -359869634))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1313632352, 0, -27461941))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1399164377, 0, 1642513906))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1120508163, 0, 1251412594))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1958577636, 0, -608855684))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(720668134, 0, -400215522))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1501934670, 0, 1413582086))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1715909816, 0, 1823604226))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1581688703, 0, 887139015))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-958018137, 0, 1975286475))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1255086414, 0, -1200634294))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-295989116, 0, -818314828))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(426159757, 0, -269542692))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(667278966, 0, 273330894))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1700348827, 0, 267859211))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1882239804, 0, -995361820))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1247737096, 0, -1674048190))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-881952536, 0, -1534078905))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-468943563, 0, -1071023383))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1389502701, 0, 1344558912))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1527268538, 0, 1918297104))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-655289625, 0, -1879190405))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1610241636, 0, -1045410114))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-10269823, 0, -714383373))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1464084997, 0, 441230273))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-901574846, 0, 992386919))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1685353113, 0, 1228083363))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1360893240, 0, -2084778980))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(45355783, 0, -899176704))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(927766369, 0, -122660369))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1497959524, 0, 1221764121))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1749641719, 0, 1062181180))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(463149437, 0, 417343412))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1795219378, 0, 2059586472))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-987678354, 0, -1195943353))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-815085159, 0, 1342849152))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1633143397, 0, -310169334))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1621207003, 0, 734864745))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(166944150, 0, 1362880394))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(921904662, 0, 27381294))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2069352736, 0, -1796641256))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1440913592, 0, 868056941))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-382944578, 0, 869627034))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(809726992, 0, 53478233))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1117129118, 0, 68093507))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1859945443, 0, -1404266672))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-86570468, 0, -517165521))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1920974215, 0, 1355243895))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(502116883, 0, -851075179))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1034705247, 0, 2024645094))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-290318875, 0, 742140967))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1849522669, 0, -295930403))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1867628289, 0, -1693644371))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1926123551, 0, -518878337))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1528988663, 0, -827126396))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(254814246, 0, 1499969112))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-829890969, 0, -1037194746))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-850475525, 0, -58663609))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1056118278, 0, 1600653848))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1890028819, 0, -636600410))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1704594499, 0, -539759547))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1741177967, 0, -1466021178))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1735033407, 0, 1729468162))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1391960525, 0, 2056522601))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-48230393, 0, 544456135))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-777883762, 0, -1002248310))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-464798067, 0, 2025622432))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-786141406, 0, 2035001018))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1848282396, 0, -308093468))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1711556423, 0, 895007654))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1747722085, 0, -985966187))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1057792950, 0, -1652701068))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1784618188, 0, 1036537194))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-290569864, 0, -1809938015))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1958279799, 0, 1483985332))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-786341842, 0, 2053007096))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(720335417, 0, -607075841))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2129017360, 0, 1574875017))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(54238341, 0, 1890313746))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-666642640, 0, -1201208569))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1458058611, 0, 1130590661))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(137238096, 0, 1051503400))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1173904987, 0, -1743439313))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(977755548, 0, -1655735425))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1021855078, 0, 820763146))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-208906795, 0, 631817200))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-865521852, 0, -477970899))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1869425098, 0, 69882589))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1616101067, 0, 1114750075))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1389657472, 0, -929871715))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(804210580, 0, -472549233))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(968441562, 0, -871918926))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1136163983, 0, 1307011705))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1391797421, 0, 1534318990))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-956268142, 0, -642495274))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1511307911, 0, -1081772725))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(121939721, 0, -1651220852))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1119535397, 0, -1657321890))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1221800178, 0, -265600290))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1778860744, 0, 748948540))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-74346796, 0, -484760463))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1512795570, 0, -1306460692))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1242227444, 0, -1201382046))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(775728823, 0, -1760517948))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2100865131, 0, -204987932))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-842410988, 0, 280432033))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1452554917, 0, 1878669060))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1302372934, 0, -716148365))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1789657473, 0, 830028199))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(832613278, 0, -1060798047))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1702142114, 0, 437285115))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(324173357, 0, -1316295648))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2094809896, 0, -1887487896))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-44004209, 0, -1918313556))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1775495713, 0, -26068966))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(630442200, 0, 162541090))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1706641271, 0, -1346575928))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1026762771, 0, -974751649))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1421951799, 0, -1145171412))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1079613173, 0, 1569916390))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1740301761, 0, -987432523))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-652779835, 0, -78904251))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-179782710, 0, -1256978018))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1571459977, 0, -122817656))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1921872897, 0, -1755328367))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(334590248, 0, -171727134))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2067819986, 0, -1969215565))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1996565019, 0, 1279453508))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(194093821, 0, 1089174840))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1177537015, 0, -568155163))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(99234232, 0, -1675496819))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1948497284, 0, 917234238))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-468958531, 0, 1671395182))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1979665231, 0, 1938581635))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-621716824, 0, 947786790))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1113029748, 0, 387797624))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(255927077, 0, -106151960))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-200749439, 0, 1811239774))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1439989105, 0, 1531018905))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-592397903, 0, -1731479682))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1594527476, 0, -2075617116))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-715268376, 0, 463634161))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1960305349, 0, 1416874207))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1894568353, 0, 779437789))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(763421461, 0, -213487202))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2086396833, 0, 487255694))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-221868413, 0, -69028170))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(365836918, 0, 1868958668))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1970958361, 0, 1465747310))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(246490904, 0, -536568722))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-858824998, 0, 661370859))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1189758619, 0, 686140457))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1056529835, 0, -1493724848))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1589880476, 0, -673303825))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-944909969, 0, 1987754179))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2046442781, 0, -2058414826))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1048592141, 0, 1867767686))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1521994064, 0, -1892471220))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(79049783, 0, 499466333))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2022117453, 0, -1077357497))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2035370266, 0, 464581856))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(738007328, 0, 267715183))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-517834141, 0, 20215765))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1094676448, 0, 1342841547))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-661572684, 0, -625163321))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(55107881, 0, 1016998938))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(437914389, 0, -260719814))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1951544618, 0, -463899266))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(625270780, 0, 1665245371))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2139451079, 0, -2086812264))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1952154122, 0, 428080849))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(782421705, 0, 904800572))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-722403717, 0, 1188496095))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-364182325, 0, -1743970321))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-96370936, 0, 133326704))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-851345081, 0, 358420364))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1930540542, 0, -915442491))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-375996723, 0, 1318950145))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(580460329, 0, -1466567119))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-996240650, 0, 1137763023))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2081511533, 0, 2032756864))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1491639945, 0, 103114388))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1526120635, 0, 260972939))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2048690141, 0, 1847479291))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(572769221, 0, 943696469))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1301319850, 0, -411516570))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1886857180, 0, 1949976873))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1179949890, 0, -985435596))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-479703376, 0, 1926664057))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-589282828, 0, -1126959821))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-433914689, 0, -839401945))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-166533880, 0, -155772111))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2016774274, 0, 2002781))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1297529528, 0, 1891241757))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(367665049, 0, 811563526))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1721323686, 0, 529880002))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(234353252, 0, 1695615931))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1146157022, 0, -1459083680))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-156967779, 0, -41567566))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(873801223, 0, -457165536))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1663526858, 0, -691597446))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1911096599, 0, -983850515))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(906211170, 0, 1575164999))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1171911640, 0, -133811920))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1692453344, 0, -1424665160))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(787741574, 0, 1030996905))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1654275061, 0, -509814637))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(125494081, 0, 1513986977))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1286106090, 0, 1964536019))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(960666867, 0, -1643183047))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1318780820, 0, 1987306243))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2128240919, 0, -1100553175))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-754889906, 0, 272684249))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-991980122, 0, 1949130881))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(716070133, 0, 909889375))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1944356510, 0, 1552760208))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-966026940, 0, 277907688))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(148741465, 0, 1830760647))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-583428309, 0, -1445181905))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-341676450, 0, 375183010))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1866219647, 0, 434715698))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1287381553, 0, -924300814))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-694701345, 0, 1529901385))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1118448830, 0, 2050773365))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(2034129497, 0, -24896000))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-203692739, 0, 1734071634))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1094246185, 0, 1253003461))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2035131561, 0, 2069186334))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1065416661, 0, 1816717164))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(80668841, 0, -862180032))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1777992381, 0, -576204601))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-110191966, 0, 828967595))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(190925236, 0, 548851808))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1612702308, 0, -1318909866))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-672393893, 0, -66078061))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1409578317, 0, -172041479))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2112758264, 0, 1270754004))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1438932280, 0, 1737987536))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1274563356, 0, -1006070853))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1609141942, 0, -899174478))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1543618681, 0, 1656629811))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-255573479, 0, -690289661))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1035595680, 0, 942197288))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1167389024, 0, -1246808235))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1536804790, 0, 1620825823))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-445737261, 0, -68685772))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(722650033, 0, -1416799685))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1220321240, 0, -1571107742))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-2013398406, 0, 1852409683))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1043247928, 0, -404242802))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(503893606, 0, -2046169212))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(1383558538, 0, -1151309221))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1853579043, 0, 101525743))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(681639495, 0, 1803540705))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1554940059, 0, -1052593573))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-1486583200, 0, 584490861))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(935465955, 0, 1734021921))
+		CreateGrabLine7:FireServer(SpawnLocation7, CFrame.new(-43467800, 0, 1427685370))
+		task.wait(1)
+		local GrabEvents10 = ReplicatedStorage:FindFirstChild("GrabEvents")
+		local CreateGrabLine8 = GrabEvents10:FindFirstChild("CreateGrabLine")
+		local SpawnLocation8 = workspace:FindFirstChild("SpawnLocation")
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1391861181, 0, 883135049))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1826471104, 0, 294522517))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-469259732, 0, 855464182))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1906160799, 0, -741586597))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(413731458, 0, 21487853))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2010332626, 0, -331418554))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1293348252, 0, 1702075156))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-234805782, 0, -338576663))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1750847827, 0, -583687764))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1670827994, 0, -861057068))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-530040681, 0, -1403563936))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(567922325, 0, 1677045628))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1193374367, 0, -1684129104))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1793105365, 0, -1285155574))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-409123765, 0, 1946686142))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-587759882, 0, -1339716710))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(449351159, 0, -41199090))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1609443127, 0, 1615385440))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-202097753, 0, -1920371030))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(280431064, 0, 209371544))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(270169204, 0, 222978898))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(368157540, 0, -1649380936))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1372350175, 0, -460683688))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-638131509, 0, 1403669727))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(599557800, 0, 1145471902))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1205305230, 0, -1955337850))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1984905907, 0, 1907526676))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1584431464, 0, 1216830142))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1834360383, 0, 1411040278))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(845290815, 0, -1134135785))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1467814673, 0, -1422477903))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(383038706, 0, 1496024386))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2108265644, 0, 1648517661))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(794862109, 0, -1001682867))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1383691679, 0, -79392245))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1777011097, 0, -2000490523))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-970768854, 0, 2078764900))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(165139801, 0, 1914571749))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1816879587, 0, 1740980346))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1047717448, 0, -705585136))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(403031165, 0, 98429601))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2013408139, 0, 1045089987))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-832541342, 0, 899971542))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(615236099, 0, -2009668801))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(181670434, 0, 1528378202))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2056806303, 0, -1369886744))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(511868483, 0, -1529775359))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1254484374, 0, -344008905))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1048073134, 0, 1500371691))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(47156034, 0, 240026620))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-212068545, 0, -1334165755))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(318624712, 0, 1962792964))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1342192436, 0, 157534693))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-965572832, 0, 642111357))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(125345523, 0, -603875275))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(805207155, 0, -1870145014))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1604687220, 0, 210614645))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1517189045, 0, 1649665642))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(610600463, 0, 1498817250))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(165670230, 0, -183856897))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-876252655, 0, 98892976))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1862992269, 0, -1486429903))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2066740641, 0, 304480135))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(541477801, 0, -152168795))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-612134489, 0, 621211898))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1744902534, 0, 1487568968))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(754225034, 0, -1180168082))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(416963157, 0, -1090056482))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1321597840, 0, -1008785167))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-559694320, 0, 338869810))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(603214158, 0, 1858707539))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-404433309, 0, 1246193987))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1853084407, 0, -1333236622))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(392483542, 0, 1045088064))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(688335760, 0, -1406179922))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(763637638, 0, -1714138950))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1153661968, 0, -1232110030))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1922457444, 0, 1904806581))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1662210423, 0, 361940111))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1890455797, 0, -1777092816))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1273282825, 0, 89801066))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1517979395, 0, 135741538))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1773097946, 0, -656442759))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1488366456, 0, 1265712979))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1132266659, 0, 671952711))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2020114024, 0, 1433926254))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1964779468, 0, -1168279345))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-415712229, 0, -1459152752))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(204367711, 0, 1785463893))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1992835414, 0, -587169695))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(509894563, 0, -1777345810))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2112485593, 0, -1519843885))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(544484895, 0, 1826194940))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-126057612, 0, -557684679))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1565263976, 0, -217357836))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2086217541, 0, -1742466107))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1775894325, 0, -1221725981))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-704210381, 0, -1943814387))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-637323247, 0, 1575791320))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(178608206, 0, 1578957840))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-88772473, 0, 1978034187))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-65070676, 0, 2058773200))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1264714975, 0, 1891612145))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-293860372, 0, -320743742))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1287837022, 0, 2060968573))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1276385595, 0, -1224927444))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1613705466, 0, 1361347838))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1393565056, 0, 308144455))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1756144987, 0, -1924212957))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-446824280, 0, -1498777657))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1327320002, 0, -792716089))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2057524260, 0, -1680821628))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1593827064, 0, 1625722689))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1883946387, 0, -568242906))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1677095546, 0, -109998602))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1337587344, 0, 1235039601))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-904921999, 0, -1037046156))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1808732920, 0, 733604696))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1232339113, 0, -1822514782))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-729254580, 0, 1787279219))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(673731037, 0, -969994193))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1026654691, 0, 1426333625))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1355565218, 0, 1438801023))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1031614510, 0, -1433273647))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(934107109, 0, -1688650846))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-356267362, 0, -1061482733))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(921863297, 0, -237697412))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(309751693, 0, 1168003907))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-52783549, 0, 1960369386))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1830329836, 0, 1900044099))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1741153368, 0, -1023675965))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1796948551, 0, -1893653966))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(954708419, 0, -1587275033))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-759531831, 0, 791152328))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1458394845, 0, -627060995))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-794425480, 0, -199195586))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(898864554, 0, -101757125))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1275570619, 0, -506663217))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1986566249, 0, -1501288631))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(340960970, 0, -1005469410))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1153308767, 0, 1134940965))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1248071840, 0, -1782407769))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1376265567, 0, 343396337))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1446603109, 0, -1969362262))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(975791602, 0, 1537201226))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(802915627, 0, -1396882848))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-69725751, 0, -1630091558))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(957301650, 0, -1550688476))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2017358602, 0, 1959532043))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-215789473, 0, 724279685))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-478714820, 0, -931695720))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1374752509, 0, -1548890704))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-162700778, 0, 1684125813))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1846015865, 0, -1566966351))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-972765426, 0, -1352830707))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1116318501, 0, -80871943))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-788737736, 0, 1220420673))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1160204983, 0, -1494135343))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1404542794, 0, 1041875081))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(926177488, 0, 1220466026))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-524048797, 0, 1389406289))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(766443947, 0, -1656941483))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-218820889, 0, -430169949))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(307433549, 0, 270524997))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(601798968, 0, 628905953))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(102090089, 0, -558054321))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-495241904, 0, -1904813391))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(27583691, 0, -465842719))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1872704277, 0, 1604347396))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1423681830, 0, -1294048433))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1707859414, 0, 951553517))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1761986291, 0, 1481414520))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1550770211, 0, -1200984237))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1829694195, 0, 126394945))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(579118895, 0, -1271230713))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1020777254, 0, 1873749793))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-425364383, 0, -1013191230))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1038388874, 0, 1835721024))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2034909751, 0, 1513896591))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1770194279, 0, -1594100498))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(561772452, 0, -1777766729))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-227380762, 0, 2039236212))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(808491076, 0, 834268479))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(427995383, 0, 1442890228))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-880081144, 0, -1372449826))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1541899981, 0, 1829208039))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1931622205, 0, 1745761474))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1277891027, 0, 1370941247))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(483555813, 0, -1674560634))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1767090727, 0, 747620507))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1772856314, 0, 158094927))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1276328009, 0, -376420908))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1115962723, 0, -1103617709))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(883871988, 0, -397329975))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-289975976, 0, 1591874372))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(108104343, 0, -1906278214))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1098132231, 0, 2001336430))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1595965877, 0, -171200186))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1922021327, 0, 2065134404))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1870954765, 0, -892412186))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1709327214, 0, -1727312435))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1878552994, 0, -1113477159))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(591481924, 0, -576019852))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(458286928, 0, 130968808))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-438790050, 0, 1247932640))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-275965731, 0, 147416458))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1245064360, 0, 1857705354))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1391435681, 0, -1262124794))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(653095083, 0, -595172632))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1502816031, 0, -325250692))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1039437867, 0, -1960933955))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-124484200, 0, -429124734))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-585456287, 0, 620448191))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1592175782, 0, -1538370305))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1148114738, 0, 37236220))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1899309970, 0, 430207958))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1800381328, 0, -662641989))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1247412169, 0, 500376245))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-74956098, 0, 639561881))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1919070072, 0, 1869340481))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(995320244, 0, 240172889))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-654167746, 0, 1296725778))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(344785276, 0, 649367390))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1535103879, 0, 59021067))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1637827435, 0, 1698738917))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1966562214, 0, -622744244))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(31046630, 0, -1779398841))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1287967985, 0, -1315844610))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1744052691, 0, 1746051268))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1702094933, 0, -1874630639))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1941118852, 0, 1340966051))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(316385324, 0, 597556426))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(921092323, 0, 437868247))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1177803511, 0, 1465178309))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-425582732, 0, 1761944285))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(289506845, 0, -1782677415))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2103486375, 0, -376216795))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(624148959, 0, 1823472337))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2077164292, 0, 504145367))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1715587410, 0, -2107756757))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(549701800, 0, 1699189258))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1337720795, 0, -1913162036))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(172108827, 0, 1400713895))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(291362534, 0, -147149567))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-516676247, 0, -1838153681))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1838653678, 0, -1528906750))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1496912918, 0, 942108530))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(584667864, 0, -977307130))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(736269974, 0, -1870171504))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2065223665, 0, 1400933313))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(264252637, 0, -470665200))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1359536940, 0, 1691354210))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-8537763, 0, 1121190123))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1907177341, 0, -130636222))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1310420437, 0, -408780276))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(321580796, 0, 1002950546))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1387865202, 0, 2039798862))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(806278932, 0, -2044204037))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2013331750, 0, -869608892))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2033997458, 0, -1392995533))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(245200337, 0, 377358140))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1504173631, 0, -1082723582))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-263661667, 0, -1200179989))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-708372658, 0, -2026970085))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1361539121, 0, -1733038355))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(194922114, 0, 1499670491))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-312806971, 0, -321855895))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(724031566, 0, 740844731))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(162283694, 0, -327073450))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1780725877, 0, -1804205990))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(721803380, 0, 54959432))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(487311996, 0, -1493798170))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1064786863, 0, -1090898908))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1285612910, 0, -1353694034))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1361506269, 0, 801430730))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1771977603, 0, 1019213940))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1418257246, 0, -879668543))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-262958648, 0, 46768067))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1070247350, 0, -1774344302))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2122230655, 0, 436122545))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2125336212, 0, -1543225128))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1095915752, 0, 1055540883))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1567354996, 0, 665975854))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(670488735, 0, -1817917439))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1368932575, 0, -195313525))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1107593158, 0, -1025224266))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(606942239, 0, -1027069372))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1850989158, 0, -967781030))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(679540456, 0, 328718883))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(934321671, 0, 1415170843))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1109075015, 0, 116336459))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1531990091, 0, -586649769))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2064071482, 0, -1404834729))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(940226033, 0, 65011485))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-364735770, 0, 864306259))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(636947555, 0, -346238622))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1185776457, 0, -944626237))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(997870990, 0, -1911941846))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-633647903, 0, -917995069))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(362848103, 0, -1628387080))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1832585191, 0, -1070672710))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1743113235, 0, -2045129535))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(477694148, 0, -230446468))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2059570661, 0, -1768081904))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(597614708, 0, -1072241503))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-15126946, 0, -573857973))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1346606334, 0, 1804000126))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-192076945, 0, 263161156))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(327209547, 0, 1957294413))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(266548845, 0, 758677846))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1234482591, 0, -94102418))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-3194830, 0, -1266788237))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2105900580, 0, 660347529))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2007063170, 0, -1911113275))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1792481061, 0, -619123536))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(741138708, 0, 269510704))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1825531047, 0, 1581783782))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2017055381, 0, -458847529))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(613121345, 0, 189371618))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(309432452, 0, -684510053))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1267302004, 0, -693235814))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-323957553, 0, -818071058))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(383385166, 0, -1751059672))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-875666128, 0, 677800686))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-459081583, 0, 10239470))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1160318934, 0, -1485542910))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1310428066, 0, 1980453748))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-829934138, 0, 194451081))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-55780815, 0, 1665596950))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1973917223, 0, 476031145))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2056424757, 0, 167411339))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1877588517, 0, -924745621))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-269153251, 0, -628504096))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(462652413, 0, -2013482519))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1885053944, 0, -1596314743))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-283569623, 0, 1170427486))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1875953156, 0, -174845573))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(9138795, 0, 501077167))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1306630693, 0, 173296438))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-272110910, 0, 1446086617))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(641824744, 0, 1839470695))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1444473004, 0, 474185777))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1388208367, 0, -519725758))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1273522451, 0, 928330405))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-835312608, 0, -1476734307))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1574036839, 0, -1373065252))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-153297268, 0, 1432050579))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-433758468, 0, -1199558609))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1199354983, 0, -234730482))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-836799489, 0, -638441499))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(317382669, 0, -98108257))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-802774600, 0, -1372518027))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1442294570, 0, -1102994906))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-221619484, 0, 698850438))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-129433255, 0, 1107361722))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-223042970, 0, 1594820474))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(233826756, 0, -906654573))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1715095042, 0, -374288516))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1186262726, 0, 1057187202))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(465760979, 0, 659273094))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-96099780, 0, -1700935533))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1281844370, 0, 1087929605))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-448002219, 0, 383439201))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1419979058, 0, -4645780))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1345288348, 0, -1609448084))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1657386750, 0, 703729857))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-143525660, 0, -2034303929))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(13156577, 0, 808000890))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1278457599, 0, -661814665))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(736538344, 0, -1662491882))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(388098054, 0, 1808855108))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-647230988, 0, -669767533))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1705018966, 0, 8384653))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-244318311, 0, -1722641576))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(362498873, 0, 762841681))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-463492274, 0, 1870900826))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1141356930, 0, -1898813684))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1305803322, 0, -904163824))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(236615812, 0, 1737145986))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(302635579, 0, -1645749243))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-429901735, 0, -1839963643))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1056102857, 0, -1991981886))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1688640753, 0, -2023302459))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1051248616, 0, 894697395))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1557796434, 0, -1233284073))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1330873824, 0, 225608098))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1639776591, 0, -522772876))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1772924738, 0, 878687796))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(222770619, 0, -652006075))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-127538573, 0, 11941284))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-13921391, 0, 214965665))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-213862272, 0, -1705526883))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-449393482, 0, 663620369))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1467552750, 0, -824800034))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(141411800, 0, 634919280))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(717615786, 0, 160604011))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-295517729, 0, -289448568))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1730509813, 0, -475387698))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-221853394, 0, -1897729927))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-964059520, 0, -186269095))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1690829147, 0, 1584105088))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1866930223, 0, -1999860644))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(526827245, 0, -894723679))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1352205006, 0, 1064467619))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1881091087, 0, -356775920))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(677412161, 0, -1574976039))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1776983762, 0, -1327716957))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1401622196, 0, 257227923))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1657282507, 0, -126876049))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(33574573, 0, 740007785))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1399816605, 0, -1502419194))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1364616820, 0, -78434176))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(209755297, 0, 821908038))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-365404144, 0, -1970281800))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1081931587, 0, -744689380))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1318552162, 0, 651205035))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-953390019, 0, -1538462089))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(479291749, 0, -1428401591))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1714205898, 0, -787322369))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-316515936, 0, 390411155))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(496486044, 0, 1726869312))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-467360908, 0, -737622470))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2086103586, 0, 2047998330))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1028245886, 0, -329202746))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1763623644, 0, 1964657554))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1725267403, 0, 41763232))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(685254115, 0, 2015499555))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1458918106, 0, -909138662))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1338118095, 0, -1545725104))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(741714897, 0, -1781776522))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1255289564, 0, -1904766082))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-520767865, 0, -1241589308))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-19832299, 0, -1605489592))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(175028173, 0, 2096654158))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1692953026, 0, 490950894))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(43578630, 0, -132309077))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1034677633, 0, -1333419088))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1372911883, 0, 293085076))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-880453345, 0, -471050283))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(936608413, 0, -790601465))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1323351924, 0, 551349920))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-663720909, 0, 530300580))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1121651439, 0, -1542965422))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1308085689, 0, 184482564))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-941073745, 0, -1551622515))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1007607749, 0, 1491573592))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1788142354, 0, 710230426))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1009008603, 0, 1336570736))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-278538897, 0, 617628073))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(688357003, 0, -30195330))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-71672268, 0, -695103493))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-4297661, 0, 330521606))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(280047811, 0, 693889640))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1667964042, 0, -695368716))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2024966436, 0, 559895270))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1969312154, 0, -337718358))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1908744289, 0, -204385275))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1844952489, 0, 1800400596))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-983104993, 0, -529812993))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-882314412, 0, 1366078389))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1304519784, 0, -54230902))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-938713418, 0, -1286068045))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(207002509, 0, 987723842))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1062480516, 0, 1053666609))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1006235492, 0, 1615484125))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1235749730, 0, 1722588855))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1810122373, 0, 1312098828))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-571438094, 0, 509981218))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1261768031, 0, 1546422475))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-559337183, 0, 239601358))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-101106525, 0, 1213262262))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1478372594, 0, 381836603))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1289554445, 0, -1294151982))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1196481967, 0, 1620605195))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2045426779, 0, -1772527760))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(2034390102, 0, 16507633))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1150682228, 0, -485772082))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(126861005, 0, -879321553))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1568297087, 0, -803069223))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1764583374, 0, 417500837))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-2123568582, 0, -1375408659))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(328899567, 0, -92147981))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-388457537, 0, 1357451946))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-187585540, 0, 1903276938))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-451090450, 0, 372451093))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(792172925, 0, -1708956970))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1433762542, 0, 1789472315))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1168502040, 0, 1077802929))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-345972652, 0, 115666998))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1623850118, 0, -436932226))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-114938616, 0, -344154639))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-129910389, 0, -743351807))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1786862545, 0, 9548))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1222585789, 0, -1479366075))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-168001831, 0, 66410795))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1222847869, 0, 1856644448))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1442009965, 0, -1814820956))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1374063182, 0, -34968995))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1172603942, 0, 387771898))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-349109696, 0, 1170390490))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(867889293, 0, -585022445))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-252149076, 0, -1188648025))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1254640542, 0, -1657812226))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(817310965, 0, -1171908976))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(428656287, 0, -1200659607))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(63008544, 0, 1768836309))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1504863412, 0, -1947511045))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(668438908, 0, -847026805))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(1455253185, 0, -913157768))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(903062288, 0, 646067777))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-142739456, 0, -1126590073))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(946604921, 0, -645320479))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1584655183, 0, 1096738163))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(353758785, 0, -369203072))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-559893653, 0, 278369311))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1269625913, 0, -1827985813))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-1612531576, 0, 85338683))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(-3623006, 0, 573429065))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(680804890, 0, 1789006650))
+		CreateGrabLine8:FireServer(SpawnLocation8, CFrame.new(191737035, 0, -347400341))
+		task.wait(1)
+	end
+})
+LeftGroupbox11:AddSlider("LagIntensity", {
+	Text = "Lag Intensity",
+	Default = 520,
+	Max = 2000,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg222)
+	end
+})
+LeftGroupbox11:AddSlider("LagDelay", {
+	Text = "Lag Delay",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg224)
+	end
+})
+local LeftGroupbox12 = Tab17:AddLeftGroupbox("Blackhole Customizer")
+LeftGroupbox12:AddToggle("CustomBlackholeToggle", {
+	Text = "Enable Custom Image",
+	Default = false,
+	Callback = function(state, arg226)
+	end
+})
+LeftGroupbox12:AddInput("CustomBlackholeImageInput", {
+	Text = "Custom Image URL/ID",
+	Default = "https://raw.githubusercontent.com/dcus-official/PoopHub.Free/refs/heads/main/Assets/Logo/Ultimate%20Rainbow%20Poop.png",
+	Finished = false,
+	Numeric = false,
+	Placeholder = "Enter image asset ID or URL",
+	Tooltip = "rbxassetid://... or https://...",
+	Callback = function(state, arg228)
+	end
+})
+local LeftGroupbox13 = Tab7:AddLeftGroupbox("Loop Kick Blob")
+local RightGroupbox10 = Tab7:AddRightGroupbox("Loop Kick Settings")
+local players20 = Players:GetPlayers()
+for i18, v34 in ipairs(players20) do
+end
+local Dropdown3 = LeftGroupbox13:AddDropdown("LoopKickBlobTargetDropdown", {
+	Text = "Loop Kick Target",
+	Default = 1,
+	Values = { v34.DisplayName .. " @" .. v34.Name },
+	Callback = function(state, arg230)
+		if state then
+			local result8 = state:match("@(.+)$")
+		end
+	end
+})
+local players21 = Players:GetPlayers()
+for i19, v35 in ipairs(players21) do
+end
+Dropdown3:SetValues({ v35.DisplayName .. " @" .. v35.Name })
+LeftGroupbox13:AddToggle("LoopKickBlobToggle", {
+	Text = "Loop Kick Blob (Single Target)",
+	Default = false,
+	Callback = function(state, arg232)
+		if state then
+			local thread2 = task.spawn(function(...)
+				ReplicatedStorage:WaitForChild("GrabEvents")
+				Players.LocalPlayer.Character:WaitForChild("Humanoid")
+				_NOTIFY("Loop Kick: Please ride Blobman first", 3)
+			end)
+			_G.loopKickBlobTask = thread2
+			_NOTIFY("Loop Kick Blob: Started on " .. result8, 3)
+		else
+			_NOTIFY("Loop Kick Blob: Stopped", 2)
+		end
+	end
+})
+RightGroupbox10:AddDropdown("LoopKickBlobModeDropdown", {
+	Text = "Loop Kick Mode",
+	Default = 1,
+	Values = { "Default", "TP to Sky" },
+	Callback = function(state, arg234)
+	end
+})
+RunService.Heartbeat:Connect(function(deltaTime9)
+end)
+RightGroupbox10:AddToggle("LoopKickAllBeta", {
+	Text = "Loop Kick All (Beta)",
+	Default = false,
+	Callback = function(state, arg236)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				task.wait()
+				Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				task.wait()
+			end)
+		end
+	end
+})
+local LeftGroupbox14 = Tab8:AddLeftGroupbox("Wings")
+LeftGroupbox14:AddDropdown("WingItem", {
+	Text = "1. Select Item",
+	Default = 1,
+	Values = { "TetracubeI", "FireworkSparkler", "PoopPile" },
+	Callback = function(state, arg238)
+	end
+})
+LeftGroupbox14:AddDropdown("WingSearch", {
+	Text = "2. Search Range",
+	Default = 1,
+	Values = { "My Toys", "Plot Toys", "All Toys" },
+	Callback = function(state, arg240)
+	end
+})
+LeftGroupbox14:AddToggle("EnableWings", {
+	Text = "3. Enable Wings",
+	Default = false,
+	Callback = function(state, arg242)
+		if state then
+			_NOTIFY("Target not found", 3)
+		end
+	end
+})
+LeftGroupbox14:AddSlider("WingSpeed", {
+	Text = "Wing Speed",
+	Default = 2,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg244)
+	end
+})
+local LeftGroupbox15 = Tab14:AddLeftGroupbox("Target")
+local RightGroupbox11 = Tab14:AddRightGroupbox("Controls")
+local players22 = Players:GetPlayers()
+for i20, v36 in ipairs(players22) do
+end
+local Dropdown4 = LeftGroupbox15:AddDropdown("BodyTargetDropdown", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { v36.DisplayName .. " @" .. v36.Name },
+	Callback = function(state, arg246)
+		if state then
+			state:match("@(.+)$")
+		end
+	end
+})
+local players23 = Players:GetPlayers()
+for i21, v37 in ipairs(players23) do
+end
+Dropdown4:SetValues({ v37.DisplayName .. " @" .. v37.Name })
+RightGroupbox11:AddDivider("Head")
+RightGroupbox11:AddToggle("HeadSpin", {
+	Text = "Head Spin",
+	Default = false,
+	Callback = function(state, arg248)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart14 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart14, 1)
+				task.wait(0.05)
+				local HumanoidRootPart15 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart15, 1)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+RightGroupbox11:AddSlider("HeadRadius", {
+	Text = "Head Radius",
+	Default = 20,
+	Max = 200,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg250)
+	end
+})
+RightGroupbox11:AddSlider("HeadSpeed", {
+	Text = "Head Speed",
+	Default = 3,
+	Max = 20,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg252)
+	end
+})
+RightGroupbox11:AddSlider("HeadHeight", {
+	Text = "Head Height",
+	Default = 3,
+	Max = 100,
+	Min = -50,
+	Rounding = 0,
+	Callback = function(state, arg254)
+	end
+})
+RightGroupbox11:AddDivider("Legs")
+RightGroupbox11:AddToggle("LegsOrigin", {
+	Text = "Legs to (0,0,0)",
+	Default = false,
+	Callback = function(state, arg256)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart16 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart16, 1)
+				task.wait(0.05)
+				local HumanoidRootPart17 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart17, 1)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+RightGroupbox11:AddDivider("Obey")
+RightGroupbox11:AddDropdown("ObeyPart", {
+	Text = "Part to Obey",
+	Default = 1,
+	Values = { "Head", "Left Arm", "Right Arm", "Left Leg", "Right Leg" },
+	Callback = function(state, arg258)
+	end
+})
+RightGroupbox11:AddToggle("ObeyPart2", {
+	Text = "Obey Part",
+	Default = false,
+	Callback = function(state, arg260)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart18 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart18, 1)
+				task.wait(0.05)
+				local HumanoidRootPart19 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart19, 1)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+RightGroupbox11:AddToggle("ObeyAll", {
+	Text = "Obey All (Mirror)",
+	Default = false,
+	Callback = function(state, arg262)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart20 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart20, 1)
+				task.wait(0.05)
+				local HumanoidRootPart21 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart21, 1)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+RightGroupbox11:AddSlider("ObeySmooth", {
+	Text = "Obey Smoothness",
+	Default = 0.25,
+	Max = 1,
+	Min = 0.01,
+	Rounding = 2,
+	Callback = function(state, arg264)
+	end
+})
+RightGroupbox11:AddSlider("ObeyDist", {
+	Text = "Obey Distance",
+	Default = 5,
+	Max = 50,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg266)
+	end
+})
+RightGroupbox11:AddDivider("Feet TP")
+RightGroupbox11:AddToggle("FeetTPDelete", {
+	Text = "Feet TP+Delete",
+	Default = false,
+	Callback = function(state, arg268)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart22 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart22, 1)
+				task.wait(0.05)
+				local HumanoidRootPart23 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart23, 1)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+local LeftGroupbox16 = Tab9:AddLeftGroupbox("All Break")
+local RightGroupbox12 = Tab9:AddRightGroupbox("Target Break")
+LeftGroupbox16:AddToggle("LoopAllGucci", {
+	Text = "Loop All Gucci Breaker",
+	Default = false,
+	Callback = function(state, arg270)
+	end
+})
+LeftGroupbox16:AddButton({
+	Text = "All Gucci Breaker",
+	Func = function(arg271, arg272)
+		workspace:GetDescendants()
+	end
+})
+local players24 = Players:GetPlayers()
+for i22, v38 in ipairs(players24) do
+end
+local Dropdown5 = RightGroupbox12:AddDropdown("CvCTargetDropdown", {
+	Text = "Select Player",
+	Default = 1,
+	Values = { v38.DisplayName .. " @" .. v38.Name },
+	Callback = function(state, arg274)
+		if state then
+			state:match("@(.+)$")
+		end
+	end
+})
+local players25 = Players:GetPlayers()
+for i23, v39 in ipairs(players25) do
+end
+Dropdown5:SetValues({ v39.DisplayName .. " @" .. v39.Name })
+RightGroupbox12:AddButton({
+	Text = "Targeted All Gucci Breaker",
+	Func = function(arg275, arg276)
+	end
+})
+local LeftGroupbox17 = Tab10:AddLeftGroupbox("Movement")
+local RightGroupbox13 = Tab10:AddRightGroupbox("Camera / Spin")
+LeftGroupbox17:AddToggle("CustomWalkSpeed", {
+	Text = "Enable Custom WalkSpeed",
+	Default = false,
+	Callback = function(state, arg278)
+		if state then
+			_NOTIFY("WalkSpeed Enabled", 3)
+		else
+			_NOTIFY("WalkSpeed Disabled", 3)
+		end
+	end
+})
+LeftGroupbox17:AddSlider("WalkSpeed", {
+	Text = "WalkSpeed",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg280)
+	end
+})
+LeftGroupbox17:AddToggle("CustomJumpPower", {
+	Text = "Enable Custom JumpPower",
+	Default = false,
+	Callback = function(state, arg282)
+		if state then
+			local Humanoid4 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			Humanoid4.JumpPower = 50
+		else
+			local Humanoid5 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			Humanoid5.JumpPower = 50
+		end
+	end
+})
+LeftGroupbox17:AddSlider("JumpPower", {
+	Text = "JumpPower",
+	Default = 50,
+	Max = 500,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg284)
+	end
+})
+LeftGroupbox17:AddToggle("CharInfJump", {
+	Text = "Infinite Jump",
+	Default = false,
+	Callback = function(state, arg286)
+	end
+})
+LeftGroupbox17:AddDivider("Look Glitch")
+LeftGroupbox17:AddToggle("OMGHead", {
+	Text = "OMG HEAD!!",
+	Default = false,
+	Callback = function(state, arg288)
+		if state then
+			local connection10 = RunService.RenderStepped:Connect(function(deltaTime10)
+				ReplicatedStorage.CharacterEvents.Look:FireServer(CFrame.new(0.27692981349094103, -0.10012157998045779, -0.049874522189811366, -0.15669863274850637, 0.227882456541322, 0.75775389708012031, 0.64602663413538108, -0.55944906873745492, -0.020209606505803945, 0.27706739778365774, -0.26987170104953984, 0.58248736175001126), CFrame.new(0, 0, 0, -1, 8.74227766e-08, 0, -1.04250613e-15, -1.19248806e-08, 1, 8.74227766e-08, 1, 1.19248806e-08), CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0), "high")
+			end)
+		else
+			connection10:Disconnect()
+			ReplicatedStorage.CharacterEvents.Look:FireServer(CFrame.new(0, 1, 0, -1, 8.44439185e-08, -2.26266827e-08, -1.04250613e-15, 0.258819073, 0.965925813, 8.74227766e-08, 0.965925813, -0.258819073), CFrame.new(0, 0, 0, -1, 8.74227766e-08, 0, -1.04250613e-15, -1.19248806e-08, 1, 8.74227766e-08, 1, 1.19248806e-08), CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0), "high")
+		end
+	end
+})
+LeftGroupbox17:AddToggle("OMGBody", {
+	Text = "OMG BODY",
+	Default = false,
+	Callback = function(state, arg290)
+		if state then
+			local connection11 = RunService.RenderStepped:Connect(function(deltaTime11)
+				ReplicatedStorage.CharacterEvents.Look:FireServer(CFrame.new(0.63576656125281716, -0.84409017907469031, 0.061991169310651184, 0.24280900181328002, -0.75107179082669873, -0.81389356838924942, -0.02613002453687685, -0.89635481921715532, -0.30395772607862315, 0.83658006378697625, -0.29042897357869502, 0.10998535726530489), CFrame.new(-0.18299239016376789, 0.1805298658197203, -0.16952509478829902, -0.35873053374268793, 0.39385348423008271, 0.011090000282856449, 0.53907367730974176, 0.97362526707320107, -0.56905773175045193, 0.46903019907736287, -0.74161094289469831, -0.093537544192685229), CFrame.new(-0.67643255579466399, 0.8715411321004829, 0.5112352288652684, -0.96257775399203194, -0.11153723347951028, -0.57731975803792857, -0.55588777437050374, -0.76187219866107758, 0.42078865494230433, 0.7669267575741312, -0.19898740886558908, 0.0093011705312322501), "high")
+			end)
+		else
+			connection11:Disconnect()
+			ReplicatedStorage.CharacterEvents.Look:FireServer(CFrame.new(0, 1, 0, -1, 8.44439185e-08, -2.26266827e-08, -1.04250613e-15, 0.258819073, 0.965925813, 8.74227766e-08, 0.965925813, -0.258819073), CFrame.new(0, 0, 0, -1, 8.74227766e-08, 0, -1.04250613e-15, -1.19248806e-08, 1, 8.74227766e-08, 1, 1.19248806e-08), CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0), "high")
+		end
+	end
+})
+RightGroupbox13:AddSlider("FOV", {
+	Text = "FOV",
+	Default = 70,
+	Max = 120,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg292)
+		if state then
+			workspace.CurrentCamera.FieldOfView = state
+		else
+			workspace.CurrentCamera.FieldOfView = false
+		end
+	end
+})
+RightGroupbox13:AddToggle("ThirdPerson", {
+	Text = "Third Person View",
+	Default = false,
+	Callback = function(state, arg294)
+		if state then
+			Players.LocalPlayer.CameraMaxZoomDistance = 3000000
+		else
+			Players.LocalPlayer.CameraMaxZoomDistance = 128
+		end
+		Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic
+	end
+})
+RightGroupbox13:AddDivider("Spin")
+RightGroupbox13:AddToggle("CharSpin", {
+	Text = "Enable Spin",
+	Default = false,
+	Callback = function(state, arg296)
+	end
+})
+RightGroupbox13:AddSlider("SpinSpeed", {
+	Text = "Spin Speed",
+	Default = 5,
+	Max = 20,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg298)
+	end
+})
+local RightGroupbox14 = Tab10:AddRightGroupbox("Free Camera")
+local LeftGroupbox18 = Tab10:AddLeftGroupbox("Body Material Override")
+Players.LocalPlayer.CharacterAdded:Connect(function(character9)
+end)
+RightGroupbox14:AddToggle("FreeCamToggle", {
+	Text = "Enable Free Camera",
+	Default = false,
+	Callback = function(state, arg300)
+		if state then
+			local HumanoidRootPart24 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			HumanoidRootPart24.Anchored = true
+			local descendants7 = Players.LocalPlayer.Character:GetDescendants()
+			for i24, v40 in ipairs(descendants7) do
+				v40.LocalTransparencyModifier = 0
+			end
+			_NOTIFY("Free Camera ON (Character Anchored)", 3)
+		else
+			local HumanoidRootPart25 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			HumanoidRootPart25.Anchored = false
+			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+			_NOTIFY("Free Camera OFF", 3)
+		end
+	end
+})
+RightGroupbox14:AddToggle("FreeCamShowBody", {
+	Text = "Show Own Body",
+	Default = true,
+	Callback = function(state, arg302)
+	end
+})
+local Toggle = LeftGroupbox18:AddToggle("BodyMatToggle", {
+	Text = "Enable Body Material",
+	Default = false,
+	Callback = function(state, arg304)
+		if state then
+			local Folder7 = Instance.new("Folder")
+			Folder7.Name = "_phBodyMatStash"
+			Folder7.Parent = Players.LocalPlayer
+			local children4 = Players.LocalPlayer.Character:GetChildren()
+			for i25, v41 in ipairs(children4) do
+				v41.Parent = Folder7
+			end
+			local descendants8 = Players.LocalPlayer.Character:GetDescendants()
+			for i26, v42 in ipairs(descendants8) do
+				v42.Parent = Folder7
+			end
+			local descendants9 = Players.LocalPlayer.Character:GetDescendants()
+			for i27, v43 in ipairs(descendants9) do
+				v43.Material = Enum.Material.ForceField
+				v43.Color = Color3.fromRGB(180, 200, 255)
+			end
+			_NOTIFY("Body Material: ForceField ON", 3)
+		else
+			v43.Material = v43.Material
+			v43.Color = v43.Color
+			v41.Parent = v41.Parent
+			v42.Parent = v42.Parent
+			Folder7:Destroy()
+			_NOTIFY("Body Material OFF", 3)
+		end
+	end
+})
+Toggle:AddColorPicker("BodyMatColor", {
+	Title = "Body Color",
+	Default = Color3.fromRGB(180, 200, 255),
+	Callback = function(state, arg306)
+	end
+})
+LeftGroupbox18:AddDropdown("BodyMaterialDd", {
+	Text = "Select Material",
+	Default = 1,
+	Values = {
+		"ForceField",
+		"Neon",
+		"Glass",
+		"Metal",
+		"SmoothPlastic",
+		"Plastic",
+		"Wood",
+		"Marble",
+		"Granite",
+		"Slate",
+		"WoodPlanks",
+		"Cobblestone",
+		"Brick",
+		"Fabric"
+	},
+	Callback = function(state, arg308)
+	end
+})
+LeftGroupbox18:AddButton({
+	Text = "Re-apply (after respawn / refresh)",
+	Func = function(arg309, arg310)
+		_NOTIFY("Enable Body Material first", 2)
+	end
+})
+LeftGroupbox18:AddLabel("Clothing is hidden while enabled")
+LeftGroupbox18:AddLabel("Materials: ForceField, Neon, Glass ...")
+LeftGroupbox18:AddToggle("BodyMatRainbow", {
+	Text = "Rainbow Body Material",
+	Default = false,
+	Callback = function(state, arg312)
+		if state then
+			local connection12 = RunService.RenderStepped:Connect(function(deltaTime12)
+			end)
+			_NOTIFY("Body Rainbow ON", 3)
+		else
+			connection12:Disconnect()
+			_NOTIFY("Body Rainbow OFF", 3)
+		end
+	end
+})
+local RightGroupbox15 = Tab10:AddRightGroupbox("Umbrella")
+local RightGroupbox16 = Tab10:AddRightGroupbox("Local Aura")
+Players.LocalPlayer.CharacterAdded:Connect(function(character10)
+	task.wait(1.5)
+end)
+local Toggle2 = RightGroupbox15:AddToggle("UmbrellaMeshToggle", {
+	Text = "Umbrella",
+	Default = false,
+	Callback = function(state, arg314)
+		if state then
+			local Head = Players.LocalPlayer.Character:FindFirstChild("Head")
+			local Part5 = Instance.new("Part")
+			Part5.Name = "_phChineseHat"
+			Part5.Transparency = 0.3
+			Part5.Color = Color3.fromRGB(255, 255, 255)
+			Part5.Material = Enum.Material.Neon
+			Part5.CanCollide = false
+			Part5.CanTouch = false
+			Part5.CanQuery = false
+			Part5.Massless = true
+			local SpecialMesh = Instance.new("SpecialMesh")
+			SpecialMesh.MeshId = "rbxassetid://1033714"
+			SpecialMesh.Scale = Vector3.new(2.4000000953674316, 1.6000000238418579, 2.4000000953674316)
+			SpecialMesh.Parent = Part5
+			local WeldConstraint = Instance.new("WeldConstraint")
+			WeldConstraint.Part0 = Head
+			WeldConstraint.Part1 = Part5
+			WeldConstraint.Parent = Part5
+			Part5.CFrame = (Head.CFrame * CFrame.new(0, 1.1, 0))
+			Part5.Parent = Players.LocalPlayer.Character
+		else
+			Part5:Destroy()
+		end
+	end
+})
+Toggle2:AddColorPicker("UmbrellaMeshColor", {
+	Title = "Umbrella Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg316)
+	end
+})
+RightGroupbox15:AddToggle("UmbrellaMeshRainbow", {
+	Text = "Rainbow Umbrella",
+	Default = false,
+	Callback = function(state, arg318)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshTrans", {
+	Text = "Umbrella Transparency",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg319, arg320)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshSize", {
+	Text = "Umbrella Size",
+	Default = 2.4,
+	Max = 10,
+	Min = 0.5,
+	Rounding = 1,
+	Callback = function(state, arg322)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshHeight", {
+	Text = "Umbrella Height",
+	Default = 1.1,
+	Max = 10,
+	Min = -10,
+	Rounding = 1,
+	Callback = function(state, arg324)
+	end
+})
+RightGroupbox15:AddDropdown("UmbrellaMeshMaterial", {
+	Text = "Umbrella Material",
+	Default = "Neon",
+	Multi = false,
+	Values = { "Neon", "ForceField", "Plastic", "SmoothPlastic", "Glass", "Ice", "Wood", "Metal", "Foil" },
+	Callback = function(state, arg326)
+	end
+})
+RightGroupbox16:AddToggle("LocalAuraToggle", {
+	Text = "Local Aura",
+	Default = false,
+	Callback = function(state, arg328)
+		if state then
+			local _phAuraFeetPart = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart:Destroy()
+			local _phAuraFeetPart2 = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart2:Destroy()
+		else
+			local _phAuraFeetPart3 = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart3:Destroy()
+		end
+	end
+})
+RightGroupbox16:AddDropdown("LocalAuraType", {
+	Text = "Aura Type",
+	Default = 1,
+	Multi = true,
+	Values = {
+		"Angel Wing",
+		"Blue Lord",
+		"Ethereal Aura",
+		"Godly",
+		"North Star",
+		"Pink Aura",
+		"Super Sayien",
+		"Sweet Heart"
+	},
+	Callback = function(state, arg330)
+	end
+})
+local Divider = RightGroupbox16:AddDivider("Angel Wing Settings")
+local Dropdown6 = RightGroupbox16:AddDropdown("LocalAuraTarget_Angel Wing", {
+	Text = "Angel Wing Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg332)
+	end
+})
+local Slider = RightGroupbox16:AddSlider("LocalAuraRateMult_Angel Wing", {
+	Text = "Angel Wing Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg334)
+	end
+})
+Divider:SetVisible(false)
+Dropdown6:SetVisible(false)
+Slider:SetVisible(false)
+local Divider2 = RightGroupbox16:AddDivider("Blue Lord Settings")
+local Dropdown7 = RightGroupbox16:AddDropdown("LocalAuraTarget_Blue Lord", {
+	Text = "Blue Lord Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg336)
+	end
+})
+local Slider2 = RightGroupbox16:AddSlider("LocalAuraRateMult_Blue Lord", {
+	Text = "Blue Lord Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg338)
+	end
+})
+Divider2:SetVisible(false)
+Dropdown7:SetVisible(false)
+Slider2:SetVisible(false)
+local Divider3 = RightGroupbox16:AddDivider("Ethereal Aura Settings")
+local Dropdown8 = RightGroupbox16:AddDropdown("LocalAuraTarget_Ethereal Aura", {
+	Text = "Ethereal Aura Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg340)
+	end
+})
+local Slider3 = RightGroupbox16:AddSlider("LocalAuraRateMult_Ethereal Aura", {
+	Text = "Ethereal Aura Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg342)
+	end
+})
+Divider3:SetVisible(false)
+Dropdown8:SetVisible(false)
+Slider3:SetVisible(false)
+local Divider4 = RightGroupbox16:AddDivider("Godly Settings")
+local Dropdown9 = RightGroupbox16:AddDropdown("LocalAuraTarget_Godly", {
+	Text = "Godly Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg344)
+	end
+})
+local Slider4 = RightGroupbox16:AddSlider("LocalAuraRateMult_Godly", {
+	Text = "Godly Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg346)
+	end
+})
+Divider4:SetVisible(false)
+Dropdown9:SetVisible(false)
+Slider4:SetVisible(false)
+local Divider5 = RightGroupbox16:AddDivider("North Star Settings")
+local Dropdown10 = RightGroupbox16:AddDropdown("LocalAuraTarget_North Star", {
+	Text = "North Star Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg348)
+	end
+})
+local Slider5 = RightGroupbox16:AddSlider("LocalAuraRateMult_North Star", {
+	Text = "North Star Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg350)
+	end
+})
+Divider5:SetVisible(false)
+Dropdown10:SetVisible(false)
+Slider5:SetVisible(false)
+local Divider6 = RightGroupbox16:AddDivider("Pink Aura Settings")
+local Dropdown11 = RightGroupbox16:AddDropdown("LocalAuraTarget_Pink Aura", {
+	Text = "Pink Aura Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg352)
+	end
+})
+local Slider6 = RightGroupbox16:AddSlider("LocalAuraRateMult_Pink Aura", {
+	Text = "Pink Aura Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg354)
+	end
+})
+Divider6:SetVisible(false)
+Dropdown11:SetVisible(false)
+Slider6:SetVisible(false)
+local Divider7 = RightGroupbox16:AddDivider("Super Sayien Settings")
+local Dropdown12 = RightGroupbox16:AddDropdown("LocalAuraTarget_Super Sayien", {
+	Text = "Super Sayien Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg356)
+	end
+})
+local Slider7 = RightGroupbox16:AddSlider("LocalAuraRateMult_Super Sayien", {
+	Text = "Super Sayien Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg358)
+	end
+})
+Divider7:SetVisible(false)
+Dropdown12:SetVisible(false)
+Slider7:SetVisible(false)
+local Divider8 = RightGroupbox16:AddDivider("Sweet Heart Settings")
+local Dropdown13 = RightGroupbox16:AddDropdown("LocalAuraTarget_Sweet Heart", {
+	Text = "Sweet Heart Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg360)
+	end
+})
+local Slider8 = RightGroupbox16:AddSlider("LocalAuraRateMult_Sweet Heart", {
+	Text = "Sweet Heart Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg362)
+	end
+})
+Divider8:SetVisible(false)
+Dropdown13:SetVisible(false)
+Slider8:SetVisible(false)
+Divider7:SetVisible(false)
+Dropdown12:SetVisible(false)
+Slider7:SetVisible(false)
+Divider5:SetVisible(false)
+Dropdown10:SetVisible(false)
+Slider5:SetVisible(false)
+Divider2:SetVisible(false)
+Dropdown7:SetVisible(false)
+Slider2:SetVisible(false)
+Divider4:SetVisible(false)
+Dropdown9:SetVisible(false)
+Slider4:SetVisible(false)
+Divider6:SetVisible(false)
+Dropdown11:SetVisible(false)
+Slider6:SetVisible(false)
+Divider8:SetVisible(false)
+Dropdown13:SetVisible(false)
+Slider8:SetVisible(false)
+Divider3:SetVisible(false)
+Dropdown8:SetVisible(false)
+Slider3:SetVisible(false)
+Divider:SetVisible(false)
+Dropdown6:SetVisible(false)
+Slider:SetVisible(false)
+RightGroupbox16:AddDropdown("LocalAuraTarget", {
+	Text = "Aura Target Part",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg364)
+	end
+})
+RightGroupbox16:AddInput("LocalAuraCustom", {
+	Text = "Custom Aura ID",
+	Default = "",
+	Finished = true,
+	Numeric = false,
+	Placeholder = "Asset ID...",
+	Callback = function(arg365, arg366)
+		arg365:match("^%s*(.-)%s*$")
+	end
+})
+RightGroupbox16:AddSlider("LocalAuraRateMult", {
+	Text = "Particle Rate Multiplier",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg368)
+	end
+})
+local LeftGroupbox19 = Tab10:AddLeftGroupbox("Visual Effects Configuration")
+local Dropdown14 = LeftGroupbox19:AddDropdown("FXSelect", {
+	Text = "Select Effect to Configure",
+	Default = 1,
+	Values = { "Halo", "Aura", "Angel Wings", "Trail" },
+	Callback = function(state, arg370)
+	end
+})
+LeftGroupbox19:AddDivider()
+LeftGroupbox19:AddDivider("Halo Settings")
+local Toggle3 = LeftGroupbox19:AddToggle("HaloEnable", {
+	Text = "Enable Halo",
+	Default = false,
+	Callback = function(state, arg372)
+		if state then
+			ParticleEmitter.Enabled = state
+			ParticleEmitter2.Enabled = state
+		else
+			ParticleEmitter.Enabled = false
+			ParticleEmitter2.Enabled = false
+		end
+	end
+})
+Toggle3:AddColorPicker("HaloColor", {
+	Title = "Halo Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg374)
+		if state then
+			ParticleEmitter.Color = ColorSequence.new(state)
+			ParticleEmitter2.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter.Color = ColorSequence.new(false)
+			ParticleEmitter2.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloRate", {
+	Text = "Halo Particle Rate",
+	Default = 7,
+	Max = 50,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg376)
+		if state then
+			ParticleEmitter.Rate = state
+			ParticleEmitter2.Rate = state
+		else
+			ParticleEmitter.Rate = false
+			ParticleEmitter2.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloBrightness", {
+	Text = "Halo Brightness",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg378)
+		if state then
+			ParticleEmitter.Brightness = state
+			ParticleEmitter2.Brightness = state
+		else
+			ParticleEmitter.Brightness = false
+			ParticleEmitter2.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloHeight", {
+	Text = "Halo Height (Y)",
+	Default = 1.5,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg380)
+	end
+})
+LeftGroupbox19:AddSlider("HaloSide", {
+	Text = "Halo Side (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg382)
+	end
+})
+LeftGroupbox19:AddSlider("HaloDepth", {
+	Text = "Halo Depth (Z)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg384)
+	end
+})
+LeftGroupbox19:AddSlider("HaloRingHeight", {
+	Text = "Halo Ring Height Offset",
+	Default = 0.93,
+	Max = 3,
+	Min = -2,
+	Rounding = 2,
+	Callback = function(state, arg386)
+		if state then
+			Attachment.CFrame = CFrame.new(-0.25, state, 0.25, 0.4689, -0.2499, -0.8471, -0.1171, 0.933, -0.3401, 0.8754, 0.2587, 0.4082)
+		else
+			Attachment.CFrame = CFrame.new(-0.25, false, 0.25, 0.4689, -0.2499, -0.8471, -0.1171, 0.933, -0.3401, 0.8754, 0.2587, 0.4082)
+		end
+	end
+})
+LeftGroupbox19:AddDivider("Aura Settings")
+local Toggle4 = LeftGroupbox19:AddToggle("AuraEnable", {
+	Text = "Enable Aura",
+	Default = false,
+	Callback = function(state, arg388)
+		if state then
+			ParticleEmitter3.Enabled = state
+			ParticleEmitter4.Enabled = state
+			ParticleEmitter5.Enabled = state
+		else
+			ParticleEmitter3.Enabled = false
+			ParticleEmitter4.Enabled = false
+			ParticleEmitter5.Enabled = false
+		end
+	end
+})
+Toggle4:AddColorPicker("AuraColor", {
+	Title = "Aura Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg390)
+		if state then
+			ParticleEmitter3.Color = ColorSequence.new(state)
+			ParticleEmitter4.Color = ColorSequence.new(state)
+			ParticleEmitter5.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter3.Color = ColorSequence.new(false)
+			ParticleEmitter4.Color = ColorSequence.new(false)
+			ParticleEmitter5.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraRate", {
+	Text = "Aura Particle Rate",
+	Default = 20,
+	Max = 60,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg392)
+		if state then
+			ParticleEmitter3.Rate = state
+			ParticleEmitter4.Rate = state
+			ParticleEmitter5.Rate = state
+		else
+			ParticleEmitter3.Rate = false
+			ParticleEmitter4.Rate = false
+			ParticleEmitter5.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraBrightness", {
+	Text = "Aura Brightness",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg394)
+		if state then
+			ParticleEmitter3.Brightness = state
+			ParticleEmitter4.Brightness = state
+			ParticleEmitter5.Brightness = state
+		else
+			ParticleEmitter3.Brightness = false
+			ParticleEmitter4.Brightness = false
+			ParticleEmitter5.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraHeight", {
+	Text = "Aura Height (Y)",
+	Default = 0,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg396)
+	end
+})
+LeftGroupbox19:AddSlider("AuraSide", {
+	Text = "Aura Side (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg398)
+	end
+})
+LeftGroupbox19:AddSlider("AuraDepth", {
+	Text = "Aura Depth (Z)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg400)
+	end
+})
+LeftGroupbox19:AddDivider("Angel Wings Settings")
+local Toggle5 = LeftGroupbox19:AddToggle("AngelEnable", {
+	Text = "Enable Angel Wings",
+	Default = false,
+	Callback = function(state, arg402)
+		if state then
+			ParticleEmitter6.Enabled = state
+			ParticleEmitter7.Enabled = state
+			ParticleEmitter8.Enabled = state
+		else
+			ParticleEmitter6.Enabled = false
+			ParticleEmitter7.Enabled = false
+			ParticleEmitter8.Enabled = false
+		end
+	end
+})
+Toggle5:AddColorPicker("AngelColor", {
+	Title = "Wings Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg404)
+		if state then
+			ParticleEmitter6.Color = ColorSequence.new(state)
+			ParticleEmitter7.Color = ColorSequence.new(state)
+			ParticleEmitter8.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter6.Color = ColorSequence.new(false)
+			ParticleEmitter7.Color = ColorSequence.new(false)
+			ParticleEmitter8.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelRate", {
+	Text = "Wings Particle Rate",
+	Default = 4,
+	Max = 30,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg406)
+		if state then
+			ParticleEmitter6.Rate = state
+			ParticleEmitter7.Rate = state
+		else
+			ParticleEmitter6.Rate = false
+			ParticleEmitter7.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelBrightness", {
+	Text = "Wings Brightness",
+	Default = 1,
+	Max = 5,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg408)
+		if state then
+			ParticleEmitter6.Brightness = state
+			ParticleEmitter7.Brightness = state
+			ParticleEmitter8.Brightness = state
+		else
+			ParticleEmitter6.Brightness = false
+			ParticleEmitter7.Brightness = false
+			ParticleEmitter8.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelHeight", {
+	Text = "Wings Height Offset (Y)",
+	Default = 0,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg410)
+	end
+})
+LeftGroupbox19:AddSlider("AngelSide", {
+	Text = "Wings Side Offset (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg412)
+	end
+})
+LeftGroupbox19:AddSlider("AngelSpread", {
+	Text = "Wings Spread",
+	Default = 1,
+	Max = 3,
+	Min = 0.3,
+	Rounding = 1,
+	Callback = function(arg413, arg414)
+		Attachment2.CFrame = (CFrame.new((-1.012 * arg413), 0.5, 0.852) * CFrame.Angles(0, 0.26179938779914941, 0))
+		Attachment3.CFrame = (CFrame.new((1.167 * arg413), 0.5, 0.852) * CFrame.Angles(0, -0.26179938779914941, 0))
+	end
+})
+LeftGroupbox19:AddDivider("Trail Settings")
+local Toggle6 = LeftGroupbox19:AddToggle("TrailEnable", {
+	Text = "Enable Trail",
+	Default = false,
+	Callback = function(state, arg416)
+		if state then
+			Trail.Enabled = state
+		else
+			Trail.Enabled = false
+		end
+	end
+})
+Toggle6:AddColorPicker("TrailColor", {
+	Title = "Trail Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg418)
+		if state then
+			Trail.Color = ColorSequence.new(state)
+		else
+			Trail.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("TrailWidth", {
+	Text = "Trail Width",
+	Default = 1.5,
+	Max = 5,
+	Min = 0.2,
+	Rounding = 1,
+	Callback = function(arg419, arg420)
+		Trail.WidthScale = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.4, ((0.6 * arg419) / 1.5)), NumberSequenceKeypoint.new(0.7, ((0.25 * arg419) / 1.5)), NumberSequenceKeypoint.new(1, 0) })
+		Attachment5.Position = Vector3.new(0, (arg419 / 2), 0)
+		Attachment6.Position = Vector3.new(0, ((-arg419) / 2), 0)
+	end
+})
+LeftGroupbox19:AddSlider("TrailLifetime", {
+	Text = "Trail Lifetime",
+	Default = 0.4,
+	Max = 3,
+	Min = 0.05,
+	Rounding = 2,
+	Callback = function(state, arg422)
+		if state then
+			Trail.Lifetime = state
+		else
+			Trail.Lifetime = false
+		end
+	end
+})
+Dropdown14:SetValue("Halo")
+local RightGroupbox17 = Tab10:AddRightGroupbox("Rainbow Settings")
+RightGroupbox17:AddToggle("RainbowEnable", {
+	Text = "Enable Rainbow Mode",
+	Default = false,
+	Callback = function(state, arg424)
+	end
+})
+RightGroupbox17:AddSlider("RainbowSpeed", {
+	Text = "Rainbow Speed",
+	Default = 0.5,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg426)
+	end
+})
+RightGroupbox17:AddToggle("RainbowHalo", {
+	Text = "Apply Rainbow to Halo",
+	Default = true,
+	Callback = function(state, arg428)
+	end
+})
+RightGroupbox17:AddToggle("RainbowAura", {
+	Text = "Apply Rainbow to Aura",
+	Default = true,
+	Callback = function(state, arg430)
+	end
+})
+RightGroupbox17:AddToggle("RainbowAngel", {
+	Text = "Apply Rainbow to Wings",
+	Default = true,
+	Callback = function(state, arg432)
+	end
+})
+RightGroupbox17:AddToggle("RainbowTrail", {
+	Text = "Apply Rainbow to Trail",
+	Default = true,
+	Callback = function(state, arg434)
+	end
+})
+local LeftGroupbox20 = Tab11:AddLeftGroupbox("Toy ESP")
+LeftGroupbox20:AddToggle("ShurikenESP", {
+	Text = "Shuriken (AntiKick) ESP",
+	Default = false,
+	Callback = function(state, arg436)
+		if state then
+			RunService.Heartbeat:Connect(function(deltaTime13)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime14)
+			end)
+		end
+	end
+})
+LeftGroupbox20:AddDropdown("ShurikenColorMode", {
+	Text = "Shuriken Color Mode",
+	Default = "Rainbow",
+	Values = { "Rainbow", "Custom" },
+	Callback = function(state, arg438)
+	end
+})
+local Label11 = LeftGroupbox20:AddLabel("Shuriken Custom Color")
+Label11:AddColorPicker("ShurikenSolidColor", {
+	Title = "Shuriken Custom Color",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg440)
+	end
+})
+LeftGroupbox20:AddSlider("ShurikenESPTrans", {
+	Text = "Shuriken Transparency",
+	Default = 0.3,
+	Max = 1,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg442)
+	end
+})
+LeftGroupbox20:AddDivider()
+LeftGroupbox20:AddToggle("BlobmanESP", {
+	Text = "Blobman ESP",
+	Default = false,
+	Callback = function(state, arg444)
+		if state then
+			RunService.Heartbeat:Connect(function(deltaTime15)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime16)
+			end)
+		end
+	end
+})
+LeftGroupbox20:AddDropdown("BlobmanColorMode", {
+	Text = "Blobman Color Mode",
+	Default = "Rainbow",
+	Values = { "Rainbow", "Custom" },
+	Callback = function(state, arg446)
+	end
+})
+local Label12 = LeftGroupbox20:AddLabel("Blobman Custom Color")
+Label12:AddColorPicker("BlobmanSolidColor", {
+	Title = "Blobman Custom Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg448)
+	end
+})
+LeftGroupbox20:AddSlider("BlobmanESPTrans", {
+	Text = "Blobman Transparency",
+	Default = 0.3,
+	Max = 1,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg450)
+	end
+})
+LeftGroupbox20:AddDivider()
+LeftGroupbox20:AddSlider("ESPRainbowSpeed", {
+	Text = "Rainbow ESP Speed",
+	Default = 2,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg452)
+	end
+})
+local LeftGroupbox21 = Tab12:AddLeftGroupbox("Visual Effects")
+local RightGroupbox18 = Tab12:AddRightGroupbox("Notifications")
+LeftGroupbox21:AddToggle("OceanRainbow", {
+	Text = "Ocean Rainbow",
+	Default = false,
+	Callback = function(state, arg454)
+		if state then
+			local Map = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects = Map:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean = AlwaysHereTweenedObjects:FindFirstChild("Ocean")
+			local descendants10 = Ocean:GetDescendants()
+			for i28, v44 in ipairs(descendants10) do
+			end
+			Ocean.DescendantAdded:Connect(function(descendant6)
+			end)
+			RunService.Heartbeat:Connect(function(deltaTime17)
+			end)
+			_NOTIFY("Sea Rainbow ON", 3)
+		else
+			v44.Color = v44.Color
+			_NOTIFY("OFF", 3)
+		end
+	end
+})
+LeftGroupbox21:AddButton({
+	Text = "Cleanup All Visual Effects",
+	Func = function(arg455, arg456)
+		result3.Toggles.LocationDetector:SetValue(false)
+		result3.Toggles.OceanRainbow:SetValue(false)
+		result3.Toggles.ShurikenESP:SetValue(false)
+		result3.Toggles.MCTexEnabled:SetValue(false)
+		result3.Toggles.MCFontEnabled:SetValue(false)
+		_NOTIFY("All visuals cleaned up", 3)
+	end
+})
+local RightGroupbox19 = Tab12:AddRightGroupbox("Minecraft Texture & Font")
+RightGroupbox19:AddToggle("MCTexEnabled", {
+	Text = "Enable Minecraft Textures",
+	Default = false,
+	Callback = function(state, arg458)
+		if state then
+			workspace:GetDescendants()
+			Part:GetFullName()
+			Part2:GetFullName()
+			Part3:GetFullName()
+			Part4:GetFullName()
+			_NOTIFY("Applied: 0 | Skipped: 4", 3)
+		else
+			_NOTIFY("Original textures restored.", 3)
+		end
+	end
+})
+RightGroupbox19:AddSlider("MCTileSize", {
+	Text = "Studs Per Tile",
+	Default = 4,
+	Max = 16,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg460)
+		workspace:GetDescendants()
+		Part:GetChildren()
+		Part2:GetChildren()
+		Part3:GetChildren()
+		Part4:GetChildren()
+	end
+})
+RightGroupbox19:AddToggle("MCTexDebug", {
+	Text = "Debug Log (Texture)",
+	Default = false,
+	Callback = function(state, arg462)
+	end
+})
+RightGroupbox19:AddDivider()
+RightGroupbox19:AddToggle("MCFontEnabled", {
+	Text = "Enable Minecraft Font",
+	Default = false,
+	Callback = function(state, arg464)
+		if state then
+			local descendants11 = PlayerGui:GetDescendants()
+			for i29, v45 in ipairs(descendants11) do
+				v45.FontFace = Font.new("rbxassetid://12187371840")
+				v45:GetFullName()
+			end
+			_NOTIFY("Applied Minecraft font to 1 elements.", 3)
+		else
+			v45.FontFace = v45.FontFace
+			_NOTIFY("Restored original fonts.", 3)
+		end
+	end
+})
+RightGroupbox19:AddToggle("MCFontAutoApply", {
+	Text = "Auto Apply to New Elements",
+	Default = false,
+	Callback = function(state, arg466)
+		if state then
+			local connection13 = PlayerGui.DescendantAdded:Connect(function(descendant7)
+				task.defer(function(...)
+				end)
+			end)
+		else
+			connection13:Disconnect()
+		end
+	end
+})
+RightGroupbox19:AddToggle("MCFontDebug", {
+	Text = "Debug Log (Font)",
+	Default = false,
+	Callback = function(state, arg468)
+	end
+})
+_G.kickNotifyConnection = nil
+RightGroupbox18:AddToggle("KickNotify", {
+	Text = "Kick Notify",
+	Default = false,
+	Callback = function(state, arg470)
+		if state then
+			local connection14 = workspace.ChildAdded:Connect(function(child10)
+				child10.Name:lower()
+			end)
+			_G.kickNotifyConnection = connection14
+			_NOTIFY("Kick Notify: Enabled", 2)
+		else
+			connection14:Disconnect()
+			_G.kickNotifyConnection = nil
+			_NOTIFY("Kick Notify: Disabled", 2)
+		end
+	end
+})
+local LeftGroupbox22 = Tab12:AddLeftGroupbox("Location Detector ESP (PCLD)")
+local Toggle7 = LeftGroupbox22:AddToggle("LocationDetector", {
+	Text = "Enable PCLD ESP",
+	Default = false,
+	Callback = function(state, arg472)
+		if state then
+			local PoophubLocationEsp = CoreGui:FindFirstChild("PoophubLocationEsp")
+			PoophubLocationEsp:Destroy()
+			local PoophubLocationParts = workspace:FindFirstChild("PoophubLocationParts")
+			PoophubLocationParts:Destroy()
+			local ScreenGui4 = Instance.new("ScreenGui")
+			ScreenGui4.Name = "PoophubLocationEsp"
+			ScreenGui4.ResetOnSpawn = false
+			ScreenGui4.IgnoreGuiInset = true
+			ScreenGui4.Parent = CoreGui
+			local Folder8 = Instance.new("Folder")
+			Folder8.Name = "PoophubLocationParts"
+			Folder8.Parent = workspace
+			workspace:GetDescendants()
+			local connection15 = workspace.DescendantAdded:Connect(function(descendant8)
+			end)
+			local connection16 = workspace.DescendantRemoving:Connect(function(descendant9)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime18)
+			end)
+			_NOTIFY("PCLD ESP ON", 3)
+		else
+			connection15:Disconnect()
+			connection16:Disconnect()
+			ScreenGui4:Destroy()
+			Folder8:Destroy()
+			_NOTIFY("PCLD ESP OFF", 3)
+		end
+	end
+})
+Toggle7:AddColorPicker("PCLD_Color", {
+	Title = "PCLD Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg474)
+	end
+})
+local Toggle8 = LeftGroupbox22:AddToggle("PCLD_GradientEnabled", {
+	Text = "Enable Gradient Color",
+	Default = false,
+	Callback = function(state, arg476)
+	end
+})
+Toggle8:AddColorPicker("PCLD_GradientColor1", {
+	Title = "Gradient Color 1",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg478)
+	end
+})
+Toggle8:AddColorPicker("PCLD_GradientColor2", {
+	Title = "Gradient Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg480)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GradientSpeed", {
+	Text = "Gradient Cycle Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg482)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_UIGradientAngle", {
+	Text = "Gradient Angle",
+	Default = 0,
+	Max = 360,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg484)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_UIGradientAutoRotate", {
+	Text = "Gradient Auto Rotate",
+	Default = false,
+	Callback = function(state, arg486)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_UIGradientAutoSpeed", {
+	Text = "Auto Rotate Speed",
+	Default = 20,
+	Max = 100,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg488)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_CornerEnabled", {
+	Text = "Enable Corner Render",
+	Default = true,
+	Callback = function(state, arg490)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_Thickness", {
+	Text = "Corner Line Thickness",
+	Default = 2,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg492)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_CornerRoundness", {
+	Text = "Corner Roundness",
+	Default = 0,
+	Max = 50,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg494)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_Length", {
+	Text = "Corner Line Length",
+	Default = 12,
+	Max = 50,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg496)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_RotationSpeed", {
+	Text = "Rotation Speed",
+	Default = 90,
+	Max = 360,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg498)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_ExpandSpeed", {
+	Text = "Breathing Expand Speed",
+	Default = 3,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg500)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_MinRadius", {
+	Text = "Min Pulse Radius",
+	Default = 15,
+	Max = 100,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg502)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_MaxRadius", {
+	Text = "Max Pulse Radius",
+	Default = 35,
+	Max = 150,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg504)
+	end
+})
+local Toggle9 = LeftGroupbox22:AddToggle("PCLD_CornerOutline", {
+	Text = "Corner Outline",
+	Default = false,
+	Callback = function(state, arg506)
+	end
+})
+Toggle9:AddColorPicker("PCLD_CornerOutlineColor", {
+	Title = "Corner Outline Color",
+	Default = Color3.fromRGB(0, 0, 0),
+	Callback = function(state, arg508)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_CornerOutlineThick", {
+	Text = "Corner Outline Thickness",
+	Default = 1,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg510)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_SmoothingEnabled", {
+	Text = "Enable Smooth Lerp",
+	Default = true,
+	Callback = function(state, arg512)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_SmoothingSpeed", {
+	Text = "Smoothing Responsiveness",
+	Default = 15,
+	Max = 50,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg514)
+	end
+})
+local Toggle10 = LeftGroupbox22:AddToggle("PCLD_PartEnabled", {
+	Text = "Enable 3D Part Box",
+	Default = false,
+	Callback = function(state, arg516)
+	end
+})
+Toggle10:AddColorPicker("PCLD_PartColor", {
+	Title = "Part Box Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg518)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_PartTransparency", {
+	Text = "Part Transparency",
+	Default = 70,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(arg519, arg520)
+	end
+})
+LeftGroupbox22:AddDropdown("PCLD_PartMaterial", {
+	Text = "Part Material",
+	Default = "Neon",
+	Values = { "Neon", "ForceField", "Glass", "SmoothPlastic", "Metal", "Wood" },
+	Callback = function(state, arg522)
+	end
+})
+local Toggle11 = LeftGroupbox22:AddToggle("PCLD_BoxOutline", {
+	Text = "Part Box Outline",
+	Default = false,
+	Callback = function(state, arg524)
+	end
+})
+Toggle11:AddColorPicker("PCLD_BoxOutlineColor", {
+	Title = "Box Outline Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg526)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_BoxOutlineThick", {
+	Text = "Box Outline Thickness",
+	Default = 5,
+	Max = 100,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(arg527, arg528)
+	end
+})
+local Toggle12 = LeftGroupbox22:AddToggle("PCLD_TrailEnabled", {
+	Text = "Enable Box Trail",
+	Default = false,
+	Callback = function(state, arg530)
+	end
+})
+Toggle12:AddColorPicker("PCLD_TrailColor", {
+	Title = "Trail Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg532)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_TrailLifetime", {
+	Text = "Trail Lifetime",
+	Default = 0.5,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg534)
+	end
+})
+local Toggle13 = LeftGroupbox22:AddToggle("PCLD_GlowEnabled", {
+	Text = "Enable Glow",
+	Default = false,
+	Callback = function(state, arg536)
+	end
+})
+Toggle13:AddColorPicker("PCLD_GlowColor1", {
+	Title = "Glow Color 1",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg538)
+	end
+})
+Toggle13:AddColorPicker("PCLD_GlowColor2", {
+	Title = "Glow Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg540)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GlowTransparency", {
+	Text = "Glow Transparency",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(arg541, arg542)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GlowSize", {
+	Text = "Glow Size",
+	Default = 20,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg544)
+	end
+})
+local LeftGroupbox23 = Tab12:AddLeftGroupbox("Crosshair Control")
+LeftGroupbox23:AddToggle("ShowCrosshairToggle", {
+	Text = "Show Crosshair",
+	Default = true,
+	Callback = function(state, arg546)
+		if state then
+			local Crosshairs = Players.LocalPlayer.PlayerGui:FindFirstChild("Crosshairs")
+			Crosshairs.Enabled = state
+		else
+			local Crosshairs2 = Players.LocalPlayer.PlayerGui:FindFirstChild("Crosshairs")
+			Crosshairs2.Enabled = false
+		end
+	end
+})
+local LeftGroupbox24 = Tab11:AddLeftGroupbox("Noks Premium ESP")
+LeftGroupbox24:AddToggle("NoksEspMaster", {
+	Text = "Enable Premium ESP",
+	Default = false,
+	Callback = function(state, arg548)
+	end
+})
+local LeftGroupbox25 = Tab11:AddLeftGroupbox("Player Box Overlay")
+local Toggle14 = LeftGroupbox25:AddToggle("NoksBoxEnable", {
+	Text = "Enable Box Render",
+	Default = false,
+	Callback = function(state, arg550)
+	end
+})
+Toggle14:AddColorPicker("NoksBoxColor1", {
+	Title = "Box Color 1",
+	Default = Color3.fromRGB(180, 140, 255),
+	Callback = function(state, arg552)
+	end
+})
+local Toggle15 = LeftGroupbox25:AddToggle("NoksBoxGradient", {
+	Text = "Enable Box Gradient",
+	Default = false,
+	Callback = function(state, arg554)
+	end
+})
+Toggle15:AddColorPicker("NoksBoxColor2", {
+	Title = "Box Color 2",
+	Default = Color3.fromRGB(100, 50, 200),
+	Callback = function(state, arg556)
+	end
+})
+local Toggle16 = LeftGroupbox25:AddToggle("NoksBoxOutline", {
+	Text = "Enable Box Outline",
+	Default = false,
+	Callback = function(state, arg558)
+	end
+})
+Toggle16:AddColorPicker("NoksBoxOutlineColor1", {
+	Title = "Outline Color 1",
+	Default = Color3.fromRGB(10, 10, 10),
+	Callback = function(state, arg560)
+	end
+})
+local Toggle17 = LeftGroupbox25:AddToggle("NoksBoxOutlineGradient", {
+	Text = "Enable Outline Gradient",
+	Default = false,
+	Callback = function(state, arg562)
+	end
+})
+Toggle17:AddColorPicker("NoksBoxOutlineColor2", {
+	Title = "Outline Color 2",
+	Default = Color3.fromRGB(40, 40, 40),
+	Callback = function(state, arg564)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxStrokeThickness", {
+	Text = "Outline Thickness",
+	Default = 1.5,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg566)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxStrokeTrans", {
+	Text = "Outline Transparency (%)",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg568)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxCornerRadius", {
+	Text = "Box Smooth Corners (px)",
+	Default = 4,
+	Max = 20,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg570)
+	end
+})
+LeftGroupbox25:AddSlider("NoksMaxBoxHeight", {
+	Text = "Max ESP Box Height (px)",
+	Default = 350,
+	Max = 1000,
+	Min = 50,
+	Rounding = 1,
+	Callback = function(state, arg572)
+	end
+})
+local LeftGroupbox26 = Tab11:AddLeftGroupbox("Player Identity Overlay")
+local Toggle18 = LeftGroupbox26:AddToggle("NoksNameEnable", {
+	Text = "Enable Text Name",
+	Default = false,
+	Callback = function(state, arg574)
+	end
+})
+Toggle18:AddColorPicker("NoksNameColor", {
+	Title = "Text Base Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg576)
+	end
+})
+local Toggle19 = LeftGroupbox26:AddToggle("NoksNameGradient", {
+	Text = "Use Seamless Gradient Loop",
+	Default = false,
+	Callback = function(state, arg578)
+	end
+})
+Toggle19:AddColorPicker("NoksTextGradColor1", {
+	Title = "Grad Left",
+	Default = Color3.fromRGB(255, 110, 110),
+	Callback = function(state, arg580)
+	end
+})
+Toggle19:AddColorPicker("NoksTextGradColor2", {
+	Title = "Grad Right",
+	Default = Color3.fromRGB(255, 230, 110),
+	Callback = function(state, arg582)
+	end
+})
+LeftGroupbox26:AddSlider("NoksNameScrollSpeed", {
+	Text = "Chroma Wave Velocity",
+	Default = 4,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg584)
+	end
+})
+LeftGroupbox26:AddDropdown("NoksTextFont", {
+	Text = "Global Text Font",
+	Default = "GothamBold",
+	Values = { "GothamBold", "SourceSansBold", "Arcade", "Roboto" },
+	Callback = function(state, arg586)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextSize", {
+	Text = "Text Font Size",
+	Default = 11,
+	Max = 16,
+	Min = 8,
+	Rounding = 1,
+	Callback = function(state, arg588)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextStrokeThickness", {
+	Text = "Text Shadow Thickness",
+	Default = 1,
+	Max = 3,
+	Min = 0.5,
+	Rounding = 1,
+	Callback = function(state, arg590)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextStrokeTrans", {
+	Text = "Text Shadow Trans (%)",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg592)
+	end
+})
+local LeftGroupbox27 = Tab11:AddLeftGroupbox("Target Tracer Lines")
+local Toggle20 = LeftGroupbox27:AddToggle("NoksLineEnable", {
+	Text = "Enable Snaplines",
+	Default = false,
+	Callback = function(state, arg594)
+	end
+})
+Toggle20:AddColorPicker("NoksLineColor1", {
+	Title = "Line Color 1",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg596)
+	end
+})
+local Toggle21 = LeftGroupbox27:AddToggle("NoksLineGradient", {
+	Text = "Enable Line Gradient",
+	Default = false,
+	Callback = function(state, arg598)
+	end
+})
+Toggle21:AddColorPicker("NoksLineColor2", {
+	Title = "Line Color 2",
+	Default = Color3.fromRGB(255, 0, 150),
+	Callback = function(state, arg600)
+	end
+})
+LeftGroupbox27:AddSlider("NoksLineThickness", {
+	Text = "Line Core Width",
+	Default = 2,
+	Max = 6,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg602)
+	end
+})
+local Toggle22 = LeftGroupbox27:AddToggle("NoksLineOutline", {
+	Text = "Enable Line Shadow",
+	Default = false,
+	Callback = function(state, arg604)
+	end
+})
+Toggle22:AddColorPicker("NoksLineOutlineColor", {
+	Title = "Line Shadow Color",
+	Default = Color3.fromRGB(0, 0, 0),
+	Callback = function(state, arg606)
+	end
+})
+LeftGroupbox27:AddSlider("NoksLineStrokeThickness", {
+	Text = "Line Shadow Thickness",
+	Default = 1,
+	Max = 4,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg608)
+	end
+})
+LeftGroupbox27:AddDropdown("NoksLineOrigin", {
+	Text = "Line Origin Position",
+	Default = "Bottom",
+	Values = { "Top", "Center", "Bottom", "Mouse" },
+	Callback = function(state, arg610)
+	end
+})
+LeftGroupbox27:AddDropdown("NoksLineAttachment", {
+	Text = "Line Target Position",
+	Default = "Bottom",
+	Values = { "Top", "Center", "Bottom" },
+	Callback = function(state, arg612)
+	end
+})
+local RightGroupbox20 = Tab11:AddRightGroupbox("Indicators & Flags")
+RightGroupbox20:AddToggle("NoksHealthBarEnable", {
+	Text = "Enable Premium Health Bar",
+	Default = false,
+	Callback = function(state, arg614)
+	end
+})
+RightGroupbox20:AddSlider("NoksHealthBarWidth", {
+	Text = "Health Bar Width",
+	Default = 3,
+	Max = 8,
+	Min = 2,
+	Rounding = 1,
+	Callback = function(state, arg616)
+	end
+})
+RightGroupbox20:AddSlider("NoksHealthBarOffset", {
+	Text = "Health Bar Offset",
+	Default = 6,
+	Max = 15,
+	Min = 4,
+	Rounding = 1,
+	Callback = function(state, arg618)
+	end
+})
+RightGroupbox20:AddToggle("NoksHealthTextEnable", {
+	Text = "Show Health Percentage Text",
+	Default = false,
+	Callback = function(state, arg620)
+	end
+})
+local Toggle23 = RightGroupbox20:AddToggle("NoksHealthGradient", {
+	Text = "Enable 3-Color Gradient",
+	Default = false,
+	Callback = function(state, arg622)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad1", {
+	Title = "High Health",
+	Default = Color3.fromRGB(50, 255, 100),
+	Callback = function(state, arg624)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad2", {
+	Title = "Mid Health",
+	Default = Color3.fromRGB(255, 220, 50),
+	Callback = function(state, arg626)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad3", {
+	Title = "Low Health",
+	Default = Color3.fromRGB(255, 50, 50),
+	Callback = function(state, arg628)
+	end
+})
+local Toggle24 = RightGroupbox20:AddToggle("NoksDistanceEnable", {
+	Text = "Show Distance (Studs)",
+	Default = false,
+	Callback = function(state, arg630)
+	end
+})
+Toggle24:AddColorPicker("NoksDistanceColor", {
+	Title = "Distance Color",
+	Default = Color3.fromRGB(240, 240, 240),
+	Callback = function(state, arg632)
+	end
+})
+RightGroupbox20:AddSlider("NoksMaxDistance", {
+	Text = "Max Render Distance",
+	Default = 2000,
+	Max = 5000,
+	Min = 100,
+	Rounding = 1,
+	Callback = function(state, arg634)
+	end
+})
+RightGroupbox20:AddToggle("NoksFlagsEnable", {
+	Text = "Enable Premium Flags ESP",
+	Default = false,
+	Callback = function(state, arg636)
+	end
+})
+RightGroupbox20:AddSlider("NoksFlagSpacing", {
+	Text = "Flag Spacing",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg638)
+	end
+})
+RightGroupbox20:AddSlider("NoksFlagTextSize", {
+	Text = "Flag Text Size",
+	Default = 9,
+	Max = 16,
+	Min = 6,
+	Rounding = 1,
+	Callback = function(state, arg640)
+	end
+})
+local Toggle25 = RightGroupbox20:AddToggle("NoksFlagNameEnable", {
+	Text = "Show UserID Flag",
+	Default = true,
+	Callback = function(state, arg642)
+	end
+})
+Toggle25:AddColorPicker("NoksFlagNameColor", {
+	Title = "UserID Color",
+	Default = Color3.fromRGB(220, 220, 220),
+	Callback = function(state, arg644)
+	end
+})
+local Toggle26 = RightGroupbox20:AddToggle("NoksFlagWeaponEnable", {
+	Text = "Show Weapon Flag",
+	Default = true,
+	Callback = function(state, arg646)
+	end
+})
+Toggle26:AddColorPicker("NoksFlagWeaponColor", {
+	Title = "Weapon Color",
+	Default = Color3.fromRGB(200, 200, 200),
+	Callback = function(state, arg648)
+	end
+})
+local Toggle27 = RightGroupbox20:AddToggle("NoksFlagStateEnable", {
+	Text = "Show State Flag",
+	Default = true,
+	Callback = function(state, arg650)
+	end
+})
+Toggle27:AddColorPicker("NoksFlagStateColor", {
+	Title = "State Color",
+	Default = Color3.fromRGB(255, 150, 50),
+	Callback = function(state, arg652)
+	end
+})
+local RightGroupbox21 = Tab11:AddRightGroupbox("Box Internal Fill")
+RightGroupbox21:AddToggle("NoksBoxFill", {
+	Text = "Use Translucent Fill",
+	Default = false,
+	Callback = function(state, arg654)
+	end
+})
+local Toggle28 = RightGroupbox21:AddToggle("NoksGradientFill", {
+	Text = "Use Gradient Fill",
+	Default = false,
+	Callback = function(state, arg656)
+	end
+})
+Toggle28:AddColorPicker("NoksGradientColor1", {
+	Title = "Gradient Node 1",
+	Default = Color3.fromRGB(140, 90, 255),
+	Callback = function(state, arg658)
+	end
+})
+Toggle28:AddColorPicker("NoksGradientColor2", {
+	Title = "Gradient Node 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg660)
+	end
+})
+RightGroupbox21:AddSlider("NoksBoxFillOpacity1", {
+	Text = "Node 1 Opacity (%)",
+	Default = 25,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg662)
+	end
+})
+RightGroupbox21:AddSlider("NoksBoxFillOpacity2", {
+	Text = "Node 2 Opacity (%)",
+	Default = 5,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg664)
+	end
+})
+RightGroupbox21:AddToggle("NoksGradientRotate", {
+	Text = "Auto Rotate Spectrum",
+	Default = false,
+	Callback = function(state, arg666)
+	end
+})
+RightGroupbox21:AddSlider("NoksRotateSpeed", {
+	Text = "Rotation Velocity",
+	Default = 3,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg668)
+	end
+})
+local RightGroupbox22 = Tab11:AddRightGroupbox("Cinematic Effects")
+RightGroupbox22:AddToggle("NoksFadeOutEnable", {
+	Text = "Player Death Fade Out",
+	Default = false,
+	Callback = function(state, arg670)
+	end
+})
+RightGroupbox22:AddSlider("NoksFadeDuration", {
+	Text = "Fade Out Speed (Seconds)",
+	Default = 1.2,
+	Max = 5,
+	Min = 0.2,
+	Rounding = 1,
+	Callback = function(state, arg672)
+	end
+})
+local RightGroupbox23 = Tab11:AddRightGroupbox("Premium Glow Chams")
+local Toggle29 = RightGroupbox23:AddToggle("NoksChamsEnable", {
+	Text = "Enable Character Chams",
+	Default = false,
+	Callback = function(state, arg674)
+	end
+})
+Toggle29:AddColorPicker("NoksChamsFillColor", {
+	Title = "Chams Fill",
+	Default = Color3.fromRGB(140, 90, 255),
+	Callback = function(state, arg676)
+	end
+})
+Toggle29:AddColorPicker("NoksChamsOutlineColor", {
+	Title = "Chams Outline",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg678)
+	end
+})
+RightGroupbox23:AddSlider("NoksChamsFillTransparency", {
+	Text = "Fill Opacity (%)",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg680)
+	end
+})
+RightGroupbox23:AddSlider("NoksChamsOutlineTransparency", {
+	Text = "Outline Opacity (%)",
+	Default = 0,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg682)
+	end
+})
+RightGroupbox23:AddDropdown("NoksChamsOcclusion", {
+	Text = "Occlusion Mode",
+	Default = "Always See",
+	Values = { "Always See", "Behind Wall Only" },
+	Callback = function(state, arg684)
+	end
+})
+local RightGroupbox24 = Tab11:AddRightGroupbox("Skeleton Settings")
+RightGroupbox24:AddToggle("NoksSkeletonEnable", {
+	Text = "Enable Skeleton ESP",
+	Default = false,
+	Callback = function(state, arg686)
+	end
+})
+RightGroupbox24:AddSlider("NoksSkeletonThickness", {
+	Text = "Bone Width",
+	Default = 2,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg688)
+	end
+})
+local Toggle30 = RightGroupbox24:AddToggle("NoksSkeletonGradient", {
+	Text = "Enable Bone Gradient",
+	Default = false,
+	Callback = function(state, arg690)
+	end
+})
+Toggle30:AddColorPicker("NoksSkeletonColor1", {
+	Title = "Bone Color 1",
+	Default = Color3.fromRGB(180, 140, 255),
+	Callback = function(state, arg692)
+	end
+})
+Toggle30:AddColorPicker("NoksSkeletonColor2", {
+	Title = "Bone Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg694)
+	end
+})
+RightGroupbox24:AddToggle("NoksSkeletonScroll", {
+	Text = "Chroma Wave Animation",
+	Default = false,
+	Callback = function(state, arg696)
+	end
+})
+RightGroupbox24:AddSlider("NoksSkeletonScrollSpeed", {
+	Text = "Wave Speed",
+	Default = 4,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg698)
+	end
+})
+local ColorCorrectionEffect2 = Instance.new("ColorCorrectionEffect")
+ColorCorrectionEffect2.Name = "_ph_cc"
+ColorCorrectionEffect2.Enabled = false
+ColorCorrectionEffect2.Saturation = 0
+ColorCorrectionEffect2.Contrast = 0
+ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 255, 255)
+ColorCorrectionEffect2.Brightness = 0
+ColorCorrectionEffect2.Parent = Lighting
+local BloomEffect2 = Instance.new("BloomEffect")
+BloomEffect2.Name = "_ph_bloom"
+BloomEffect2.Threshold = 0.9
+BloomEffect2.Enabled = false
+BloomEffect2.Intensity = 0.5
+BloomEffect2.Size = 24
+BloomEffect2.Parent = Lighting
+local SunRaysEffect2 = Instance.new("SunRaysEffect")
+SunRaysEffect2.Name = "_ph_sun"
+SunRaysEffect2.Enabled = false
+SunRaysEffect2.Spread = 0.5
+SunRaysEffect2.Intensity = 0.1
+SunRaysEffect2.Parent = Lighting
+local DepthOfFieldEffect2 = Instance.new("DepthOfFieldEffect")
+DepthOfFieldEffect2.Name = "_ph_dof"
+DepthOfFieldEffect2.Enabled = false
+DepthOfFieldEffect2.FarIntensity = 0
+DepthOfFieldEffect2.FocusDistance = 50
+DepthOfFieldEffect2.InFocusRadius = 10
+DepthOfFieldEffect2.NearIntensity = 1
+DepthOfFieldEffect2.Parent = Lighting
+local BlurEffect2 = Instance.new("BlurEffect")
+BlurEffect2.Name = "_ph_blur"
+BlurEffect2.Enabled = false
+BlurEffect2.Size = 0
+BlurEffect2.Parent = Lighting
+local LeftGroupbox28 = Tab13:AddLeftGroupbox("Lighting Changer")
+local RightGroupbox25 = Tab13:AddRightGroupbox("Lighting Controls")
+LeftGroupbox28:AddButton({
+	Text = "Reset",
+	Func = function(arg699, arg700)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Winter",
+	Func = function(arg701, arg702)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(180, 200, 255)
+		ColorCorrectionEffect2.Saturation = 0.1
+		ColorCorrectionEffect2.Contrast = 0.2
+		ColorCorrectionEffect2.Brightness = 0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.6
+		BloomEffect2.Size = 24
+		BloomEffect2.Threshold = 0.7
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.1
+		SunRaysEffect2.Spread = 0.5
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Sunset",
+	Func = function(arg703, arg704)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 160, 80)
+		ColorCorrectionEffect2.Saturation = 0.35
+		ColorCorrectionEffect2.Contrast = 0.2
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 1
+		BloomEffect2.Size = 32
+		BloomEffect2.Threshold = 0.55
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.3
+		SunRaysEffect2.Spread = 0.85
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Night",
+	Func = function(arg705, arg706)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(100, 110, 180)
+		ColorCorrectionEffect2.Saturation = -0.2
+		ColorCorrectionEffect2.Contrast = 0.25
+		ColorCorrectionEffect2.Brightness = -0.3
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 16
+		BloomEffect2.Threshold = 0.8
+		BloomEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Horror",
+	Func = function(arg707, arg708)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(180, 100, 100)
+		ColorCorrectionEffect2.Saturation = -0.7
+		ColorCorrectionEffect2.Contrast = 0.5
+		ColorCorrectionEffect2.Brightness = -0.25
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.15
+		BloomEffect2.Size = 8
+		BloomEffect2.Threshold = 0.95
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 4
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Vivid",
+	Func = function(arg709, arg710)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 255, 255)
+		ColorCorrectionEffect2.Saturation = 0.9
+		ColorCorrectionEffect2.Contrast = 0.3
+		ColorCorrectionEffect2.Brightness = 0.15
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 1.5
+		BloomEffect2.Size = 40
+		BloomEffect2.Threshold = 0.5
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.2
+		SunRaysEffect2.Spread = 0.6
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Cinema",
+	Func = function(arg711, arg712)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(240, 230, 200)
+		ColorCorrectionEffect2.Saturation = -0.1
+		ColorCorrectionEffect2.Contrast = 0.4
+		ColorCorrectionEffect2.Brightness = -0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.4
+		BloomEffect2.Size = 20
+		BloomEffect2.Threshold = 0.85
+		BloomEffect2.Enabled = true
+		DepthOfFieldEffect2.FarIntensity = 0.6
+		DepthOfFieldEffect2.NearIntensity = 0
+		DepthOfFieldEffect2.FocusDistance = 30
+		DepthOfFieldEffect2.InFocusRadius = 12
+		DepthOfFieldEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Underwater",
+	Func = function(arg713, arg714)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(80, 160, 200)
+		ColorCorrectionEffect2.Saturation = 0.2
+		ColorCorrectionEffect2.Contrast = -0.1
+		ColorCorrectionEffect2.Brightness = -0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.8
+		BloomEffect2.Size = 30
+		BloomEffect2.Threshold = 0.6
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 8
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Cyberpunk",
+	Func = function(arg715, arg716)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(160, 100, 255)
+		ColorCorrectionEffect2.Saturation = 0.6
+		ColorCorrectionEffect2.Contrast = 0.45
+		ColorCorrectionEffect2.Brightness = -0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 2
+		BloomEffect2.Size = 48
+		BloomEffect2.Threshold = 0.4
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.05
+		SunRaysEffect2.Spread = 0.3
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Foggy",
+	Func = function(arg717, arg718)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(210, 215, 220)
+		ColorCorrectionEffect2.Saturation = -0.3
+		ColorCorrectionEffect2.Contrast = 0.1
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 24
+		BloomEffect2.Threshold = 0.7
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 12
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Autumn",
+	Func = function(arg719, arg720)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 190, 100)
+		ColorCorrectionEffect2.Saturation = 0.4
+		ColorCorrectionEffect2.Contrast = 0.15
+		ColorCorrectionEffect2.Brightness = 0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.5
+		BloomEffect2.Size = 20
+		BloomEffect2.Threshold = 0.75
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.15
+		SunRaysEffect2.Spread = 0.6
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Nature",
+	Func = function(arg721, arg722)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(200, 240, 180)
+		ColorCorrectionEffect2.Saturation = 0.5
+		ColorCorrectionEffect2.Contrast = 0.1
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.7
+		BloomEffect2.Size = 28
+		BloomEffect2.Threshold = 0.65
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.2
+		SunRaysEffect2.Spread = 0.7
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Random",
+	Func = function(arg723, arg724)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(100, 110, 180)
+		ColorCorrectionEffect2.Saturation = -0.2
+		ColorCorrectionEffect2.Contrast = 0.25
+		ColorCorrectionEffect2.Brightness = -0.3
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 16
+		BloomEffect2.Threshold = 0.8
+		BloomEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Disable All Effects",
+	Func = function(arg725, arg726)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+	end
+})
+local Toggle31 = RightGroupbox25:AddToggle("lc_cc_on", {
+	Text = "Color Correction",
+	Default = false,
+	Callback = function(state, arg728)
+		if state then
+			ColorCorrectionEffect2.Enabled = state
+		else
+			ColorCorrectionEffect2.Enabled = false
+		end
+	end
+})
+Toggle31:AddColorPicker("lc_cc_tint", {
+	Title = "Tint Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg730)
+		if state then
+			ColorCorrectionEffect2.TintColor = state
+		else
+			ColorCorrectionEffect2.TintColor = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_sat", {
+	Text = "Saturation",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg731, arg732)
+		ColorCorrectionEffect2.Saturation = (arg731 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_con", {
+	Text = "Contrast",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg733, arg734)
+		ColorCorrectionEffect2.Contrast = (arg733 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_bri", {
+	Text = "Brightness",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg735, arg736)
+		ColorCorrectionEffect2.Brightness = (arg735 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_bloom_on", {
+	Text = "Bloom",
+	Default = false,
+	Callback = function(state, arg738)
+		if state then
+			BloomEffect2.Enabled = state
+		else
+			BloomEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_int", {
+	Text = "Bloom Intensity",
+	Default = 50,
+	Max = 1000,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg739, arg740)
+		BloomEffect2.Intensity = (arg739 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_size", {
+	Text = "Bloom Size",
+	Default = 24,
+	Max = 56,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg742)
+		if state then
+			BloomEffect2.Size = state
+		else
+			BloomEffect2.Size = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_thresh", {
+	Text = "Bloom Threshold",
+	Default = 90,
+	Max = 200,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg743, arg744)
+		BloomEffect2.Threshold = (arg743 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_sun_on", {
+	Text = "Sun Rays",
+	Default = false,
+	Callback = function(state, arg746)
+		if state then
+			SunRaysEffect2.Enabled = state
+		else
+			SunRaysEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_sun_int", {
+	Text = "Sun Intensity",
+	Default = 10,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg747, arg748)
+		SunRaysEffect2.Intensity = (arg747 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_sun_spread", {
+	Text = "Sun Spread",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg749, arg750)
+		SunRaysEffect2.Spread = (arg749 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_dof_on", {
+	Text = "Depth of Field",
+	Default = false,
+	Callback = function(state, arg752)
+		if state then
+			DepthOfFieldEffect2.Enabled = state
+		else
+			DepthOfFieldEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_far", {
+	Text = "DOF Far",
+	Default = 0,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg753, arg754)
+		DepthOfFieldEffect2.FarIntensity = (arg753 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_near", {
+	Text = "DOF Near",
+	Default = 100,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg755, arg756)
+		DepthOfFieldEffect2.NearIntensity = (arg755 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_dist", {
+	Text = "Focus Distance",
+	Default = 50,
+	Max = 500,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg758)
+		if state then
+			DepthOfFieldEffect2.FocusDistance = state
+		else
+			DepthOfFieldEffect2.FocusDistance = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_rad", {
+	Text = "Focus Radius",
+	Default = 10,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg760)
+		if state then
+			DepthOfFieldEffect2.InFocusRadius = state
+		else
+			DepthOfFieldEffect2.InFocusRadius = false
+		end
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_blur_on", {
+	Text = "Motion Blur",
+	Default = false,
+	Callback = function(state, arg762)
+		if state then
+			BlurEffect2.Enabled = state
+		else
+			BlurEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_blur_size", {
+	Text = "Blur Size",
+	Default = 0,
+	Max = 56,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg764)
+		if state then
+			BlurEffect2.Size = state
+		else
+			BlurEffect2.Size = false
+		end
+	end
+})
+local RightGroupbox26 = Tab13:AddRightGroupbox("Time & Ambient Aesthetics")
+RightGroupbox26:AddSlider("lc_clock_time", {
+	Text = "Time of Day",
+	Default = 14,
+	Max = 24,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg766)
+		if state then
+			Lighting.ClockTime = state
+		else
+			Lighting.ClockTime = false
+		end
+	end
+})
+RightGroupbox26:AddToggle("lc_rgb_ambient", {
+	Text = "Rainbow Ambient",
+	Default = false,
+	Callback = function(state, arg768)
+	end
+})
+RightGroupbox26:AddSlider("lc_rgb_speed", {
+	Text = "Rainbow Ambient Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg770)
+	end
+})
+RunService.RenderStepped:Connect(function(deltaTime19)
+end)
+RunService.RenderStepped:Connect(function(deltaTime20)
+	Lighting:FindFirstChild("_ph_cc")
+	Lighting:FindFirstChild("_ph_bloom")
+	Lighting:FindFirstChild("_ph_sun")
+	Lighting:FindFirstChild("_ph_dof")
+	Lighting:FindFirstChild("_ph_blur")
+end)
+RunService.Heartbeat:Connect(function(deltaTime21)
+end)
+local LeftGroupbox29 = Tab13:AddLeftGroupbox("Snow System")
+LeftGroupbox29:AddToggle("SnowToggle", {
+	Text = "Enable Snow",
+	Default = false,
+	Callback = function(state, arg772)
+		if state then
+			local Model = Instance.new("Model", workspace)
+			Model.Name = "_PoophubSnowSystem"
+			local Part6 = Instance.new("Part", Model)
+			Part6.Name = "SNOWPART"
+			Part6.Anchored = true
+			Part6.CanCollide = false
+			Part6.Transparency = 1
+			Part6.Size = Vector3.new(300, 1, 300)
+			local ParticleEmitter9 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter9.Texture = "rbxassetid://118641183"
+			ParticleEmitter9.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter9.Enabled = true
+			ParticleEmitter9.Rate = 60
+			ParticleEmitter9.Speed = NumberRange.new(10, 20)
+			ParticleEmitter9.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter9.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter9.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter9.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter9.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter9.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter9.Drag = 1
+			ParticleEmitter9.LightInfluence = 1
+			ParticleEmitter9.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter9.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter10 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter10.Texture = "rbxassetid://118641183"
+			ParticleEmitter10.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter10.Enabled = true
+			ParticleEmitter10.Rate = 60
+			ParticleEmitter10.Speed = NumberRange.new(10, 20)
+			ParticleEmitter10.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter10.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter10.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter10.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter10.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter10.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter10.Drag = 1
+			ParticleEmitter10.LightInfluence = 1
+			ParticleEmitter10.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter10.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter11 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter11.Texture = "rbxassetid://118641183"
+			ParticleEmitter11.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter11.Enabled = true
+			ParticleEmitter11.Rate = 60
+			ParticleEmitter11.Speed = NumberRange.new(10, 20)
+			ParticleEmitter11.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter11.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter11.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter11.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter11.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter11.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter11.Drag = 1
+			ParticleEmitter11.LightInfluence = 1
+			ParticleEmitter11.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter11.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter12 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter12.Texture = "rbxassetid://118641183"
+			ParticleEmitter12.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter12.Enabled = true
+			ParticleEmitter12.Rate = 60
+			ParticleEmitter12.Speed = NumberRange.new(10, 20)
+			ParticleEmitter12.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter12.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter12.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter12.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter12.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter12.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter12.Drag = 1
+			ParticleEmitter12.LightInfluence = 1
+			ParticleEmitter12.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter12.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter13 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter13.Texture = "rbxassetid://118641183"
+			ParticleEmitter13.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter13.Enabled = true
+			ParticleEmitter13.Rate = 60
+			ParticleEmitter13.Speed = NumberRange.new(10, 20)
+			ParticleEmitter13.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter13.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter13.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter13.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter13.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter13.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter13.Drag = 1
+			ParticleEmitter13.LightInfluence = 1
+			ParticleEmitter13.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter13.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter14 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter14.Texture = "rbxassetid://118641183"
+			ParticleEmitter14.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter14.Enabled = true
+			ParticleEmitter14.Rate = 60
+			ParticleEmitter14.Speed = NumberRange.new(10, 20)
+			ParticleEmitter14.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter14.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter14.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter14.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter14.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter14.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter14.Drag = 1
+			ParticleEmitter14.LightInfluence = 1
+			ParticleEmitter14.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter14.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter15 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter15.Texture = "rbxassetid://118641183"
+			ParticleEmitter15.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter15.Enabled = true
+			ParticleEmitter15.Rate = 60
+			ParticleEmitter15.Speed = NumberRange.new(10, 20)
+			ParticleEmitter15.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter15.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter15.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter15.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter15.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter15.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter15.Drag = 1
+			ParticleEmitter15.LightInfluence = 1
+			ParticleEmitter15.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter15.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter16 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter16.Texture = "rbxassetid://118641183"
+			ParticleEmitter16.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter16.Enabled = true
+			ParticleEmitter16.Rate = 60
+			ParticleEmitter16.Speed = NumberRange.new(10, 20)
+			ParticleEmitter16.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter16.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter16.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter16.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter16.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter16.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter16.Drag = 1
+			ParticleEmitter16.LightInfluence = 1
+			ParticleEmitter16.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter16.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter17 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter17.Texture = "rbxassetid://118641183"
+			ParticleEmitter17.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter17.Enabled = true
+			ParticleEmitter17.Rate = 60
+			ParticleEmitter17.Speed = NumberRange.new(10, 20)
+			ParticleEmitter17.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter17.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter17.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter17.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter17.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter17.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter17.Drag = 1
+			ParticleEmitter17.LightInfluence = 1
+			ParticleEmitter17.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter17.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter18 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter18.Texture = "rbxassetid://118641183"
+			ParticleEmitter18.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter18.Enabled = true
+			ParticleEmitter18.Rate = 60
+			ParticleEmitter18.Speed = NumberRange.new(10, 20)
+			ParticleEmitter18.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter18.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter18.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter18.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter18.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter18.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter18.Drag = 1
+			ParticleEmitter18.LightInfluence = 1
+			ParticleEmitter18.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter18.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter19 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter19.Texture = "rbxassetid://118641183"
+			ParticleEmitter19.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter19.Enabled = true
+			ParticleEmitter19.Rate = 60
+			ParticleEmitter19.Speed = NumberRange.new(10, 20)
+			ParticleEmitter19.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter19.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter19.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter19.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter19.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter19.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter19.Drag = 1
+			ParticleEmitter19.LightInfluence = 1
+			ParticleEmitter19.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter19.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter20 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter20.Texture = "rbxassetid://118641183"
+			ParticleEmitter20.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter20.Enabled = true
+			ParticleEmitter20.Rate = 60
+			ParticleEmitter20.Speed = NumberRange.new(10, 20)
+			ParticleEmitter20.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter20.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter20.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter20.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter20.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter20.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter20.Drag = 1
+			ParticleEmitter20.LightInfluence = 1
+			ParticleEmitter20.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter20.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter21 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter21.Texture = "rbxassetid://118641183"
+			ParticleEmitter21.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter21.Enabled = true
+			ParticleEmitter21.Rate = 60
+			ParticleEmitter21.Speed = NumberRange.new(10, 20)
+			ParticleEmitter21.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter21.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter21.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter21.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter21.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter21.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter21.Drag = 1
+			ParticleEmitter21.LightInfluence = 1
+			ParticleEmitter21.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter21.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter22 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter22.Texture = "rbxassetid://118641183"
+			ParticleEmitter22.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter22.Enabled = true
+			ParticleEmitter22.Rate = 60
+			ParticleEmitter22.Speed = NumberRange.new(10, 20)
+			ParticleEmitter22.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter22.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter22.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter22.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter22.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter22.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter22.Drag = 1
+			ParticleEmitter22.LightInfluence = 1
+			ParticleEmitter22.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter22.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter23 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter23.Texture = "rbxassetid://118641183"
+			ParticleEmitter23.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter23.Enabled = true
+			ParticleEmitter23.Rate = 60
+			ParticleEmitter23.Speed = NumberRange.new(10, 20)
+			ParticleEmitter23.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter23.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter23.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter23.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter23.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter23.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter23.Drag = 1
+			ParticleEmitter23.LightInfluence = 1
+			ParticleEmitter23.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter23.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter24 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter24.Texture = "rbxassetid://118641183"
+			ParticleEmitter24.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter24.Enabled = true
+			ParticleEmitter24.Rate = 60
+			ParticleEmitter24.Speed = NumberRange.new(10, 20)
+			ParticleEmitter24.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter24.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter24.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter24.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter24.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter24.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter24.Drag = 1
+			ParticleEmitter24.LightInfluence = 1
+			ParticleEmitter24.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter24.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter25 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter25.Texture = "rbxassetid://118641183"
+			ParticleEmitter25.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter25.Enabled = true
+			ParticleEmitter25.Rate = 60
+			ParticleEmitter25.Speed = NumberRange.new(10, 20)
+			ParticleEmitter25.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter25.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter25.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter25.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter25.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter25.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter25.Drag = 1
+			ParticleEmitter25.LightInfluence = 1
+			ParticleEmitter25.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter25.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter26 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter26.Texture = "rbxassetid://118641183"
+			ParticleEmitter26.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter26.Enabled = true
+			ParticleEmitter26.Rate = 60
+			ParticleEmitter26.Speed = NumberRange.new(10, 20)
+			ParticleEmitter26.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter26.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter26.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter26.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter26.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter26.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter26.Drag = 1
+			ParticleEmitter26.LightInfluence = 1
+			ParticleEmitter26.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter26.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter27 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter27.Texture = "rbxassetid://118641183"
+			ParticleEmitter27.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter27.Enabled = true
+			ParticleEmitter27.Rate = 60
+			ParticleEmitter27.Speed = NumberRange.new(10, 20)
+			ParticleEmitter27.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter27.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter27.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter27.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter27.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter27.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter27.Drag = 1
+			ParticleEmitter27.LightInfluence = 1
+			ParticleEmitter27.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter27.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter28 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter28.Texture = "rbxassetid://118641183"
+			ParticleEmitter28.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter28.Enabled = true
+			ParticleEmitter28.Rate = 60
+			ParticleEmitter28.Speed = NumberRange.new(10, 20)
+			ParticleEmitter28.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter28.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter28.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter28.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter28.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter28.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter28.Drag = 1
+			ParticleEmitter28.LightInfluence = 1
+			ParticleEmitter28.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter28.SpreadAngle = Vector2.new(8, 8)
+		else
+			Model:Destroy()
+		end
+	end
+})
+LeftGroupbox29:AddSlider("SnowRate", {
+	Text = "Particle Rate",
+	Default = 60,
+	Max = 300,
+	Min = 10,
+	Rounding = 0,
+	Callback = function(state, arg774)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpeedMin", {
+	Text = "Speed Min",
+	Default = 10,
+	Max = 50,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg776)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpeedMax", {
+	Text = "Speed Max",
+	Default = 20,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg778)
+	end
+})
+LeftGroupbox29:AddSlider("SnowHeight", {
+	Text = "Spawn Height",
+	Default = 60,
+	Max = 200,
+	Min = 20,
+	Rounding = 0,
+	Callback = function(state, arg780)
+	end
+})
+LeftGroupbox29:AddSlider("SnowGravity", {
+	Text = "Gravity",
+	Default = 5,
+	Max = 30,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg782)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpread", {
+	Text = "Wind Spread",
+	Default = 8,
+	Max = 45,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg784)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSizeStart", {
+	Text = "Flake Size",
+	Default = 30,
+	Max = 200,
+	Min = 5,
+	Rounding = 0,
+	Callback = function(arg785, arg786)
+	end
+})
+local Label13 = LeftGroupbox29:AddLabel("Flake Color")
+Label13:AddColorPicker("SnowColor", {
+	Title = "Snow Color",
+	Default = Color3.new(1, 1, 1),
+	Callback = function(state, arg788)
+	end
+})
+local LeftGroupbox30 = Tab14:AddLeftGroupbox("Dance")
+LeftGroupbox30:AddDropdown("DanceType", {
+	Text = "Dance Type",
+	Default = 1,
+	Values = {
+		"Floss Dance",
+		"Ouen Dance",
+		"Head Ball",
+		"Cartoon",
+		"Kawaii",
+		"Cool",
+		"Spider",
+		"Robot Lock",
+		"Disco Point",
+		"Wave Ripple",
+		"Jazz Hands",
+		"Headbang",
+		"Shoulder Shimmy",
+		"Boxer Bounce",
+		"Salsa Hip",
+		"Cheer Jump",
+		"Propeller Arms",
+		"Matrix Lean",
+		"Victory Pump",
+		"Ninja Flow",
+		"Superhero Pose",
+		"Snake Wave",
+		"Staircase Step",
+		"Windmill Arms",
+		"Popcorn Pop",
+		"Clap Along",
+		"Zombie Shuffle",
+		"Koshi huri",
+		"Head dribble",
+		"Angry",
+		"soccer",
+		"Head orbit",
+		"Lol"
+	},
+	Callback = function(state, arg790)
+	end
+})
+LeftGroupbox30:AddSlider("DanceIntensity", {
+	Text = "Dance Intensity",
+	Default = 1,
+	Max = 3,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg792)
+	end
+})
+LeftGroupbox30:AddToggle("RagdollDance", {
+	Text = "Ragdoll Dance ON/OFF",
+	Default = false,
+	Callback = function(state, arg794)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart26 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart26, 1)
+				task.wait(0.05)
+				local HumanoidRootPart27 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart27, 1)
+				task.wait(0.05)
+			end)
+			fn(Players.LocalPlayer.Character)
+		end
+	end
+})
+local LeftGroupbox31 = Tab14:AddLeftGroupbox("Dance V2")
+LeftGroupbox31:AddDropdown("DanceV2Dropdown", {
+	Text = "Select Dance V2",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { "Click Refresh..." },
+	Callback = function(state, arg796)
+	end
+})
+LeftGroupbox31:AddToggle("DanceV2Toggle", {
+	Text = "Enable Dance V2",
+	Default = false,
+	Callback = function(state, arg798)
+		if state then
+			_NOTIFY("鬮ｫ・ｨ繝ｻ・ｶ驛｢譎｢・ｽ・ｻNo dance data selected/loaded", 3)
+			result3.Toggles.DanceV2Toggle:SetValue(false)
+		else
+			local Humanoid6 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			Humanoid6.PlatformStand = false
+			Humanoid6.AutoRotate = true
+		end
+	end
+})
+LeftGroupbox31:AddButton({
+	Text = "Refresh List",
+	Func = function(arg799, arg800)
+		local response7 = game:HttpGet("https://raw.githubusercontent.com/dcus-official/PoopHub/refs/heads/main/Assets/Emote/List_Json.lua")
+		loadstring(response7)()
+		makefolder("PoopHub")
+		makefolder("PoopHub/FTAP")
+		makefolder("PoopHub/FTAP/Emote")
+		result3.Options.DanceV2Dropdown:SetValues({ "No dances found" })
+		_NOTIFY("Dance list refreshed", 3)
+	end
+})
+local response8 = game:HttpGet("https://raw.githubusercontent.com/dcus-official/PoopHub/refs/heads/main/Assets/Emote/List_Json.lua")
+loadstring(response8)()
+makefolder("PoopHub")
+makefolder("PoopHub/FTAP")
+makefolder("PoopHub/FTAP/Emote")
+result3.Options.DanceV2Dropdown:SetValues({ "No dances found" })
+local RightGroupbox27 = Tab14:AddRightGroupbox("Custom Toy Attachments")
+local players26 = Players:GetPlayers()
+for i30, v46 in ipairs(players26) do
+end
+local Dropdown15 = RightGroupbox27:AddDropdown("ToyTargetPlayer", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { v46.DisplayName .. " @" .. v46.Name },
+	Callback = function(state, arg802)
+		if state then
+			local result9 = state:match("@(.+)$")
+			local child7 = Players:FindFirstChild(result9)
+		end
+	end
+})
+local players27 = Players:GetPlayers()
+for i31, v47 in ipairs(players27) do
+end
+Dropdown15:SetValues({ v47.DisplayName .. " @" .. v47.Name })
+RightGroupbox27:AddButton({
+	Text = "Pencil Dick (Custom)",
+	Func = function(arg803, arg804)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddLabel("Pencil tip: x=free, y=180, z=free")
+RightGroupbox27:AddButton({
+	Text = "Kunai Dick Execute (Custom)",
+	Func = function(arg805, arg806)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddLabel("Kunai tip: x=free, y=90, z=free")
+RightGroupbox27:AddButton({
+	Text = "Katana Dick Execute (Test)",
+	Func = function(arg807, arg808)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddSlider("ToyAttachRotX", {
+	Text = "X Axis Rotation",
+	Default = 0,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg810)
+	end
+})
+RightGroupbox27:AddSlider("ToyAttachRotY", {
+	Text = "Y Axis Rotation",
+	Default = 90,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg812)
+	end
+})
+RightGroupbox27:AddSlider("ToyAttachRotZ", {
+	Text = "Z Axis Rotation",
+	Default = 25,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg814)
+	end
+})
+local RightGroupbox28 = Tab14:AddRightGroupbox("Animations")
+RightGroupbox28:AddSlider("AnimSpeed", {
+	Text = "Animation Speed",
+	Default = 1,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg816)
+		if state then
+			track:AdjustSpeed(state)
+			track2:AdjustSpeed(state)
+			track3:AdjustSpeed(state)
+			track4:AdjustSpeed(state)
+			track5:AdjustSpeed(state)
+			track6:AdjustSpeed(state)
+		else
+			track:AdjustSpeed(false)
+			track2:AdjustSpeed(false)
+			track3:AdjustSpeed(false)
+			track4:AdjustSpeed(false)
+			track5:AdjustSpeed(false)
+			track6:AdjustSpeed(false)
+		end
+	end
+})
+RightGroupbox28:AddToggle("FakeKeyboard", {
+	Text = "Fake Keyboard",
+	Default = false,
+	Callback = function(state, arg818)
+		if state then
+			local CharacterEvents5 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			CharacterEvents5:FindFirstChild("ChatTyping")
+			CharacterEvents5.ChatTyping:FireServer("begin")
+		else
+			local CharacterEvents6 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			CharacterEvents6:FindFirstChild("ChatTyping")
+			CharacterEvents6.ChatTyping:FireServer("end")
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayTypingAnim", {
+	Text = "Play Typing Animation",
+	Default = false,
+	Callback = function(state, arg820)
+		if state then
+			track.Looped = true
+			track:AdjustSpeed(false)
+			track:Play()
+		else
+			track:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayCrouchAnim", {
+	Text = "Play Crouch Animation",
+	Default = false,
+	Callback = function(state, arg822)
+		if state then
+			track2.Looped = true
+			track2:AdjustSpeed(false)
+			track2:Play()
+		else
+			track2:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayThrownAnim", {
+	Text = "Play Thrown Animation",
+	Default = false,
+	Callback = function(state, arg824)
+		if state then
+			track3.Looped = true
+			track3:AdjustSpeed(false)
+			track3:Play()
+		else
+			track3:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlaySwayAnim", {
+	Text = "Play Sway Animation",
+	Default = false,
+	Callback = function(state, arg826)
+		if state then
+			track4.Looped = true
+			track4:AdjustSpeed(false)
+			track4:Play()
+		else
+			track4:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayJerkoffAnim", {
+	Text = "Play Jerkoff Animation",
+	Default = false,
+	Callback = function(state, arg828)
+		if state then
+			track5.Looped = true
+			track5:AdjustSpeed(false)
+			track5:Play()
+			track6.Looped = true
+			track6:AdjustSpeed(false)
+			track6:Play()
+		else
+			track5:Stop()
+			track6:Stop()
+		end
+	end
+})
+RightGroupbox28:AddButton({
+	Text = "Stop All Animation",
+	Func = function(arg829, arg830)
+		track:Stop()
+		track2:Stop()
+		track3:Stop()
+		track4:Stop()
+		track5:Stop()
+		track6:Stop()
+	end
+})
+local LeftGroupbox32 = Tab9:AddLeftGroupbox("Torso Freeze")
+local RightGroupbox29 = Tab9:AddRightGroupbox("Blob Sit")
+LeftGroupbox32:AddToggle("TorsoFreeze", {
+	Text = "Torso Freeze [God Mode]",
+	Default = false,
+	Callback = function(state, arg832)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+local players28 = Players:GetPlayers()
+for i32, v48 in ipairs(players28) do
+end
+local Dropdown16 = LeftGroupbox32:AddDropdown("HVHTrackDropdown", {
+	Text = "Select Track Target",
+	Default = 1,
+	Values = { v48.DisplayName .. " @" .. v48.Name },
+	Callback = function(state, arg834)
+		if state then
+			state:match("@(.+)$")
+		end
+	end
+})
+local players29 = Players:GetPlayers()
+for i33, v49 in ipairs(players29) do
+end
+Dropdown16:SetValues({ v49.DisplayName .. " @" .. v49.Name })
+LeftGroupbox32:AddToggle("HVHTrack", {
+	Text = "Track Target (3 studs)",
+	Default = false,
+	Callback = function(state, arg836)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+RightGroupbox29:AddButton({
+	Text = "Blob Spawn & Sit (One Shot)",
+	Func = function(arg837, arg838)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+RightGroupbox29:AddToggle("BlobAutoSit", {
+	Text = "Blob Auto Sit Loop",
+	Default = false,
+	Callback = function(state, arg840)
+		if state then
+			_NOTIFY("Please enable GOD MODE first", 3)
+		else
+			_NOTIFY("Blob Auto Sit: Stopped", 3)
+		end
+	end
+})
+local LeftGroupbox33 = Tab15:AddLeftGroupbox("Shield")
+local RightGroupbox30 = Tab15:AddRightGroupbox("Missile")
+LeftGroupbox33:AddSlider("ToyHeightOffset", {
+	Text = "Height Offset",
+	Default = -4,
+	Max = 20,
+	Min = -20,
+	Rounding = 1,
+	Callback = function(state, arg842)
+	end
+})
+LeftGroupbox33:AddToggle("ShieldToggle", {
+	Text = "Shield ON/OFF",
+	Default = false,
+	Callback = function(arg843, arg844)
+		_G.ShieldActive = true
+		local HumanoidRootPart28 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		local child8 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+		local children5 = child8:GetChildren()
+		for i34, v50 in ipairs(children5) do
+		end
+		task.wait(0.3)
+		SpawnToyRemoteFunction:InvokeServer("GlassBoxGray", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("PalletLightBrown", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("BombMissile", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+	end
+})
+LeftGroupbox33:AddButton({
+	Text = "Refresh Shield",
+	Func = function(arg845, arg846)
+		local HumanoidRootPart29 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		local child9 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+		local children6 = child9:GetChildren()
+		for i35, v51 in ipairs(children6) do
+		end
+		task.wait(0.3)
+		SpawnToyRemoteFunction:InvokeServer("GlassBoxGray", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("PalletLightBrown", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("BombMissile", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+	end
+})
+local players30 = Players:GetPlayers()
+for i36, v52 in ipairs(players30) do
+end
+RightGroupbox30:AddDropdown("ShieldTarget", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { v52.Name },
+	Callback = function(state, arg848)
+		if state then
+			Players:FindFirstChild(state)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player7)
+	task.wait(1)
+	local players57 = Players:GetPlayers()
+	for i78, v104 in ipairs(players57) do
+	end
+	result3.Options.ShieldTarget:SetValues({ v104.Name })
+end)
+Players.PlayerRemoving:Connect(function(player8)
+	task.wait(0.5)
+	local players58 = Players:GetPlayers()
+	for i79, v105 in ipairs(players58) do
+	end
+	result3.Options.ShieldTarget:SetValues({ v105.Name })
+end)
+RightGroupbox30:AddButton({
+	Text = "Launch 1 Missile -> Target",
+	Func = function(arg849, arg850)
+	end
+})
+RightGroupbox30:AddButton({
+	Text = "Launch ALL -> Random Players",
+	Func = function(arg851, arg852)
+		Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local players31 = Players:GetPlayers()
+		for i37, v53 in ipairs(players31) do
+			v53.Character:FindFirstChild("HumanoidRootPart")
+		end
+	end
+})
+local LeftGroupbox34 = Tab15:AddLeftGroupbox("Tentacle")
+local RightGroupbox31 = Tab15:AddRightGroupbox("Stick Control")
+LeftGroupbox34:AddDropdown("TentSearchMode", {
+	Text = "Search Mode",
+	Default = 1,
+	Values = { "My Toys", "Plot 1", "Plot 2", "Plot 3", "Plot 4", "Plot 5" },
+	Callback = function(state, arg854)
+	end
+})
+LeftGroupbox34:AddDropdown("StickCountDropdown", {
+	Text = "Stick Count",
+	Default = 1,
+	Values = { "1", "2", "3", "4" },
+	Callback = function(state, arg856)
+	end
+})
+LeftGroupbox34:AddToggle("TentacleToggle", {
+	Text = "Tentacle ON/OFF",
+	Default = false,
+	Callback = function(arg857, arg858)
+		_G.TentacleActive = true
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox34:AddButton({
+	Text = "Refresh Tentacle",
+	Func = function(arg859, arg860)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox34:AddSlider("TentSegmentSpacing", {
+	Text = "Segment Spacing",
+	Default = 4,
+	Max = 7,
+	Min = 2,
+	Rounding = 1,
+	Callback = function(state, arg862)
+	end
+})
+LeftGroupbox34:AddSlider("TentBendStrength", {
+	Text = "Bend Strength",
+	Default = 40,
+	Max = 120,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg864)
+	end
+})
+LeftGroupbox34:AddSlider("TentTwistAngle", {
+	Text = "Twist Angle",
+	Default = 0,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg866)
+	end
+})
+LeftGroupbox34:AddToggle("TentWiggleToggle", {
+	Text = "Wiggle ON/OFF",
+	Default = false,
+	Callback = function(state, arg868)
+	end
+})
+LeftGroupbox34:AddSlider("TentWiggleSpeed", {
+	Text = "Wiggle Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg870)
+	end
+})
+LeftGroupbox34:AddLabel("-- Stick Tracking --")
+local players32 = Players:GetPlayers()
+for i38, v54 in ipairs(players32) do
+end
+LeftGroupbox34:AddDropdown("StickTrackTarget", {
+	Text = "Track: Target Player",
+	Default = 1,
+	Values = { v54.Name },
+	Callback = function(state, arg872)
+		if state then
+			Players:FindFirstChild(state)
+		else
+			Players:FindFirstChild(false)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player9)
+	task.wait(1)
+	local players59 = Players:GetPlayers()
+	for i80, v106 in ipairs(players59) do
+	end
+	result3.Options.StickTrackTarget:SetValues({ v106.Name })
+end)
+Players.PlayerRemoving:Connect(function(player10)
+	task.wait(0.5)
+	local players60 = Players:GetPlayers()
+	for i81, v107 in ipairs(players60) do
+	end
+	result3.Options.StickTrackTarget:SetValues({ v107.Name })
+end)
+LeftGroupbox34:AddDropdown("StickTrackIndex", {
+	Text = "Track: Stick No.",
+	Default = 1,
+	Values = { "Stick 1", "Stick 2", "Stick 3", "Stick 4" },
+	Callback = function(state, arg874)
+		Players:FindFirstChild(result3.Options.StickTrackTarget.Value)
+	end
+})
+LeftGroupbox34:AddToggle("StickTrackToggle", {
+	Text = "Stick Tracking ON/OFF",
+	Default = false,
+	Callback = function(state, arg876)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 1 --")
+RightGroupbox31:AddSlider("Stick1UpDown", {
+	Text = "[1] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg878)
+	end
+})
+RightGroupbox31:AddSlider("Stick1LeftRight", {
+	Text = "[1] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg880)
+	end
+})
+RightGroupbox31:AddSlider("Stick1ForwardBack", {
+	Text = "[1] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg882)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 2 --")
+RightGroupbox31:AddSlider("Stick2UpDown", {
+	Text = "[2] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg884)
+	end
+})
+RightGroupbox31:AddSlider("Stick2LeftRight", {
+	Text = "[2] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg886)
+	end
+})
+RightGroupbox31:AddSlider("Stick2ForwardBack", {
+	Text = "[2] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg888)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 3 --")
+RightGroupbox31:AddSlider("Stick3UpDown", {
+	Text = "[3] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg890)
+	end
+})
+RightGroupbox31:AddSlider("Stick3LeftRight", {
+	Text = "[3] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg892)
+	end
+})
+RightGroupbox31:AddSlider("Stick3ForwardBack", {
+	Text = "[3] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg894)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 4 --")
+RightGroupbox31:AddSlider("Stick4UpDown", {
+	Text = "[4] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg896)
+	end
+})
+RightGroupbox31:AddSlider("Stick4LeftRight", {
+	Text = "[4] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg898)
+	end
+})
+RightGroupbox31:AddSlider("Stick4ForwardBack", {
+	Text = "[4] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg900)
+	end
+})
+local LeftGroupbox35 = Tab15:AddLeftGroupbox("Prop Controller")
+local RightGroupbox32 = Tab15:AddRightGroupbox("Prop Export")
+LeftGroupbox35:AddDropdown("PropSearchMode", {
+	Text = "Search Mode",
+	Default = 1,
+	Values = { "My Toys", "Plot 1", "Plot 2", "Plot 3", "Plot 4", "Plot 5" },
+	Callback = function(state, arg902)
+	end
+})
+LeftGroupbox35:AddDropdown("PropModeDropdown", {
+	Text = "Mode",
+	Default = 1,
+	Values = { "Fly", "Walk" },
+	Callback = function(state, arg904)
+	end
+})
+LeftGroupbox35:AddSlider("PropWalkSpeed", {
+	Text = "Walk Anim Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg906)
+	end
+})
+LeftGroupbox35:AddToggle("PropsToggle", {
+	Text = "Props ON/OFF",
+	Default = false,
+	Callback = function(arg907, arg908)
+		_G.PropsActive = true
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox35:AddToggle("PropHeadToggle", {
+	Text = "head",
+	Default = false,
+	Callback = function(state, arg910)
+	end
+})
+LeftGroupbox35:AddButton({
+	Text = "Refresh Props",
+	Func = function(arg911, arg912)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+RightGroupbox32:AddButton({
+	Text = "Copy Settings (JSON)",
+	Func = function(arg913, arg914)
+		setclipboard("[\n  {\"name\":\"LadderLightBrown\",\"index\":1,\"x\":-0.7,\"y\":8,\"z\":5.1,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"LadderLightBrown\",\"index\":2,\"x\":6.5,\"y\":8,\"z\":0.2,\"rx\":-180,\"ry\":89,\"rz\":0},\n  {\"name\":\"LadderLightBrown\",\"index\":3,\"x\":-5.6,\"y\":8,\"z\":-0.7,\"rx\":0,\"ry\":89,\"rz\":-180},\n  {\"name\":\"PalletLightBrown\",\"index\":1,\"x\":0.2,\"y\":20,\"z\":0,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":2,\"x\":0.2,\"y\":30.2,\"z\":0,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":3,\"x\":0.2,\"y\":24.9,\"z\":-5.1,\"rx\":89,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":4,\"x\":6,\"y\":24.9,\"z\":0,\"rx\":89,\"ry\":-180,\"rz\":89},\n  {\"name\":\"PalletLightBrown\",\"index\":5,\"x\":0.2,\"y\":24.9,\"z\":5.1,\"rx\":89,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":6,\"x\":-5.1,\"y\":24.9,\"z\":0,\"rx\":89,\"ry\":0,\"rz\":89},\n  {\"name\":\"SpotlightRed\",\"index\":1,\"x\":-2.2,\"y\":26.3,\"z\":-7,\"rx\":0,\"ry\":-87,\"rz\":0},\n  {\"name\":\"SpotlightRed\",\"index\":2,\"x\":3.6,\"y\":24.9,\"z\":-7.5,\"rx\":-180,\"ry\":89,\"rz\":0},\n  {\"name\":\"YouDecoy\",\"index\":1,\"x\":0,\"y\":23,\"z\":-3.1,\"rx\":0,\"ry\":0,\"rz\":0}\n]")
+	end
+})
+local LeftGroupbox36 = Tab16:AddLeftGroupbox("Plot")
+LeftGroupbox36:AddButton({
+	Text = "House Owner",
+	Func = function(arg915, arg916)
+		local HumanoidRootPart30 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		task.spawn(function(...)
+			HumanoidRootPart30.CFrame = CFrame.new(259, -7, 468)
+			task.wait(0.1)
+			task.spawn(function(...)
+			end)
+			task.wait(0.01)
+		end)
+		_NOTIFY("House Owner: Execution complete", 3)
+	end
+})
+local LeftGroupbox37 = Tab16:AddLeftGroupbox("Barrier Break")
+LeftGroupbox37:AddButton({
+	Text = "Barrier Break",
+	Func = function(arg917, arg918)
+		Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local Humanoid7 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		Humanoid7.WalkSpeed = 0
+	end
+})
+LeftGroupbox37:AddToggle("AutoBarrierBreakToggle", {
+	Text = "Auto Barrier Break Beta",
+	Default = false,
+	Callback = function(state, arg920)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local Humanoid8 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid8.WalkSpeed = 0
+			end)
+		end
+	end
+})
+local Circle = Drawing.new("Circle")
+Circle.Thickness = 1.5
+Circle.NumSides = 64
+Circle.Color = Color3.fromRGB(255, 255, 255)
+Circle.Filled = false
+Circle.Visible = false
+game.Players.PlayerAdded:Connect(function(player11)
+	local players61 = game.Players:GetPlayers()
+	for i82, v108 in ipairs(players61) do
+	end
+	Dropdown17:SetValues({ "(none)", v108.Name })
+end)
+game.Players.PlayerRemoving:Connect(function(player12)
+	local players62 = game.Players:GetPlayers()
+	for i83, v109 in ipairs(players62) do
+	end
+	Dropdown17:SetValues({ "(none)", v109.Name })
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+RunService.RenderStepped:Connect(function(deltaTime22)
+	Circle.Visible = false
+end)
+local RightGroupbox33 = Tab16:AddRightGroupbox("Trigger Bot")
+local RightGroupbox34 = Tab16:AddRightGroupbox("Trigger Bot Setting")
+RightGroupbox33:AddToggle("TriggerBotEnabled", {
+	Text = "Enable Trigger Bot",
+	Default = false,
+	Callback = function(state, arg922)
+	end
+})
+RightGroupbox33:AddToggle("TriggerPrediction", {
+	Text = "Velocity Prediction",
+	Default = true,
+	Callback = function(state, arg924)
+	end
+})
+RightGroupbox33:AddDropdown("TriggerTargetMode", {
+	Text = "Target Mode",
+	Default = 1,
+	Values = { "All Players", "Single", "Multiple" },
+	Callback = function(state, arg926)
+	end
+})
+local players33 = game.Players:GetPlayers()
+for i39, v55 in ipairs(players33) do
+end
+local Dropdown17 = RightGroupbox34:AddDropdown("TriggerSingleTarget", {
+	Text = "Single Target",
+	Default = 1,
+	Values = { "(none)", v55.Name },
+	Callback = function(state, arg928)
+	end
+})
+local clone = workspace.CurrentCamera:Clone()
+clone.Parent = workspace
+clone.Name = "SilentCamera"
+Players.LocalPlayer.Character:WaitForChild("Humanoid", 3)
+Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 3)
+Players.LocalPlayer:FindFirstChild("CurrentReach")
+Players.LocalPlayer.CharacterAdded:Connect(function(character11)
+	character11:WaitForChild("Humanoid", 3)
+	character11:WaitForChild("HumanoidRootPart", 3)
+	Players.LocalPlayer:FindFirstChild("CurrentReach")
+end)
+RunService.RenderStepped:Connect(function(deltaTime23)
+end)
+workspace.DescendantAdded:Connect(function(descendant10)
+end)
+workspace.DescendantRemoving:Connect(function(descendant11)
+end)
+workspace:GetDescendants()
+hookmetamethod(game, "__namecall", function(arg929, arg930)
+	hookmetamethod(arg929, arg930, nil)
+end)
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+ReplicatedFirst:FindFirstChild("GrabParts")
+UserInputService.InputBegan:Connect(function(input7, gameProcessed7)
+end)
+local RightGroupbox35 = Tab16:AddRightGroupbox("Silent Aim")
+RightGroupbox35:AddToggle("SilentAimEnabled", {
+	Text = "Enable Silent Aim",
+	Default = false,
+	Callback = function(state, arg932)
+		if state then
+			workspace.CurrentCamera = clone
+		else
+			workspace.CurrentCamera = workspace.CurrentCamera
+		end
+	end
+})
+RightGroupbox35:AddDropdown("SilentAimMode", {
+	Text = "Aim Mode",
+	Default = "Camera",
+	Values = { "Camera", "Raycast", "V2 (Fake Grab)" },
+	Callback = function(state, arg934)
+		workspace.CurrentCamera = workspace.CurrentCamera
+	end
+})
+RightGroupbox35:AddSlider("SilentAimStrength", {
+	Text = "Aim Strength",
+	Default = 50,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg936)
+	end
+})
+RightGroupbox35:AddSlider("SilentAimReach", {
+	Text = "Max Reach (studs)",
+	Default = 30,
+	Max = 200,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg938)
+	end
+})
+local LeftGroupbox38 = Tab18:AddLeftGroupbox("Theme")
+result4:SetLibrary(result3)
+result5:SetLibrary(result3)
+result5:IgnoreThemeSettings()
+result5:SetIgnoreIndexes({ "MenuKeybind" })
+result5:SetFolder("PoopHUB")
+result4:ApplyToGroupbox(LeftGroupbox38)
+result5:BuildConfigSection(Tab18)
+local RightGroupbox36 = Tab18:AddRightGroupbox("Background Image")
+RightGroupbox36:AddToggle("BgImageEnabled", {
+	Text = "Enable Background Image",
+	Default = false,
+	Callback = function(state, arg940)
+		if state then
+			result3.Window:EnableBackgroundImage(state)
+		else
+			result3.Window:EnableBackgroundImage(false)
+		end
+	end
+})
+RightGroupbox36:AddInput("BgImageURL", {
+	Text = "Image URL / Asset ID",
+	Default = "",
+	Finished = false,
+	Numeric = false,
+	Placeholder = "https://... or rbxassetid://...",
+	Callback = function(state, arg942)
+		if state then
+			result3.Window:SetBackgroundImage(state)
+		else
+			result3.Window:SetBackgroundImage(false)
+		end
+	end
+})
+local LeftGroupbox39 = Tab18:AddLeftGroupbox("Notification Sounds")
+LeftGroupbox39:AddToggle("NotificationSoundOn", {
+	Text = "Enable Sound",
+	Default = false,
+	Callback = function(state, arg944)
+	end
+})
+LeftGroupbox39:AddDropdown("NotificationSoundSelect", {
+	Text = "Notify Sound",
+	Default = 1,
+	Values = {
+		"Ahh~",
+		"Hit Marker",
+		"I got this",
+		"Mambo",
+		"Minecraft",
+		"Minecraft 2",
+		"Neverlose",
+		"Onichan",
+		"Poop",
+		"Rust",
+		"Villager Died",
+		"WTF",
+		"Zaako"
+	},
+	Callback = function(state, arg946)
+	end
+})
+LeftGroupbox39:AddButton({
+	Text = "Preview Sound",
+	Func = function(arg947, arg948)
+	end
+})
+local ScreenGui5 = Instance.new("ScreenGui")
+ScreenGui5.Name = "VerticalMoveUI"
+ScreenGui5.ResetOnSpawn = false
+ScreenGui5.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui5.IgnoreGuiInset = true
+local PlayerGui5 = Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui5.Parent = PlayerGui5
+local Frame2 = Instance.new("Frame")
+Frame2.Size = UDim2.new(0, 90, 0, 200)
+Frame2.Position = UDim2.new(1, -110, 0.5, -100)
+Frame2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame2.BackgroundTransparency = 0.3
+Frame2.BorderSizePixel = 0
+Frame2.Active = true
+Frame2.Parent = ScreenGui5
+local UICorner = Instance.new("UICorner", Frame2)
+UICorner.CornerRadius = UDim.new(0, 12)
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, 0, 0, 30)
+TextLabel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+TextLabel.BackgroundTransparency = 0.3
+TextLabel.BorderSizePixel = 0
+TextLabel.Text = "Up/Down"
+TextLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+TextLabel.TextSize = 14
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Parent = Frame2
+local UICorner2 = Instance.new("UICorner", TextLabel)
+UICorner2.CornerRadius = UDim.new(0, 12)
+local TextButton2 = Instance.new("TextButton")
+TextButton2.Size = UDim2.new(1, -10, 0, 70)
+TextButton2.Position = UDim2.new(0, 5, 0, 35)
+TextButton2.BackgroundColor3 = Color3.fromRGB(50, 120, 220)
+TextButton2.BorderSizePixel = 0
+TextButton2.Text = "Up"
+TextButton2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton2.TextSize = 16
+TextButton2.Font = Enum.Font.GothamBold
+TextButton2.AutoButtonColor = false
+TextButton2.Parent = Frame2
+local UICorner3 = Instance.new("UICorner", TextButton2)
+UICorner3.CornerRadius = UDim.new(0, 8)
+local TextButton3 = Instance.new("TextButton")
+TextButton3.Size = UDim2.new(1, -10, 0, 70)
+TextButton3.Position = UDim2.new(0, 5, 0, 115)
+TextButton3.BackgroundColor3 = Color3.fromRGB(180, 60, 60)
+TextButton3.BorderSizePixel = 0
+TextButton3.Text = "Down"
+TextButton3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton3.TextSize = 16
+TextButton3.Font = Enum.Font.GothamBold
+TextButton3.AutoButtonColor = false
+TextButton3.Parent = Frame2
+local UICorner4 = Instance.new("UICorner", TextButton3)
+UICorner4.CornerRadius = UDim.new(0, 8)
+TextButton2.InputBegan:Connect(function(input8, gameProcessed8)
+end)
+TextButton2.InputEnded:Connect(function(input9, gameProcessed9)
+end)
+TextButton3.InputBegan:Connect(function(input10, gameProcessed10)
+end)
+TextButton3.InputEnded:Connect(function(input11, gameProcessed11)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	ScreenGui5.Enabled = false
+	task.wait(0.01)
+end)
+TextLabel.InputBegan:Connect(function(input12, gameProcessed12)
+end)
+UserInputService.InputChanged:Connect(function(input13, gameProcessed13)
+end)
+UserInputService.InputEnded:Connect(function(input14, gameProcessed14)
+end)
+task.spawn(function(...)
+	task.wait(1e-05)
+	task.wait(1e-05)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait(0.1)
+	task.wait(0.1)
+end)
+UserInputService.JumpRequest:Connect(function(arg949)
+end)
+_G.spinAngle = 0
+RunService.RenderStepped:Connect(function(deltaTime24)
+end)
+task.spawn(function(...)
+	task.wait(15)
+	task.wait(15)
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+workspace.ChildAdded:Connect(function(child11)
+end)
+Players.PlayerRemoving:Connect(function(player13)
+end)
+_G.stopKickAura = function(arg950, arg951)
+	local child10 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+	local children7 = child10:GetChildren()
+	for i40, v56 in ipairs(children7) do
+	end
+end
+_G.startKickAura = function(arg952, arg953)
+	local child11 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+	local children8 = child11:GetChildren()
+	for i41, v57 in ipairs(children8) do
+	end
+	RunService.Heartbeat:Connect(function(deltaTime25)
+	end)
+	RunService.Heartbeat:Connect(function(deltaTime26)
+	end)
+end
+result5:LoadAutoloadConfig()
+_NOTIFY("Poop HUB (Obsidian UI Edition) Loaded!", 4)
+print("========================================")
+print("Poop HUB - Premium (Obsidian UI Edition)")
+print("========================================")
+makefolder("PoopHub")
+makefolder("PoopHub/Logo")
+makefolder("PoopHub/Logo/UBG")
+_G.updateBlackholeImage = function(arg954, arg955)
+	arg954:match("^%s*(.-)%s*$")
+end
+_G.updateAllBlackholes = function(arg956, arg957)
+end
+workspace:GetDescendants()
+workspace.DescendantAdded:Connect(function(descendant12)
+	local descendants12 = descendant12:GetDescendants()
+	for i84, v110 in ipairs(descendants12) do
+	end
+	descendant12.DescendantAdded:Connect(function(descendant14)
+	end)
+	descendant12.AncestryChanged:Connect(function(child17, parent2)
+	end)
+end)
+print("[PoopHub Monitor] Dynamic BlackHole Customizer Engine Active!")
+UserInputService.InputChanged:Connect(function(input15, gameProcessed15)
+end)
+workspace.ChildAdded:Connect(function(child12)
+end)
+local Bar = Window:MakeBar({
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Size = UDim2.new(0, 350, 0, 30),
+	Texts = { "PoopHub", "V5 New Release!", "16:09" },
+	UseDivider = true
+})
+local result10 = tostring(DCUS_Expires):gsub("T.*", "")
+local InfoWindow = Bar:AddInfoWindow({ Expires = result10, HubName = "PoopHub", Plan = tostring(DCUS_Plan), SubContent = "#1 FTAP" })
+InfoWindow:AddChangeLog({
+	Title = "New Release!",
+	Content = "# V5.1.5 Release!\n- Ragdoll Kill V2 [New]\n- Loop Banana Ragdoll [New]\n\t",
+	GradientSpeed = 0.004,
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Tag = { { Color3.fromRGB(162, 48, 255), "New Release" } },
+	UseGradient = { FixTag = false, NewTag = true, Removed = false, Tag = true, Version = false },
+	Version = "5.1.5"
+})
+InfoWindow:AddChangeLog({
+	Title = "Release",
+	Content = "# V5.1.3 Release!\n- UI [Fix]\n- Ragdoll Kill [New]\n- Defense [New]\n\t",
+	GradientSpeed = 0.004,
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Tag = { { Color3.fromRGB(162, 48, 255), "New Release" } },
+	UseGradient = { FixTag = false, NewTag = true, Removed = false, Tag = true, Version = false },
+	Version = "5.1.3"
+})
+task.spawn(function(...)
+	Bar:SetText({ "PoopHub", result2 .. " New Release!", "16:09      " })
+	task.wait(1)
+	Bar:SetText({ "PoopHub", result2 .. " New Release!", "16:09      " })
+	task.wait(1)
+end)
+local MenuToys3 = ReplicatedStorage:WaitForChild("MenuToys")
+local SpawnToyRemoteFunction2 = MenuToys3:WaitForChild("SpawnToyRemoteFunction")
+local GrabEvents11 = ReplicatedStorage:WaitForChild("GrabEvents")
+GrabEvents11:WaitForChild("SetNetworkOwner")
+local PlayerEvents = ReplicatedStorage:WaitForChild("PlayerEvents")
+PlayerEvents:WaitForChild("StickyPartEvent")
+local MenuToys4 = ReplicatedStorage:WaitForChild("MenuToys")
+MenuToys4:WaitForChild("DestroyToy")
+local child12 = workspace:WaitForChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+local HumanoidRootPart31 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+Players.LocalPlayer.CharacterAdded:Connect(function(character12)
+	character12:WaitForChild("HumanoidRootPart")
+end)
+local LeftGroupbox40 = Tab9:AddLeftGroupbox("Ragdoll Kill")
+local RightGroupbox37 = Tab9:AddRightGroupbox("RAGDOLL KILL INFO")
+local TargetCard = RightGroupbox37:AddTargetCard({ Text = { "Total Kills: 0" } })
+_G.RagdollTargetCard = TargetCard
+local players34 = Players:GetPlayers()
+for k17, v58 in pairs(players34) do
+end
+LeftGroupbox40:AddDropdown("RagdollTargetDropdown", {
+	Text = "Select Target",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { v58.Name .. " (@" .. v58.DisplayName .. ")" },
+	Callback = function(arg958, arg959)
+		local result11 = arg958:match("^(.-)%s")
+		TargetCard:NewTarget(result11)
+		TargetCard:SetText({ "Total Kills: 0" })
+	end
+})
+LeftGroupbox40:AddToggle("BlackholeToggle", {
+	Text = "Ragdoll Kill (Basket Ball)",
+	Default = false,
+	Callback = function(state, arg961)
+		if state then
+			local thread3 = task.spawn(function(...)
+				local child13 = Players:FindFirstChild(result11)
+				task.wait(0.3)
+				child13.Character:FindFirstChild("Head")
+				local Humanoid9 = child13.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid9.Died:Connect(function()
+				end)
+				local changedSignal = Humanoid9:GetPropertyChangedSignal("Health")
+				changedSignal:Connect(function(arg962)
+				end)
+			end)
+		else
+			task.cancel(thread3)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("RagdollKillNotify", {
+	Text = "Ragdoll Kill Notify",
+	Default = false,
+	Callback = function(state, arg964)
+	end
+})
+LeftGroupbox40:AddToggle("SnowballRagdoll", {
+	Text = "Snowball Ragdoll",
+	Default = false,
+	Callback = function(state, arg966)
+		if state then
+			task.spawn(function(...)
+				local child14 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child15 = Players:FindFirstChild(result11)
+				child15.Character:FindFirstChild("HumanoidRootPart")
+				local children9 = child14:GetChildren()
+				for i42, v59 in ipairs(children9) do
+				end
+				task.wait(0.1)
+				local child16 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child17 = Players:FindFirstChild(result11)
+				child17.Character:FindFirstChild("HumanoidRootPart")
+				local children10 = child16:GetChildren()
+				for i43, v60 in ipairs(children10) do
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("AutoSpawnSnowballs", {
+	Text = "Auto Spawn Snowballs",
+	Default = false,
+	Callback = function(state, arg968)
+		if state then
+			task.spawn(function(...)
+				task.spawn(function(...)
+					Players.LocalPlayer:FindFirstChild("InPlot")
+					Players.LocalPlayer:FindFirstChild("InOwnedPlot")
+					Players.LocalPlayer:FindFirstChild("CanSpawnToy")
+					workspace:GetChildren()
+					local Plot1 = workspace.Plots:FindFirstChild("Plot1")
+					local ThisPlotsOwners = Plot1.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children11 = ThisPlotsOwners:GetChildren()
+					for k18, v62 in pairs(children11) do
+					end
+					local Plot2 = workspace.Plots:FindFirstChild("Plot2")
+					local ThisPlotsOwners2 = Plot2.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children12 = ThisPlotsOwners2:GetChildren()
+					for k19, v63 in pairs(children12) do
+					end
+					local Plot3 = workspace.Plots:FindFirstChild("Plot3")
+					local ThisPlotsOwners3 = Plot3.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children13 = ThisPlotsOwners3:GetChildren()
+					for k20, v64 in pairs(children13) do
+					end
+					local Plot4 = workspace.Plots:FindFirstChild("Plot4")
+					local ThisPlotsOwners4 = Plot4.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children14 = ThisPlotsOwners4:GetChildren()
+					for k21, v65 in pairs(children14) do
+					end
+					local Plot5 = workspace.Plots:FindFirstChild("Plot5")
+					local ThisPlotsOwners5 = Plot5.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children15 = ThisPlotsOwners5:GetChildren()
+					for k22, v66 in pairs(children15) do
+					end
+					child12.ChildAdded:Connect(function(child13)
+					end)
+					task.spawn(function(...)
+						SpawnToyRemoteFunction2:InvokeServer("BallSnowball", (HumanoidRootPart31.CFrame * CFrame.new(0, 14, 20)), Vector3.new(0, 0, 0))
+					end)
+					task.wait()
+					task.wait()
+				end)
+				task.wait(0.05)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("BombDarkMatterRagdoll", {
+	Text = "BombDarkMatter Ragdoll",
+	Default = false,
+	Callback = function(state, arg970)
+		if state then
+			task.spawn(function(...)
+				local child18 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child19 = Players:FindFirstChild(result11)
+				child19.Character:FindFirstChild("HumanoidRootPart")
+				local children16 = child18:GetChildren()
+				for i45, v67 in ipairs(children16) do
+				end
+				task.wait(0.1)
+				local child20 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child21 = Players:FindFirstChild(result11)
+				child21.Character:FindFirstChild("HumanoidRootPart")
+				local children17 = child20:GetChildren()
+				for i46, v68 in ipairs(children17) do
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("AutoSpawnBombDarkMatter", {
+	Text = "Auto Spawn BombDarkMatter",
+	Default = false,
+	Callback = function(state, arg972)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.05)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player14)
+	task.wait(1)
+	local players63 = Players:GetPlayers()
+	for k27, v111 in pairs(players63) do
+	end
+	result3.Options.RagdollTargetDropdown:SetValues({ v111.Name .. " (@" .. v111.DisplayName .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player15)
+	task.wait(0.5)
+	local players64 = Players:GetPlayers()
+	for k28, v112 in pairs(players64) do
+	end
+	result3.Options.RagdollTargetDropdown:SetValues({ v112.Name .. " (@" .. v112.DisplayName .. ")" })
+end)
+Players.LocalPlayer:WaitForChild("IsHeld", 5)
+ReplicatedStorage:FindFirstChild("GrabEvents")
+ReplicatedStorage:FindFirstChild("MenuToys")
+ReplicatedStorage:FindFirstChild("CharacterEvents")
+local GrabEvents12 = ReplicatedStorage:FindFirstChild("GrabEvents")
+local MenuToys5 = ReplicatedStorage:FindFirstChild("MenuToys")
+local CharacterEvents7 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+local PlayerEvents2 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+GrabEvents12:FindFirstChild("SetNetworkOwner")
+GrabEvents12:FindFirstChild("CreateGrabLine")
+GrabEvents12:FindFirstChild("DestroyGrabLine")
+CharacterEvents7:FindFirstChild("Struggle")
+CharacterEvents7:FindFirstChild("RagdollRemote")
+PlayerEvents2:FindFirstChild("StickyPartEvent")
+MenuToys5:FindFirstChild("SpawnToyRemoteFunction")
+MenuToys5:FindFirstChild("DestroyToy")
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	Players.LocalPlayer:FindFirstChild("InPlot")
+	task.wait()
+end)
+task.defer(function(...)
+	ReplicatedStorage:FindFirstChild("GrabEvents")
+	ReplicatedStorage:FindFirstChild("MenuToys")
+	ReplicatedStorage:FindFirstChild("CharacterEvents")
+	local GrabEvents15 = ReplicatedStorage:FindFirstChild("GrabEvents")
+	local MenuToys8 = ReplicatedStorage:FindFirstChild("MenuToys")
+	local CharacterEvents10 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+	local PlayerEvents5 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+	GrabEvents15:FindFirstChild("SetNetworkOwner")
+	GrabEvents15:FindFirstChild("CreateGrabLine")
+	GrabEvents15:FindFirstChild("DestroyGrabLine")
+	local Struggle2 = CharacterEvents10:FindFirstChild("Struggle")
+	local RagdollRemote2 = CharacterEvents10:FindFirstChild("RagdollRemote")
+	PlayerEvents5:FindFirstChild("StickyPartEvent")
+	MenuToys8:FindFirstChild("SpawnToyRemoteFunction")
+	MenuToys8:FindFirstChild("DestroyToy")
+	workspace:FindFirstChild("SpawnLocation")
+	workspace:FindFirstChild("Plots")
+	workspace:FindFirstChild("PlotItems")
+end)
+task.defer(function(...)
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	local Head2 = Players.LocalPlayer.Character:FindFirstChild("Head")
+	local connection18 = Head2.ChildAdded:Connect(function(child15)
+	end)
+end, Players.LocalPlayer.Character)
+Players.LocalPlayer.CharacterAdded:Connect(function(character13)
+	task.wait()
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	local Head4 = character13:FindFirstChild("Head")
+	connection18:Disconnect()
+	Head4.ChildAdded:Connect(function(child18)
+	end)
+end)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait()
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait(0.05)
+	task.wait(0.05)
+end)
+workspace.ChildAdded:Connect(function(child14)
+end)
+local Map2 = workspace:FindFirstChild("Map")
+local Hole = Map2:FindFirstChild("Hole")
+local PoisonSmallHole = Hole:FindFirstChild("PoisonSmallHole")
+local ExtinguishPart = PoisonSmallHole:FindFirstChild("ExtinguishPart")
+local Tex = ExtinguishPart:FindFirstChild("Tex")
+Tex:Destroy()
+ExtinguishPart.Transparency = 1
+Players.LocalPlayer.CharacterAdded:Connect(function(character14)
+	local HumanoidRootPart39 = character14:WaitForChild("HumanoidRootPart", 2)
+	HumanoidRootPart39.ChildAdded:Connect(function(child19)
+	end)
+end)
+task.defer(function(...)
+	local HumanoidRootPart35 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 2)
+	HumanoidRootPart35.ChildAdded:Connect(function(child16)
+	end)
+end, Players.LocalPlayer.Character)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(0.2)
+	task.wait(0.2)
+end)
+task.spawn(function(...)
+	task.wait(0.5)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(2)
+	task.wait(0.03)
+end)
+RunService.RenderStepped:Connect(function(deltaTime27)
+end)
+ReplicatedStorage:FindFirstChild("GrabEvents")
+ReplicatedStorage:FindFirstChild("MenuToys")
+ReplicatedStorage:FindFirstChild("CharacterEvents")
+local GrabEvents13 = ReplicatedStorage:FindFirstChild("GrabEvents")
+local MenuToys6 = ReplicatedStorage:FindFirstChild("MenuToys")
+local CharacterEvents8 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+local PlayerEvents3 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+GrabEvents13:FindFirstChild("SetNetworkOwner")
+GrabEvents13:FindFirstChild("CreateGrabLine")
+GrabEvents13:FindFirstChild("DestroyGrabLine")
+CharacterEvents8:FindFirstChild("Struggle")
+CharacterEvents8:FindFirstChild("RagdollRemote")
+PlayerEvents3:FindFirstChild("StickyPartEvent")
+MenuToys6:FindFirstChild("SpawnToyRemoteFunction")
+MenuToys6:FindFirstChild("DestroyToy")
+local GameCorrectionEvents2 = ReplicatedStorage:FindFirstChild("GameCorrectionEvents")
+local GameCorrectionsNotify = GameCorrectionEvents2:FindFirstChild("GameCorrectionsNotify")
+GameCorrectionsNotify.OnClientEvent:Connect(function(arg973)
+end)
+local Part7 = Instance.new("Part")
+Part7.Name = "Safe Platform"
+Part7.Size = Vector3.new(250, 5, 250)
+Part7.Position = Vector3.new(-19757, -500, -22220)
+Part7.Anchored = true
+Part7.CanCollide = true
+Part7.Material = Enum.Material.Neon
+Part7.Parent = workspace
+local RightGroupbox38 = Tab6:AddRightGroupbox("Target Extras")
+RightGroupbox38:AddToggle("TargetDeathNotif", {
+	Text = "Death Notification",
+	Default = false,
+	Callback = function(state, arg975)
+	end
+})
+RightGroupbox38:AddToggle("TargetDeathSound", {
+	Text = "Death Sound",
+	Default = false,
+	Callback = function(state, arg977)
+	end
+})
+RunService.Heartbeat:Connect(function(deltaTime28)
+	child22.Character:FindFirstChild("Humanoid")
+end)
+local LeftGroupbox41 = Tab2:AddLeftGroupbox("Antis")
+LeftGroupbox41:AddToggle("AntiGrab", {
+	Text = "Anti Grab",
+	Default = false,
+	Tooltip = "The most default anti-grab",
+	Callback = function(state, arg979)
+		if state then
+			ReplicatedStorage:FindFirstChild("GrabEvents")
+			ReplicatedStorage:FindFirstChild("MenuToys")
+			ReplicatedStorage:FindFirstChild("CharacterEvents")
+			local GrabEvents14 = ReplicatedStorage:FindFirstChild("GrabEvents")
+			local MenuToys7 = ReplicatedStorage:FindFirstChild("MenuToys")
+			local CharacterEvents9 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			local PlayerEvents4 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+			GrabEvents14:FindFirstChild("SetNetworkOwner")
+			GrabEvents14:FindFirstChild("CreateGrabLine")
+			GrabEvents14:FindFirstChild("DestroyGrabLine")
+			local Struggle = CharacterEvents9:FindFirstChild("Struggle")
+			CharacterEvents9:FindFirstChild("RagdollRemote")
+			PlayerEvents4:FindFirstChild("StickyPartEvent")
+			MenuToys7:FindFirstChild("SpawnToyRemoteFunction")
+			MenuToys7:FindFirstChild("DestroyToy")
+			Struggle:InvokeServer()
+			local HumanoidRootPart32 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid10 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			local Torso = Players.LocalPlayer.Character:FindFirstChild("Torso")
+			Torso:FindFirstChild("Neck")
+			Humanoid10.RequiresNeck = false
+			HumanoidRootPart32.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+			HumanoidRootPart32.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			local connection17 = RunService.Heartbeat:Connect(function(deltaTime29)
+				Struggle2:InvokeServer()
+				RagdollRemote2:InvokeServer(HumanoidRootPart32, 0)
+			end)
+		else
+			connection17:Disconnect()
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid11 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Humanoid11.AutoRotate = true
+		end
+	end
+})
+local Toggle32 = LeftGroupbox41:AddToggle("GucciAntiGrab", {
+	Text = "[GUCCI] Anti Grab",
+	Default = false,
+	Tooltip = "Can't be touched.",
+	Callback = function(state, arg981)
+		task.spawn(function(...)
+			task.wait()
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid12 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Humanoid12:FindFirstChild("Ragdolled")
+			task.wait()
+		end)
+	end
+})
+Toggle32:AddKeyPicker("GucciK", { Text = "[GUCCI] Anti Grab", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AntiBlobman", {
+	Text = "Anti Blobman",
+	Default = false,
+	Tooltip = "People can't grab you using Blobman",
+	Callback = function(state, arg983)
+	end
+})
+local Toggle33 = LeftGroupbox41:AddToggle("AntiInputLag", {
+	Text = "Anti Network Ownership",
+	Default = false,
+	Tooltip = "Anti Blob-kill, etc.",
+	Callback = function(state, arg985)
+	end
+})
+Toggle33:AddKeyPicker("AntiNetK", { Text = "Anti Network Ownership", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AntiExplosion", {
+	Text = "Anti Explosion",
+	Default = false,
+	Tooltip = "Makes you not able to be exploded",
+	Callback = function(state, arg987)
+	end
+})
+LeftGroupbox41:AddToggle("AntiBurn", {
+	Text = "Anti Burn",
+	Default = false,
+	Tooltip = "Makes you not able to be burnt",
+	Callback = function(state, arg989)
+	end
+})
+LeftGroupbox41:AddToggle("AntiVoid", {
+	Text = "Anti Void",
+	Default = false,
+	Tooltip = "Teleports you up if you go far down into the void",
+	Callback = function(state, arg991)
+	end
+})
+LeftGroupbox41:AddToggle("AntiKick", {
+	Text = "Anti Kick",
+	Default = false,
+	Tooltip = "Default shuriken anti-kick",
+	Callback = function(state, arg993)
+	end
+})
+LeftGroupbox41:AddToggle("AntiKick2", {
+	Text = "[Break PCLD] Anti Kick",
+	Default = false,
+	Tooltip = "Unable to get kicked at all",
+	Callback = function(state, arg995)
+	end
+})
+LeftGroupbox41:AddToggle("AntiSticky", {
+	Text = "Anti Sticky",
+	Default = false,
+	Callback = function(state, arg997)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:GetDescendants()
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiSnowball", {
+	Text = "Anti Snowball",
+	Default = false,
+	Tooltip = "Prevents you from getting snowballed",
+	Callback = function(state, arg999)
+		if not state then
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Players.LocalPlayer.Character:GetChildren()
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiBanana", {
+	Text = "Anti Banana",
+	Default = false,
+	Tooltip = "Bananas won't touch you",
+	Callback = function(state, arg1001)
+	end
+})
+LeftGroupbox41:AddToggle("AntiPaint", {
+	Text = "Anti Paint",
+	Default = false,
+	Tooltip = "You won't get painted",
+	Callback = function(state, arg1003)
+		if state then
+			task.spawn(function(...)
+				workspace:GetDescendants()
+				workspace.DescendantAdded:Connect(function(descendant13)
+				end)
+			end, state)
+		else
+			task.spawn(function(...)
+				workspace:GetDescendants()
+				workspace.DescendantAdded:Connect(function(descendant13)
+				end)
+			end, false)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiPoison", {
+	Text = "Anti Poison",
+	Default = false,
+	Tooltip = "Poison parts won't kill you",
+	Callback = function(state, arg1005)
+		if state then
+			local Map3 = workspace:FindFirstChild("Map")
+			local Hole2 = Map3:FindFirstChild("Hole")
+			local PoisonBigHole = Hole2:FindFirstChild("PoisonBigHole")
+			local PoisonSmallHole2 = Hole2:FindFirstChild("PoisonSmallHole")
+			local PoisonHurtPart = PoisonBigHole:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart = PoisonBigHole:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart.CanTouch = false
+			PaintPlayerPart.CanTouch = false
+			local PoisonHurtPart2 = PoisonSmallHole2:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart2 = PoisonSmallHole2:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart2.CanTouch = false
+			PaintPlayerPart2.CanTouch = false
+		else
+			local Map4 = workspace:FindFirstChild("Map")
+			local Hole3 = Map4:FindFirstChild("Hole")
+			local PoisonBigHole2 = Hole3:FindFirstChild("PoisonBigHole")
+			local PoisonSmallHole3 = Hole3:FindFirstChild("PoisonSmallHole")
+			local PoisonHurtPart3 = PoisonBigHole2:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart3 = PoisonBigHole2:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart3.CanTouch = true
+			PaintPlayerPart3.CanTouch = true
+			local PoisonHurtPart4 = PoisonSmallHole3:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart4 = PoisonSmallHole3:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart4.CanTouch = true
+			PaintPlayerPart4.CanTouch = true
+		end
+	end
+})
+local Toggle34 = LeftGroupbox41:AddToggle("AntiLag", {
+	Text = "Anti Lag",
+	Default = false,
+	Tooltip = "Anti Line-Lag, Shuriken-Lag",
+	Callback = function(state, arg1007)
+		if state then
+			local PlayerScripts = Players.LocalPlayer:FindFirstChild("PlayerScripts")
+			local CharacterAndBeamMove = PlayerScripts:FindFirstChild("CharacterAndBeamMove")
+			local StickyPartsTouchDetection = PlayerScripts:FindFirstChild("StickyPartsTouchDetection")
+			CharacterAndBeamMove.Enabled = false
+			StickyPartsTouchDetection.Enabled = false
+			task.delay(1.5, function(...)
+				local players40 = Players:GetPlayers()
+				for i60, v86 in ipairs(players40) do
+					local children28 = v86.Character:GetChildren()
+					for i61, v87 in ipairs(children28) do
+					end
+				end
+			end)
+		else
+			local PlayerScripts2 = Players.LocalPlayer:FindFirstChild("PlayerScripts")
+			local CharacterAndBeamMove2 = PlayerScripts2:FindFirstChild("CharacterAndBeamMove")
+			local StickyPartsTouchDetection2 = PlayerScripts2:FindFirstChild("StickyPartsTouchDetection")
+			CharacterAndBeamMove2.Enabled = true
+			StickyPartsTouchDetection2.Enabled = true
+		end
+	end
+})
+Toggle34:AddKeyPicker("AntiLagK", { Text = "Anti Lag", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AutoAntiLag", {
+	Text = "Auto Anti Lag",
+	Default = true,
+	Tooltip = "Enables anti-lag for you if too low fps",
+	Callback = function(state, arg1009)
+	end
+})
+LeftGroupbox41:AddToggle("AntiInvis", {
+	Text = "Anti Invis",
+	Default = false,
+	Tooltip = "Makes any invisible players visible",
+	Callback = function(state, arg1011)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				local players35 = Players:GetPlayers()
+				for i48, v70 in ipairs(players35) do
+					local HumanoidRootPart33 = v70.Character:FindFirstChild("HumanoidRootPart")
+					local Humanoid13 = v70.Character:FindFirstChildWhichIsA("Humanoid")
+					HumanoidRootPart33.Massless = false
+					Humanoid13.SeatPart:FindFirstChild("SeatWeld")
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AutoReset", {
+	Text = "Auto Reset",
+	Default = true,
+	Tooltip = "Checks for kick frame and resets when needed",
+	Callback = function(state, arg1013)
+	end
+})
+LeftGroupbox41:AddToggle("LoopTP", {
+	Text = "Loop TP",
+	Default = false,
+	Tooltip = "Teleports you infinitely so you're unable to be grabbed",
+	Callback = function(state, arg1015)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				task.wait(0.04)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:PivotTo(CFrame.new(692, -7.35, 129))
+				task.wait(0.04)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:PivotTo(CFrame.new(-289, -7.35, -462))
+				task.wait(0.04)
+			end)
+		end
+	end
+})
+local RightGroupbox39 = Tab2:AddRightGroupbox("Miscellaneous")
+RightGroupbox39:AddToggle("DisblVoid", {
+	Text = "Disable Void",
+	Default = true,
+	DisabledTooltip = "This function is currently being managed by another function.",
+	Tooltip = "Makes you not get killed in void",
+	Callback = function(state, arg1017)
+		if state then
+			workspace.FallenPartsDestroyHeight = 0/0
+		else
+			workspace.FallenPartsDestroyHeight = -100
+		end
+	end
+})
+RightGroupbox39:AddToggle("WaterWalk", {
+	Text = "Water Walk",
+	Default = false,
+	Tooltip = "Walk on water",
+	Callback = function(state, arg1019)
+		if state then
+			local Map5 = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects2 = Map5:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean2 = AlwaysHereTweenedObjects2:FindFirstChild("Ocean")
+			local Object = Ocean2:FindFirstChild("Object")
+			local ObjectModel = Object:FindFirstChild("ObjectModel")
+			local children18 = ObjectModel:GetChildren()
+			for i50, v72 in ipairs(children18) do
+				v72.CanCollide = true
+				v72.Transparency = 0.5
+			end
+		else
+			local Map6 = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects3 = Map6:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean3 = AlwaysHereTweenedObjects3:FindFirstChild("Ocean")
+			local Object2 = Ocean3:FindFirstChild("Object")
+			local ObjectModel2 = Object2:FindFirstChild("ObjectModel")
+			local children19 = ObjectModel2:GetChildren()
+			for i51, v73 in ipairs(children19) do
+				v73.CanCollide = false
+				v73.Transparency = 0
+			end
+		end
+	end
+})
+RightGroupbox39:AddToggle("DeleteBarriers", {
+	Text = "Noclip Barrier",
+	Default = false,
+	Callback = function(state, arg1021)
+		if state then
+			local Plots = workspace:FindFirstChild("Plots")
+			local children20 = Plots:GetChildren()
+			for i52, v74 in ipairs(children20) do
+				local Barrier = v74:FindFirstChild("Barrier")
+				local children21 = Barrier:GetChildren()
+				for i53, v75 in ipairs(children21) do
+				end
+			end
+		else
+			local Plots2 = workspace:FindFirstChild("Plots")
+			local children22 = Plots2:GetChildren()
+			for i54, v76 in ipairs(children22) do
+				local Barrier2 = v76:FindFirstChild("Barrier")
+				local children23 = Barrier2:GetChildren()
+				for i55, v77 in ipairs(children23) do
+				end
+			end
+		end
+	end
+})
+RightGroupbox39:AddToggle("OtherInvCollisions", {
+	Text = "Anti-Fling [Objects Noclip]",
+	Default = false,
+	Callback = function(state, arg1023)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:GetDescendants()
+				task.wait(0.1)
+			end)
+		else
+			task.spawn(function(...)
+				task.spawn(function(...)
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+					Players.LocalPlayer:FindFirstChild("InOwnedPlot", true)
+					Players.LocalPlayer.Character:GetDescendants()
+				end)
+			end)
+		end
+	end
+})
+local Label14 = RightGroupbox39:AddLabel("LastGrabbedLabel", { Text = "This is a label", DoesWrap = true })
+task.spawn(function(...)
+	task.wait(0.05)
+	Label14:SetVisible(false)
+	task.wait(0.05)
+	Label14:SetVisible(false)
+	task.wait(0.05)
+end)
+local LeftGroupbox42 = Tab2:AddLeftGroupbox("Counter-attack")
+LeftGroupbox42:AddDropdown("CADropdown", {
+	Text = "Consequences",
+	Default = "Kill",
+	Multi = false,
+	Tooltip = "What will you do when someone touches you and you have Counter-attack on",
+	Values = { "Grab", "Kill", "Void", "Delete Limbs", "Fling", "Teleport to Spawn" },
+	Callback = function(state, arg1025)
+	end
+})
+LeftGroupbox42:AddToggle("CAToggle", {
+	Text = "Counter Attack",
+	Default = false,
+	Tooltip = "People who touch you will have the selected consequences",
+	Callback = function(state, arg1027)
+	end
+})
+local DependencyBox = LeftGroupbox42:AddDependencyBox()
+DependencyBox:SetupDependencies({ { result3.Options.CADropdown, "Delete Limbs" } })
+DependencyBox:AddDivider("Delete Limb Settings")
+DependencyBox:AddDropdown("DLCADropdown", {
+	Text = "Limbs to delete",
+	Default = 3,
+	Multi = false,
+	Searchable = true,
+	Tooltip = "What limbs will you delete",
+	Values = { "Legs", "Arms", "All" },
+	Callback = function(state, arg1029)
+	end
+})
+local RightGroupbox40 = Tab2:AddRightGroupbox("Config")
+RightGroupbox40:AddSlider("AntiLagSens", {
+	Text = "Auto Anti-Lag Sensitivity",
+	Default = 3,
+	Max = 20,
+	Min = 1,
+	Prefix = "FPS",
+	Callback = function(state, arg1031)
+	end
+})
+RightGroupbox40:AddDivider("Anti-Grabs")
+RightGroupbox40:AddDropdown("AGTDropdown", {
+	Text = "Anti-Grab Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "Type of default Anti-Grab",
+	Values = { "Normal", "No Ragdoll", "Anti-Kill", "Escapes Anything, but buggy" },
+	Callback = function(state, arg1033)
+	end
+})
+RightGroupbox40:AddDropdown("GTDropdown", {
+	Text = "GUCCI Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "What vehicle will you sit on during Gucci Anti Grab",
+	Values = { "Blobman", "Tractor [Invisible]", "Train [Invisible]", "Sleigh [Invisible]" },
+	Callback = function(state, arg1035)
+	end
+})
+RightGroupbox40:AddDivider("Anti Net-Owner")
+RightGroupbox40:AddDropdown("AITDropdown", {
+	Text = "Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "What interactable item will you use when doing anti-Net Owner",
+	Values = {
+		"FoodHamburger",
+		"InstrumentDrumBongos",
+		"InstrumentBrassTrumpet",
+		"InstrumentBrassBugle",
+		"InstrumentVoiceMicrophone",
+		"InstrumentWoodwindOcarina",
+		"InstrumentGuitarUkulele",
+		"InstrumentGuitarLyre",
+		"InstrumentGuitarBanjo",
+		"InstrumentGuitarAcoustic",
+		"CupMugBrown",
+		"CupMugWhite",
+		"FoodBanana",
+		"FoodBread",
+		"FoodBroccoli",
+		"FoodCakePink",
+		"FoodCoconut",
+		"FoodDippyEgg",
+		"FoodDonut",
+		"FoodFrenchFries",
+		"FoodHotdog",
+		"FoodMayonnaise",
+		"FoodMeatStick",
+		"FoodMushroomPoison",
+		"FoodPizzaCheese",
+		"FoodPizzaPepperoni",
+		"FoodSodaCan",
+		"PoopPile",
+		"PoopPileSparkle"
+	},
+	Callback = function(state, arg1037)
+	end
+})
+RightGroupbox40:AddSlider("AntiInpLagDel", {
+	Text = "Grab & Drop Delay",
+	Default = 0.05,
+	Max = 0.3,
+	Min = 0,
+	Prefix = "sec",
+	Rounding = 2,
+	Callback = function(state, arg1039)
+	end
+})
+RightGroupbox40:AddLabel("Below 0.05 can cause high ping")
+RightGroupbox40:AddSlider("ItemTransAK", {
+	Text = "Item Transparency",
+	Default = 1,
+	Max = 1,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg1041)
+	end
+})
+local LeftGroupbox43 = Tab6:AddLeftGroupbox("Target")
+local players36 = Players:GetPlayers()
+for k23, v78 in pairs(players36) do
+end
+local Dropdown18 = LeftGroupbox43:AddDropdown("TargetDropdown", {
+	Text = "Select Target",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { v78.Name .. " (@" .. v78.DisplayName .. ")" },
+	Callback = function(arg1042, arg1043)
+		local result12 = arg1042:match("^(.-)%s")
+		local child22 = Players:FindFirstChild(result12)
+	end
+})
+Players.PlayerAdded:Connect(function(player16)
+	task.wait(1)
+	local players65 = Players:GetPlayers()
+	for k29, v113 in pairs(players65) do
+	end
+	Dropdown18:SetValues({ v113.Name .. " (@" .. v113.DisplayName .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player17)
+	task.wait(0.5)
+	local players66 = Players:GetPlayers()
+	for k30, v114 in pairs(players66) do
+	end
+	Dropdown18:SetValues({ v114.Name .. " (@" .. v114.DisplayName .. ")" })
+end)
+local LeftGroupbox44 = Tab6:AddLeftGroupbox("Apply")
+LeftGroupbox44:AddToggle("LoopApplyMethodTSel", {
+	Text = "Selected",
+	Default = false,
+	Tooltip = "selected players",
+	Callback = function(state, arg1045)
+		if state then
+			task.spawn(function(...)
+				task.wait()
+				task.wait()
+			end, "LoopApplyMethodT", false, { [child22] = true }, 1)
+		end
+	end
+})
+LeftGroupbox44:AddToggle("LoopApplyMethodTServ", {
+	Text = "Server",
+	Default = false,
+	Tooltip = "all players",
+	Callback = function(state, arg1047)
+		if state then
+			task.spawn(function(...)
+				task.wait()
+				task.wait()
+			end, "LoopApplyMethodTServer", true, { [child22] = true }, 1)
+		end
+	end
+})
+LeftGroupbox44:AddButton({
+	Text = "Selected",
+	Func = function(arg1048, arg1049)
+	end
+})
+LeftGroupbox44:AddButton({
+	Text = "Server",
+	Func = function(arg1050, arg1051)
+		local players37 = Players:GetPlayers()
+		for i56, v79 in ipairs(players37) do
+		end
+	end
+})
+local RightGroupbox41 = Tab6:AddRightGroupbox("Method Settings")
+RightGroupbox41:AddDropdown("MethodSettingsTargets", {
+	Text = "Methods",
+	Multi = true,
+	Values = {
+		"Kick",
+		"Void",
+		"Kill",
+		"Bring",
+		"Destroy Food",
+		"Remove Gucci",
+		"Remove Invisibility",
+		"Delete Seatables"
+	},
+	Callback = function(state, arg1053)
+	end
+})
+local DependencyBox2 = RightGroupbox41:AddDependencyBox()
+DependencyBox2:SetupDependencies({ { result3.Options.MethodSettingsTargets, "Kick" } })
+DependencyBox2:AddDivider("Kick Settings")
+DependencyBox2:AddDropdown("NKDelayConf", {
+	Text = "Delay Mode",
+	Default = 1,
+	Multi = false,
+	Values = { "Normal", "Slower but better", "Faster but worse" },
+	Callback = function(state, arg1055)
+	end
+})
+DependencyBox2:AddToggle("RagdollNK", {
+	Text = "Loop Ragdoll",
+	Default = true,
+	Callback = function(state, arg1057)
+	end
+})
+DependencyBox2:AddToggle("AntiKickRemoverNK", {
+	Text = "Remove Anti-Kick",
+	Default = true,
+	Callback = function(state, arg1059)
+	end
+})
+DependencyBox2:AddSlider("HeightNK", {
+	Text = "Kick Height",
+	Compact = true,
+	Default = 15,
+	Max = 28,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg1061)
+	end
+})
+DependencyBox2:AddButton({
+	Text = "TP To Void Platform",
+	Tooltip = "Teleports you to a platform where victim cant spawn anti-kick shurikens, though it affects you as well [ONLY WORKS WHEN YOU HAVE RESONANCE ANTI-KICK ON AND ONLY WORKS GOOD ON CHEATERS]",
+	Func = function(arg1062, arg1063)
+		local HumanoidRootPart34 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+		HumanoidRootPart34.PrimaryPart.CFrame = (Part7.CFrame + Vector3.new(0, 10, 0))
+		HumanoidRootPart34.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+		HumanoidRootPart34.PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+	end
+})
+local DependencyBox3 = RightGroupbox41:AddDependencyBox()
+DependencyBox3:SetupDependencies({ { result3.Options.MethodSettingsTargets, "Remove Gucci" } })
+DependencyBox3:AddDivider("Remove-Gucci Settings")
+DependencyBox3:AddToggle("RagdollInRG", {
+	Text = "Break Player? [Inf Ragdoll]",
+	Default = false,
+	Tooltip = "This takes 1.5 seconds, use only if you have time!",
+	Callback = function(state, arg1065)
+	end
+})
+DependencyBox3:AddButton({
+	Text = "Fix Gucci Remover",
+	Tooltip = "Fixes Remove Gucci bugs if it's not working",
+	Func = function(arg1066, arg1067)
+		local child23 = workspace:FindFirstChild(child22.Name .. "SpawnedInToys")
+		local Plots3 = workspace:FindFirstChild("Plots")
+		workspace:FindFirstChild("PlotItems")
+		local children24 = Plots3:GetChildren()
+		for k24, v80 in pairs(children24) do
+			local PlotSign = v80:FindFirstChild("PlotSign")
+			local ThisPlotsOwners6 = PlotSign:FindFirstChild("ThisPlotsOwners")
+			local children25 = ThisPlotsOwners6:GetChildren()
+			for k25, v81 in pairs(children25) do
+			end
+		end
+		local children26 = child23:GetChildren()
+		for i57, v82 in ipairs(children26) do
+			local VehicleSeat2 = v82:FindFirstChild("VehicleSeat")
+			VehicleSeat2:SetAttribute("broken", false)
+		end
+	end
+})
+workspace.FallenPartsDestroyHeight = 0/0
+local RightGroupbox42 = Tab9:AddRightGroupbox("Ragdoll V2")
+local players38 = Players:GetPlayers()
+for i58, v83 in ipairs(players38) do
+end
+local Dropdown19 = RightGroupbox42:AddDropdown("TargetSelect", {
+	Text = "Select Player",
+	Default = "",
+	Values = { v83.DisplayName .. " (" .. v83.Name .. ")" },
+	Callback = function(state, arg1069)
+		if state then
+			TargetCard:NewTarget(string.sub(state, (string.find(state, "%(") + 1), -2))
+			TargetCard:SetText({ "Total Kills: 0" })
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player18)
+	task.wait(0.5)
+	local players67 = Players:GetPlayers()
+	for i85, v115 in ipairs(players67) do
+	end
+	Dropdown19:SetValues({ v115.DisplayName .. " (" .. v115.Name .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player19)
+	task.wait(0.2)
+	local players68 = Players:GetPlayers()
+	for i86, v116 in ipairs(players68) do
+	end
+	Dropdown19:SetValues({ v116.DisplayName .. " (" .. v116.Name .. ")" })
+end)
+task.spawn(function(...)
+	task.wait(1)
+	local players39 = Players:GetPlayers()
+	for i59, v84 in ipairs(players39) do
+	end
+	Dropdown19:SetValues({ v84.DisplayName .. " (" .. v84.Name .. ")" })
+end)
+RightGroupbox42:AddToggle("RagdollKill", {
+	Text = "Ragdoll Kill",
+	Default = false,
+	Callback = function(state, arg1071)
+		if not state then
+			local child24 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			ReplicatedStorage:FindFirstChild("MenuToys")
+			ReplicatedStorage.MenuToys:FindFirstChild("DestroyToy")
+			local children27 = child24:GetChildren()
+			for k26, v85 in pairs(children27) do
+			end
+		end
+	end
+})
+RightGroupbox42:AddToggle("LoopBananaRagdoll", {
+	Text = "Banana Ragdoll",
+	Default = false,
+	Callback = function(arg1072, arg1073)
+	end
+})

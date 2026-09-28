@@ -1,5 +1,4 @@
 
-do
 
 
 
@@ -6616,3 +6615,4 @@ RightGroupbox14:AddToggle("FreeCamToggle", {
 	end
 })
 local FN = loadstring(game:HttpGet("https://raw.githubusercontent.com/qwer123476/nan/main/똥헙함수2"))()
+end

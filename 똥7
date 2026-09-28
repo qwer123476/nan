@@ -143,7 +143,7 @@ _G.permOwnerResetConns = {}
 	local Head3 = v29.Character:FindFirstChild("Head")
 	Head3:FindFirstChild("PartOwner")
 	_NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)
-end
+
 _G.loopKickBlobTask = nil
 _G.loopKickBlobAllTask = nil
 local CharacterEvents4 = ReplicatedStorage:WaitForChild("CharacterEvents")

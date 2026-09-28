@@ -1,5 +1,5 @@
 do
-do
+
 --[[
 local connection = game.ChildAdded:Connect(function(child)
 end)

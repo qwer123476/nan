@@ -23,10 +23,10 @@ local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
 local Options = Library.Options
 local Toggles = Library.Toggles
 
-local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
-local result2 = response2:gsub("\n", "")
-local response3 = game:HttpGet("https://api.dcus.pro/dcdian/lib.lua")
-local result3 = loadstring(response3)()
+--local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
+--local result2 = response2:gsub("\n", "")
+--local response3 = game:HttpGet("https://api.dcus.pro/dcdian/lib.lua")
+--local result3 = loadstring(response3)()
 local response4 = game:HttpGet("https://raw.githubusercontent.com/uhfork/Obsidian/refs/heads/main/addons/ThemeManager.lua")
 local result4 = loadstring(response4)()
 local response5 = game:HttpGet("https://raw.githubusercontent.com/uhfork/Obsidian/refs/heads/main/addons/SaveManager.lua")

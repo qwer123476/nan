@@ -2913,15 +2913,12 @@ makefolder("PoopHub/Logo/FTAP")
 makefolder("PoopHub/Logo/FTAP/ASSET")
 local response6 = game:HttpGet("https://dcus.pro/planet.png")
 writefile("PoopHub/Logo/FTAP/dcusplanet.png", response6)
-local Window = result3:CreateWindow({
-	Title = "PoopHub",
-	AutoShow = true,
-	Footer = "FTAP | V5 | Made by dcus",
-	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
-	NotifySide = "Right",
-	ShowCustomCursor = true,
-	SubTitle = "Premium",
-	TabShowTime = 1.5
+local Window = Library:CreateWindow({
+    Title = '똥허브 크랙',
+    Center = true,
+    AutoShow = true,
+    TabPadding = 8,
+    MenuFadeTime = 0.2
 })
 local Tab = Window:AddTab("Home", "house", "Home page & script status")
 local Tab2 = Window:AddTab("Defense", "shield", "Protection features")

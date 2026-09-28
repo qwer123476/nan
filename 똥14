@@ -149,7 +149,7 @@ task.spawn(function(...)
 	for i, v in ipairs(descendants) do
 	end
 end)
---[[
+
 local Character3 = SafeCharacter(v29)
 if not Character3 then
     return
@@ -160,7 +160,7 @@ if not Head3 then
     _NOTIFY("Perm Owner: " .. v29.Name .. " has no Head -> excluded", 2)
     return
 end
-]]
+
 local PartOwner = Head3:FindFirstChild("PartOwner")
 
 _NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)

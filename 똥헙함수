@@ -1,0 +1,5147 @@
+RightGroupbox14:AddToggle("FreeCamShowBody", {
+	Text = "Show Own Body",
+	Default = true,
+	Callback = function(state, arg302)
+	end
+})
+local Toggle = LeftGroupbox18:AddToggle("BodyMatToggle", {
+	Text = "Enable Body Material",
+	Default = false,
+	Callback = function(state, arg304)
+		if state then
+			local Folder7 = Instance.new("Folder")
+			Folder7.Name = "_phBodyMatStash"
+			Folder7.Parent = Players.LocalPlayer
+			local children4 = Players.LocalPlayer.Character:GetChildren()
+			for i25, v41 in ipairs(children4) do
+				v41.Parent = Folder7
+			end
+			local descendants8 = Players.LocalPlayer.Character:GetDescendants()
+			for i26, v42 in ipairs(descendants8) do
+				v42.Parent = Folder7
+			end
+			local descendants9 = Players.LocalPlayer.Character:GetDescendants()
+			for i27, v43 in ipairs(descendants9) do
+				v43.Material = Enum.Material.ForceField
+				v43.Color = Color3.fromRGB(180, 200, 255)
+			end
+			_NOTIFY("Body Material: ForceField ON", 3)
+		else
+			v43.Material = v43.Material
+			v43.Color = v43.Color
+			v41.Parent = v41.Parent
+			v42.Parent = v42.Parent
+			Folder7:Destroy()
+			_NOTIFY("Body Material OFF", 3)
+		end
+	end
+})
+Toggle:AddColorPicker("BodyMatColor", {
+	Title = "Body Color",
+	Default = Color3.fromRGB(180, 200, 255),
+	Callback = function(state, arg306)
+	end
+})
+LeftGroupbox18:AddDropdown("BodyMaterialDd", {
+	Text = "Select Material",
+	Default = 1,
+	Values = {
+		"ForceField",
+		"Neon",
+		"Glass",
+		"Metal",
+		"SmoothPlastic",
+		"Plastic",
+		"Wood",
+		"Marble",
+		"Granite",
+		"Slate",
+		"WoodPlanks",
+		"Cobblestone",
+		"Brick",
+		"Fabric"
+	},
+	Callback = function(state, arg308)
+	end
+})
+LeftGroupbox18:AddButton({
+	Text = "Re-apply (after respawn / refresh)",
+	Func = function(arg309, arg310)
+		_NOTIFY("Enable Body Material first", 2)
+	end
+})
+LeftGroupbox18:AddLabel("Clothing is hidden while enabled")
+LeftGroupbox18:AddLabel("Materials: ForceField, Neon, Glass ...")
+LeftGroupbox18:AddToggle("BodyMatRainbow", {
+	Text = "Rainbow Body Material",
+	Default = false,
+	Callback = function(state, arg312)
+		if state then
+			local connection12 = RunService.RenderStepped:Connect(function(deltaTime12)
+			end)
+			_NOTIFY("Body Rainbow ON", 3)
+		else
+			connection12:Disconnect()
+			_NOTIFY("Body Rainbow OFF", 3)
+		end
+	end
+})
+local RightGroupbox15 = Tab10:AddRightGroupbox("Umbrella")
+local RightGroupbox16 = Tab10:AddRightGroupbox("Local Aura")
+Players.LocalPlayer.CharacterAdded:Connect(function(character10)
+	task.wait(1.5)
+end)
+local Toggle2 = RightGroupbox15:AddToggle("UmbrellaMeshToggle", {
+	Text = "Umbrella",
+	Default = false,
+	Callback = function(state, arg314)
+		if state then
+			local Head = Players.LocalPlayer.Character:FindFirstChild("Head")
+			local Part5 = Instance.new("Part")
+			Part5.Name = "_phChineseHat"
+			Part5.Transparency = 0.3
+			Part5.Color = Color3.fromRGB(255, 255, 255)
+			Part5.Material = Enum.Material.Neon
+			Part5.CanCollide = false
+			Part5.CanTouch = false
+			Part5.CanQuery = false
+			Part5.Massless = true
+			local SpecialMesh = Instance.new("SpecialMesh")
+			SpecialMesh.MeshId = "rbxassetid://1033714"
+			SpecialMesh.Scale = Vector3.new(2.4000000953674316, 1.6000000238418579, 2.4000000953674316)
+			SpecialMesh.Parent = Part5
+			local WeldConstraint = Instance.new("WeldConstraint")
+			WeldConstraint.Part0 = Head
+			WeldConstraint.Part1 = Part5
+			WeldConstraint.Parent = Part5
+			Part5.CFrame = (Head.CFrame * CFrame.new(0, 1.1, 0))
+			Part5.Parent = Players.LocalPlayer.Character
+		else
+			Part5:Destroy()
+		end
+	end
+})
+Toggle2:AddColorPicker("UmbrellaMeshColor", {
+	Title = "Umbrella Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg316)
+	end
+})
+RightGroupbox15:AddToggle("UmbrellaMeshRainbow", {
+	Text = "Rainbow Umbrella",
+	Default = false,
+	Callback = function(state, arg318)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshTrans", {
+	Text = "Umbrella Transparency",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg319, arg320)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshSize", {
+	Text = "Umbrella Size",
+	Default = 2.4,
+	Max = 10,
+	Min = 0.5,
+	Rounding = 1,
+	Callback = function(state, arg322)
+	end
+})
+RightGroupbox15:AddSlider("UmbrellaMeshHeight", {
+	Text = "Umbrella Height",
+	Default = 1.1,
+	Max = 10,
+	Min = -10,
+	Rounding = 1,
+	Callback = function(state, arg324)
+	end
+})
+RightGroupbox15:AddDropdown("UmbrellaMeshMaterial", {
+	Text = "Umbrella Material",
+	Default = "Neon",
+	Multi = false,
+	Values = { "Neon", "ForceField", "Plastic", "SmoothPlastic", "Glass", "Ice", "Wood", "Metal", "Foil" },
+	Callback = function(state, arg326)
+	end
+})
+RightGroupbox16:AddToggle("LocalAuraToggle", {
+	Text = "Local Aura",
+	Default = false,
+	Callback = function(state, arg328)
+		if state then
+			local _phAuraFeetPart = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart:Destroy()
+			local _phAuraFeetPart2 = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart2:Destroy()
+		else
+			local _phAuraFeetPart3 = Players.LocalPlayer.Character:FindFirstChild("_phAuraFeetPart")
+			_phAuraFeetPart3:Destroy()
+		end
+	end
+})
+RightGroupbox16:AddDropdown("LocalAuraType", {
+	Text = "Aura Type",
+	Default = 1,
+	Multi = true,
+	Values = {
+		"Angel Wing",
+		"Blue Lord",
+		"Ethereal Aura",
+		"Godly",
+		"North Star",
+		"Pink Aura",
+		"Super Sayien",
+		"Sweet Heart"
+	},
+	Callback = function(state, arg330)
+	end
+})
+local Divider = RightGroupbox16:AddDivider("Angel Wing Settings")
+local Dropdown6 = RightGroupbox16:AddDropdown("LocalAuraTarget_Angel Wing", {
+	Text = "Angel Wing Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg332)
+	end
+})
+local Slider = RightGroupbox16:AddSlider("LocalAuraRateMult_Angel Wing", {
+	Text = "Angel Wing Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg334)
+	end
+})
+Divider:SetVisible(false)
+Dropdown6:SetVisible(false)
+Slider:SetVisible(false)
+local Divider2 = RightGroupbox16:AddDivider("Blue Lord Settings")
+local Dropdown7 = RightGroupbox16:AddDropdown("LocalAuraTarget_Blue Lord", {
+	Text = "Blue Lord Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg336)
+	end
+})
+local Slider2 = RightGroupbox16:AddSlider("LocalAuraRateMult_Blue Lord", {
+	Text = "Blue Lord Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg338)
+	end
+})
+Divider2:SetVisible(false)
+Dropdown7:SetVisible(false)
+Slider2:SetVisible(false)
+local Divider3 = RightGroupbox16:AddDivider("Ethereal Aura Settings")
+local Dropdown8 = RightGroupbox16:AddDropdown("LocalAuraTarget_Ethereal Aura", {
+	Text = "Ethereal Aura Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg340)
+	end
+})
+local Slider3 = RightGroupbox16:AddSlider("LocalAuraRateMult_Ethereal Aura", {
+	Text = "Ethereal Aura Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg342)
+	end
+})
+Divider3:SetVisible(false)
+Dropdown8:SetVisible(false)
+Slider3:SetVisible(false)
+local Divider4 = RightGroupbox16:AddDivider("Godly Settings")
+local Dropdown9 = RightGroupbox16:AddDropdown("LocalAuraTarget_Godly", {
+	Text = "Godly Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg344)
+	end
+})
+local Slider4 = RightGroupbox16:AddSlider("LocalAuraRateMult_Godly", {
+	Text = "Godly Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg346)
+	end
+})
+Divider4:SetVisible(false)
+Dropdown9:SetVisible(false)
+Slider4:SetVisible(false)
+local Divider5 = RightGroupbox16:AddDivider("North Star Settings")
+local Dropdown10 = RightGroupbox16:AddDropdown("LocalAuraTarget_North Star", {
+	Text = "North Star Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg348)
+	end
+})
+local Slider5 = RightGroupbox16:AddSlider("LocalAuraRateMult_North Star", {
+	Text = "North Star Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg350)
+	end
+})
+Divider5:SetVisible(false)
+Dropdown10:SetVisible(false)
+Slider5:SetVisible(false)
+local Divider6 = RightGroupbox16:AddDivider("Pink Aura Settings")
+local Dropdown11 = RightGroupbox16:AddDropdown("LocalAuraTarget_Pink Aura", {
+	Text = "Pink Aura Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg352)
+	end
+})
+local Slider6 = RightGroupbox16:AddSlider("LocalAuraRateMult_Pink Aura", {
+	Text = "Pink Aura Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg354)
+	end
+})
+Divider6:SetVisible(false)
+Dropdown11:SetVisible(false)
+Slider6:SetVisible(false)
+local Divider7 = RightGroupbox16:AddDivider("Super Sayien Settings")
+local Dropdown12 = RightGroupbox16:AddDropdown("LocalAuraTarget_Super Sayien", {
+	Text = "Super Sayien Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg356)
+	end
+})
+local Slider7 = RightGroupbox16:AddSlider("LocalAuraRateMult_Super Sayien", {
+	Text = "Super Sayien Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg358)
+	end
+})
+Divider7:SetVisible(false)
+Dropdown12:SetVisible(false)
+Slider7:SetVisible(false)
+local Divider8 = RightGroupbox16:AddDivider("Sweet Heart Settings")
+local Dropdown13 = RightGroupbox16:AddDropdown("LocalAuraTarget_Sweet Heart", {
+	Text = "Sweet Heart Target",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg360)
+	end
+})
+local Slider8 = RightGroupbox16:AddSlider("LocalAuraRateMult_Sweet Heart", {
+	Text = "Sweet Heart Rate",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg362)
+	end
+})
+Divider8:SetVisible(false)
+Dropdown13:SetVisible(false)
+Slider8:SetVisible(false)
+Divider7:SetVisible(false)
+Dropdown12:SetVisible(false)
+Slider7:SetVisible(false)
+Divider5:SetVisible(false)
+Dropdown10:SetVisible(false)
+Slider5:SetVisible(false)
+Divider2:SetVisible(false)
+Dropdown7:SetVisible(false)
+Slider2:SetVisible(false)
+Divider4:SetVisible(false)
+Dropdown9:SetVisible(false)
+Slider4:SetVisible(false)
+Divider6:SetVisible(false)
+Dropdown11:SetVisible(false)
+Slider6:SetVisible(false)
+Divider8:SetVisible(false)
+Dropdown13:SetVisible(false)
+Slider8:SetVisible(false)
+Divider3:SetVisible(false)
+Dropdown8:SetVisible(false)
+Slider3:SetVisible(false)
+Divider:SetVisible(false)
+Dropdown6:SetVisible(false)
+Slider:SetVisible(false)
+RightGroupbox16:AddDropdown("LocalAuraTarget", {
+	Text = "Aura Target Part",
+	Default = "Auto",
+	Multi = false,
+	Values = {
+		"Auto",
+		"Under Feet",
+		"HumanoidRootPart",
+		"Head",
+		"Torso",
+		"Right Arm",
+		"Left Arm",
+		"Right Leg",
+		"Left Leg"
+	},
+	Callback = function(state, arg364)
+	end
+})
+RightGroupbox16:AddInput("LocalAuraCustom", {
+	Text = "Custom Aura ID",
+	Default = "",
+	Finished = true,
+	Numeric = false,
+	Placeholder = "Asset ID...",
+	Callback = function(arg365, arg366)
+		arg365:match("^%s*(.-)%s*$")
+	end
+})
+RightGroupbox16:AddSlider("LocalAuraRateMult", {
+	Text = "Particle Rate Multiplier",
+	Default = 1,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg368)
+	end
+})
+local LeftGroupbox19 = Tab10:AddLeftGroupbox("Visual Effects Configuration")
+local Dropdown14 = LeftGroupbox19:AddDropdown("FXSelect", {
+	Text = "Select Effect to Configure",
+	Default = 1,
+	Values = { "Halo", "Aura", "Angel Wings", "Trail" },
+	Callback = function(state, arg370)
+	end
+})
+LeftGroupbox19:AddDivider()
+LeftGroupbox19:AddDivider("Halo Settings")
+local Toggle3 = LeftGroupbox19:AddToggle("HaloEnable", {
+	Text = "Enable Halo",
+	Default = false,
+	Callback = function(state, arg372)
+		if state then
+			ParticleEmitter.Enabled = state
+			ParticleEmitter2.Enabled = state
+		else
+			ParticleEmitter.Enabled = false
+			ParticleEmitter2.Enabled = false
+		end
+	end
+})
+Toggle3:AddColorPicker("HaloColor", {
+	Title = "Halo Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg374)
+		if state then
+			ParticleEmitter.Color = ColorSequence.new(state)
+			ParticleEmitter2.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter.Color = ColorSequence.new(false)
+			ParticleEmitter2.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloRate", {
+	Text = "Halo Particle Rate",
+	Default = 7,
+	Max = 50,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg376)
+		if state then
+			ParticleEmitter.Rate = state
+			ParticleEmitter2.Rate = state
+		else
+			ParticleEmitter.Rate = false
+			ParticleEmitter2.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloBrightness", {
+	Text = "Halo Brightness",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg378)
+		if state then
+			ParticleEmitter.Brightness = state
+			ParticleEmitter2.Brightness = state
+		else
+			ParticleEmitter.Brightness = false
+			ParticleEmitter2.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("HaloHeight", {
+	Text = "Halo Height (Y)",
+	Default = 1.5,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg380)
+	end
+})
+LeftGroupbox19:AddSlider("HaloSide", {
+	Text = "Halo Side (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg382)
+	end
+})
+LeftGroupbox19:AddSlider("HaloDepth", {
+	Text = "Halo Depth (Z)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg384)
+	end
+})
+LeftGroupbox19:AddSlider("HaloRingHeight", {
+	Text = "Halo Ring Height Offset",
+	Default = 0.93,
+	Max = 3,
+	Min = -2,
+	Rounding = 2,
+	Callback = function(state, arg386)
+		if state then
+			Attachment.CFrame = CFrame.new(-0.25, state, 0.25, 0.4689, -0.2499, -0.8471, -0.1171, 0.933, -0.3401, 0.8754, 0.2587, 0.4082)
+		else
+			Attachment.CFrame = CFrame.new(-0.25, false, 0.25, 0.4689, -0.2499, -0.8471, -0.1171, 0.933, -0.3401, 0.8754, 0.2587, 0.4082)
+		end
+	end
+})
+LeftGroupbox19:AddDivider("Aura Settings")
+local Toggle4 = LeftGroupbox19:AddToggle("AuraEnable", {
+	Text = "Enable Aura",
+	Default = false,
+	Callback = function(state, arg388)
+		if state then
+			ParticleEmitter3.Enabled = state
+			ParticleEmitter4.Enabled = state
+			ParticleEmitter5.Enabled = state
+		else
+			ParticleEmitter3.Enabled = false
+			ParticleEmitter4.Enabled = false
+			ParticleEmitter5.Enabled = false
+		end
+	end
+})
+Toggle4:AddColorPicker("AuraColor", {
+	Title = "Aura Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg390)
+		if state then
+			ParticleEmitter3.Color = ColorSequence.new(state)
+			ParticleEmitter4.Color = ColorSequence.new(state)
+			ParticleEmitter5.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter3.Color = ColorSequence.new(false)
+			ParticleEmitter4.Color = ColorSequence.new(false)
+			ParticleEmitter5.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraRate", {
+	Text = "Aura Particle Rate",
+	Default = 20,
+	Max = 60,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg392)
+		if state then
+			ParticleEmitter3.Rate = state
+			ParticleEmitter4.Rate = state
+			ParticleEmitter5.Rate = state
+		else
+			ParticleEmitter3.Rate = false
+			ParticleEmitter4.Rate = false
+			ParticleEmitter5.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraBrightness", {
+	Text = "Aura Brightness",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg394)
+		if state then
+			ParticleEmitter3.Brightness = state
+			ParticleEmitter4.Brightness = state
+			ParticleEmitter5.Brightness = state
+		else
+			ParticleEmitter3.Brightness = false
+			ParticleEmitter4.Brightness = false
+			ParticleEmitter5.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AuraHeight", {
+	Text = "Aura Height (Y)",
+	Default = 0,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg396)
+	end
+})
+LeftGroupbox19:AddSlider("AuraSide", {
+	Text = "Aura Side (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg398)
+	end
+})
+LeftGroupbox19:AddSlider("AuraDepth", {
+	Text = "Aura Depth (Z)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg400)
+	end
+})
+LeftGroupbox19:AddDivider("Angel Wings Settings")
+local Toggle5 = LeftGroupbox19:AddToggle("AngelEnable", {
+	Text = "Enable Angel Wings",
+	Default = false,
+	Callback = function(state, arg402)
+		if state then
+			ParticleEmitter6.Enabled = state
+			ParticleEmitter7.Enabled = state
+			ParticleEmitter8.Enabled = state
+		else
+			ParticleEmitter6.Enabled = false
+			ParticleEmitter7.Enabled = false
+			ParticleEmitter8.Enabled = false
+		end
+	end
+})
+Toggle5:AddColorPicker("AngelColor", {
+	Title = "Wings Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg404)
+		if state then
+			ParticleEmitter6.Color = ColorSequence.new(state)
+			ParticleEmitter7.Color = ColorSequence.new(state)
+			ParticleEmitter8.Color = ColorSequence.new(state)
+		else
+			ParticleEmitter6.Color = ColorSequence.new(false)
+			ParticleEmitter7.Color = ColorSequence.new(false)
+			ParticleEmitter8.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelRate", {
+	Text = "Wings Particle Rate",
+	Default = 4,
+	Max = 30,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg406)
+		if state then
+			ParticleEmitter6.Rate = state
+			ParticleEmitter7.Rate = state
+		else
+			ParticleEmitter6.Rate = false
+			ParticleEmitter7.Rate = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelBrightness", {
+	Text = "Wings Brightness",
+	Default = 1,
+	Max = 5,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg408)
+		if state then
+			ParticleEmitter6.Brightness = state
+			ParticleEmitter7.Brightness = state
+			ParticleEmitter8.Brightness = state
+		else
+			ParticleEmitter6.Brightness = false
+			ParticleEmitter7.Brightness = false
+			ParticleEmitter8.Brightness = false
+		end
+	end
+})
+LeftGroupbox19:AddSlider("AngelHeight", {
+	Text = "Wings Height Offset (Y)",
+	Default = 0,
+	Max = 5,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg410)
+	end
+})
+LeftGroupbox19:AddSlider("AngelSide", {
+	Text = "Wings Side Offset (X)",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 1,
+	Callback = function(state, arg412)
+	end
+})
+LeftGroupbox19:AddSlider("AngelSpread", {
+	Text = "Wings Spread",
+	Default = 1,
+	Max = 3,
+	Min = 0.3,
+	Rounding = 1,
+	Callback = function(arg413, arg414)
+		Attachment2.CFrame = (CFrame.new((-1.012 * arg413), 0.5, 0.852) * CFrame.Angles(0, 0.26179938779914941, 0))
+		Attachment3.CFrame = (CFrame.new((1.167 * arg413), 0.5, 0.852) * CFrame.Angles(0, -0.26179938779914941, 0))
+	end
+})
+LeftGroupbox19:AddDivider("Trail Settings")
+local Toggle6 = LeftGroupbox19:AddToggle("TrailEnable", {
+	Text = "Enable Trail",
+	Default = false,
+	Callback = function(state, arg416)
+		if state then
+			Trail.Enabled = state
+		else
+			Trail.Enabled = false
+		end
+	end
+})
+Toggle6:AddColorPicker("TrailColor", {
+	Title = "Trail Color",
+	Default = Color3.fromRGB(133, 220, 255),
+	Callback = function(state, arg418)
+		if state then
+			Trail.Color = ColorSequence.new(state)
+		else
+			Trail.Color = ColorSequence.new(false)
+		end
+	end
+})
+LeftGroupbox19:AddSlider("TrailWidth", {
+	Text = "Trail Width",
+	Default = 1.5,
+	Max = 5,
+	Min = 0.2,
+	Rounding = 1,
+	Callback = function(arg419, arg420)
+		Trail.WidthScale = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.4, ((0.6 * arg419) / 1.5)), NumberSequenceKeypoint.new(0.7, ((0.25 * arg419) / 1.5)), NumberSequenceKeypoint.new(1, 0) })
+		Attachment5.Position = Vector3.new(0, (arg419 / 2), 0)
+		Attachment6.Position = Vector3.new(0, ((-arg419) / 2), 0)
+	end
+})
+LeftGroupbox19:AddSlider("TrailLifetime", {
+	Text = "Trail Lifetime",
+	Default = 0.4,
+	Max = 3,
+	Min = 0.05,
+	Rounding = 2,
+	Callback = function(state, arg422)
+		if state then
+			Trail.Lifetime = state
+		else
+			Trail.Lifetime = false
+		end
+	end
+})
+
+Dropdown14:SetValue("Halo")
+local RightGroupbox17 = Tab10:AddRightGroupbox("Rainbow Settings")
+RightGroupbox17:AddToggle("RainbowEnable", {
+	Text = "Enable Rainbow Mode",
+	Default = false,
+	Callback = function(state, arg424)
+	end
+})
+RightGroupbox17:AddSlider("RainbowSpeed", {
+	Text = "Rainbow Speed",
+	Default = 0.5,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg426)
+	end
+})
+RightGroupbox17:AddToggle("RainbowHalo", {
+	Text = "Apply Rainbow to Halo",
+	Default = true,
+	Callback = function(state, arg428)
+	end
+})
+RightGroupbox17:AddToggle("RainbowAura", {
+	Text = "Apply Rainbow to Aura",
+	Default = true,
+	Callback = function(state, arg430)
+	end
+})
+RightGroupbox17:AddToggle("RainbowAngel", {
+	Text = "Apply Rainbow to Wings",
+	Default = true,
+	Callback = function(state, arg432)
+	end
+})
+RightGroupbox17:AddToggle("RainbowTrail", {
+	Text = "Apply Rainbow to Trail",
+	Default = true,
+	Callback = function(state, arg434)
+	end
+})
+local LeftGroupbox20 = Tab11:AddLeftGroupbox("Toy ESP")
+LeftGroupbox20:AddToggle("ShurikenESP", {
+	Text = "Shuriken (AntiKick) ESP",
+	Default = false,
+	Callback = function(state, arg436)
+		if state then
+			RunService.Heartbeat:Connect(function(deltaTime13)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime14)
+			end)
+		end
+	end
+})
+LeftGroupbox20:AddDropdown("ShurikenColorMode", {
+	Text = "Shuriken Color Mode",
+	Default = "Rainbow",
+	Values = { "Rainbow", "Custom" },
+	Callback = function(state, arg438)
+	end
+})
+local Label11 = LeftGroupbox20:AddLabel("Shuriken Custom Color")
+Label11:AddColorPicker("ShurikenSolidColor", {
+	Title = "Shuriken Custom Color",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg440)
+	end
+})
+LeftGroupbox20:AddSlider("ShurikenESPTrans", {
+	Text = "Shuriken Transparency",
+	Default = 0.3,
+	Max = 1,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg442)
+	end
+})
+LeftGroupbox20:AddDivider()
+LeftGroupbox20:AddToggle("BlobmanESP", {
+	Text = "Blobman ESP",
+	Default = false,
+	Callback = function(state, arg444)
+		if state then
+			RunService.Heartbeat:Connect(function(deltaTime15)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime16)
+			end)
+		end
+	end
+})
+LeftGroupbox20:AddDropdown("BlobmanColorMode", {
+	Text = "Blobman Color Mode",
+	Default = "Rainbow",
+	Values = { "Rainbow", "Custom" },
+	Callback = function(state, arg446)
+	end
+})
+local Label12 = LeftGroupbox20:AddLabel("Blobman Custom Color")
+Label12:AddColorPicker("BlobmanSolidColor", {
+	Title = "Blobman Custom Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg448)
+	end
+})
+LeftGroupbox20:AddSlider("BlobmanESPTrans", {
+	Text = "Blobman Transparency",
+	Default = 0.3,
+	Max = 1,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg450)
+	end
+})
+LeftGroupbox20:AddDivider()
+LeftGroupbox20:AddSlider("ESPRainbowSpeed", {
+	Text = "Rainbow ESP Speed",
+	Default = 2,
+	Max = 10,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg452)
+	end
+})
+local LeftGroupbox21 = Tab12:AddLeftGroupbox("Visual Effects")
+local RightGroupbox18 = Tab12:AddRightGroupbox("Notifications")
+LeftGroupbox21:AddToggle("OceanRainbow", {
+	Text = "Ocean Rainbow",
+	Default = false,
+	Callback = function(state, arg454)
+		if state then
+			local Map = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects = Map:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean = AlwaysHereTweenedObjects:FindFirstChild("Ocean")
+			local descendants10 = Ocean:GetDescendants()
+			for i28, v44 in ipairs(descendants10) do
+			end
+			Ocean.DescendantAdded:Connect(function(descendant6)
+			end)
+			RunService.Heartbeat:Connect(function(deltaTime17)
+			end)
+			_NOTIFY("Sea Rainbow ON", 3)
+		else
+			v44.Color = v44.Color
+			_NOTIFY("OFF", 3)
+		end
+	end
+})
+LeftGroupbox21:AddButton({
+	Text = "Cleanup All Visual Effects",
+	Func = function(arg455, arg456)
+		result3.Toggles.LocationDetector:SetValue(false)
+		result3.Toggles.OceanRainbow:SetValue(false)
+		result3.Toggles.ShurikenESP:SetValue(false)
+		result3.Toggles.MCTexEnabled:SetValue(false)
+		result3.Toggles.MCFontEnabled:SetValue(false)
+		_NOTIFY("All visuals cleaned up", 3)
+	end
+})
+local RightGroupbox19 = Tab12:AddRightGroupbox("Minecraft Texture & Font")
+RightGroupbox19:AddToggle("MCTexEnabled", {
+	Text = "Enable Minecraft Textures",
+	Default = false,
+	Callback = function(state, arg458)
+		if state then
+			workspace:GetDescendants()
+			Part:GetFullName()
+			Part2:GetFullName()
+			Part3:GetFullName()
+			Part4:GetFullName()
+			_NOTIFY("Applied: 0 | Skipped: 4", 3)
+		else
+			_NOTIFY("Original textures restored.", 3)
+		end
+	end
+})
+RightGroupbox19:AddSlider("MCTileSize", {
+	Text = "Studs Per Tile",
+	Default = 4,
+	Max = 16,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg460)
+		workspace:GetDescendants()
+		Part:GetChildren()
+		Part2:GetChildren()
+		Part3:GetChildren()
+		Part4:GetChildren()
+	end
+})
+RightGroupbox19:AddToggle("MCTexDebug", {
+	Text = "Debug Log (Texture)",
+	Default = false,
+	Callback = function(state, arg462)
+	end
+})
+RightGroupbox19:AddDivider()
+RightGroupbox19:AddToggle("MCFontEnabled", {
+	Text = "Enable Minecraft Font",
+	Default = false,
+	Callback = function(state, arg464)
+		if state then
+			local descendants11 = PlayerGui:GetDescendants()
+			for i29, v45 in ipairs(descendants11) do
+				v45.FontFace = Font.new("rbxassetid://12187371840")
+				v45:GetFullName()
+			end
+			_NOTIFY("Applied Minecraft font to 1 elements.", 3)
+		else
+			v45.FontFace = v45.FontFace
+			_NOTIFY("Restored original fonts.", 3)
+		end
+	end
+})
+RightGroupbox19:AddToggle("MCFontAutoApply", {
+	Text = "Auto Apply to New Elements",
+	Default = false,
+	Callback = function(state, arg466)
+		if state then
+			local connection13 = PlayerGui.DescendantAdded:Connect(function(descendant7)
+				task.defer(function(...)
+				end)
+			end)
+		else
+			connection13:Disconnect()
+		end
+	end
+})
+RightGroupbox19:AddToggle("MCFontDebug", {
+	Text = "Debug Log (Font)",
+	Default = false,
+	Callback = function(state, arg468)
+	end
+})
+_G.kickNotifyConnection = nil
+RightGroupbox18:AddToggle("KickNotify", {
+	Text = "Kick Notify",
+	Default = false,
+	Callback = function(state, arg470)
+		if state then
+			local connection14 = workspace.ChildAdded:Connect(function(child10)
+				child10.Name:lower()
+			end)
+			_G.kickNotifyConnection = connection14
+			_NOTIFY("Kick Notify: Enabled", 2)
+		else
+			connection14:Disconnect()
+			_G.kickNotifyConnection = nil
+			_NOTIFY("Kick Notify: Disabled", 2)
+		end
+	end
+})
+local LeftGroupbox22 = Tab12:AddLeftGroupbox("Location Detector ESP (PCLD)")
+local Toggle7 = LeftGroupbox22:AddToggle("LocationDetector", {
+	Text = "Enable PCLD ESP",
+	Default = false,
+	Callback = function(state, arg472)
+		if state then
+			local PoophubLocationEsp = CoreGui:FindFirstChild("PoophubLocationEsp")
+			PoophubLocationEsp:Destroy()
+			local PoophubLocationParts = workspace:FindFirstChild("PoophubLocationParts")
+			PoophubLocationParts:Destroy()
+			local ScreenGui4 = Instance.new("ScreenGui")
+			ScreenGui4.Name = "PoophubLocationEsp"
+			ScreenGui4.ResetOnSpawn = false
+			ScreenGui4.IgnoreGuiInset = true
+			ScreenGui4.Parent = CoreGui
+			local Folder8 = Instance.new("Folder")
+			Folder8.Name = "PoophubLocationParts"
+			Folder8.Parent = workspace
+			workspace:GetDescendants()
+			local connection15 = workspace.DescendantAdded:Connect(function(descendant8)
+			end)
+			local connection16 = workspace.DescendantRemoving:Connect(function(descendant9)
+			end)
+			RunService.RenderStepped:Connect(function(deltaTime18)
+			end)
+			_NOTIFY("PCLD ESP ON", 3)
+		else
+			connection15:Disconnect()
+			connection16:Disconnect()
+			ScreenGui4:Destroy()
+			Folder8:Destroy()
+			_NOTIFY("PCLD ESP OFF", 3)
+		end
+	end
+})
+Toggle7:AddColorPicker("PCLD_Color", {
+	Title = "PCLD Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg474)
+	end
+})
+local Toggle8 = LeftGroupbox22:AddToggle("PCLD_GradientEnabled", {
+	Text = "Enable Gradient Color",
+	Default = false,
+	Callback = function(state, arg476)
+	end
+})
+Toggle8:AddColorPicker("PCLD_GradientColor1", {
+	Title = "Gradient Color 1",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg478)
+	end
+})
+Toggle8:AddColorPicker("PCLD_GradientColor2", {
+	Title = "Gradient Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg480)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GradientSpeed", {
+	Text = "Gradient Cycle Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg482)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_UIGradientAngle", {
+	Text = "Gradient Angle",
+	Default = 0,
+	Max = 360,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg484)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_UIGradientAutoRotate", {
+	Text = "Gradient Auto Rotate",
+	Default = false,
+	Callback = function(state, arg486)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_UIGradientAutoSpeed", {
+	Text = "Auto Rotate Speed",
+	Default = 20,
+	Max = 100,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg488)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_CornerEnabled", {
+	Text = "Enable Corner Render",
+	Default = true,
+	Callback = function(state, arg490)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_Thickness", {
+	Text = "Corner Line Thickness",
+	Default = 2,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg492)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_CornerRoundness", {
+	Text = "Corner Roundness",
+	Default = 0,
+	Max = 50,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg494)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_Length", {
+	Text = "Corner Line Length",
+	Default = 12,
+	Max = 50,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg496)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_RotationSpeed", {
+	Text = "Rotation Speed",
+	Default = 90,
+	Max = 360,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg498)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_ExpandSpeed", {
+	Text = "Breathing Expand Speed",
+	Default = 3,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg500)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_MinRadius", {
+	Text = "Min Pulse Radius",
+	Default = 15,
+	Max = 100,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg502)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_MaxRadius", {
+	Text = "Max Pulse Radius",
+	Default = 35,
+	Max = 150,
+	Min = 5,
+	Rounding = 1,
+	Callback = function(state, arg504)
+	end
+})
+local Toggle9 = LeftGroupbox22:AddToggle("PCLD_CornerOutline", {
+	Text = "Corner Outline",
+	Default = false,
+	Callback = function(state, arg506)
+	end
+})
+Toggle9:AddColorPicker("PCLD_CornerOutlineColor", {
+	Title = "Corner Outline Color",
+	Default = Color3.fromRGB(0, 0, 0),
+	Callback = function(state, arg508)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_CornerOutlineThick", {
+	Text = "Corner Outline Thickness",
+	Default = 1,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg510)
+	end
+})
+LeftGroupbox22:AddToggle("PCLD_SmoothingEnabled", {
+	Text = "Enable Smooth Lerp",
+	Default = true,
+	Callback = function(state, arg512)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_SmoothingSpeed", {
+	Text = "Smoothing Responsiveness",
+	Default = 15,
+	Max = 50,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg514)
+	end
+})
+local Toggle10 = LeftGroupbox22:AddToggle("PCLD_PartEnabled", {
+	Text = "Enable 3D Part Box",
+	Default = false,
+	Callback = function(state, arg516)
+	end
+})
+Toggle10:AddColorPicker("PCLD_PartColor", {
+	Title = "Part Box Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg518)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_PartTransparency", {
+	Text = "Part Transparency",
+	Default = 70,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(arg519, arg520)
+	end
+})
+LeftGroupbox22:AddDropdown("PCLD_PartMaterial", {
+	Text = "Part Material",
+	Default = "Neon",
+	Values = { "Neon", "ForceField", "Glass", "SmoothPlastic", "Metal", "Wood" },
+	Callback = function(state, arg522)
+	end
+})
+local Toggle11 = LeftGroupbox22:AddToggle("PCLD_BoxOutline", {
+	Text = "Part Box Outline",
+	Default = false,
+	Callback = function(state, arg524)
+	end
+})
+Toggle11:AddColorPicker("PCLD_BoxOutlineColor", {
+	Title = "Box Outline Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg526)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_BoxOutlineThick", {
+	Text = "Box Outline Thickness",
+	Default = 5,
+	Max = 100,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(arg527, arg528)
+	end
+})
+local Toggle12 = LeftGroupbox22:AddToggle("PCLD_TrailEnabled", {
+	Text = "Enable Box Trail",
+	Default = false,
+	Callback = function(state, arg530)
+	end
+})
+Toggle12:AddColorPicker("PCLD_TrailColor", {
+	Title = "Trail Color",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg532)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_TrailLifetime", {
+	Text = "Trail Lifetime",
+	Default = 0.5,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg534)
+	end
+})
+local Toggle13 = LeftGroupbox22:AddToggle("PCLD_GlowEnabled", {
+	Text = "Enable Glow",
+	Default = false,
+	Callback = function(state, arg536)
+	end
+})
+Toggle13:AddColorPicker("PCLD_GlowColor1", {
+	Title = "Glow Color 1",
+	Default = Color3.fromRGB(160, 0, 255),
+	Callback = function(state, arg538)
+	end
+})
+Toggle13:AddColorPicker("PCLD_GlowColor2", {
+	Title = "Glow Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg540)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GlowTransparency", {
+	Text = "Glow Transparency",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(arg541, arg542)
+	end
+})
+LeftGroupbox22:AddSlider("PCLD_GlowSize", {
+	Text = "Glow Size",
+	Default = 20,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg544)
+	end
+})
+local LeftGroupbox23 = Tab12:AddLeftGroupbox("Crosshair Control")
+LeftGroupbox23:AddToggle("ShowCrosshairToggle", {
+	Text = "Show Crosshair",
+	Default = true,
+	Callback = function(state, arg546)
+		if state then
+			local Crosshairs = Players.LocalPlayer.PlayerGui:FindFirstChild("Crosshairs")
+			Crosshairs.Enabled = state
+		else
+			local Crosshairs2 = Players.LocalPlayer.PlayerGui:FindFirstChild("Crosshairs")
+			Crosshairs2.Enabled = false
+		end
+	end
+})
+local LeftGroupbox24 = Tab11:AddLeftGroupbox("Noks Premium ESP")
+LeftGroupbox24:AddToggle("NoksEspMaster", {
+	Text = "Enable Premium ESP",
+	Default = false,
+	Callback = function(state, arg548)
+	end
+})
+local LeftGroupbox25 = Tab11:AddLeftGroupbox("Player Box Overlay")
+local Toggle14 = LeftGroupbox25:AddToggle("NoksBoxEnable", {
+	Text = "Enable Box Render",
+	Default = false,
+	Callback = function(state, arg550)
+	end
+})
+Toggle14:AddColorPicker("NoksBoxColor1", {
+	Title = "Box Color 1",
+	Default = Color3.fromRGB(180, 140, 255),
+	Callback = function(state, arg552)
+	end
+})
+local Toggle15 = LeftGroupbox25:AddToggle("NoksBoxGradient", {
+	Text = "Enable Box Gradient",
+	Default = false,
+	Callback = function(state, arg554)
+	end
+})
+Toggle15:AddColorPicker("NoksBoxColor2", {
+	Title = "Box Color 2",
+	Default = Color3.fromRGB(100, 50, 200),
+	Callback = function(state, arg556)
+	end
+})
+local Toggle16 = LeftGroupbox25:AddToggle("NoksBoxOutline", {
+	Text = "Enable Box Outline",
+	Default = false,
+	Callback = function(state, arg558)
+	end
+})
+Toggle16:AddColorPicker("NoksBoxOutlineColor1", {
+	Title = "Outline Color 1",
+	Default = Color3.fromRGB(10, 10, 10),
+	Callback = function(state, arg560)
+	end
+})
+local Toggle17 = LeftGroupbox25:AddToggle("NoksBoxOutlineGradient", {
+	Text = "Enable Outline Gradient",
+	Default = false,
+	Callback = function(state, arg562)
+	end
+})
+Toggle17:AddColorPicker("NoksBoxOutlineColor2", {
+	Title = "Outline Color 2",
+	Default = Color3.fromRGB(40, 40, 40),
+	Callback = function(state, arg564)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxStrokeThickness", {
+	Text = "Outline Thickness",
+	Default = 1.5,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg566)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxStrokeTrans", {
+	Text = "Outline Transparency (%)",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg568)
+	end
+})
+LeftGroupbox25:AddSlider("NoksBoxCornerRadius", {
+	Text = "Box Smooth Corners (px)",
+	Default = 4,
+	Max = 20,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg570)
+	end
+})
+LeftGroupbox25:AddSlider("NoksMaxBoxHeight", {
+	Text = "Max ESP Box Height (px)",
+	Default = 350,
+	Max = 1000,
+	Min = 50,
+	Rounding = 1,
+	Callback = function(state, arg572)
+	end
+})
+local LeftGroupbox26 = Tab11:AddLeftGroupbox("Player Identity Overlay")
+local Toggle18 = LeftGroupbox26:AddToggle("NoksNameEnable", {
+	Text = "Enable Text Name",
+	Default = false,
+	Callback = function(state, arg574)
+	end
+})
+Toggle18:AddColorPicker("NoksNameColor", {
+	Title = "Text Base Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg576)
+	end
+})
+local Toggle19 = LeftGroupbox26:AddToggle("NoksNameGradient", {
+	Text = "Use Seamless Gradient Loop",
+	Default = false,
+	Callback = function(state, arg578)
+	end
+})
+Toggle19:AddColorPicker("NoksTextGradColor1", {
+	Title = "Grad Left",
+	Default = Color3.fromRGB(255, 110, 110),
+	Callback = function(state, arg580)
+	end
+})
+Toggle19:AddColorPicker("NoksTextGradColor2", {
+	Title = "Grad Right",
+	Default = Color3.fromRGB(255, 230, 110),
+	Callback = function(state, arg582)
+	end
+})
+LeftGroupbox26:AddSlider("NoksNameScrollSpeed", {
+	Text = "Chroma Wave Velocity",
+	Default = 4,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg584)
+	end
+})
+LeftGroupbox26:AddDropdown("NoksTextFont", {
+	Text = "Global Text Font",
+	Default = "GothamBold",
+	Values = { "GothamBold", "SourceSansBold", "Arcade", "Roboto" },
+	Callback = function(state, arg586)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextSize", {
+	Text = "Text Font Size",
+	Default = 11,
+	Max = 16,
+	Min = 8,
+	Rounding = 1,
+	Callback = function(state, arg588)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextStrokeThickness", {
+	Text = "Text Shadow Thickness",
+	Default = 1,
+	Max = 3,
+	Min = 0.5,
+	Rounding = 1,
+	Callback = function(state, arg590)
+	end
+})
+LeftGroupbox26:AddSlider("NoksTextStrokeTrans", {
+	Text = "Text Shadow Trans (%)",
+	Default = 30,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg592)
+	end
+})
+local LeftGroupbox27 = Tab11:AddLeftGroupbox("Target Tracer Lines")
+local Toggle20 = LeftGroupbox27:AddToggle("NoksLineEnable", {
+	Text = "Enable Snaplines",
+	Default = false,
+	Callback = function(state, arg594)
+	end
+})
+Toggle20:AddColorPicker("NoksLineColor1", {
+	Title = "Line Color 1",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg596)
+	end
+})
+local Toggle21 = LeftGroupbox27:AddToggle("NoksLineGradient", {
+	Text = "Enable Line Gradient",
+	Default = false,
+	Callback = function(state, arg598)
+	end
+})
+Toggle21:AddColorPicker("NoksLineColor2", {
+	Title = "Line Color 2",
+	Default = Color3.fromRGB(255, 0, 150),
+	Callback = function(state, arg600)
+	end
+})
+LeftGroupbox27:AddSlider("NoksLineThickness", {
+	Text = "Line Core Width",
+	Default = 2,
+	Max = 6,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg602)
+	end
+})
+local Toggle22 = LeftGroupbox27:AddToggle("NoksLineOutline", {
+	Text = "Enable Line Shadow",
+	Default = false,
+	Callback = function(state, arg604)
+	end
+})
+Toggle22:AddColorPicker("NoksLineOutlineColor", {
+	Title = "Line Shadow Color",
+	Default = Color3.fromRGB(0, 0, 0),
+	Callback = function(state, arg606)
+	end
+})
+LeftGroupbox27:AddSlider("NoksLineStrokeThickness", {
+	Text = "Line Shadow Thickness",
+	Default = 1,
+	Max = 4,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg608)
+	end
+})
+LeftGroupbox27:AddDropdown("NoksLineOrigin", {
+	Text = "Line Origin Position",
+	Default = "Bottom",
+	Values = { "Top", "Center", "Bottom", "Mouse" },
+	Callback = function(state, arg610)
+	end
+})
+LeftGroupbox27:AddDropdown("NoksLineAttachment", {
+	Text = "Line Target Position",
+	Default = "Bottom",
+	Values = { "Top", "Center", "Bottom" },
+	Callback = function(state, arg612)
+	end
+})
+local RightGroupbox20 = Tab11:AddRightGroupbox("Indicators & Flags")
+RightGroupbox20:AddToggle("NoksHealthBarEnable", {
+	Text = "Enable Premium Health Bar",
+	Default = false,
+	Callback = function(state, arg614)
+	end
+})
+RightGroupbox20:AddSlider("NoksHealthBarWidth", {
+	Text = "Health Bar Width",
+	Default = 3,
+	Max = 8,
+	Min = 2,
+	Rounding = 1,
+	Callback = function(state, arg616)
+	end
+})
+RightGroupbox20:AddSlider("NoksHealthBarOffset", {
+	Text = "Health Bar Offset",
+	Default = 6,
+	Max = 15,
+	Min = 4,
+	Rounding = 1,
+	Callback = function(state, arg618)
+	end
+})
+RightGroupbox20:AddToggle("NoksHealthTextEnable", {
+	Text = "Show Health Percentage Text",
+	Default = false,
+	Callback = function(state, arg620)
+	end
+})
+local Toggle23 = RightGroupbox20:AddToggle("NoksHealthGradient", {
+	Text = "Enable 3-Color Gradient",
+	Default = false,
+	Callback = function(state, arg622)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad1", {
+	Title = "High Health",
+	Default = Color3.fromRGB(50, 255, 100),
+	Callback = function(state, arg624)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad2", {
+	Title = "Mid Health",
+	Default = Color3.fromRGB(255, 220, 50),
+	Callback = function(state, arg626)
+	end
+})
+Toggle23:AddColorPicker("NoksHealthGrad3", {
+	Title = "Low Health",
+	Default = Color3.fromRGB(255, 50, 50),
+	Callback = function(state, arg628)
+	end
+})
+local Toggle24 = RightGroupbox20:AddToggle("NoksDistanceEnable", {
+	Text = "Show Distance (Studs)",
+	Default = false,
+	Callback = function(state, arg630)
+	end
+})
+Toggle24:AddColorPicker("NoksDistanceColor", {
+	Title = "Distance Color",
+	Default = Color3.fromRGB(240, 240, 240),
+	Callback = function(state, arg632)
+	end
+})
+RightGroupbox20:AddSlider("NoksMaxDistance", {
+	Text = "Max Render Distance",
+	Default = 2000,
+	Max = 5000,
+	Min = 100,
+	Rounding = 1,
+	Callback = function(state, arg634)
+	end
+})
+RightGroupbox20:AddToggle("NoksFlagsEnable", {
+	Text = "Enable Premium Flags ESP",
+	Default = false,
+	Callback = function(state, arg636)
+	end
+})
+RightGroupbox20:AddSlider("NoksFlagSpacing", {
+	Text = "Flag Spacing",
+	Default = 2,
+	Max = 10,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg638)
+	end
+})
+RightGroupbox20:AddSlider("NoksFlagTextSize", {
+	Text = "Flag Text Size",
+	Default = 9,
+	Max = 16,
+	Min = 6,
+	Rounding = 1,
+	Callback = function(state, arg640)
+	end
+})
+local Toggle25 = RightGroupbox20:AddToggle("NoksFlagNameEnable", {
+	Text = "Show UserID Flag",
+	Default = true,
+	Callback = function(state, arg642)
+	end
+})
+Toggle25:AddColorPicker("NoksFlagNameColor", {
+	Title = "UserID Color",
+	Default = Color3.fromRGB(220, 220, 220),
+	Callback = function(state, arg644)
+	end
+})
+local Toggle26 = RightGroupbox20:AddToggle("NoksFlagWeaponEnable", {
+	Text = "Show Weapon Flag",
+	Default = true,
+	Callback = function(state, arg646)
+	end
+})
+Toggle26:AddColorPicker("NoksFlagWeaponColor", {
+	Title = "Weapon Color",
+	Default = Color3.fromRGB(200, 200, 200),
+	Callback = function(state, arg648)
+	end
+})
+local Toggle27 = RightGroupbox20:AddToggle("NoksFlagStateEnable", {
+	Text = "Show State Flag",
+	Default = true,
+	Callback = function(state, arg650)
+	end
+})
+Toggle27:AddColorPicker("NoksFlagStateColor", {
+	Title = "State Color",
+	Default = Color3.fromRGB(255, 150, 50),
+	Callback = function(state, arg652)
+	end
+})
+local RightGroupbox21 = Tab11:AddRightGroupbox("Box Internal Fill")
+RightGroupbox21:AddToggle("NoksBoxFill", {
+	Text = "Use Translucent Fill",
+	Default = false,
+	Callback = function(state, arg654)
+	end
+})
+local Toggle28 = RightGroupbox21:AddToggle("NoksGradientFill", {
+	Text = "Use Gradient Fill",
+	Default = false,
+	Callback = function(state, arg656)
+	end
+})
+Toggle28:AddColorPicker("NoksGradientColor1", {
+	Title = "Gradient Node 1",
+	Default = Color3.fromRGB(140, 90, 255),
+	Callback = function(state, arg658)
+	end
+})
+Toggle28:AddColorPicker("NoksGradientColor2", {
+	Title = "Gradient Node 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg660)
+	end
+})
+RightGroupbox21:AddSlider("NoksBoxFillOpacity1", {
+	Text = "Node 1 Opacity (%)",
+	Default = 25,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg662)
+	end
+})
+RightGroupbox21:AddSlider("NoksBoxFillOpacity2", {
+	Text = "Node 2 Opacity (%)",
+	Default = 5,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg664)
+	end
+})
+RightGroupbox21:AddToggle("NoksGradientRotate", {
+	Text = "Auto Rotate Spectrum",
+	Default = false,
+	Callback = function(state, arg666)
+	end
+})
+RightGroupbox21:AddSlider("NoksRotateSpeed", {
+	Text = "Rotation Velocity",
+	Default = 3,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg668)
+	end
+})
+local RightGroupbox22 = Tab11:AddRightGroupbox("Cinematic Effects")
+RightGroupbox22:AddToggle("NoksFadeOutEnable", {
+	Text = "Player Death Fade Out",
+	Default = false,
+	Callback = function(state, arg670)
+	end
+})
+RightGroupbox22:AddSlider("NoksFadeDuration", {
+	Text = "Fade Out Speed (Seconds)",
+	Default = 1.2,
+	Max = 5,
+	Min = 0.2,
+	Rounding = 1,
+	Callback = function(state, arg672)
+	end
+})
+local RightGroupbox23 = Tab11:AddRightGroupbox("Premium Glow Chams")
+local Toggle29 = RightGroupbox23:AddToggle("NoksChamsEnable", {
+	Text = "Enable Character Chams",
+	Default = false,
+	Callback = function(state, arg674)
+	end
+})
+Toggle29:AddColorPicker("NoksChamsFillColor", {
+	Title = "Chams Fill",
+	Default = Color3.fromRGB(140, 90, 255),
+	Callback = function(state, arg676)
+	end
+})
+Toggle29:AddColorPicker("NoksChamsOutlineColor", {
+	Title = "Chams Outline",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg678)
+	end
+})
+RightGroupbox23:AddSlider("NoksChamsFillTransparency", {
+	Text = "Fill Opacity (%)",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg680)
+	end
+})
+RightGroupbox23:AddSlider("NoksChamsOutlineTransparency", {
+	Text = "Outline Opacity (%)",
+	Default = 0,
+	Max = 100,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg682)
+	end
+})
+RightGroupbox23:AddDropdown("NoksChamsOcclusion", {
+	Text = "Occlusion Mode",
+	Default = "Always See",
+	Values = { "Always See", "Behind Wall Only" },
+	Callback = function(state, arg684)
+	end
+})
+local RightGroupbox24 = Tab11:AddRightGroupbox("Skeleton Settings")
+RightGroupbox24:AddToggle("NoksSkeletonEnable", {
+	Text = "Enable Skeleton ESP",
+	Default = false,
+	Callback = function(state, arg686)
+	end
+})
+RightGroupbox24:AddSlider("NoksSkeletonThickness", {
+	Text = "Bone Width",
+	Default = 2,
+	Max = 5,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg688)
+	end
+})
+local Toggle30 = RightGroupbox24:AddToggle("NoksSkeletonGradient", {
+	Text = "Enable Bone Gradient",
+	Default = false,
+	Callback = function(state, arg690)
+	end
+})
+Toggle30:AddColorPicker("NoksSkeletonColor1", {
+	Title = "Bone Color 1",
+	Default = Color3.fromRGB(180, 140, 255),
+	Callback = function(state, arg692)
+	end
+})
+Toggle30:AddColorPicker("NoksSkeletonColor2", {
+	Title = "Bone Color 2",
+	Default = Color3.fromRGB(0, 230, 255),
+	Callback = function(state, arg694)
+	end
+})
+RightGroupbox24:AddToggle("NoksSkeletonScroll", {
+	Text = "Chroma Wave Animation",
+	Default = false,
+	Callback = function(state, arg696)
+	end
+})
+RightGroupbox24:AddSlider("NoksSkeletonScrollSpeed", {
+	Text = "Wave Speed",
+	Default = 4,
+	Max = 10,
+	Min = 1,
+	Rounding = 1,
+	Callback = function(state, arg698)
+	end
+})
+local ColorCorrectionEffect2 = Instance.new("ColorCorrectionEffect")
+ColorCorrectionEffect2.Name = "_ph_cc"
+ColorCorrectionEffect2.Enabled = false
+ColorCorrectionEffect2.Saturation = 0
+ColorCorrectionEffect2.Contrast = 0
+ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 255, 255)
+ColorCorrectionEffect2.Brightness = 0
+ColorCorrectionEffect2.Parent = Lighting
+local BloomEffect2 = Instance.new("BloomEffect")
+BloomEffect2.Name = "_ph_bloom"
+BloomEffect2.Threshold = 0.9
+BloomEffect2.Enabled = false
+BloomEffect2.Intensity = 0.5
+BloomEffect2.Size = 24
+BloomEffect2.Parent = Lighting
+local SunRaysEffect2 = Instance.new("SunRaysEffect")
+SunRaysEffect2.Name = "_ph_sun"
+SunRaysEffect2.Enabled = false
+SunRaysEffect2.Spread = 0.5
+SunRaysEffect2.Intensity = 0.1
+SunRaysEffect2.Parent = Lighting
+local DepthOfFieldEffect2 = Instance.new("DepthOfFieldEffect")
+DepthOfFieldEffect2.Name = "_ph_dof"
+DepthOfFieldEffect2.Enabled = false
+DepthOfFieldEffect2.FarIntensity = 0
+DepthOfFieldEffect2.FocusDistance = 50
+DepthOfFieldEffect2.InFocusRadius = 10
+DepthOfFieldEffect2.NearIntensity = 1
+DepthOfFieldEffect2.Parent = Lighting
+local BlurEffect2 = Instance.new("BlurEffect")
+BlurEffect2.Name = "_ph_blur"
+BlurEffect2.Enabled = false
+BlurEffect2.Size = 0
+BlurEffect2.Parent = Lighting
+local LeftGroupbox28 = Tab13:AddLeftGroupbox("Lighting Changer")
+local RightGroupbox25 = Tab13:AddRightGroupbox("Lighting Controls")
+LeftGroupbox28:AddButton({
+	Text = "Reset",
+	Func = function(arg699, arg700)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Winter",
+	Func = function(arg701, arg702)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(180, 200, 255)
+		ColorCorrectionEffect2.Saturation = 0.1
+		ColorCorrectionEffect2.Contrast = 0.2
+		ColorCorrectionEffect2.Brightness = 0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.6
+		BloomEffect2.Size = 24
+		BloomEffect2.Threshold = 0.7
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.1
+		SunRaysEffect2.Spread = 0.5
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Sunset",
+	Func = function(arg703, arg704)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 160, 80)
+		ColorCorrectionEffect2.Saturation = 0.35
+		ColorCorrectionEffect2.Contrast = 0.2
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 1
+		BloomEffect2.Size = 32
+		BloomEffect2.Threshold = 0.55
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.3
+		SunRaysEffect2.Spread = 0.85
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Night",
+	Func = function(arg705, arg706)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(100, 110, 180)
+		ColorCorrectionEffect2.Saturation = -0.2
+		ColorCorrectionEffect2.Contrast = 0.25
+		ColorCorrectionEffect2.Brightness = -0.3
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 16
+		BloomEffect2.Threshold = 0.8
+		BloomEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Horror",
+	Func = function(arg707, arg708)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(180, 100, 100)
+		ColorCorrectionEffect2.Saturation = -0.7
+		ColorCorrectionEffect2.Contrast = 0.5
+		ColorCorrectionEffect2.Brightness = -0.25
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.15
+		BloomEffect2.Size = 8
+		BloomEffect2.Threshold = 0.95
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 4
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Vivid",
+	Func = function(arg709, arg710)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 255, 255)
+		ColorCorrectionEffect2.Saturation = 0.9
+		ColorCorrectionEffect2.Contrast = 0.3
+		ColorCorrectionEffect2.Brightness = 0.15
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 1.5
+		BloomEffect2.Size = 40
+		BloomEffect2.Threshold = 0.5
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.2
+		SunRaysEffect2.Spread = 0.6
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Cinema",
+	Func = function(arg711, arg712)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(240, 230, 200)
+		ColorCorrectionEffect2.Saturation = -0.1
+		ColorCorrectionEffect2.Contrast = 0.4
+		ColorCorrectionEffect2.Brightness = -0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.4
+		BloomEffect2.Size = 20
+		BloomEffect2.Threshold = 0.85
+		BloomEffect2.Enabled = true
+		DepthOfFieldEffect2.FarIntensity = 0.6
+		DepthOfFieldEffect2.NearIntensity = 0
+		DepthOfFieldEffect2.FocusDistance = 30
+		DepthOfFieldEffect2.InFocusRadius = 12
+		DepthOfFieldEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Underwater",
+	Func = function(arg713, arg714)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(80, 160, 200)
+		ColorCorrectionEffect2.Saturation = 0.2
+		ColorCorrectionEffect2.Contrast = -0.1
+		ColorCorrectionEffect2.Brightness = -0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.8
+		BloomEffect2.Size = 30
+		BloomEffect2.Threshold = 0.6
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 8
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Cyberpunk",
+	Func = function(arg715, arg716)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(160, 100, 255)
+		ColorCorrectionEffect2.Saturation = 0.6
+		ColorCorrectionEffect2.Contrast = 0.45
+		ColorCorrectionEffect2.Brightness = -0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 2
+		BloomEffect2.Size = 48
+		BloomEffect2.Threshold = 0.4
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.05
+		SunRaysEffect2.Spread = 0.3
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Foggy",
+	Func = function(arg717, arg718)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(210, 215, 220)
+		ColorCorrectionEffect2.Saturation = -0.3
+		ColorCorrectionEffect2.Contrast = 0.1
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 24
+		BloomEffect2.Threshold = 0.7
+		BloomEffect2.Enabled = true
+		BlurEffect2.Size = 12
+		BlurEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Autumn",
+	Func = function(arg719, arg720)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(255, 190, 100)
+		ColorCorrectionEffect2.Saturation = 0.4
+		ColorCorrectionEffect2.Contrast = 0.15
+		ColorCorrectionEffect2.Brightness = 0.05
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.5
+		BloomEffect2.Size = 20
+		BloomEffect2.Threshold = 0.75
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.15
+		SunRaysEffect2.Spread = 0.6
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Nature",
+	Func = function(arg721, arg722)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(200, 240, 180)
+		ColorCorrectionEffect2.Saturation = 0.5
+		ColorCorrectionEffect2.Contrast = 0.1
+		ColorCorrectionEffect2.Brightness = 0.1
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.7
+		BloomEffect2.Size = 28
+		BloomEffect2.Threshold = 0.65
+		BloomEffect2.Enabled = true
+		SunRaysEffect2.Intensity = 0.2
+		SunRaysEffect2.Spread = 0.7
+		SunRaysEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Random",
+	Func = function(arg723, arg724)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+		ColorCorrectionEffect2.TintColor = Color3.fromRGB(100, 110, 180)
+		ColorCorrectionEffect2.Saturation = -0.2
+		ColorCorrectionEffect2.Contrast = 0.25
+		ColorCorrectionEffect2.Brightness = -0.3
+		ColorCorrectionEffect2.Enabled = true
+		BloomEffect2.Intensity = 0.3
+		BloomEffect2.Size = 16
+		BloomEffect2.Threshold = 0.8
+		BloomEffect2.Enabled = true
+	end
+})
+LeftGroupbox28:AddButton({
+	Text = "Disable All Effects",
+	Func = function(arg725, arg726)
+		ColorCorrectionEffect2.Enabled = false
+		BloomEffect2.Enabled = false
+		SunRaysEffect2.Enabled = false
+		DepthOfFieldEffect2.Enabled = false
+		BlurEffect2.Enabled = false
+	end
+})
+do
+local Toggle31 = RightGroupbox25:AddToggle("lc_cc_on", {
+	Text = "Color Correction",
+	Default = false,
+	Callback = function(state, arg728)
+		if state then
+			ColorCorrectionEffect2.Enabled = state
+		else
+			ColorCorrectionEffect2.Enabled = false
+		end
+	end
+})
+Toggle31:AddColorPicker("lc_cc_tint", {
+	Title = "Tint Color",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(state, arg730)
+		if state then
+			ColorCorrectionEffect2.TintColor = state
+		else
+			ColorCorrectionEffect2.TintColor = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_sat", {
+	Text = "Saturation",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg731, arg732)
+		ColorCorrectionEffect2.Saturation = (arg731 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_con", {
+	Text = "Contrast",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg733, arg734)
+		ColorCorrectionEffect2.Contrast = (arg733 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_cc_bri", {
+	Text = "Brightness",
+	Default = 0,
+	Max = 200,
+	Min = -100,
+	Rounding = 0,
+	Callback = function(arg735, arg736)
+		ColorCorrectionEffect2.Brightness = (arg735 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_bloom_on", {
+	Text = "Bloom",
+	Default = false,
+	Callback = function(state, arg738)
+		if state then
+			BloomEffect2.Enabled = state
+		else
+			BloomEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_int", {
+	Text = "Bloom Intensity",
+	Default = 50,
+	Max = 1000,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg739, arg740)
+		BloomEffect2.Intensity = (arg739 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_size", {
+	Text = "Bloom Size",
+	Default = 24,
+	Max = 56,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg742)
+		if state then
+			BloomEffect2.Size = state
+		else
+			BloomEffect2.Size = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_bloom_thresh", {
+	Text = "Bloom Threshold",
+	Default = 90,
+	Max = 200,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg743, arg744)
+		BloomEffect2.Threshold = (arg743 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_sun_on", {
+	Text = "Sun Rays",
+	Default = false,
+	Callback = function(state, arg746)
+		if state then
+			SunRaysEffect2.Enabled = state
+		else
+			SunRaysEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_sun_int", {
+	Text = "Sun Intensity",
+	Default = 10,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg747, arg748)
+		SunRaysEffect2.Intensity = (arg747 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_sun_spread", {
+	Text = "Sun Spread",
+	Default = 50,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg749, arg750)
+		SunRaysEffect2.Spread = (arg749 / 100)
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_dof_on", {
+	Text = "Depth of Field",
+	Default = false,
+	Callback = function(state, arg752)
+		if state then
+			DepthOfFieldEffect2.Enabled = state
+		else
+			DepthOfFieldEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_far", {
+	Text = "DOF Far",
+	Default = 0,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg753, arg754)
+		DepthOfFieldEffect2.FarIntensity = (arg753 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_near", {
+	Text = "DOF Near",
+	Default = 100,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(arg755, arg756)
+		DepthOfFieldEffect2.NearIntensity = (arg755 / 100)
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_dist", {
+	Text = "Focus Distance",
+	Default = 50,
+	Max = 500,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg758)
+		if state then
+			DepthOfFieldEffect2.FocusDistance = state
+		else
+			DepthOfFieldEffect2.FocusDistance = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_dof_rad", {
+	Text = "Focus Radius",
+	Default = 10,
+	Max = 100,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg760)
+		if state then
+			DepthOfFieldEffect2.InFocusRadius = state
+		else
+			DepthOfFieldEffect2.InFocusRadius = false
+		end
+	end
+})
+RightGroupbox25:AddDivider()
+RightGroupbox25:AddToggle("lc_blur_on", {
+	Text = "Motion Blur",
+	Default = false,
+	Callback = function(state, arg762)
+		if state then
+			BlurEffect2.Enabled = state
+		else
+			BlurEffect2.Enabled = false
+		end
+	end
+})
+RightGroupbox25:AddSlider("lc_blur_size", {
+	Text = "Blur Size",
+	Default = 0,
+	Max = 56,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg764)
+		if state then
+			BlurEffect2.Size = state
+		else
+			BlurEffect2.Size = false
+		end
+	end
+})
+local RightGroupbox26 = Tab13:AddRightGroupbox("Time & Ambient Aesthetics")
+RightGroupbox26:AddSlider("lc_clock_time", {
+	Text = "Time of Day",
+	Default = 14,
+	Max = 24,
+	Min = 0,
+	Rounding = 1,
+	Callback = function(state, arg766)
+		if state then
+			Lighting.ClockTime = state
+		else
+			Lighting.ClockTime = false
+		end
+	end
+})
+RightGroupbox26:AddToggle("lc_rgb_ambient", {
+	Text = "Rainbow Ambient",
+	Default = false,
+	Callback = function(state, arg768)
+	end
+})
+RightGroupbox26:AddSlider("lc_rgb_speed", {
+	Text = "Rainbow Ambient Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg770)
+	end
+})
+RunService.RenderStepped:Connect(function(deltaTime19)
+end)
+RunService.RenderStepped:Connect(function(deltaTime20)
+	Lighting:FindFirstChild("_ph_cc")
+	Lighting:FindFirstChild("_ph_bloom")
+	Lighting:FindFirstChild("_ph_sun")
+	Lighting:FindFirstChild("_ph_dof")
+	Lighting:FindFirstChild("_ph_blur")
+end)
+RunService.Heartbeat:Connect(function(deltaTime21)
+end)
+local LeftGroupbox29 = Tab13:AddLeftGroupbox("Snow System")
+LeftGroupbox29:AddToggle("SnowToggle", {
+	Text = "Enable Snow",
+	Default = false,
+	Callback = function(state, arg772)
+		if state then
+			local Model = Instance.new("Model", workspace)
+			Model.Name = "_PoophubSnowSystem"
+			local Part6 = Instance.new("Part", Model)
+			Part6.Name = "SNOWPART"
+			Part6.Anchored = true
+			Part6.CanCollide = false
+			Part6.Transparency = 1
+			Part6.Size = Vector3.new(300, 1, 300)
+			local ParticleEmitter9 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter9.Texture = "rbxassetid://118641183"
+			ParticleEmitter9.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter9.Enabled = true
+			ParticleEmitter9.Rate = 60
+			ParticleEmitter9.Speed = NumberRange.new(10, 20)
+			ParticleEmitter9.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter9.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter9.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter9.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter9.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter9.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter9.Drag = 1
+			ParticleEmitter9.LightInfluence = 1
+			ParticleEmitter9.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter9.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter10 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter10.Texture = "rbxassetid://118641183"
+			ParticleEmitter10.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter10.Enabled = true
+			ParticleEmitter10.Rate = 60
+			ParticleEmitter10.Speed = NumberRange.new(10, 20)
+			ParticleEmitter10.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter10.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter10.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter10.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter10.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter10.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter10.Drag = 1
+			ParticleEmitter10.LightInfluence = 1
+			ParticleEmitter10.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter10.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter11 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter11.Texture = "rbxassetid://118641183"
+			ParticleEmitter11.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter11.Enabled = true
+			ParticleEmitter11.Rate = 60
+			ParticleEmitter11.Speed = NumberRange.new(10, 20)
+			ParticleEmitter11.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter11.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter11.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter11.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter11.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter11.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter11.Drag = 1
+			ParticleEmitter11.LightInfluence = 1
+			ParticleEmitter11.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter11.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter12 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter12.Texture = "rbxassetid://118641183"
+			ParticleEmitter12.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter12.Enabled = true
+			ParticleEmitter12.Rate = 60
+			ParticleEmitter12.Speed = NumberRange.new(10, 20)
+			ParticleEmitter12.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter12.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter12.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter12.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter12.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter12.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter12.Drag = 1
+			ParticleEmitter12.LightInfluence = 1
+			ParticleEmitter12.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter12.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter13 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter13.Texture = "rbxassetid://118641183"
+			ParticleEmitter13.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter13.Enabled = true
+			ParticleEmitter13.Rate = 60
+			ParticleEmitter13.Speed = NumberRange.new(10, 20)
+			ParticleEmitter13.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter13.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter13.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter13.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter13.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter13.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter13.Drag = 1
+			ParticleEmitter13.LightInfluence = 1
+			ParticleEmitter13.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter13.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter14 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter14.Texture = "rbxassetid://118641183"
+			ParticleEmitter14.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter14.Enabled = true
+			ParticleEmitter14.Rate = 60
+			ParticleEmitter14.Speed = NumberRange.new(10, 20)
+			ParticleEmitter14.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter14.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter14.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter14.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter14.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter14.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter14.Drag = 1
+			ParticleEmitter14.LightInfluence = 1
+			ParticleEmitter14.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter14.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter15 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter15.Texture = "rbxassetid://118641183"
+			ParticleEmitter15.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter15.Enabled = true
+			ParticleEmitter15.Rate = 60
+			ParticleEmitter15.Speed = NumberRange.new(10, 20)
+			ParticleEmitter15.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter15.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter15.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter15.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter15.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter15.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter15.Drag = 1
+			ParticleEmitter15.LightInfluence = 1
+			ParticleEmitter15.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter15.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter16 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter16.Texture = "rbxassetid://118641183"
+			ParticleEmitter16.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter16.Enabled = true
+			ParticleEmitter16.Rate = 60
+			ParticleEmitter16.Speed = NumberRange.new(10, 20)
+			ParticleEmitter16.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter16.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter16.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter16.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter16.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter16.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter16.Drag = 1
+			ParticleEmitter16.LightInfluence = 1
+			ParticleEmitter16.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter16.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter17 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter17.Texture = "rbxassetid://118641183"
+			ParticleEmitter17.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter17.Enabled = true
+			ParticleEmitter17.Rate = 60
+			ParticleEmitter17.Speed = NumberRange.new(10, 20)
+			ParticleEmitter17.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter17.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter17.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter17.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter17.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter17.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter17.Drag = 1
+			ParticleEmitter17.LightInfluence = 1
+			ParticleEmitter17.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter17.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter18 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter18.Texture = "rbxassetid://118641183"
+			ParticleEmitter18.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter18.Enabled = true
+			ParticleEmitter18.Rate = 60
+			ParticleEmitter18.Speed = NumberRange.new(10, 20)
+			ParticleEmitter18.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter18.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter18.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter18.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter18.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter18.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter18.Drag = 1
+			ParticleEmitter18.LightInfluence = 1
+			ParticleEmitter18.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter18.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter19 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter19.Texture = "rbxassetid://118641183"
+			ParticleEmitter19.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter19.Enabled = true
+			ParticleEmitter19.Rate = 60
+			ParticleEmitter19.Speed = NumberRange.new(10, 20)
+			ParticleEmitter19.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter19.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter19.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter19.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter19.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter19.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter19.Drag = 1
+			ParticleEmitter19.LightInfluence = 1
+			ParticleEmitter19.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter19.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter20 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter20.Texture = "rbxassetid://118641183"
+			ParticleEmitter20.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter20.Enabled = true
+			ParticleEmitter20.Rate = 60
+			ParticleEmitter20.Speed = NumberRange.new(10, 20)
+			ParticleEmitter20.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter20.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter20.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter20.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter20.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter20.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter20.Drag = 1
+			ParticleEmitter20.LightInfluence = 1
+			ParticleEmitter20.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter20.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter21 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter21.Texture = "rbxassetid://118641183"
+			ParticleEmitter21.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter21.Enabled = true
+			ParticleEmitter21.Rate = 60
+			ParticleEmitter21.Speed = NumberRange.new(10, 20)
+			ParticleEmitter21.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter21.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter21.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter21.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter21.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter21.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter21.Drag = 1
+			ParticleEmitter21.LightInfluence = 1
+			ParticleEmitter21.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter21.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter22 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter22.Texture = "rbxassetid://118641183"
+			ParticleEmitter22.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter22.Enabled = true
+			ParticleEmitter22.Rate = 60
+			ParticleEmitter22.Speed = NumberRange.new(10, 20)
+			ParticleEmitter22.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter22.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter22.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter22.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter22.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter22.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter22.Drag = 1
+			ParticleEmitter22.LightInfluence = 1
+			ParticleEmitter22.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter22.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter23 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter23.Texture = "rbxassetid://118641183"
+			ParticleEmitter23.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter23.Enabled = true
+			ParticleEmitter23.Rate = 60
+			ParticleEmitter23.Speed = NumberRange.new(10, 20)
+			ParticleEmitter23.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter23.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter23.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter23.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter23.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter23.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter23.Drag = 1
+			ParticleEmitter23.LightInfluence = 1
+			ParticleEmitter23.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter23.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter24 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter24.Texture = "rbxassetid://118641183"
+			ParticleEmitter24.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter24.Enabled = true
+			ParticleEmitter24.Rate = 60
+			ParticleEmitter24.Speed = NumberRange.new(10, 20)
+			ParticleEmitter24.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter24.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter24.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter24.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter24.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter24.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter24.Drag = 1
+			ParticleEmitter24.LightInfluence = 1
+			ParticleEmitter24.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter24.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter25 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter25.Texture = "rbxassetid://118641183"
+			ParticleEmitter25.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter25.Enabled = true
+			ParticleEmitter25.Rate = 60
+			ParticleEmitter25.Speed = NumberRange.new(10, 20)
+			ParticleEmitter25.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter25.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter25.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter25.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter25.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter25.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter25.Drag = 1
+			ParticleEmitter25.LightInfluence = 1
+			ParticleEmitter25.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter25.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter26 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter26.Texture = "rbxassetid://118641183"
+			ParticleEmitter26.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter26.Enabled = true
+			ParticleEmitter26.Rate = 60
+			ParticleEmitter26.Speed = NumberRange.new(10, 20)
+			ParticleEmitter26.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter26.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter26.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter26.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter26.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter26.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter26.Drag = 1
+			ParticleEmitter26.LightInfluence = 1
+			ParticleEmitter26.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter26.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter27 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter27.Texture = "rbxassetid://118641183"
+			ParticleEmitter27.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter27.Enabled = true
+			ParticleEmitter27.Rate = 60
+			ParticleEmitter27.Speed = NumberRange.new(10, 20)
+			ParticleEmitter27.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter27.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter27.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter27.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter27.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter27.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter27.Drag = 1
+			ParticleEmitter27.LightInfluence = 1
+			ParticleEmitter27.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter27.SpreadAngle = Vector2.new(8, 8)
+			local ParticleEmitter28 = Instance.new("ParticleEmitter", Part6)
+			ParticleEmitter28.Texture = "rbxassetid://118641183"
+			ParticleEmitter28.Color = ColorSequence.new(Color3.new(1, 1, 1))
+			ParticleEmitter28.Enabled = true
+			ParticleEmitter28.Rate = 60
+			ParticleEmitter28.Speed = NumberRange.new(10, 20)
+			ParticleEmitter28.Lifetime = NumberRange.new(4, 10)
+			ParticleEmitter28.Size = NumberSequence.new(0.3, 0.15)
+			ParticleEmitter28.Transparency = NumberSequence.new(0, 1)
+			ParticleEmitter28.EmissionDirection = Enum.NormalId.Bottom
+			ParticleEmitter28.Shape = Enum.ParticleEmitterShape.Box
+			ParticleEmitter28.Acceleration = Vector3.new(0, -5, 0)
+			ParticleEmitter28.Drag = 1
+			ParticleEmitter28.LightInfluence = 1
+			ParticleEmitter28.Rotation = NumberRange.new(0, 360)
+			ParticleEmitter28.SpreadAngle = Vector2.new(8, 8)
+		else
+			Model:Destroy()
+		end
+	end
+})
+LeftGroupbox29:AddSlider("SnowRate", {
+	Text = "Particle Rate",
+	Default = 60,
+	Max = 300,
+	Min = 10,
+	Rounding = 0,
+	Callback = function(state, arg774)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpeedMin", {
+	Text = "Speed Min",
+	Default = 10,
+	Max = 50,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg776)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpeedMax", {
+	Text = "Speed Max",
+	Default = 20,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg778)
+	end
+})
+LeftGroupbox29:AddSlider("SnowHeight", {
+	Text = "Spawn Height",
+	Default = 60,
+	Max = 200,
+	Min = 20,
+	Rounding = 0,
+	Callback = function(state, arg780)
+	end
+})
+LeftGroupbox29:AddSlider("SnowGravity", {
+	Text = "Gravity",
+	Default = 5,
+	Max = 30,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg782)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSpread", {
+	Text = "Wind Spread",
+	Default = 8,
+	Max = 45,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg784)
+	end
+})
+LeftGroupbox29:AddSlider("SnowSizeStart", {
+	Text = "Flake Size",
+	Default = 30,
+	Max = 200,
+	Min = 5,
+	Rounding = 0,
+	Callback = function(arg785, arg786)
+	end
+})
+local Label13 = LeftGroupbox29:AddLabel("Flake Color")
+Label13:AddColorPicker("SnowColor", {
+	Title = "Snow Color",
+	Default = Color3.new(1, 1, 1),
+	Callback = function(state, arg788)
+	end
+})
+local LeftGroupbox30 = Tab14:AddLeftGroupbox("Dance")
+LeftGroupbox30:AddDropdown("DanceType", {
+	Text = "Dance Type",
+	Default = 1,
+	Values = {
+		"Floss Dance",
+		"Ouen Dance",
+		"Head Ball",
+		"Cartoon",
+		"Kawaii",
+		"Cool",
+		"Spider",
+		"Robot Lock",
+		"Disco Point",
+		"Wave Ripple",
+		"Jazz Hands",
+		"Headbang",
+		"Shoulder Shimmy",
+		"Boxer Bounce",
+		"Salsa Hip",
+		"Cheer Jump",
+		"Propeller Arms",
+		"Matrix Lean",
+		"Victory Pump",
+		"Ninja Flow",
+		"Superhero Pose",
+		"Snake Wave",
+		"Staircase Step",
+		"Windmill Arms",
+		"Popcorn Pop",
+		"Clap Along",
+		"Zombie Shuffle",
+		"Koshi huri",
+		"Head dribble",
+		"Angry",
+		"soccer",
+		"Head orbit",
+		"Lol"
+	},
+	Callback = function(state, arg790)
+	end
+})
+LeftGroupbox30:AddSlider("DanceIntensity", {
+	Text = "Dance Intensity",
+	Default = 1,
+	Max = 3,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg792)
+	end
+})
+LeftGroupbox30:AddToggle("RagdollDance", {
+	Text = "Ragdoll Dance ON/OFF",
+	Default = false,
+	Callback = function(state, arg794)
+		if state then
+			task.spawn(function(...)
+				local HumanoidRootPart26 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart26, 1)
+				task.wait(0.05)
+				local HumanoidRootPart27 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				RagdollRemote:FireServer(HumanoidRootPart27, 1)
+				task.wait(0.05)
+			end)
+			fn(Players.LocalPlayer.Character)
+		end
+	end
+})
+local LeftGroupbox31 = Tab14:AddLeftGroupbox("Dance V2")
+LeftGroupbox31:AddDropdown("DanceV2Dropdown", {
+	Text = "Select Dance V2",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { "Click Refresh..." },
+	Callback = function(state, arg796)
+	end
+})
+LeftGroupbox31:AddToggle("DanceV2Toggle", {
+	Text = "Enable Dance V2",
+	Default = false,
+	Callback = function(state, arg798)
+		if state then
+			_NOTIFY("鬮ｫ・ｨ繝ｻ・ｶ驛｢譎｢・ｽ・ｻNo dance data selected/loaded", 3)
+			result3.Toggles.DanceV2Toggle:SetValue(false)
+		else
+			local Humanoid6 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			Humanoid6.PlatformStand = false
+			Humanoid6.AutoRotate = true
+		end
+	end
+})
+LeftGroupbox31:AddButton({
+	Text = "Refresh List",
+	Func = function(arg799, arg800)
+		local response7 = game:HttpGet("https://raw.githubusercontent.com/dcus-official/PoopHub/refs/heads/main/Assets/Emote/List_Json.lua")
+		loadstring(response7)()
+		makefolder("PoopHub")
+		makefolder("PoopHub/FTAP")
+		makefolder("PoopHub/FTAP/Emote")
+		result3.Options.DanceV2Dropdown:SetValues({ "No dances found" })
+		_NOTIFY("Dance list refreshed", 3)
+	end
+})
+local response8 = game:HttpGet("https://raw.githubusercontent.com/dcus-official/PoopHub/refs/heads/main/Assets/Emote/List_Json.lua")
+loadstring(response8)()
+makefolder("PoopHub")
+makefolder("PoopHub/FTAP")
+makefolder("PoopHub/FTAP/Emote")
+result3.Options.DanceV2Dropdown:SetValues({ "No dances found" })
+local RightGroupbox27 = Tab14:AddRightGroupbox("Custom Toy Attachments")
+local players26 = Players:GetPlayers()
+for i30, v46 in ipairs(players26) do
+end
+local Dropdown15 = RightGroupbox27:AddDropdown("ToyTargetPlayer", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { v46.DisplayName .. " @" .. v46.Name },
+	Callback = function(state, arg802)
+		if state then
+			local result9 = state:match("@(.+)$")
+			local child7 = Players:FindFirstChild(result9)
+		end
+	end
+})
+local players27 = Players:GetPlayers()
+for i31, v47 in ipairs(players27) do
+end
+Dropdown15:SetValues({ v47.DisplayName .. " @" .. v47.Name })
+RightGroupbox27:AddButton({
+	Text = "Pencil Dick (Custom)",
+	Func = function(arg803, arg804)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddLabel("Pencil tip: x=free, y=180, z=free")
+RightGroupbox27:AddButton({
+	Text = "Kunai Dick Execute (Custom)",
+	Func = function(arg805, arg806)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddLabel("Kunai tip: x=free, y=90, z=free")
+RightGroupbox27:AddButton({
+	Text = "Katana Dick Execute (Test)",
+	Func = function(arg807, arg808)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		child7.Character:FindFirstChild("Torso")
+	end
+})
+RightGroupbox27:AddSlider("ToyAttachRotX", {
+	Text = "X Axis Rotation",
+	Default = 0,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg810)
+	end
+})
+RightGroupbox27:AddSlider("ToyAttachRotY", {
+	Text = "Y Axis Rotation",
+	Default = 90,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg812)
+	end
+})
+end
+RightGroupbox27:AddSlider("ToyAttachRotZ", {
+	Text = "Z Axis Rotation",
+	Default = 25,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg814)
+	end
+})
+local RightGroupbox28 = Tab14:AddRightGroupbox("Animations")
+RightGroupbox28:AddSlider("AnimSpeed", {
+	Text = "Animation Speed",
+	Default = 1,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg816)
+		if state then
+			track:AdjustSpeed(state)
+			track2:AdjustSpeed(state)
+			track3:AdjustSpeed(state)
+			track4:AdjustSpeed(state)
+			track5:AdjustSpeed(state)
+			track6:AdjustSpeed(state)
+		else
+			track:AdjustSpeed(false)
+			track2:AdjustSpeed(false)
+			track3:AdjustSpeed(false)
+			track4:AdjustSpeed(false)
+			track5:AdjustSpeed(false)
+			track6:AdjustSpeed(false)
+		end
+	end
+})
+RightGroupbox28:AddToggle("FakeKeyboard", {
+	Text = "Fake Keyboard",
+	Default = false,
+	Callback = function(state, arg818)
+		if state then
+			local CharacterEvents5 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			CharacterEvents5:FindFirstChild("ChatTyping")
+			CharacterEvents5.ChatTyping:FireServer("begin")
+		else
+			local CharacterEvents6 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			CharacterEvents6:FindFirstChild("ChatTyping")
+			CharacterEvents6.ChatTyping:FireServer("end")
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayTypingAnim", {
+	Text = "Play Typing Animation",
+	Default = false,
+	Callback = function(state, arg820)
+		if state then
+			track.Looped = true
+			track:AdjustSpeed(false)
+			track:Play()
+		else
+			track:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayCrouchAnim", {
+	Text = "Play Crouch Animation",
+	Default = false,
+	Callback = function(state, arg822)
+		if state then
+			track2.Looped = true
+			track2:AdjustSpeed(false)
+			track2:Play()
+		else
+			track2:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayThrownAnim", {
+	Text = "Play Thrown Animation",
+	Default = false,
+	Callback = function(state, arg824)
+		if state then
+			track3.Looped = true
+			track3:AdjustSpeed(false)
+			track3:Play()
+		else
+			track3:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlaySwayAnim", {
+	Text = "Play Sway Animation",
+	Default = false,
+	Callback = function(state, arg826)
+		if state then
+			track4.Looped = true
+			track4:AdjustSpeed(false)
+			track4:Play()
+		else
+			track4:Stop()
+		end
+	end
+})
+RightGroupbox28:AddToggle("PlayJerkoffAnim", {
+	Text = "Play Jerkoff Animation",
+	Default = false,
+	Callback = function(state, arg828)
+		if state then
+			track5.Looped = true
+			track5:AdjustSpeed(false)
+			track5:Play()
+			track6.Looped = true
+			track6:AdjustSpeed(false)
+			track6:Play()
+		else
+			track5:Stop()
+			track6:Stop()
+		end
+	end
+})
+RightGroupbox28:AddButton({
+	Text = "Stop All Animation",
+	Func = function(arg829, arg830)
+		track:Stop()
+		track2:Stop()
+		track3:Stop()
+		track4:Stop()
+		track5:Stop()
+		track6:Stop()
+	end
+})
+local LeftGroupbox32 = Tab9:AddLeftGroupbox("Torso Freeze")
+local RightGroupbox29 = Tab9:AddRightGroupbox("Blob Sit")
+LeftGroupbox32:AddToggle("TorsoFreeze", {
+	Text = "Torso Freeze [God Mode]",
+	Default = false,
+	Callback = function(state, arg832)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+local players28 = Players:GetPlayers()
+for i32, v48 in ipairs(players28) do
+end
+local Dropdown16 = LeftGroupbox32:AddDropdown("HVHTrackDropdown", {
+	Text = "Select Track Target",
+	Default = 1,
+	Values = { v48.DisplayName .. " @" .. v48.Name },
+	Callback = function(state, arg834)
+		if state then
+			state:match("@(.+)$")
+		end
+	end
+})
+local players29 = Players:GetPlayers()
+for i33, v49 in ipairs(players29) do
+end
+Dropdown16:SetValues({ v49.DisplayName .. " @" .. v49.Name })
+LeftGroupbox32:AddToggle("HVHTrack", {
+	Text = "Track Target (3 studs)",
+	Default = false,
+	Callback = function(state, arg836)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+RightGroupbox29:AddButton({
+	Text = "Blob Spawn & Sit (One Shot)",
+	Func = function(arg837, arg838)
+		_NOTIFY("Please enable GOD MODE first", 3)
+	end
+})
+RightGroupbox29:AddToggle("BlobAutoSit", {
+	Text = "Blob Auto Sit Loop",
+	Default = false,
+	Callback = function(state, arg840)
+		if state then
+			_NOTIFY("Please enable GOD MODE first", 3)
+		else
+			_NOTIFY("Blob Auto Sit: Stopped", 3)
+		end
+	end
+})
+local LeftGroupbox33 = Tab15:AddLeftGroupbox("Shield")
+local RightGroupbox30 = Tab15:AddRightGroupbox("Missile")
+LeftGroupbox33:AddSlider("ToyHeightOffset", {
+	Text = "Height Offset",
+	Default = -4,
+	Max = 20,
+	Min = -20,
+	Rounding = 1,
+	Callback = function(state, arg842)
+	end
+})
+LeftGroupbox33:AddToggle("ShieldToggle", {
+	Text = "Shield ON/OFF",
+	Default = false,
+	Callback = function(arg843, arg844)
+		_G.ShieldActive = true
+		local HumanoidRootPart28 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		local child8 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+		local children5 = child8:GetChildren()
+		for i34, v50 in ipairs(children5) do
+		end
+		task.wait(0.3)
+		SpawnToyRemoteFunction:InvokeServer("GlassBoxGray", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("PalletLightBrown", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("BombMissile", (HumanoidRootPart28.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+	end
+})
+LeftGroupbox33:AddButton({
+	Text = "Refresh Shield",
+	Func = function(arg845, arg846)
+		local HumanoidRootPart29 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		local child9 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+		local children6 = child9:GetChildren()
+		for i35, v51 in ipairs(children6) do
+		end
+		task.wait(0.3)
+		SpawnToyRemoteFunction:InvokeServer("GlassBoxGray", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("PalletLightBrown", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+		SpawnToyRemoteFunction:InvokeServer("BombMissile", (HumanoidRootPart29.CFrame * CFrame.new(0, 0, -3)), Vector3.new(0, 0, 0))
+		task.wait(0.15)
+	end
+})
+local players30 = Players:GetPlayers()
+for i36, v52 in ipairs(players30) do
+end
+RightGroupbox30:AddDropdown("ShieldTarget", {
+	Text = "Target Player",
+	Default = 1,
+	Values = { v52.Name },
+	Callback = function(state, arg848)
+		if state then
+			Players:FindFirstChild(state)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player7)
+	task.wait(1)
+	local players57 = Players:GetPlayers()
+	for i78, v104 in ipairs(players57) do
+	end
+	result3.Options.ShieldTarget:SetValues({ v104.Name })
+end)
+Players.PlayerRemoving:Connect(function(player8)
+	task.wait(0.5)
+	local players58 = Players:GetPlayers()
+	for i79, v105 in ipairs(players58) do
+	end
+	result3.Options.ShieldTarget:SetValues({ v105.Name })
+end)
+RightGroupbox30:AddButton({
+	Text = "Launch 1 Missile -> Target",
+	Func = function(arg849, arg850)
+	end
+})
+RightGroupbox30:AddButton({
+	Text = "Launch ALL -> Random Players",
+	Func = function(arg851, arg852)
+		Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local players31 = Players:GetPlayers()
+		for i37, v53 in ipairs(players31) do
+			v53.Character:FindFirstChild("HumanoidRootPart")
+		end
+	end
+})
+local LeftGroupbox34 = Tab15:AddLeftGroupbox("Tentacle")
+local RightGroupbox31 = Tab15:AddRightGroupbox("Stick Control")
+LeftGroupbox34:AddDropdown("TentSearchMode", {
+	Text = "Search Mode",
+	Default = 1,
+	Values = { "My Toys", "Plot 1", "Plot 2", "Plot 3", "Plot 4", "Plot 5" },
+	Callback = function(state, arg854)
+	end
+})
+LeftGroupbox34:AddDropdown("StickCountDropdown", {
+	Text = "Stick Count",
+	Default = 1,
+	Values = { "1", "2", "3", "4" },
+	Callback = function(state, arg856)
+	end
+})
+LeftGroupbox34:AddToggle("TentacleToggle", {
+	Text = "Tentacle ON/OFF",
+	Default = false,
+	Callback = function(arg857, arg858)
+		_G.TentacleActive = true
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox34:AddButton({
+	Text = "Refresh Tentacle",
+	Func = function(arg859, arg860)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox34:AddSlider("TentSegmentSpacing", {
+	Text = "Segment Spacing",
+	Default = 4,
+	Max = 7,
+	Min = 2,
+	Rounding = 1,
+	Callback = function(state, arg862)
+	end
+})
+LeftGroupbox34:AddSlider("TentBendStrength", {
+	Text = "Bend Strength",
+	Default = 40,
+	Max = 120,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg864)
+	end
+})
+LeftGroupbox34:AddSlider("TentTwistAngle", {
+	Text = "Twist Angle",
+	Default = 0,
+	Max = 180,
+	Min = -180,
+	Rounding = 0,
+	Callback = function(state, arg866)
+	end
+})
+LeftGroupbox34:AddToggle("TentWiggleToggle", {
+	Text = "Wiggle ON/OFF",
+	Default = false,
+	Callback = function(state, arg868)
+	end
+})
+LeftGroupbox34:AddSlider("TentWiggleSpeed", {
+	Text = "Wiggle Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg870)
+	end
+})
+LeftGroupbox34:AddLabel("-- Stick Tracking --")
+local players32 = Players:GetPlayers()
+for i38, v54 in ipairs(players32) do
+end
+LeftGroupbox34:AddDropdown("StickTrackTarget", {
+	Text = "Track: Target Player",
+	Default = 1,
+	Values = { v54.Name },
+	Callback = function(state, arg872)
+		if state then
+			Players:FindFirstChild(state)
+		else
+			Players:FindFirstChild(false)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player9)
+	task.wait(1)
+	local players59 = Players:GetPlayers()
+	for i80, v106 in ipairs(players59) do
+	end
+	result3.Options.StickTrackTarget:SetValues({ v106.Name })
+end)
+Players.PlayerRemoving:Connect(function(player10)
+	task.wait(0.5)
+	local players60 = Players:GetPlayers()
+	for i81, v107 in ipairs(players60) do
+	end
+	result3.Options.StickTrackTarget:SetValues({ v107.Name })
+end)
+LeftGroupbox34:AddDropdown("StickTrackIndex", {
+	Text = "Track: Stick No.",
+	Default = 1,
+	Values = { "Stick 1", "Stick 2", "Stick 3", "Stick 4" },
+	Callback = function(state, arg874)
+		Players:FindFirstChild(result3.Options.StickTrackTarget.Value)
+	end
+})
+LeftGroupbox34:AddToggle("StickTrackToggle", {
+	Text = "Stick Tracking ON/OFF",
+	Default = false,
+	Callback = function(state, arg876)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 1 --")
+RightGroupbox31:AddSlider("Stick1UpDown", {
+	Text = "[1] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg878)
+	end
+})
+RightGroupbox31:AddSlider("Stick1LeftRight", {
+	Text = "[1] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg880)
+	end
+})
+RightGroupbox31:AddSlider("Stick1ForwardBack", {
+	Text = "[1] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg882)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 2 --")
+RightGroupbox31:AddSlider("Stick2UpDown", {
+	Text = "[2] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg884)
+	end
+})
+RightGroupbox31:AddSlider("Stick2LeftRight", {
+	Text = "[2] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg886)
+	end
+})
+RightGroupbox31:AddSlider("Stick2ForwardBack", {
+	Text = "[2] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg888)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 3 --")
+RightGroupbox31:AddSlider("Stick3UpDown", {
+	Text = "[3] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg890)
+	end
+})
+RightGroupbox31:AddSlider("Stick3LeftRight", {
+	Text = "[3] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg892)
+	end
+})
+RightGroupbox31:AddSlider("Stick3ForwardBack", {
+	Text = "[3] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg894)
+	end
+})
+RightGroupbox31:AddLabel("-- Stick 4 --")
+RightGroupbox31:AddSlider("Stick4UpDown", {
+	Text = "[4] Up / Down",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg896)
+	end
+})
+RightGroupbox31:AddSlider("Stick4LeftRight", {
+	Text = "[4] Left / Right",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg898)
+	end
+})
+RightGroupbox31:AddSlider("Stick4ForwardBack", {
+	Text = "[4] Forward / Back",
+	Default = 0,
+	Max = 3,
+	Min = -3,
+	Rounding = 2,
+	Callback = function(state, arg900)
+	end
+})
+local LeftGroupbox35 = Tab15:AddLeftGroupbox("Prop Controller")
+local RightGroupbox32 = Tab15:AddRightGroupbox("Prop Export")
+LeftGroupbox35:AddDropdown("PropSearchMode", {
+	Text = "Search Mode",
+	Default = 1,
+	Values = { "My Toys", "Plot 1", "Plot 2", "Plot 3", "Plot 4", "Plot 5" },
+	Callback = function(state, arg902)
+	end
+})
+LeftGroupbox35:AddDropdown("PropModeDropdown", {
+	Text = "Mode",
+	Default = 1,
+	Values = { "Fly", "Walk" },
+	Callback = function(state, arg904)
+	end
+})
+LeftGroupbox35:AddSlider("PropWalkSpeed", {
+	Text = "Walk Anim Speed",
+	Default = 1,
+	Max = 5,
+	Min = 0.1,
+	Rounding = 1,
+	Callback = function(state, arg906)
+	end
+})
+LeftGroupbox35:AddToggle("PropsToggle", {
+	Text = "Props ON/OFF",
+	Default = false,
+	Callback = function(arg907, arg908)
+		_G.PropsActive = true
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+LeftGroupbox35:AddToggle("PropHeadToggle", {
+	Text = "head",
+	Default = false,
+	Callback = function(state, arg910)
+	end
+})
+LeftGroupbox35:AddButton({
+	Text = "Refresh Props",
+	Func = function(arg911, arg912)
+		Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+	end
+})
+RightGroupbox32:AddButton({
+	Text = "Copy Settings (JSON)",
+	Func = function(arg913, arg914)
+		setclipboard("[\n  {\"name\":\"LadderLightBrown\",\"index\":1,\"x\":-0.7,\"y\":8,\"z\":5.1,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"LadderLightBrown\",\"index\":2,\"x\":6.5,\"y\":8,\"z\":0.2,\"rx\":-180,\"ry\":89,\"rz\":0},\n  {\"name\":\"LadderLightBrown\",\"index\":3,\"x\":-5.6,\"y\":8,\"z\":-0.7,\"rx\":0,\"ry\":89,\"rz\":-180},\n  {\"name\":\"PalletLightBrown\",\"index\":1,\"x\":0.2,\"y\":20,\"z\":0,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":2,\"x\":0.2,\"y\":30.2,\"z\":0,\"rx\":0,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":3,\"x\":0.2,\"y\":24.9,\"z\":-5.1,\"rx\":89,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":4,\"x\":6,\"y\":24.9,\"z\":0,\"rx\":89,\"ry\":-180,\"rz\":89},\n  {\"name\":\"PalletLightBrown\",\"index\":5,\"x\":0.2,\"y\":24.9,\"z\":5.1,\"rx\":89,\"ry\":0,\"rz\":0},\n  {\"name\":\"PalletLightBrown\",\"index\":6,\"x\":-5.1,\"y\":24.9,\"z\":0,\"rx\":89,\"ry\":0,\"rz\":89},\n  {\"name\":\"SpotlightRed\",\"index\":1,\"x\":-2.2,\"y\":26.3,\"z\":-7,\"rx\":0,\"ry\":-87,\"rz\":0},\n  {\"name\":\"SpotlightRed\",\"index\":2,\"x\":3.6,\"y\":24.9,\"z\":-7.5,\"rx\":-180,\"ry\":89,\"rz\":0},\n  {\"name\":\"YouDecoy\",\"index\":1,\"x\":0,\"y\":23,\"z\":-3.1,\"rx\":0,\"ry\":0,\"rz\":0}\n]")
+	end
+})
+local LeftGroupbox36 = Tab16:AddLeftGroupbox("Plot")
+LeftGroupbox36:AddButton({
+	Text = "House Owner",
+	Func = function(arg915, arg916)
+		local HumanoidRootPart30 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+		task.spawn(function(...)
+			HumanoidRootPart30.CFrame = CFrame.new(259, -7, 468)
+			task.wait(0.1)
+			task.spawn(function(...)
+			end)
+			task.wait(0.01)
+		end)
+		_NOTIFY("House Owner: Execution complete", 3)
+	end
+})
+local LeftGroupbox37 = Tab16:AddLeftGroupbox("Barrier Break")
+LeftGroupbox37:AddButton({
+	Text = "Barrier Break",
+	Func = function(arg917, arg918)
+		Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local Humanoid7 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		Humanoid7.WalkSpeed = 0
+	end
+})
+LeftGroupbox37:AddToggle("AutoBarrierBreakToggle", {
+	Text = "Auto Barrier Break Beta",
+	Default = false,
+	Callback = function(state, arg920)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				local Humanoid8 = Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid8.WalkSpeed = 0
+			end)
+		end
+	end
+})
+local Circle = Drawing.new("Circle")
+Circle.Thickness = 1.5
+Circle.NumSides = 64
+Circle.Color = Color3.fromRGB(255, 255, 255)
+Circle.Filled = false
+Circle.Visible = false
+game.Players.PlayerAdded:Connect(function(player11)
+	local players61 = game.Players:GetPlayers()
+	for i82, v108 in ipairs(players61) do
+	end
+	Dropdown17:SetValues({ "(none)", v108.Name })
+end)
+game.Players.PlayerRemoving:Connect(function(player12)
+	local players62 = game.Players:GetPlayers()
+	for i83, v109 in ipairs(players62) do
+	end
+	Dropdown17:SetValues({ "(none)", v109.Name })
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+RunService.RenderStepped:Connect(function(deltaTime22)
+	Circle.Visible = false
+end)
+local RightGroupbox33 = Tab16:AddRightGroupbox("Trigger Bot")
+local RightGroupbox34 = Tab16:AddRightGroupbox("Trigger Bot Setting")
+RightGroupbox33:AddToggle("TriggerBotEnabled", {
+	Text = "Enable Trigger Bot",
+	Default = false,
+	Callback = function(state, arg922)
+	end
+})
+RightGroupbox33:AddToggle("TriggerPrediction", {
+	Text = "Velocity Prediction",
+	Default = true,
+	Callback = function(state, arg924)
+	end
+})
+RightGroupbox33:AddDropdown("TriggerTargetMode", {
+	Text = "Target Mode",
+	Default = 1,
+	Values = { "All Players", "Single", "Multiple" },
+	Callback = function(state, arg926)
+	end
+})
+local players33 = game.Players:GetPlayers()
+for i39, v55 in ipairs(players33) do
+end
+local Dropdown17 = RightGroupbox34:AddDropdown("TriggerSingleTarget", {
+	Text = "Single Target",
+	Default = 1,
+	Values = { "(none)", v55.Name },
+	Callback = function(state, arg928)
+	end
+})
+local clone = workspace.CurrentCamera:Clone()
+clone.Parent = workspace
+clone.Name = "SilentCamera"
+Players.LocalPlayer.Character:WaitForChild("Humanoid", 3)
+Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 3)
+Players.LocalPlayer:FindFirstChild("CurrentReach")
+Players.LocalPlayer.CharacterAdded:Connect(function(character11)
+	character11:WaitForChild("Humanoid", 3)
+	character11:WaitForChild("HumanoidRootPart", 3)
+	Players.LocalPlayer:FindFirstChild("CurrentReach")
+end)
+RunService.RenderStepped:Connect(function(deltaTime23)
+end)
+workspace.DescendantAdded:Connect(function(descendant10)
+end)
+workspace.DescendantRemoving:Connect(function(descendant11)
+end)
+workspace:GetDescendants()
+hookmetamethod(game, "__namecall", function(arg929, arg930)
+	hookmetamethod(arg929, arg930, nil)
+end)
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
+ReplicatedFirst:FindFirstChild("GrabParts")
+UserInputService.InputBegan:Connect(function(input7, gameProcessed7)
+end)
+local RightGroupbox35 = Tab16:AddRightGroupbox("Silent Aim")
+RightGroupbox35:AddToggle("SilentAimEnabled", {
+	Text = "Enable Silent Aim",
+	Default = false,
+	Callback = function(state, arg932)
+		if state then
+			workspace.CurrentCamera = clone
+		else
+			workspace.CurrentCamera = workspace.CurrentCamera
+		end
+	end
+})
+RightGroupbox35:AddDropdown("SilentAimMode", {
+	Text = "Aim Mode",
+	Default = "Camera",
+	Values = { "Camera", "Raycast", "V2 (Fake Grab)" },
+	Callback = function(state, arg934)
+		workspace.CurrentCamera = workspace.CurrentCamera
+	end
+})
+RightGroupbox35:AddSlider("SilentAimStrength", {
+	Text = "Aim Strength",
+	Default = 50,
+	Max = 100,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg936)
+	end
+})
+RightGroupbox35:AddSlider("SilentAimReach", {
+	Text = "Max Reach (studs)",
+	Default = 30,
+	Max = 200,
+	Min = 1,
+	Rounding = 0,
+	Callback = function(state, arg938)
+	end
+})
+local LeftGroupbox38 = Tab18:AddLeftGroupbox("Theme")
+result4:SetLibrary(result3)
+result5:SetLibrary(result3)
+result5:IgnoreThemeSettings()
+result5:SetIgnoreIndexes({ "MenuKeybind" })
+result5:SetFolder("PoopHUB")
+result4:ApplyToGroupbox(LeftGroupbox38)
+result5:BuildConfigSection(Tab18)
+local RightGroupbox36 = Tab18:AddRightGroupbox("Background Image")
+RightGroupbox36:AddToggle("BgImageEnabled", {
+	Text = "Enable Background Image",
+	Default = false,
+	Callback = function(state, arg940)
+		if state then
+			result3.Window:EnableBackgroundImage(state)
+		else
+			result3.Window:EnableBackgroundImage(false)
+		end
+	end
+})
+RightGroupbox36:AddInput("BgImageURL", {
+	Text = "Image URL / Asset ID",
+	Default = "",
+	Finished = false,
+	Numeric = false,
+	Placeholder = "https://... or rbxassetid://...",
+	Callback = function(state, arg942)
+		if state then
+			result3.Window:SetBackgroundImage(state)
+		else
+			result3.Window:SetBackgroundImage(false)
+		end
+	end
+})
+local LeftGroupbox39 = Tab18:AddLeftGroupbox("Notification Sounds")
+LeftGroupbox39:AddToggle("NotificationSoundOn", {
+	Text = "Enable Sound",
+	Default = false,
+	Callback = function(state, arg944)
+	end
+})
+LeftGroupbox39:AddDropdown("NotificationSoundSelect", {
+	Text = "Notify Sound",
+	Default = 1,
+	Values = {
+		"Ahh~",
+		"Hit Marker",
+		"I got this",
+		"Mambo",
+		"Minecraft",
+		"Minecraft 2",
+		"Neverlose",
+		"Onichan",
+		"Poop",
+		"Rust",
+		"Villager Died",
+		"WTF",
+		"Zaako"
+	},
+	Callback = function(state, arg946)
+	end
+})
+LeftGroupbox39:AddButton({
+	Text = "Preview Sound",
+	Func = function(arg947, arg948)
+	end
+})
+local ScreenGui5 = Instance.new("ScreenGui")
+ScreenGui5.Name = "VerticalMoveUI"
+ScreenGui5.ResetOnSpawn = false
+ScreenGui5.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui5.IgnoreGuiInset = true
+local PlayerGui5 = Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui5.Parent = PlayerGui5
+local Frame2 = Instance.new("Frame")
+Frame2.Size = UDim2.new(0, 90, 0, 200)
+Frame2.Position = UDim2.new(1, -110, 0.5, -100)
+Frame2.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame2.BackgroundTransparency = 0.3
+Frame2.BorderSizePixel = 0
+Frame2.Active = true
+Frame2.Parent = ScreenGui5
+local UICorner = Instance.new("UICorner", Frame2)
+UICorner.CornerRadius = UDim.new(0, 12)
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, 0, 0, 30)
+TextLabel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+TextLabel.BackgroundTransparency = 0.3
+TextLabel.BorderSizePixel = 0
+TextLabel.Text = "Up/Down"
+TextLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+TextLabel.TextSize = 14
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Parent = Frame2
+local UICorner2 = Instance.new("UICorner", TextLabel)
+UICorner2.CornerRadius = UDim.new(0, 12)
+local TextButton2 = Instance.new("TextButton")
+TextButton2.Size = UDim2.new(1, -10, 0, 70)
+TextButton2.Position = UDim2.new(0, 5, 0, 35)
+TextButton2.BackgroundColor3 = Color3.fromRGB(50, 120, 220)
+TextButton2.BorderSizePixel = 0
+TextButton2.Text = "Up"
+TextButton2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton2.TextSize = 16
+TextButton2.Font = Enum.Font.GothamBold
+TextButton2.AutoButtonColor = false
+TextButton2.Parent = Frame2
+local UICorner3 = Instance.new("UICorner", TextButton2)
+UICorner3.CornerRadius = UDim.new(0, 8)
+local TextButton3 = Instance.new("TextButton")
+TextButton3.Size = UDim2.new(1, -10, 0, 70)
+TextButton3.Position = UDim2.new(0, 5, 0, 115)
+TextButton3.BackgroundColor3 = Color3.fromRGB(180, 60, 60)
+TextButton3.BorderSizePixel = 0
+TextButton3.Text = "Down"
+TextButton3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton3.TextSize = 16
+TextButton3.Font = Enum.Font.GothamBold
+TextButton3.AutoButtonColor = false
+TextButton3.Parent = Frame2
+local UICorner4 = Instance.new("UICorner", TextButton3)
+UICorner4.CornerRadius = UDim.new(0, 8)
+TextButton2.InputBegan:Connect(function(input8, gameProcessed8)
+end)
+TextButton2.InputEnded:Connect(function(input9, gameProcessed9)
+end)
+TextButton3.InputBegan:Connect(function(input10, gameProcessed10)
+end)
+TextButton3.InputEnded:Connect(function(input11, gameProcessed11)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	ScreenGui5.Enabled = false
+	task.wait(0.01)
+end)
+TextLabel.InputBegan:Connect(function(input12, gameProcessed12)
+end)
+UserInputService.InputChanged:Connect(function(input13, gameProcessed13)
+end)
+UserInputService.InputEnded:Connect(function(input14, gameProcessed14)
+end)
+task.spawn(function(...)
+	task.wait(1e-05)
+	task.wait(1e-05)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+task.spawn(function(...)
+	task.wait(0.01)
+	task.wait(0.01)
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait(0.1)
+	task.wait(0.1)
+end)
+UserInputService.JumpRequest:Connect(function(arg949)
+end)
+_G.spinAngle = 0
+RunService.RenderStepped:Connect(function(deltaTime24)
+end)
+task.spawn(function(...)
+	task.wait(15)
+	task.wait(15)
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+workspace.ChildAdded:Connect(function(child11)
+end)
+Players.PlayerRemoving:Connect(function(player13)
+end)
+_G.stopKickAura = function(arg950, arg951)
+	local child10 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+	local children7 = child10:GetChildren()
+	for i40, v56 in ipairs(children7) do
+	end
+end
+_G.startKickAura = function(arg952, arg953)
+	local child11 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+	local children8 = child11:GetChildren()
+	for i41, v57 in ipairs(children8) do
+	end
+	RunService.Heartbeat:Connect(function(deltaTime25)
+	end)
+	RunService.Heartbeat:Connect(function(deltaTime26)
+	end)
+end
+result5:LoadAutoloadConfig()
+_NOTIFY("Poop HUB (Obsidian UI Edition) Loaded!", 4)
+print("========================================")
+print("Poop HUB - Premium (Obsidian UI Edition)")
+print("========================================")
+makefolder("PoopHub")
+makefolder("PoopHub/Logo")
+makefolder("PoopHub/Logo/UBG")
+_G.updateBlackholeImage = function(arg954, arg955)
+	arg954:match("^%s*(.-)%s*$")
+end
+_G.updateAllBlackholes = function(arg956, arg957)
+end
+workspace:GetDescendants()
+workspace.DescendantAdded:Connect(function(descendant12)
+	local descendants12 = descendant12:GetDescendants()
+	for i84, v110 in ipairs(descendants12) do
+	end
+	descendant12.DescendantAdded:Connect(function(descendant14)
+	end)
+	descendant12.AncestryChanged:Connect(function(child17, parent2)
+	end)
+end)
+print("[PoopHub Monitor] Dynamic BlackHole Customizer Engine Active!")
+UserInputService.InputChanged:Connect(function(input15, gameProcessed15)
+end)
+workspace.ChildAdded:Connect(function(child12)
+end)
+local Bar = Window:MakeBar({
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Size = UDim2.new(0, 350, 0, 30),
+	Texts = { "PoopHub", "V5 New Release!", "16:09" },
+	UseDivider = true
+})
+local result10 = tostring(DCUS_Expires):gsub("T.*", "")
+local InfoWindow = Bar:AddInfoWindow({ Expires = result10, HubName = "PoopHub", Plan = tostring(DCUS_Plan), SubContent = "#1 FTAP" })
+InfoWindow:AddChangeLog({
+	Title = "New Release!",
+	Content = "# V5.1.5 Release!\n- Ragdoll Kill V2 [New]\n- Loop Banana Ragdoll [New]\n\t",
+	GradientSpeed = 0.004,
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Tag = { { Color3.fromRGB(162, 48, 255), "New Release" } },
+	UseGradient = { FixTag = false, NewTag = true, Removed = false, Tag = true, Version = false },
+	Version = "5.1.5"
+})
+InfoWindow:AddChangeLog({
+	Title = "Release",
+	Content = "# V5.1.3 Release!\n- UI [Fix]\n- Ragdoll Kill [New]\n- Defense [New]\n\t",
+	GradientSpeed = 0.004,
+	Icon = "rbxasset://PoopHub/Logo/FTAP/dcusplanet.png",
+	Tag = { { Color3.fromRGB(162, 48, 255), "New Release" } },
+	UseGradient = { FixTag = false, NewTag = true, Removed = false, Tag = true, Version = false },
+	Version = "5.1.3"
+})
+task.spawn(function(...)
+	Bar:SetText({ "PoopHub", result2 .. " New Release!", "16:09      " })
+	task.wait(1)
+	Bar:SetText({ "PoopHub", result2 .. " New Release!", "16:09      " })
+	task.wait(1)
+end)
+local MenuToys3 = ReplicatedStorage:WaitForChild("MenuToys")
+local SpawnToyRemoteFunction2 = MenuToys3:WaitForChild("SpawnToyRemoteFunction")
+local GrabEvents11 = ReplicatedStorage:WaitForChild("GrabEvents")
+GrabEvents11:WaitForChild("SetNetworkOwner")
+local PlayerEvents = ReplicatedStorage:WaitForChild("PlayerEvents")
+PlayerEvents:WaitForChild("StickyPartEvent")
+local MenuToys4 = ReplicatedStorage:WaitForChild("MenuToys")
+MenuToys4:WaitForChild("DestroyToy")
+local child12 = workspace:WaitForChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+local HumanoidRootPart31 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+Players.LocalPlayer.CharacterAdded:Connect(function(character12)
+	character12:WaitForChild("HumanoidRootPart")
+end)
+local LeftGroupbox40 = Tab9:AddLeftGroupbox("Ragdoll Kill")
+local RightGroupbox37 = Tab9:AddRightGroupbox("RAGDOLL KILL INFO")
+local TargetCard = RightGroupbox37:AddTargetCard({ Text = { "Total Kills: 0" } })
+_G.RagdollTargetCard = TargetCard
+local players34 = Players:GetPlayers()
+for k17, v58 in pairs(players34) do
+end
+LeftGroupbox40:AddDropdown("RagdollTargetDropdown", {
+	Text = "Select Target",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { v58.Name .. " (@" .. v58.DisplayName .. ")" },
+	Callback = function(arg958, arg959)
+		local result11 = arg958:match("^(.-)%s")
+		TargetCard:NewTarget(result11)
+		TargetCard:SetText({ "Total Kills: 0" })
+	end
+})
+LeftGroupbox40:AddToggle("BlackholeToggle", {
+	Text = "Ragdoll Kill (Basket Ball)",
+	Default = false,
+	Callback = function(state, arg961)
+		if state then
+			local thread3 = task.spawn(function(...)
+				local child13 = Players:FindFirstChild(result11)
+				task.wait(0.3)
+				child13.Character:FindFirstChild("Head")
+				local Humanoid9 = child13.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid9.Died:Connect(function()
+				end)
+				local changedSignal = Humanoid9:GetPropertyChangedSignal("Health")
+				changedSignal:Connect(function(arg962)
+				end)
+			end)
+		else
+			task.cancel(thread3)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("RagdollKillNotify", {
+	Text = "Ragdoll Kill Notify",
+	Default = false,
+	Callback = function(state, arg964)
+	end
+})
+LeftGroupbox40:AddToggle("SnowballRagdoll", {
+	Text = "Snowball Ragdoll",
+	Default = false,
+	Callback = function(state, arg966)
+		if state then
+			task.spawn(function(...)
+				local child14 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child15 = Players:FindFirstChild(result11)
+				child15.Character:FindFirstChild("HumanoidRootPart")
+				local children9 = child14:GetChildren()
+				for i42, v59 in ipairs(children9) do
+				end
+				task.wait(0.1)
+				local child16 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child17 = Players:FindFirstChild(result11)
+				child17.Character:FindFirstChild("HumanoidRootPart")
+				local children10 = child16:GetChildren()
+				for i43, v60 in ipairs(children10) do
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("AutoSpawnSnowballs", {
+	Text = "Auto Spawn Snowballs",
+	Default = false,
+	Callback = function(state, arg968)
+		if state then
+			task.spawn(function(...)
+				task.spawn(function(...)
+					Players.LocalPlayer:FindFirstChild("InPlot")
+					Players.LocalPlayer:FindFirstChild("InOwnedPlot")
+					Players.LocalPlayer:FindFirstChild("CanSpawnToy")
+					workspace:GetChildren()
+					local Plot1 = workspace.Plots:FindFirstChild("Plot1")
+					local ThisPlotsOwners = Plot1.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children11 = ThisPlotsOwners:GetChildren()
+					for k18, v62 in pairs(children11) do
+					end
+					local Plot2 = workspace.Plots:FindFirstChild("Plot2")
+					local ThisPlotsOwners2 = Plot2.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children12 = ThisPlotsOwners2:GetChildren()
+					for k19, v63 in pairs(children12) do
+					end
+					local Plot3 = workspace.Plots:FindFirstChild("Plot3")
+					local ThisPlotsOwners3 = Plot3.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children13 = ThisPlotsOwners3:GetChildren()
+					for k20, v64 in pairs(children13) do
+					end
+					local Plot4 = workspace.Plots:FindFirstChild("Plot4")
+					local ThisPlotsOwners4 = Plot4.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children14 = ThisPlotsOwners4:GetChildren()
+					for k21, v65 in pairs(children14) do
+					end
+					local Plot5 = workspace.Plots:FindFirstChild("Plot5")
+					local ThisPlotsOwners5 = Plot5.PlotSign:FindFirstChild("ThisPlotsOwners")
+					local children15 = ThisPlotsOwners5:GetChildren()
+					for k22, v66 in pairs(children15) do
+					end
+					child12.ChildAdded:Connect(function(child13)
+					end)
+					task.spawn(function(...)
+						SpawnToyRemoteFunction2:InvokeServer("BallSnowball", (HumanoidRootPart31.CFrame * CFrame.new(0, 14, 20)), Vector3.new(0, 0, 0))
+					end)
+					task.wait()
+					task.wait()
+				end)
+				task.wait(0.05)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("BombDarkMatterRagdoll", {
+	Text = "BombDarkMatter Ragdoll",
+	Default = false,
+	Callback = function(state, arg970)
+		if state then
+			task.spawn(function(...)
+				local child18 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child19 = Players:FindFirstChild(result11)
+				child19.Character:FindFirstChild("HumanoidRootPart")
+				local children16 = child18:GetChildren()
+				for i45, v67 in ipairs(children16) do
+				end
+				task.wait(0.1)
+				local child20 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+				local child21 = Players:FindFirstChild(result11)
+				child21.Character:FindFirstChild("HumanoidRootPart")
+				local children17 = child20:GetChildren()
+				for i46, v68 in ipairs(children17) do
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox40:AddToggle("AutoSpawnBombDarkMatter", {
+	Text = "Auto Spawn BombDarkMatter",
+	Default = false,
+	Callback = function(state, arg972)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.05)
+				task.wait(0.05)
+			end)
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player14)
+	task.wait(1)
+	local players63 = Players:GetPlayers()
+	for k27, v111 in pairs(players63) do
+	end
+	result3.Options.RagdollTargetDropdown:SetValues({ v111.Name .. " (@" .. v111.DisplayName .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player15)
+	task.wait(0.5)
+	local players64 = Players:GetPlayers()
+	for k28, v112 in pairs(players64) do
+	end
+	result3.Options.RagdollTargetDropdown:SetValues({ v112.Name .. " (@" .. v112.DisplayName .. ")" })
+end)
+Players.LocalPlayer:WaitForChild("IsHeld", 5)
+ReplicatedStorage:FindFirstChild("GrabEvents")
+ReplicatedStorage:FindFirstChild("MenuToys")
+ReplicatedStorage:FindFirstChild("CharacterEvents")
+local GrabEvents12 = ReplicatedStorage:FindFirstChild("GrabEvents")
+local MenuToys5 = ReplicatedStorage:FindFirstChild("MenuToys")
+local CharacterEvents7 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+local PlayerEvents2 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+GrabEvents12:FindFirstChild("SetNetworkOwner")
+GrabEvents12:FindFirstChild("CreateGrabLine")
+GrabEvents12:FindFirstChild("DestroyGrabLine")
+CharacterEvents7:FindFirstChild("Struggle")
+CharacterEvents7:FindFirstChild("RagdollRemote")
+PlayerEvents2:FindFirstChild("StickyPartEvent")
+MenuToys5:FindFirstChild("SpawnToyRemoteFunction")
+MenuToys5:FindFirstChild("DestroyToy")
+task.spawn(function(...)
+	task.wait()
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait()
+	Players.LocalPlayer:FindFirstChild("InPlot")
+	task.wait()
+end)
+task.defer(function(...)
+	ReplicatedStorage:FindFirstChild("GrabEvents")
+	ReplicatedStorage:FindFirstChild("MenuToys")
+	ReplicatedStorage:FindFirstChild("CharacterEvents")
+	local GrabEvents15 = ReplicatedStorage:FindFirstChild("GrabEvents")
+	local MenuToys8 = ReplicatedStorage:FindFirstChild("MenuToys")
+	local CharacterEvents10 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+	local PlayerEvents5 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+	GrabEvents15:FindFirstChild("SetNetworkOwner")
+	GrabEvents15:FindFirstChild("CreateGrabLine")
+	GrabEvents15:FindFirstChild("DestroyGrabLine")
+	local Struggle2 = CharacterEvents10:FindFirstChild("Struggle")
+	local RagdollRemote2 = CharacterEvents10:FindFirstChild("RagdollRemote")
+	PlayerEvents5:FindFirstChild("StickyPartEvent")
+	MenuToys8:FindFirstChild("SpawnToyRemoteFunction")
+	MenuToys8:FindFirstChild("DestroyToy")
+	workspace:FindFirstChild("SpawnLocation")
+	workspace:FindFirstChild("Plots")
+	workspace:FindFirstChild("PlotItems")
+end)
+task.defer(function(...)
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	local Head2 = Players.LocalPlayer.Character:FindFirstChild("Head")
+	local connection18 = Head2.ChildAdded:Connect(function(child15)
+	end)
+end, Players.LocalPlayer.Character)
+Players.LocalPlayer.CharacterAdded:Connect(function(character13)
+	task.wait()
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	local Head4 = character13:FindFirstChild("Head")
+	connection18:Disconnect()
+	Head4.ChildAdded:Connect(function(child18)
+	end)
+end)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait()
+	Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+	task.wait()
+end)
+task.spawn(function(...)
+	task.wait(0.05)
+	task.wait(0.05)
+end)
+workspace.ChildAdded:Connect(function(child14)
+end)
+local Map2 = workspace:FindFirstChild("Map")
+local Hole = Map2:FindFirstChild("Hole")
+local PoisonSmallHole = Hole:FindFirstChild("PoisonSmallHole")
+local ExtinguishPart = PoisonSmallHole:FindFirstChild("ExtinguishPart")
+local Tex = ExtinguishPart:FindFirstChild("Tex")
+Tex:Destroy()
+ExtinguishPart.Transparency = 1
+Players.LocalPlayer.CharacterAdded:Connect(function(character14)
+	local HumanoidRootPart39 = character14:WaitForChild("HumanoidRootPart", 2)
+	HumanoidRootPart39.ChildAdded:Connect(function(child19)
+	end)
+end)
+task.defer(function(...)
+	local HumanoidRootPart35 = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 2)
+	HumanoidRootPart35.ChildAdded:Connect(function(child16)
+	end)
+end, Players.LocalPlayer.Character)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(0.03)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(0.2)
+	task.wait(0.2)
+end)
+task.spawn(function(...)
+	task.wait(0.5)
+	task.wait(0.03)
+end)
+task.spawn(function(...)
+	task.wait(2)
+	task.wait(0.03)
+end)
+RunService.RenderStepped:Connect(function(deltaTime27)
+end)
+ReplicatedStorage:FindFirstChild("GrabEvents")
+ReplicatedStorage:FindFirstChild("MenuToys")
+ReplicatedStorage:FindFirstChild("CharacterEvents")
+local GrabEvents13 = ReplicatedStorage:FindFirstChild("GrabEvents")
+local MenuToys6 = ReplicatedStorage:FindFirstChild("MenuToys")
+local CharacterEvents8 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+local PlayerEvents3 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+GrabEvents13:FindFirstChild("SetNetworkOwner")
+GrabEvents13:FindFirstChild("CreateGrabLine")
+GrabEvents13:FindFirstChild("DestroyGrabLine")
+CharacterEvents8:FindFirstChild("Struggle")
+CharacterEvents8:FindFirstChild("RagdollRemote")
+PlayerEvents3:FindFirstChild("StickyPartEvent")
+MenuToys6:FindFirstChild("SpawnToyRemoteFunction")
+MenuToys6:FindFirstChild("DestroyToy")
+local GameCorrectionEvents2 = ReplicatedStorage:FindFirstChild("GameCorrectionEvents")
+local GameCorrectionsNotify = GameCorrectionEvents2:FindFirstChild("GameCorrectionsNotify")
+GameCorrectionsNotify.OnClientEvent:Connect(function(arg973)
+end)
+local Part7 = Instance.new("Part")
+Part7.Name = "Safe Platform"
+Part7.Size = Vector3.new(250, 5, 250)
+Part7.Position = Vector3.new(-19757, -500, -22220)
+Part7.Anchored = true
+Part7.CanCollide = true
+Part7.Material = Enum.Material.Neon
+Part7.Parent = workspace
+local RightGroupbox38 = Tab6:AddRightGroupbox("Target Extras")
+RightGroupbox38:AddToggle("TargetDeathNotif", {
+	Text = "Death Notification",
+	Default = false,
+	Callback = function(state, arg975)
+	end
+})
+RightGroupbox38:AddToggle("TargetDeathSound", {
+	Text = "Death Sound",
+	Default = false,
+	Callback = function(state, arg977)
+	end
+})
+RunService.Heartbeat:Connect(function(deltaTime28)
+	child22.Character:FindFirstChild("Humanoid")
+end)
+local LeftGroupbox41 = Tab2:AddLeftGroupbox("Antis")
+LeftGroupbox41:AddToggle("AntiGrab", {
+	Text = "Anti Grab",
+	Default = false,
+	Tooltip = "The most default anti-grab",
+	Callback = function(state, arg979)
+		if state then
+			ReplicatedStorage:FindFirstChild("GrabEvents")
+			ReplicatedStorage:FindFirstChild("MenuToys")
+			ReplicatedStorage:FindFirstChild("CharacterEvents")
+			local GrabEvents14 = ReplicatedStorage:FindFirstChild("GrabEvents")
+			local MenuToys7 = ReplicatedStorage:FindFirstChild("MenuToys")
+			local CharacterEvents9 = ReplicatedStorage:FindFirstChild("CharacterEvents")
+			local PlayerEvents4 = ReplicatedStorage:FindFirstChild("PlayerEvents")
+			GrabEvents14:FindFirstChild("SetNetworkOwner")
+			GrabEvents14:FindFirstChild("CreateGrabLine")
+			GrabEvents14:FindFirstChild("DestroyGrabLine")
+			local Struggle = CharacterEvents9:FindFirstChild("Struggle")
+			CharacterEvents9:FindFirstChild("RagdollRemote")
+			PlayerEvents4:FindFirstChild("StickyPartEvent")
+			MenuToys7:FindFirstChild("SpawnToyRemoteFunction")
+			MenuToys7:FindFirstChild("DestroyToy")
+			Struggle:InvokeServer()
+			local HumanoidRootPart32 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid10 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			local Torso = Players.LocalPlayer.Character:FindFirstChild("Torso")
+			Torso:FindFirstChild("Neck")
+			Humanoid10.RequiresNeck = false
+			HumanoidRootPart32.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+			HumanoidRootPart32.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			local connection17 = RunService.Heartbeat:Connect(function(deltaTime29)
+				Struggle2:InvokeServer()
+				RagdollRemote2:InvokeServer(HumanoidRootPart32, 0)
+			end)
+		else
+			connection17:Disconnect()
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid11 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Humanoid11.AutoRotate = true
+		end
+	end
+})
+local Toggle32 = LeftGroupbox41:AddToggle("GucciAntiGrab", {
+	Text = "[GUCCI] Anti Grab",
+	Default = false,
+	Tooltip = "Can't be touched.",
+	Callback = function(state, arg981)
+		task.spawn(function(...)
+			task.wait()
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			local Humanoid12 = Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Humanoid12:FindFirstChild("Ragdolled")
+			task.wait()
+		end)
+	end
+})
+Toggle32:AddKeyPicker("GucciK", { Text = "[GUCCI] Anti Grab", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AntiBlobman", {
+	Text = "Anti Blobman",
+	Default = false,
+	Tooltip = "People can't grab you using Blobman",
+	Callback = function(state, arg983)
+	end
+})
+local Toggle33 = LeftGroupbox41:AddToggle("AntiInputLag", {
+	Text = "Anti Network Ownership",
+	Default = false,
+	Tooltip = "Anti Blob-kill, etc.",
+	Callback = function(state, arg985)
+	end
+})
+Toggle33:AddKeyPicker("AntiNetK", { Text = "Anti Network Ownership", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AntiExplosion", {
+	Text = "Anti Explosion",
+	Default = false,
+	Tooltip = "Makes you not able to be exploded",
+	Callback = function(state, arg987)
+	end
+})
+LeftGroupbox41:AddToggle("AntiBurn", {
+	Text = "Anti Burn",
+	Default = false,
+	Tooltip = "Makes you not able to be burnt",
+	Callback = function(state, arg989)
+	end
+})
+LeftGroupbox41:AddToggle("AntiVoid", {
+	Text = "Anti Void",
+	Default = false,
+	Tooltip = "Teleports you up if you go far down into the void",
+	Callback = function(state, arg991)
+	end
+})
+LeftGroupbox41:AddToggle("AntiKick", {
+	Text = "Anti Kick",
+	Default = false,
+	Tooltip = "Default shuriken anti-kick",
+	Callback = function(state, arg993)
+	end
+})
+LeftGroupbox41:AddToggle("AntiKick2", {
+	Text = "[Break PCLD] Anti Kick",
+	Default = false,
+	Tooltip = "Unable to get kicked at all",
+	Callback = function(state, arg995)
+	end
+})
+LeftGroupbox41:AddToggle("AntiSticky", {
+	Text = "Anti Sticky",
+	Default = false,
+	Callback = function(state, arg997)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:GetDescendants()
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiSnowball", {
+	Text = "Anti Snowball",
+	Default = false,
+	Tooltip = "Prevents you from getting snowballed",
+	Callback = function(state, arg999)
+		if not state then
+			Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+			Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+			Players.LocalPlayer.Character:GetChildren()
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiBanana", {
+	Text = "Anti Banana",
+	Default = false,
+	Tooltip = "Bananas won't touch you",
+	Callback = function(state, arg1001)
+	end
+})
+LeftGroupbox41:AddToggle("AntiPaint", {
+	Text = "Anti Paint",
+	Default = false,
+	Tooltip = "You won't get painted",
+	Callback = function(state, arg1003)
+		if state then
+			task.spawn(function(...)
+				workspace:GetDescendants()
+				workspace.DescendantAdded:Connect(function(descendant13)
+				end)
+			end, state)
+		else
+			task.spawn(function(...)
+				workspace:GetDescendants()
+				workspace.DescendantAdded:Connect(function(descendant13)
+				end)
+			end, false)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AntiPoison", {
+	Text = "Anti Poison",
+	Default = false,
+	Tooltip = "Poison parts won't kill you",
+	Callback = function(state, arg1005)
+		if state then
+			local Map3 = workspace:FindFirstChild("Map")
+			local Hole2 = Map3:FindFirstChild("Hole")
+			local PoisonBigHole = Hole2:FindFirstChild("PoisonBigHole")
+			local PoisonSmallHole2 = Hole2:FindFirstChild("PoisonSmallHole")
+			local PoisonHurtPart = PoisonBigHole:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart = PoisonBigHole:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart.CanTouch = false
+			PaintPlayerPart.CanTouch = false
+			local PoisonHurtPart2 = PoisonSmallHole2:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart2 = PoisonSmallHole2:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart2.CanTouch = false
+			PaintPlayerPart2.CanTouch = false
+		else
+			local Map4 = workspace:FindFirstChild("Map")
+			local Hole3 = Map4:FindFirstChild("Hole")
+			local PoisonBigHole2 = Hole3:FindFirstChild("PoisonBigHole")
+			local PoisonSmallHole3 = Hole3:FindFirstChild("PoisonSmallHole")
+			local PoisonHurtPart3 = PoisonBigHole2:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart3 = PoisonBigHole2:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart3.CanTouch = true
+			PaintPlayerPart3.CanTouch = true
+			local PoisonHurtPart4 = PoisonSmallHole3:FindFirstChild("PoisonHurtPart")
+			local PaintPlayerPart4 = PoisonSmallHole3:FindFirstChild("PaintPlayerPart")
+			PoisonHurtPart4.CanTouch = true
+			PaintPlayerPart4.CanTouch = true
+		end
+	end
+})
+local Toggle34 = LeftGroupbox41:AddToggle("AntiLag", {
+	Text = "Anti Lag",
+	Default = false,
+	Tooltip = "Anti Line-Lag, Shuriken-Lag",
+	Callback = function(state, arg1007)
+		if state then
+			local PlayerScripts = Players.LocalPlayer:FindFirstChild("PlayerScripts")
+			local CharacterAndBeamMove = PlayerScripts:FindFirstChild("CharacterAndBeamMove")
+			local StickyPartsTouchDetection = PlayerScripts:FindFirstChild("StickyPartsTouchDetection")
+			CharacterAndBeamMove.Enabled = false
+			StickyPartsTouchDetection.Enabled = false
+			task.delay(1.5, function(...)
+				local players40 = Players:GetPlayers()
+				for i60, v86 in ipairs(players40) do
+					local children28 = v86.Character:GetChildren()
+					for i61, v87 in ipairs(children28) do
+					end
+				end
+			end)
+		else
+			local PlayerScripts2 = Players.LocalPlayer:FindFirstChild("PlayerScripts")
+			local CharacterAndBeamMove2 = PlayerScripts2:FindFirstChild("CharacterAndBeamMove")
+			local StickyPartsTouchDetection2 = PlayerScripts2:FindFirstChild("StickyPartsTouchDetection")
+			CharacterAndBeamMove2.Enabled = true
+			StickyPartsTouchDetection2.Enabled = true
+		end
+	end
+})
+Toggle34:AddKeyPicker("AntiLagK", { Text = "Anti Lag", Mode = "Toggle", NoUI = false, SyncToggleState = true })
+LeftGroupbox41:AddToggle("AutoAntiLag", {
+	Text = "Auto Anti Lag",
+	Default = true,
+	Tooltip = "Enables anti-lag for you if too low fps",
+	Callback = function(state, arg1009)
+	end
+})
+LeftGroupbox41:AddToggle("AntiInvis", {
+	Text = "Anti Invis",
+	Default = false,
+	Tooltip = "Makes any invisible players visible",
+	Callback = function(state, arg1011)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				local players35 = Players:GetPlayers()
+				for i48, v70 in ipairs(players35) do
+					local HumanoidRootPart33 = v70.Character:FindFirstChild("HumanoidRootPart")
+					local Humanoid13 = v70.Character:FindFirstChildWhichIsA("Humanoid")
+					HumanoidRootPart33.Massless = false
+					Humanoid13.SeatPart:FindFirstChild("SeatWeld")
+				end
+				task.wait(0.1)
+			end)
+		end
+	end
+})
+LeftGroupbox41:AddToggle("AutoReset", {
+	Text = "Auto Reset",
+	Default = true,
+	Tooltip = "Checks for kick frame and resets when needed",
+	Callback = function(state, arg1013)
+	end
+})
+LeftGroupbox41:AddToggle("LoopTP", {
+	Text = "Loop TP",
+	Default = false,
+	Tooltip = "Teleports you infinitely so you're unable to be grabbed",
+	Callback = function(state, arg1015)
+		if state then
+			task.spawn(function(...)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				task.wait(0.04)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:PivotTo(CFrame.new(692, -7.35, 129))
+				task.wait(0.04)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:PivotTo(CFrame.new(-289, -7.35, -462))
+				task.wait(0.04)
+			end)
+		end
+	end
+})
+local RightGroupbox39 = Tab2:AddRightGroupbox("Miscellaneous")
+RightGroupbox39:AddToggle("DisblVoid", {
+	Text = "Disable Void",
+	Default = true,
+	DisabledTooltip = "This function is currently being managed by another function.",
+	Tooltip = "Makes you not get killed in void",
+	Callback = function(state, arg1017)
+		if state then
+			workspace.FallenPartsDestroyHeight = 0/0
+		else
+			workspace.FallenPartsDestroyHeight = -100
+		end
+	end
+})
+RightGroupbox39:AddToggle("WaterWalk", {
+	Text = "Water Walk",
+	Default = false,
+	Tooltip = "Walk on water",
+	Callback = function(state, arg1019)
+		if state then
+			local Map5 = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects2 = Map5:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean2 = AlwaysHereTweenedObjects2:FindFirstChild("Ocean")
+			local Object = Ocean2:FindFirstChild("Object")
+			local ObjectModel = Object:FindFirstChild("ObjectModel")
+			local children18 = ObjectModel:GetChildren()
+			for i50, v72 in ipairs(children18) do
+				v72.CanCollide = true
+				v72.Transparency = 0.5
+			end
+		else
+			local Map6 = workspace:FindFirstChild("Map")
+			local AlwaysHereTweenedObjects3 = Map6:FindFirstChild("AlwaysHereTweenedObjects")
+			local Ocean3 = AlwaysHereTweenedObjects3:FindFirstChild("Ocean")
+			local Object2 = Ocean3:FindFirstChild("Object")
+			local ObjectModel2 = Object2:FindFirstChild("ObjectModel")
+			local children19 = ObjectModel2:GetChildren()
+			for i51, v73 in ipairs(children19) do
+				v73.CanCollide = false
+				v73.Transparency = 0
+			end
+		end
+	end
+})
+RightGroupbox39:AddToggle("DeleteBarriers", {
+	Text = "Noclip Barrier",
+	Default = false,
+	Callback = function(state, arg1021)
+		if state then
+			local Plots = workspace:FindFirstChild("Plots")
+			local children20 = Plots:GetChildren()
+			for i52, v74 in ipairs(children20) do
+				local Barrier = v74:FindFirstChild("Barrier")
+				local children21 = Barrier:GetChildren()
+				for i53, v75 in ipairs(children21) do
+				end
+			end
+		else
+			local Plots2 = workspace:FindFirstChild("Plots")
+			local children22 = Plots2:GetChildren()
+			for i54, v76 in ipairs(children22) do
+				local Barrier2 = v76:FindFirstChild("Barrier")
+				local children23 = Barrier2:GetChildren()
+				for i55, v77 in ipairs(children23) do
+				end
+			end
+		end
+	end
+})
+RightGroupbox39:AddToggle("OtherInvCollisions", {
+	Text = "Anti-Fling [Objects Noclip]",
+	Default = false,
+	Callback = function(state, arg1023)
+		if state then
+			task.spawn(function(...)
+				task.wait(0.1)
+				Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+				Players.LocalPlayer.Character:GetDescendants()
+				task.wait(0.1)
+			end)
+		else
+			task.spawn(function(...)
+				task.spawn(function(...)
+					Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+					Players.LocalPlayer:FindFirstChild("InOwnedPlot", true)
+					Players.LocalPlayer.Character:GetDescendants()
+				end)
+			end)
+		end
+	end
+})
+local Label14 = RightGroupbox39:AddLabel("LastGrabbedLabel", { Text = "This is a label", DoesWrap = true })
+task.spawn(function(...)
+	task.wait(0.05)
+	Label14:SetVisible(false)
+	task.wait(0.05)
+	Label14:SetVisible(false)
+	task.wait(0.05)
+end)
+local LeftGroupbox42 = Tab2:AddLeftGroupbox("Counter-attack")
+LeftGroupbox42:AddDropdown("CADropdown", {
+	Text = "Consequences",
+	Default = "Kill",
+	Multi = false,
+	Tooltip = "What will you do when someone touches you and you have Counter-attack on",
+	Values = { "Grab", "Kill", "Void", "Delete Limbs", "Fling", "Teleport to Spawn" },
+	Callback = function(state, arg1025)
+	end
+})
+LeftGroupbox42:AddToggle("CAToggle", {
+	Text = "Counter Attack",
+	Default = false,
+	Tooltip = "People who touch you will have the selected consequences",
+	Callback = function(state, arg1027)
+	end
+})
+local DependencyBox = LeftGroupbox42:AddDependencyBox()
+DependencyBox:SetupDependencies({ { result3.Options.CADropdown, "Delete Limbs" } })
+DependencyBox:AddDivider("Delete Limb Settings")
+DependencyBox:AddDropdown("DLCADropdown", {
+	Text = "Limbs to delete",
+	Default = 3,
+	Multi = false,
+	Searchable = true,
+	Tooltip = "What limbs will you delete",
+	Values = { "Legs", "Arms", "All" },
+	Callback = function(state, arg1029)
+	end
+})
+local RightGroupbox40 = Tab2:AddRightGroupbox("Config")
+RightGroupbox40:AddSlider("AntiLagSens", {
+	Text = "Auto Anti-Lag Sensitivity",
+	Default = 3,
+	Max = 20,
+	Min = 1,
+	Prefix = "FPS",
+	Callback = function(state, arg1031)
+	end
+})
+RightGroupbox40:AddDivider("Anti-Grabs")
+RightGroupbox40:AddDropdown("AGTDropdown", {
+	Text = "Anti-Grab Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "Type of default Anti-Grab",
+	Values = { "Normal", "No Ragdoll", "Anti-Kill", "Escapes Anything, but buggy" },
+	Callback = function(state, arg1033)
+	end
+})
+RightGroupbox40:AddDropdown("GTDropdown", {
+	Text = "GUCCI Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "What vehicle will you sit on during Gucci Anti Grab",
+	Values = { "Blobman", "Tractor [Invisible]", "Train [Invisible]", "Sleigh [Invisible]" },
+	Callback = function(state, arg1035)
+	end
+})
+RightGroupbox40:AddDivider("Anti Net-Owner")
+RightGroupbox40:AddDropdown("AITDropdown", {
+	Text = "Type",
+	Default = 1,
+	Multi = false,
+	Tooltip = "What interactable item will you use when doing anti-Net Owner",
+	Values = {
+		"FoodHamburger",
+		"InstrumentDrumBongos",
+		"InstrumentBrassTrumpet",
+		"InstrumentBrassBugle",
+		"InstrumentVoiceMicrophone",
+		"InstrumentWoodwindOcarina",
+		"InstrumentGuitarUkulele",
+		"InstrumentGuitarLyre",
+		"InstrumentGuitarBanjo",
+		"InstrumentGuitarAcoustic",
+		"CupMugBrown",
+		"CupMugWhite",
+		"FoodBanana",
+		"FoodBread",
+		"FoodBroccoli",
+		"FoodCakePink",
+		"FoodCoconut",
+		"FoodDippyEgg",
+		"FoodDonut",
+		"FoodFrenchFries",
+		"FoodHotdog",
+		"FoodMayonnaise",
+		"FoodMeatStick",
+		"FoodMushroomPoison",
+		"FoodPizzaCheese",
+		"FoodPizzaPepperoni",
+		"FoodSodaCan",
+		"PoopPile",
+		"PoopPileSparkle"
+	},
+	Callback = function(state, arg1037)
+	end
+})
+RightGroupbox40:AddSlider("AntiInpLagDel", {
+	Text = "Grab & Drop Delay",
+	Default = 0.05,
+	Max = 0.3,
+	Min = 0,
+	Prefix = "sec",
+	Rounding = 2,
+	Callback = function(state, arg1039)
+	end
+})
+RightGroupbox40:AddLabel("Below 0.05 can cause high ping")
+RightGroupbox40:AddSlider("ItemTransAK", {
+	Text = "Item Transparency",
+	Default = 1,
+	Max = 1,
+	Min = 0,
+	Rounding = 2,
+	Callback = function(state, arg1041)
+	end
+})
+local LeftGroupbox43 = Tab6:AddLeftGroupbox("Target")
+local players36 = Players:GetPlayers()
+for k23, v78 in pairs(players36) do
+end
+local Dropdown18 = LeftGroupbox43:AddDropdown("TargetDropdown", {
+	Text = "Select Target",
+	Default = 1,
+	Multi = false,
+	Searchable = true,
+	Values = { v78.Name .. " (@" .. v78.DisplayName .. ")" },
+	Callback = function(arg1042, arg1043)
+		local result12 = arg1042:match("^(.-)%s")
+		local child22 = Players:FindFirstChild(result12)
+	end
+})
+end
+Players.PlayerAdded:Connect(function(player16)
+	task.wait(1)
+	local players65 = Players:GetPlayers()
+	for k29, v113 in pairs(players65) do
+	end
+	Dropdown18:SetValues({ v113.Name .. " (@" .. v113.DisplayName .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player17)
+	task.wait(0.5)
+	local players66 = Players:GetPlayers()
+	for k30, v114 in pairs(players66) do
+	end
+	Dropdown18:SetValues({ v114.Name .. " (@" .. v114.DisplayName .. ")" })
+end)
+local LeftGroupbox44 = Tab6:AddLeftGroupbox("Apply")
+LeftGroupbox44:AddToggle("LoopApplyMethodTSel", {
+	Text = "Selected",
+	Default = false,
+	Tooltip = "selected players",
+	Callback = function(state, arg1045)
+		if state then
+			task.spawn(function(...)
+				task.wait()
+				task.wait()
+			end, "LoopApplyMethodT", false, { [child22] = true }, 1)
+		end
+	end
+})
+LeftGroupbox44:AddToggle("LoopApplyMethodTServ", {
+	Text = "Server",
+	Default = false,
+	Tooltip = "all players",
+	Callback = function(state, arg1047)
+		if state then
+			task.spawn(function(...)
+				task.wait()
+				task.wait()
+			end, "LoopApplyMethodTServer", true, { [child22] = true }, 1)
+		end
+	end
+})
+LeftGroupbox44:AddButton({
+	Text = "Selected",
+	Func = function(arg1048, arg1049)
+	end
+})
+LeftGroupbox44:AddButton({
+	Text = "Server",
+	Func = function(arg1050, arg1051)
+		local players37 = Players:GetPlayers()
+		for i56, v79 in ipairs(players37) do
+		end
+	end
+})
+local RightGroupbox41 = Tab6:AddRightGroupbox("Method Settings")
+RightGroupbox41:AddDropdown("MethodSettingsTargets", {
+	Text = "Methods",
+	Multi = true,
+	Values = {
+		"Kick",
+		"Void",
+		"Kill",
+		"Bring",
+		"Destroy Food",
+		"Remove Gucci",
+		"Remove Invisibility",
+		"Delete Seatables"
+	},
+	Callback = function(state, arg1053)
+	end
+})
+local DependencyBox2 = RightGroupbox41:AddDependencyBox()
+DependencyBox2:SetupDependencies({ { result3.Options.MethodSettingsTargets, "Kick" } })
+DependencyBox2:AddDivider("Kick Settings")
+DependencyBox2:AddDropdown("NKDelayConf", {
+	Text = "Delay Mode",
+	Default = 1,
+	Multi = false,
+	Values = { "Normal", "Slower but better", "Faster but worse" },
+	Callback = function(state, arg1055)
+	end
+})
+DependencyBox2:AddToggle("RagdollNK", {
+	Text = "Loop Ragdoll",
+	Default = true,
+	Callback = function(state, arg1057)
+	end
+})
+DependencyBox2:AddToggle("AntiKickRemoverNK", {
+	Text = "Remove Anti-Kick",
+	Default = true,
+	Callback = function(state, arg1059)
+	end
+})
+DependencyBox2:AddSlider("HeightNK", {
+	Text = "Kick Height",
+	Compact = true,
+	Default = 15,
+	Max = 28,
+	Min = 0,
+	Rounding = 0,
+	Callback = function(state, arg1061)
+	end
+})
+DependencyBox2:AddButton({
+	Text = "TP To Void Platform",
+	Tooltip = "Teleports you to a platform where victim cant spawn anti-kick shurikens, though it affects you as well [ONLY WORKS WHEN YOU HAVE RESONANCE ANTI-KICK ON AND ONLY WORKS GOOD ON CHEATERS]",
+	Func = function(arg1062, arg1063)
+		local HumanoidRootPart34 = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+		HumanoidRootPart34.PrimaryPart.CFrame = (Part7.CFrame + Vector3.new(0, 10, 0))
+		HumanoidRootPart34.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+		HumanoidRootPart34.PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+	end
+})
+local DependencyBox3 = RightGroupbox41:AddDependencyBox()
+DependencyBox3:SetupDependencies({ { result3.Options.MethodSettingsTargets, "Remove Gucci" } })
+DependencyBox3:AddDivider("Remove-Gucci Settings")
+DependencyBox3:AddToggle("RagdollInRG", {
+	Text = "Break Player? [Inf Ragdoll]",
+	Default = false,
+	Tooltip = "This takes 1.5 seconds, use only if you have time!",
+	Callback = function(state, arg1065)
+	end
+})
+DependencyBox3:AddButton({
+	Text = "Fix Gucci Remover",
+	Tooltip = "Fixes Remove Gucci bugs if it's not working",
+	Func = function(arg1066, arg1067)
+		local child23 = workspace:FindFirstChild(child22.Name .. "SpawnedInToys")
+		local Plots3 = workspace:FindFirstChild("Plots")
+		workspace:FindFirstChild("PlotItems")
+		local children24 = Plots3:GetChildren()
+		for k24, v80 in pairs(children24) do
+			local PlotSign = v80:FindFirstChild("PlotSign")
+			local ThisPlotsOwners6 = PlotSign:FindFirstChild("ThisPlotsOwners")
+			local children25 = ThisPlotsOwners6:GetChildren()
+			for k25, v81 in pairs(children25) do
+			end
+		end
+		local children26 = child23:GetChildren()
+		for i57, v82 in ipairs(children26) do
+			local VehicleSeat2 = v82:FindFirstChild("VehicleSeat")
+			VehicleSeat2:SetAttribute("broken", false)
+		end
+	end
+})
+workspace.FallenPartsDestroyHeight = 0/0
+local RightGroupbox42 = Tab9:AddRightGroupbox("Ragdoll V2")
+local players38 = Players:GetPlayers()
+for i58, v83 in ipairs(players38) do
+end
+local Dropdown19 = RightGroupbox42:AddDropdown("TargetSelect", {
+	Text = "Select Player",
+	Default = "",
+	Values = { v83.DisplayName .. " (" .. v83.Name .. ")" },
+	Callback = function(state, arg1069)
+		if state then
+			TargetCard:NewTarget(string.sub(state, (string.find(state, "%(") + 1), -2))
+			TargetCard:SetText({ "Total Kills: 0" })
+		end
+	end
+})
+Players.PlayerAdded:Connect(function(player18)
+	task.wait(0.5)
+	local players67 = Players:GetPlayers()
+	for i85, v115 in ipairs(players67) do
+	end
+	Dropdown19:SetValues({ v115.DisplayName .. " (" .. v115.Name .. ")" })
+end)
+Players.PlayerRemoving:Connect(function(player19)
+	task.wait(0.2)
+	local players68 = Players:GetPlayers()
+	for i86, v116 in ipairs(players68) do
+	end
+	Dropdown19:SetValues({ v116.DisplayName .. " (" .. v116.Name .. ")" })
+end)
+task.spawn(function(...)
+	task.wait(1)
+	local players39 = Players:GetPlayers()
+	for i59, v84 in ipairs(players39) do
+	end
+	Dropdown19:SetValues({ v84.DisplayName .. " (" .. v84.Name .. ")" })
+end)
+RightGroupbox42:AddToggle("RagdollKill", {
+	Text = "Ragdoll Kill",
+	Default = false,
+	Callback = function(state, arg1071)
+		if not state then
+			local child24 = workspace:FindFirstChild(Players.LocalPlayer.Name .. "SpawnedInToys")
+			ReplicatedStorage:FindFirstChild("MenuToys")
+			ReplicatedStorage.MenuToys:FindFirstChild("DestroyToy")
+			local children27 = child24:GetChildren()
+			for k26, v85 in pairs(children27) do
+			end
+		end
+	end
+})
+RightGroupbox42:AddToggle("LoopBananaRagdoll", {
+	Text = "Banana Ragdoll",
+	Default = false,
+	Callback = function(arg1072, arg1073)
+	end
+})
+

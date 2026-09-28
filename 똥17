@@ -34,9 +34,9 @@ local result5 = loadstring(response5)()
 getgenv().Library = result3
 getgenv().ThemeManager = result4
 getgenv().SaveManager = result5
-result3.GetCustomIcon = function(arg, arg2)
-	arg:GetCustomIcon(arg2)
-end
+--result3.GetCustomIcon = function(arg, arg2)
+--	arg:GetCustomIcon(arg2)
+--end
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")

@@ -9728,6 +9728,7 @@ RightGroupbox27:AddSlider("ToyAttachRotY", {
 	Callback = function(state, arg812)
 	end
 })
+end
 RightGroupbox27:AddSlider("ToyAttachRotZ", {
 	Text = "Z Axis Rotation",
 	Default = 25,

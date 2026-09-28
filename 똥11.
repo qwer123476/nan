@@ -1,5 +1,20 @@
 
+local Players = game:GetService("Players")
 
+local function GetCharacter(player)
+    player = player or Players.LocalPlayer
+    if not player then return nil end
+
+    local character = player.Character
+    if not character then
+        character = player.CharacterAdded:Wait()
+    end
+
+    return character
+end
+
+local LocalPlayer = Players.LocalPlayer
+local Character = GetCharacter(LocalPlayer)
 
 
 --getgenv().__PoopHubShared = {}

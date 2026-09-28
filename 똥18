@@ -49,6 +49,7 @@ getgenv().Services = {
 	UserInputService = UserInputService,
 	Workspace = workspace
 }
+--[[
 result3.Notify = function(arg3, arg4)
 	result3.Notify(arg3, arg4, nil)
 end
@@ -62,6 +63,7 @@ getgenv()._NOTIFY = function(arg5, arg6)
 	tostring(arg5):find("https?://")
 	result3:Notify({ Title = "PoopHub", Description = tostring(arg5), BigIcon = AdImage, Time = 4 }, nil)
 end
+]]
 local MenuToys = ReplicatedStorage:WaitForChild("MenuToys")
 local SpawnToyRemoteFunction = MenuToys:WaitForChild("SpawnToyRemoteFunction")
 local CharacterEvents = ReplicatedStorage:WaitForChild("CharacterEvents")

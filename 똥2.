@@ -169,7 +169,7 @@ workspace.DescendantAdded:Connect(function(descendant)
 end)
 _G.permOwnerList = {}
 _G.permOwnerResetConns = {}
-RunService.Heartbeat:Connect(function(deltaTime)
+--RunService.Heartbeat:Connect(function(deltaTime)
 	local Head3 = v29.Character:FindFirstChild("Head")
 	Head3:FindFirstChild("PartOwner")
 	_NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)

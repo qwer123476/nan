@@ -1,4 +1,4 @@
-do
+
 
 
 
@@ -2384,6 +2384,7 @@ _G.gka_execute = function(arg33, arg34)
 		_NOTIFY("GatherKickAll: Stopped.", 2)
 	end)
 end
+do
 local Lighting = game:GetService("Lighting")
 local ColorCorrectionEffect = Instance.new("ColorCorrectionEffect")
 ColorCorrectionEffect.Name = "_lc_cc"

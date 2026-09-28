@@ -1,5 +1,5 @@
 do
-
+--[[
 local connection = game.ChildAdded:Connect(function(child)
 end)
 connection:Disconnect()
@@ -32,6 +32,7 @@ local response = game:HttpGet("https://api.dcus.pro/verify/headermodule/main.lua
 local result = loadstring(response)()
 result.Config = { Key = "YOUR_KEY_HERE", ScriptID = "dcus_243db875" }
 result:Check()
+]]
 getgenv().__PoopHubShared = {}
 local response2 = game:HttpGet("https://api.dcus.pro/scr/other/version.txt")
 local result2 = response2:gsub("\n", "")

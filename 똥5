@@ -8922,6 +8922,7 @@ LeftGroupbox28:AddButton({
 		BlurEffect2.Enabled = false
 	end
 })
+do
 local Toggle31 = RightGroupbox25:AddToggle("lc_cc_on", {
 	Text = "Color Correction",
 	Default = false,
@@ -11789,3 +11790,4 @@ RightGroupbox42:AddToggle("LoopBananaRagdoll", {
 	Callback = function(arg1072, arg1073)
 	end
 })
+end

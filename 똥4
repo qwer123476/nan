@@ -1,4 +1,5 @@
 do
+do
 --[[
 local connection = game.ChildAdded:Connect(function(child)
 end)
@@ -11583,6 +11584,7 @@ local Dropdown18 = LeftGroupbox43:AddDropdown("TargetDropdown", {
 		local child22 = Players:FindFirstChild(result12)
 	end
 })
+end
 Players.PlayerAdded:Connect(function(player16)
 	task.wait(1)
 	local players65 = Players:GetPlayers()

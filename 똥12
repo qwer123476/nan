@@ -149,15 +149,20 @@ task.spawn(function(...)
 	for i, v in ipairs(descendants) do
 	end
 end)
-workspace.DescendantAdded:Connect(function(descendant)
-end)
-_G.permOwnerList = {}
-_G.permOwnerResetConns = {}
---RunService.Heartbeat:Connect(function(deltaTime)
-	local Head3 = v29.Character:FindFirstChild("Head")
-	Head3:FindFirstChild("PartOwner")
-	_NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)
+local Character3 = SafeCharacter(v29)
+if not Character3 then
+    return
+end
 
+local Head3 = Character3:FindFirstChild("Head")
+if not Head3 then
+    _NOTIFY("Perm Owner: " .. v29.Name .. " has no Head -> excluded", 2)
+    return
+end
+
+local PartOwner = Head3:FindFirstChild("PartOwner")
+
+_NOTIFY("Perm Owner: " .. v29.Name .. " not grabbed -> excluded", 2)
 _G.loopKickBlobTask = nil
 _G.loopKickBlobAllTask = nil
 local CharacterEvents4 = ReplicatedStorage:WaitForChild("CharacterEvents")
